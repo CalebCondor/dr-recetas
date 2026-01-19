@@ -35,12 +35,6 @@ export default function Hero() {
   return (
     <main className="relative w-full h-auto min-h-[800px] overflow-hidden flex items-center justify-center">
       {/* Background Layer */}
-      <div className="absolute inset-0 z-0">
-        <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full"
-          size="100%"
-        />
-      </div>
 
       {/* Content Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[5%] flex flex-col lg:flex-row items-center justify-between gap-48 text-center lg:text-left py-20">

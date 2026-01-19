@@ -27,8 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen`}
       >
+        <div className="fixed inset-0 -z-10 w-full h-full">
+          <img
+            src="/Background.svg"
+            alt=""
+            className="w-full h-full object-cover opacity-60 pointer-events-none"
+          />
+          <div className="absolute inset-0 backdrop-blur-[100px] pointer-events-none" />
+        </div>
         <Header />
         {children}
         <Footer />
