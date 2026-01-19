@@ -3,7 +3,6 @@
 import { Plus, ArrowUpRight } from "lucide-react";
 import { AnimatedList } from "@/components/ui/animated-list";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 const consultations = [
   {
     id: 1,
