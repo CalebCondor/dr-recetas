@@ -40,7 +40,7 @@ export default function Hero() {
           <h1 className="text-[2.2rem] leading-tight sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 lg:mb-12 tracking-tight font-semibold">
             ¿Necesitas una <br className="hidden sm:block" /> {/* desktop */}
             <br className="block sm:hidden" /> {/* mobile */}
-            <span className="text-[#38c47d]">
+            <span className="text-[#6CE4AE]">
               <TypingAnimation
                 words={[
                   "consulta médica",

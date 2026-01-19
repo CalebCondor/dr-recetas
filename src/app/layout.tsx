@@ -38,7 +38,7 @@ export default function RootLayout({
 
           <div className="absolute inset-0 backdrop-blur-[60px] sm:backdrop-blur-[100px] backdrop-saturate-[250%] sm:backdrop-saturate-200 pointer-events-none" />
 
-          <div className="absolute inset-0 bg-blue-500/5 sm:bg-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0057FF]/[0.15] backdrop-brightness-95 sm:backdrop-brightness-100 sm:bg-transparent pointer-events-none" />
         </div>
         <Header />
         {children}
