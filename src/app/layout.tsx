@@ -33,9 +33,9 @@ export default function RootLayout({
           <img
             src="/Background.svg"
             alt=""
-            className="w-full h-full object-cover opacity-60 pointer-events-none"
+            className="w-full h-full object-cover opacity-40 pointer-events-none"
           />
-          <div className="absolute inset-0 backdrop-blur-[100px] pointer-events-none" />
+          <div className="absolute inset-0 backdrop-blur-[100px] backdrop-saturate-200 pointer-events-none" />
         </div>
         <Header />
         {children}
