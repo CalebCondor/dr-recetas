@@ -124,7 +124,7 @@ export function HowItWorks() {
 
                 {/* Number Circle (Desktop) */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg border-4 border-white">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg">
                     {step.number}
                   </div>
                 </div>
