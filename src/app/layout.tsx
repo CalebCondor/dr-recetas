@@ -29,7 +29,7 @@ export default function RootLayout({
         <div className="absolute top-0 left-0 w-full h-[1400px] -z-10 overflow-hidden pointer-events-none">
           <div className="relative w-full h-full">
             <Image
-              src="/Background.png"
+              src="/background.png"
               alt=""
               fill
               className="object-cover object-top scale-150 lg:scale-[1.3] opacity-100"
