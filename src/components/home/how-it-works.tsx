@@ -2,6 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 interface TimelineStep {
   number: number;
@@ -22,7 +28,6 @@ const steps: TimelineStep[] = [
     number: 2,
     description: "Pague con Tarjeta de Crédito o ATH MOVIL.",
     imageSrc: "/pasos/layer_4.svg",
-
     position: "right",
   },
   {
@@ -42,28 +47,41 @@ const steps: TimelineStep[] = [
 ];
 
 export function HowItWorks() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedSnap());
+    });
+  }, [api]);
+
   return (
-    <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-[#F0F4F3]/30">
+    <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-20 text-center">
+        <div className="mb-16 md:mb-20 text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
             ¿Cómo funciona?
           </h2>
-          <p className="text-xl md:text-2xl text-[#0D4B4D]/70 font-medium">
+          <p className="text-xl md:text-2xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
             Sigue estos pasos para obtener la receta deseada
           </p>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative">
-          {/* Vertical Dashed Line - Hidden on Mobile */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 hidden md:block">
+        {/* Timeline Container - Desktop */}
+        <div className="relative hidden md:block">
+          {/* Vertical Dashed Line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2">
             <div className="h-full w-full border-l-2 border-dashed border-teal-500/40" />
           </div>
 
           <div className="space-y-12 md:space-y-0">
-            {steps.map((step, index) => (
+            {steps.map((step) => (
               <div
                 key={step.number}
                 className={`relative flex items-center justify-between md:mb-24 last:mb-0 ${
@@ -96,24 +114,72 @@ export function HowItWorks() {
                 </div>
 
                 {/* Number Circle (Desktop) */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg border-4 border-white">
                     {step.number}
                   </div>
                 </div>
 
-                {/* Number Badge (Mobile) */}
-                <div className="md:hidden mb-4 mt-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#75BBA7] text-white text-lg font-bold">
-                    {step.number}
-                  </div>
-                </div>
-
                 {/* Spacer for desktop layout */}
-                <div className="hidden md:block w-[42%]" />
+                <div className="w-[42%]" />
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Carousel Container - Mobile */}
+        <div className="md:hidden">
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {steps.map((step) => (
+                <CarouselItem key={step.number} className="basis-[85%] pl-4">
+                  <div className="flex flex-col items-center">
+                    <div className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg flex flex-col items-center text-center h-[320px] justify-center">
+                      <div className="relative w-32 h-32 mb-6 brightness-110">
+                        <Image
+                          src={step.imageSrc}
+                          alt={`Paso ${step.number}`}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <p className="text-lg font-bold leading-tight">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Pagination Step Numbers (Bottom Navigation) */}
+            <div className="flex justify-center gap-4 mt-8">
+              {steps.map((step, index) => (
+                <button
+                  key={index}
+                  onClick={() =>
+                    (
+                      api as unknown as { scrollTo: (index: number) => void }
+                    )?.scrollTo(index)
+                  }
+                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-all duration-300 shadow-sm ${
+                    index === current
+                      ? "bg-[#75BBA7] text-white scale-110 shadow-md"
+                      : "bg-[#75BBA7]/10 text-[#75BBA7] border border-[#75BBA7]/20 hover:bg-[#75BBA7]/20"
+                  }`}
+                >
+                  {step.number}
+                </button>
+              ))}
+            </div>
+          </Carousel>
         </div>
       </div>
     </section>

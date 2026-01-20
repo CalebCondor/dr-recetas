@@ -29,7 +29,7 @@ export default function RootLayout({
           <img
             src="/Background.svg"
             alt=""
-            className="w-full h-full object-cover object-left  opacity-70 sm:opacity-40 pointer-events-none"
+            className="w-full h-full object-cover object-left opacity-70 sm:opacity-40 pointer-events-none"
           />
 
           <div className="absolute inset-0 backdrop-blur-[60px] sm:backdrop-blur-[100px] backdrop-saturate-250 sm:backdrop-saturate-200 pointer-events-none" />

@@ -1,8 +1,16 @@
+"use client";
+
 import Hero from "@/components/hero-section";
 import { ChatbotSection } from "@/components/home/chatbot-section";
 import { ServiceCard } from "@/components/home/service-card";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { WhyChooseUs } from "@/components/home/why-choose-us";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { useState, useEffect } from "react";
 
 const services = [
   {
@@ -28,31 +36,82 @@ const services = [
 ];
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
-    <main className="flex flex-col gap-0">
+    <main className="flex flex-col gap-0 overflow-x-hidden">
       <Hero />
 
       {/* Services Section */}
-      <section id="servicios" className="w-full py-20 lg:py-32 relative group">
+      <section
+        id="servicios"
+        className="w-full py-20 lg:py-32 relative group border-b border-black/5"
+      >
         <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="flex justify-center mb-16 px-2">
             <div className="space-y-4 text-center">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] tracking-tight leading-none">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#0D4B4D] tracking-tighter leading-none">
                 Nuestros Servicios
               </h2>
+              <p className="text-teal-900/60 font-medium text-lg">
+                Explora nuestras soluciones médicas digitales
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {services.map((service, index) => (
-              <div
-                key={service.title}
-                className="animate-in fade-in slide-in-from-bottom-8 duration-700"
-                style={{ animationDelay: `${index * 100}ms` }}
+          {/* Desktop Grid / Mobile Carousel */}
+          <div className="relative">
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+              {services.map((service, index) => (
+                <div
+                  key={service.title}
+                  className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
+                  <ServiceCard {...service} />
+                </div>
+              ))}
+            </div>
+
+            <div className="md:hidden">
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
               >
-                <ServiceCard {...service} />
-              </div>
-            ))}
+                <CarouselContent className="-ml-4">
+                  {services.map((service, index) => (
+                    <CarouselItem
+                      key={service.title}
+                      className="pl-4 basis-[85%]"
+                    >
+                      <div className="pb-4">
+                        <ServiceCard {...service} />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center gap-2 mt-8">
+                  {services.map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-2 h-2 rounded-full bg-teal-600/20"
+                    />
+                  ))}
+                </div>
+              </Carousel>
+            </div>
           </div>
         </div>
       </section>
