@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
+import Image from "next/image";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,18 +25,21 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
-        {/* Contenedor de fondo asegurado como FIJO */}
-        <div className="fixed inset-0 -z-10 w-full h-dvh overflow-hidden bg-white pointer-events-none will-change-transform">
-          <img
-            src="/Background.svg"
-            alt=""
-            className="w-full h-full object-cover object-left opacity-70 sm:opacity-40 pointer-events-none"
-          />
-
-          <div className="absolute inset-0 backdrop-blur-[60px] sm:backdrop-blur-[100px] backdrop-saturate-250 sm:backdrop-saturate-200 pointer-events-none" />
-
-          <div className="absolute inset-0 bg-[#0057FF]/15 backdrop-brightness-95 sm:backdrop-brightness-100 sm:bg-transparent pointer-events-none" />
+        {/* Global Top Background Layer */}
+        <div className="absolute top-0 left-0 w-full h-[1400px] -z-10 overflow-hidden pointer-events-none">
+          <div className="relative w-full h-full">
+            <Image
+              src="/Background.png"
+              alt=""
+              fill
+              className="object-cover object-top scale-150 lg:scale-[1.3] opacity-100"
+              priority
+            />
+            {/* Extended Bottom Fade to integrate with sections below */}
+            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-linear-to-t from-white via-white/50 to-transparent" />
+          </div>
         </div>
+
         <Header />
         {children}
         <Footer />

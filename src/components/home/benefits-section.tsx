@@ -11,7 +11,7 @@ interface BenefitCard {
   name?: string;
   imageFond?: string;
   title: string;
-  description: string;
+  description?: string;
   buttonText: string;
   bgColor: string;
   image?: string;
@@ -50,12 +50,12 @@ export function BenefitsSection() {
 
   return (
     <section className="w-full bg-gray-50 py-20 px-4 md:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
           Disfruta de nuestros beneficios
         </h2>
 
-        <div className="relative h-[440px] max-w-5xl mx-auto perspective">
+        <div className="relative h-[340px] max-w-6xl mx-auto perspective">
           <AnimatePresence>
             {order.map((id, index) => {
               const benefit = benefits.find((b) => b.id === id);
@@ -72,7 +72,7 @@ export function BenefitsSection() {
                     scale: isFirst ? 1 : 0.94,
                     zIndex: isFirst ? 20 : 10,
                     x: 0,
-                    y: isFirst ? 0 : 60,
+                    y: isFirst ? 0 : 160,
                     rotateX: isFirst ? 0 : -2,
                   }}
                   exit={{ opacity: 0, scale: 0.9, y: -30 }}
@@ -86,7 +86,7 @@ export function BenefitsSection() {
                   className="absolute inset-0 cursor-pointer"
                 >
                   <div
-                    className={`relative h-full w-full rounded-[2.5rem] shadow-2xl overflow-hidden flex items-center p-8 lg:p-12 ${benefit.bgColor} transition-all duration-500`}
+                    className={`relative h-full w-full rounded-[2.5rem] shadow-2xl overflow-hidden flex items-center p-8 lg:p-10 ${benefit.bgColor} transition-all duration-500`}
                   >
                     {/* Background Image with Overlay */}
                     {benefit.imageFond && (
@@ -113,7 +113,7 @@ export function BenefitsSection() {
                       <p className="text-white text-lg md:text-xl mb-8 opacity-90 max-w-md">
                         {benefit.description}
                       </p>
-                      <Button className="bg-white hover:bg-white/90 text-teal-900 font-bold px-8 py-6 rounded-2xl text-lg shadow-lg transition-transform hover:scale-105 active:scale-95">
+                      <Button className="bg-white hover:bg-white/90 text-teal-900 font-bold px-8 py-4 rounded-2xl text-lg shadow-lg transition-transform hover:scale-105 active:scale-95">
                         {benefit.buttonText}
                         {benefit.id === 2 && (
                           <ChevronRight className="ml-2 w-5 h-5" />
@@ -135,7 +135,7 @@ export function BenefitsSection() {
           </AnimatePresence>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mt-16 text-teal-800/40 font-medium">
+        <div className="flex items-center justify-center gap-2 mt-48 text-teal-800/40 font-medium">
           <div className="w-8 h-1 bg-teal-800/20 rounded-full" />
           <p className="text-sm uppercase tracking-widest">
             Toca una tarjeta para ver más

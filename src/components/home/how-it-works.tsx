@@ -54,17 +54,15 @@ export function HowItWorks() {
     if (!api) return;
 
     const onSelect = () => {
-      setCurrent(api.selectedSnap());
+      setCurrent(api.selectedScrollSnap());
     };
 
     onSelect();
     api.on("select", onSelect);
-    // @ts-expect-error - Embla reInit event might not be in all versions
     api.on("reInit", onSelect);
 
     return () => {
       api.off("select", onSelect);
-      // @ts-expect-error - Embla reInit event might not be in all versions
       api.off("reInit", onSelect);
     };
   }, [api]);
@@ -207,10 +205,7 @@ export function HowItWorks() {
               {steps.map((step, index) => (
                 <button
                   key={index}
-                  onClick={() =>
-                    // @ts-expect-error - scrollTo might be missing in some CarouselApi types
-                    api?.scrollTo(index)
-                  }
+                  onClick={() => api?.scrollTo(index)}
                   className={`flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-all duration-300 shadow-sm ${
                     index === current
                       ? "bg-[#75BBA7] text-white scale-110 shadow-md"

@@ -47,7 +47,7 @@ export default function Home() {
       {/* Services Section */}
       <section
         id="servicios"
-        className="w-full py-20 lg:py-32 relative group border-b border-black/5"
+        className="w-full lg:py-12 relative group border-b border-black/5"
       >
         <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="flex justify-center mb-16 px-2">
@@ -107,17 +107,15 @@ function ServicesCarousel({ services }: { services: Service[] }) {
     if (!api) return;
 
     const onSelect = () => {
-      setCurrent(api.selectedSnap());
+      setCurrent(api.selectedScrollSnap());
     };
 
     onSelect();
     api.on("select", onSelect);
-    // @ts-expect-error - Embla reInit event might not be in all versions
     api.on("reInit", onSelect);
 
     return () => {
       api.off("select", onSelect);
-      // @ts-expect-error - Embla reInit event might not be in all versions
       api.off("reInit", onSelect);
     };
   }, [api]);
@@ -154,7 +152,6 @@ function ServicesCarousel({ services }: { services: Service[] }) {
           {services.map((_, i) => (
             <button
               key={i}
-              // @ts-expect-error - scrollTo might be missing in some CarouselApi types
               onClick={() => api?.scrollTo(i)}
               className={`transition-all duration-500 h-2 rounded-full ${
                 i === current

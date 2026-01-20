@@ -32,9 +32,9 @@ const consultations = [
 
 export default function Hero() {
   return (
-    <main className="relative w-full h-auto min-h-[600px] lg:min-h-[600px] overflow-hidden flex items-center justify-center">
+    <main className="relative w-full min-h-[850px] lg:min-h-[750px] flex items-center justify-center">
       {/* Content Layer */}
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-48 text-center lg:text-left py-12 lg:py-20">
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-48 text-center lg:text-left py-12 lg:py-16">
         {/* Left Content */}
         <div className="flex-1 max-w-4xl">
           <h1 className="text-[2.4rem] leading-10 lg:leading-tight sm:text-6xl md:text-6xl lg:text-7xl font-bold text-white mb-8 lg:mb-12 tracking-tight">

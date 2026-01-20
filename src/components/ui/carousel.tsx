@@ -63,16 +63,16 @@ function Carousel({
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return;
-    setCanScrollPrev(api.canGoToPrev());
-    setCanScrollNext(api.canGoToNext());
+    setCanScrollPrev(api.canScrollPrev());
+    setCanScrollNext(api.canScrollNext());
   }, []);
 
   const scrollPrev = React.useCallback(() => {
-    api?.goToPrev();
+    api?.scrollPrev();
   }, [api]);
 
   const scrollNext = React.useCallback(() => {
-    api?.goToNext();
+    api?.scrollNext();
   }, [api]);
 
   const handleKeyDown = React.useCallback(
@@ -97,9 +97,11 @@ function Carousel({
     if (!api) return;
     onSelect(api);
     api.on("select", onSelect);
+    api.on("reInit", onSelect);
 
     return () => {
       api?.off("select", onSelect);
+      api?.off("reInit", onSelect);
     };
   }, [api, onSelect]);
 

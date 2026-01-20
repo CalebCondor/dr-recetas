@@ -53,7 +53,7 @@ export function FAQSection() {
   const rightColumnItems = faqItems.slice(3);
 
   return (
-    <section className="py-20 lg:py-32 px-4 md:px-12 lg:px-[8%]">
+    <section className="lg:py-12 px-4 md:px-12 lg:px-[8%]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

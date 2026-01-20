@@ -7,8 +7,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full relative z-50">
-      <div className="w-full px-6 md:px-12 lg:px-[8%] py-6 lg:py-8 flex items-center justify-between">
+    <header className="w-full absolute top-0 left-0 z-50">
+      <div className="w-full px-6 md:px-12 lg:px-[8%] py-4 lg:py-6 flex items-center justify-between">
         <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
 
         {/* Desktop Nav */}
