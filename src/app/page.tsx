@@ -1,6 +1,8 @@
 import Hero from "@/components/hero-section";
 import { ChatbotSection } from "@/components/home/chatbot-section";
 import { ServiceCard } from "@/components/home/service-card";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { WhyChooseUs } from "@/components/home/why-choose-us";
 
 const services = [
   {
@@ -56,6 +58,8 @@ export default function Home() {
       </section>
 
       <ChatbotSection />
+      <WhyChooseUs />
+      <HowItWorks />
     </main>
   );
 }
