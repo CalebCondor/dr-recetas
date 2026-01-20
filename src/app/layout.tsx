@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -27,18 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen`}
+        className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
-        <div className="fixed inset-0 -z-10 w-full h-full overflow-hidden bg-white">
+        {/* Contenedor de fondo asegurado como FIJO */}
+        <div className="fixed inset-0 -z-10 w-full h-dvh overflow-hidden bg-white pointer-events-none will-change-transform">
           <img
             src="/Background.svg"
             alt=""
-            className="w-full h-full object-cover object-left opacity-70 sm:opacity-40 pointer-events-none"
+            className="w-full h-full object-cover object-left  opacity-70 sm:opacity-40 pointer-events-none"
           />
 
-          <div className="absolute inset-0 backdrop-blur-[60px] sm:backdrop-blur-[100px] backdrop-saturate-[250%] sm:backdrop-saturate-200 pointer-events-none" />
+          <div className="absolute inset-0 backdrop-blur-[60px] sm:backdrop-blur-[100px] backdrop-saturate-250 sm:backdrop-saturate-200 pointer-events-none" />
 
-          <div className="absolute inset-0 bg-[#0057FF]/[0.15] backdrop-brightness-95 sm:backdrop-brightness-100 sm:bg-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0057FF]/15 backdrop-brightness-95 sm:backdrop-brightness-100 sm:bg-transparent pointer-events-none" />
         </div>
         <Header />
         {children}
