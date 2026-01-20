@@ -106,7 +106,7 @@ export function ChatbotSection() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                className="flex-1 border-none bg-transparent text-white placeholder:text-white/50 rounded-xl focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base h-12"
+                className="flex-1 border-none bg-transparent text-white placeholder:text-white/50 rounded-xl focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-base h-12"
               />
               <Button
                 onClick={handleSend}

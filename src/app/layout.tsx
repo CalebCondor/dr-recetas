@@ -32,7 +32,7 @@ export default function RootLayout({
               src="/background.png"
               alt=""
               fill
-              className="object-cover object-top scale-150 lg:scale-[1.3] opacity-100"
+              className="object-cover object-[20%_top] lg:object-top scale-105 lg:scale-[1.3] opacity-100"
               priority
             />
             {/* Extended Bottom Fade to integrate with sections below */}
