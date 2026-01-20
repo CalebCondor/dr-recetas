@@ -14,6 +14,7 @@ import {
 import { useState, useEffect } from "react";
 import { FAQSection } from "@/components/home/faq-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { BenefitsSection } from "@/components/home/benefits-section";
 
 const services = [
   {
@@ -86,6 +87,7 @@ export default function Home() {
       <HowItWorks />
       <FAQSection />
       <TestimonialsSection />
+      <BenefitsSection />
     </main>
   );
 }
