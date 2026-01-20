@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Plus, ArrowUpRight } from "lucide-react";
-import { AnimatedList } from "@/components/ui/animated-list";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 const consultations = [
   {
@@ -31,6 +32,48 @@ const consultations = [
 ];
 
 export default function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastScrollTime = useRef(0);
+  const COOLDOWN = 500; // ms
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const now = Date.now();
+      const isScrollDown = e.deltaY > 0;
+      const isScrollUp = e.deltaY < 0;
+
+      const isAtEnd = activeIndex >= consultations.length - 1;
+      const isAtStart = activeIndex === 0;
+
+      // Handle Scroll Locking
+      // We prevent default if we can still scroll in that direction within the component
+      if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
+        e.preventDefault();
+
+        if (now - lastScrollTime.current > COOLDOWN) {
+          if (isScrollDown && !isAtEnd) {
+            setActiveIndex((prev) =>
+              Math.min(prev + 1, consultations.length - 1),
+            );
+          } else if (isScrollUp && !isAtStart) {
+            setActiveIndex((prev) => Math.max(prev - 1, 0));
+          }
+          lastScrollTime.current = now;
+        }
+      }
+    };
+
+    // Passive: false is required to use preventDefault
+    container.addEventListener("wheel", handleWheel, { passive: false });
+    return () => container.removeEventListener("wheel", handleWheel);
+  }, [activeIndex]);
+
+  const visibleItems = consultations.slice(activeIndex, activeIndex + 3);
+
   return (
     <main className="relative w-full min-h-[850px] lg:min-h-[750px] flex items-center justify-center">
       {/* Content Layer */}
@@ -42,14 +85,9 @@ export default function Hero() {
             <br className="block sm:hidden" /> {/* mobile */}
             <span className="text-[#6CE4AE]">
               <TypingAnimation
-                words={[
-                  "consulta médica",
-                  "receta urgente",
-                  "atención inmediata",
-                  "diagnóstico online",
-                ]}
+                words={["consulta médica"]}
                 className="inline"
-                loop={true}
+                loop={false}
                 typeSpeed={100}
                 deleteSpeed={50}
                 pauseDelay={2000}
@@ -62,24 +100,49 @@ export default function Hero() {
 
         {/* Right Content - Animated List */}
         <div className="flex-1 w-full max-w-md lg:max-w-xl">
-          <div className="h-auto w-full flex flex-col gap-4">
-            <AnimatedList>
-              {consultations.slice(0, 3).map((item) => (
-                <div
-                  key={item.id}
-                  className="mb-4 rounded-[2rem] bg-white p-4 lg:p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all cursor-pointer group"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="text-slate-700 ml-2 text-[0.95rem] sm:text-lg lg:text-xl font-semibold text-left">
-                      {item.name}
-                    </p>
-                    <div className="w-10 h-10 lg:hidden rounded-full border border-teal-500/30 flex items-center justify-center text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-all shrink-0">
-                      <ArrowUpRight className="w-5 h-5" />
+          <div
+            ref={containerRef}
+            className="relative h-[250px] w-full perspective-1000"
+          >
+            <AnimatePresence mode="popLayout">
+              {visibleItems.map((item, index) => {
+                const isFirst = index === 0;
+                const isSecond = index === 1;
+
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, scale: 0.9, y: 50, zIndex: 0 }}
+                    animate={{
+                      opacity: 1,
+                      scale: isFirst ? 1 : isSecond ? 0.95 : 0.9,
+                      zIndex: isFirst ? 30 : isSecond ? 20 : 10,
+                      y: isFirst ? 0 : isSecond ? 85 : 160,
+                      rotateX: isFirst ? 0 : -5,
+                    }}
+                    exit={{ opacity: 0, scale: 1.05, y: -100, rotateX: 10 }}
+                    transition={{
+                      duration: 0.5,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 25,
+                    }}
+                    className="absolute top-0 left-0 w-full"
+                  >
+                    <div className="rounded-[2rem] bg-white p-4 lg:p-6 shadow-lg border border-white/20">
+                      <div className="flex items-center justify-between gap-4">
+                        <p className="text-slate-700 ml-2 text-[0.95rem] sm:text-lg lg:text-xl font-semibold text-left">
+                          {item.name}
+                        </p>
+                        <div className="w-10 h-10 lg:hidden rounded-full border border-teal-500/30 flex items-center justify-center text-teal-600 shrink-0">
+                          <ArrowUpRight className="w-5 h-5" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </AnimatedList>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           </div>
 
           {/* Button Below (Only Desktop or visible if needed) */}
