@@ -12,6 +12,8 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
+import { FAQSection } from "@/components/home/faq-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 
 const services = [
   {
@@ -82,6 +84,8 @@ export default function Home() {
       <ChatbotSection />
       <WhyChooseUs />
       <HowItWorks />
+      <FAQSection />
+      <TestimonialsSection />
     </main>
   );
 }

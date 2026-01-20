@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import Image from "next/image";
 
 export function WhyChooseUs() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
   const faqs = [
     {
       question: "Lorem ipsum lorem ipsum",
@@ -44,34 +46,22 @@ export function WhyChooseUs() {
               </p>
             </div>
 
-            {/* FAQs */}
-            <div className="space-y-3">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {faqs.map((faq, index) => (
-                <button
+                <AccordionItem
                   key={index}
-                  onClick={() =>
-                    setExpandedIndex(expandedIndex === index ? null : index)
-                  }
-                  className="w-full rounded-xl bg-white p-4 text-left shadow-sm transition-all hover:shadow-md"
+                  value={`item-${index}`}
+                  className="rounded-xl border-none bg-white px-4 shadow-sm transition-all hover:shadow-md"
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-semibold text-teal-900">
-                      {faq.question}
-                    </span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-teal-600 transition-transform ${
-                        expandedIndex === index ? "rotate-180" : ""
-                      }`}
-                    />
-                  </div>
-                  {expandedIndex === index && (
-                    <div className="mt-3 text-sm text-teal-700">
-                      {faq.answer}
-                    </div>
-                  )}
-                </button>
+                  <AccordionTrigger className="text-teal-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-teal-700">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
 
           {/* Right Image */}
