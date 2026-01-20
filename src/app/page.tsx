@@ -9,6 +9,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
 
@@ -36,17 +37,6 @@ const services = [
 ];
 
 export default function Home() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
     <main className="flex flex-col gap-0 overflow-x-hidden">
       <Hero />
@@ -74,7 +64,7 @@ export default function Home() {
               {services.map((service, index) => (
                 <div
                   key={service.title}
-                  className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both"
+                  className="animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both hover:-translate-y-2 transition-transform"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <ServiceCard {...service} />
@@ -83,34 +73,7 @@ export default function Home() {
             </div>
 
             <div className="md:hidden">
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full"
-              >
-                <CarouselContent className="-ml-4">
-                  {services.map((service, index) => (
-                    <CarouselItem
-                      key={service.title}
-                      className="pl-4 basis-[85%]"
-                    >
-                      <div className="pb-4">
-                        <ServiceCard {...service} />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center gap-2 mt-8">
-                  {services.map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-2 h-2 rounded-full bg-teal-600/20"
-                    />
-                  ))}
-                </div>
-              </Carousel>
+              <ServicesCarousel services={services} />
             </div>
           </div>
         </div>
@@ -120,5 +83,77 @@ export default function Home() {
       <WhyChooseUs />
       <HowItWorks />
     </main>
+  );
+}
+
+interface Service {
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+function ServicesCarousel({ services }: { services: Service[] }) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setCurrent(api.selectedSnap());
+    };
+
+    onSelect();
+    api.on("select", onSelect);
+    // @ts-expect-error - Embla reInit event might not be in all versions
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      // @ts-expect-error - Embla reInit event might not be in all versions
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
+
+  return (
+    <Carousel
+      setApi={setApi}
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      className="w-full"
+    >
+      <CarouselContent className="-ml-4">
+        {services.map((service, index) => (
+          <CarouselItem
+            key={service.title}
+            className="pl-4 basis-[85%] transition-opacity duration-300"
+          >
+            <div
+              className={`bg-transparent transition-all duration-500 ${index === current ? "scale-100 opacity-100" : "scale-95 opacity-50"}`}
+            >
+              <ServiceCard {...service} />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-center gap-3 mt-10">
+        {services.map((_, i) => (
+          <button
+            key={i}
+            // @ts-expect-error - scrollTo might be missing in some CarouselApi types
+            onClick={() => api?.scrollTo(i)}
+            className={`transition-all duration-500 h-2 rounded-full ${
+              i === current
+                ? "bg-teal-600 w-8"
+                : "bg-teal-600/20 w-2 hover:bg-teal-600/40"
+            }`}
+            aria-label={`Ir a servicio ${i + 1}`}
+          />
+        ))}
+      </div>
+    </Carousel>
   );
 }

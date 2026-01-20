@@ -37,7 +37,7 @@ export default function Hero() {
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-48 text-center lg:text-left py-12 lg:py-20">
         {/* Left Content */}
         <div className="flex-1 max-w-4xl">
-          <h1 className="text-[2.4rem] leading-3 lg:leading-tight sm:text-6xl md:text-6xl lg:text-7xl font-bold text-white mb-8 lg:mb-12 tracking-tight">
+          <h1 className="text-[2.4rem] leading-10 lg:leading-tight sm:text-6xl md:text-6xl lg:text-7xl font-bold text-white mb-8 lg:mb-12 tracking-tight">
             ¿Necesitas una <br className="hidden sm:block" /> {/* desktop */}
             <br className="block sm:hidden" /> {/* mobile */}
             <span className="text-[#6CE4AE]">

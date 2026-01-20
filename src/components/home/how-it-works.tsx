@@ -53,16 +53,25 @@ export function HowItWorks() {
   React.useEffect(() => {
     if (!api) return;
 
-    setCurrent(api.selectedSnap());
-
-    api.on("select", () => {
+    const onSelect = () => {
       setCurrent(api.selectedSnap());
-    });
+    };
+
+    onSelect();
+    api.on("select", onSelect);
+    // @ts-expect-error - Embla reInit event might not be in all versions
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      // @ts-expect-error - Embla reInit event might not be in all versions
+      api.off("reInit", onSelect);
+    };
   }, [api]);
 
   return (
-    <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative py-20 lg:py-32 overflow-hidden">
+      <div className="w-full px-6 md:px-12 lg:px-[8%]">
         {/* Header */}
         <div className="mb-16 md:mb-20 text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
@@ -138,9 +147,14 @@ export function HowItWorks() {
             className="w-full"
           >
             <CarouselContent className="-ml-4">
-              {steps.map((step) => (
-                <CarouselItem key={step.number} className="basis-[85%] pl-4">
-                  <div className="flex flex-col items-center">
+              {steps.map((step, index) => (
+                <CarouselItem
+                  key={step.number}
+                  className="basis-[88%] pl-4 transition-opacity duration-300"
+                >
+                  <div
+                    className={`flex flex-col items-center transition-all duration-500 ${index === current ? "scale-100 opacity-100" : "scale-95 opacity-50"}`}
+                  >
                     <div className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg flex flex-col items-center text-center h-[320px] justify-center">
                       <div className="relative w-32 h-32 mb-6 brightness-110">
                         <Image
@@ -165,9 +179,8 @@ export function HowItWorks() {
                 <button
                   key={index}
                   onClick={() =>
-                    (
-                      api as unknown as { scrollTo: (index: number) => void }
-                    )?.scrollTo(index)
+                    // @ts-expect-error - scrollTo might be missing in some CarouselApi types
+                    api?.scrollTo(index)
                   }
                   className={`flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-all duration-300 shadow-sm ${
                     index === current

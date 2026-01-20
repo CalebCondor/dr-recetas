@@ -36,7 +36,7 @@ export function ServiceCard({
       whileHover={!isMobile ? "hover" : undefined}
       whileInView="view"
       viewport={{ once: true, amount: 0.2 }}
-      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[600px] border border-white/10 cursor-pointer shadow-xl transition-shadow duration-500 hover:shadow-2xl will-change-transform"
+      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[450px] lg:h-[600px] cursor-pointer shadow-xl transition-shadow duration-500 hover:shadow-2xl will-change-transform"
     >
       {/* Background Image Container */}
       <motion.div
@@ -75,8 +75,8 @@ export function ServiceCard({
       </div>
 
       {/* Bottom Content Area */}
-      <div className="absolute bottom-0 left-0 right-0 p-8 z-30 pointer-events-none">
-        <div className="flex items-end justify-between gap-6 pointer-events-auto">
+      <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 z-30 pointer-events-none">
+        <div className="flex items-end justify-between gap-4 lg:gap-6 pointer-events-auto">
           <div className="flex-1 space-y-0">
             <motion.h3
               variants={{
@@ -85,7 +85,7 @@ export function ServiceCard({
                 view: { y: 0 },
               }}
               transition={{ duration: 0.4 }}
-              className="font-extrabold text-white text-2xl leading-tight tracking-tight drop-shadow-lg"
+              className="font-extrabold text-white text-xl lg:text-2xl leading-tight tracking-tight drop-shadow-lg"
             >
               {title}
             </motion.h3>
@@ -121,7 +121,7 @@ export function ServiceCard({
               view: { scale: 1, opacity: 1 },
             }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-teal-900 font-extrabold text-[0.8rem] shadow-xl hover:bg-teal-50 transition-colors shrink-0 mb-1"
+            className="flex items-center gap-2 px-4 py-3 lg:px-6 lg:py-3.5 rounded-full bg-white text-teal-900 font-extrabold text-[0.7rem] lg:text-[0.8rem] shadow-xl hover:bg-teal-50 transition-colors shrink-0 mb-1"
           >
             <div className="w-5 h-5 rounded-md bg-teal-50 flex items-center justify-center">
               <RiShoppingBag4Fill className="w-3.5 h-3.5 text-teal-600" />

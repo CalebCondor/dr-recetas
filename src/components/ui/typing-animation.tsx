@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, MotionProps, useInView } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -39,10 +39,6 @@ export function TypingAnimation({
   cursorStyle = "line",
   ...props
 }: TypingAnimationProps) {
-  const MotionComponent = motion.create(Component, {
-    forwardMotionProps: true,
-  });
-
   const [displayedText, setDisplayedText] = useState<string>("");
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -156,12 +152,10 @@ export function TypingAnimation({
     }
   };
 
-  return (
-    <MotionComponent
-      ref={elementRef}
-      className={cn("leading-20 tracking-[-0.02em]", className)}
-      {...props}
-    >
+  const containerClassName = cn("leading- tracking-[-0.02em]", className);
+
+  const content = (
+    <>
       {displayedText}
       {shouldShowCursor && (
         <span
@@ -170,6 +164,28 @@ export function TypingAnimation({
           {getCursorChar()}
         </span>
       )}
-    </MotionComponent>
+    </>
+  );
+
+  if (Component === "div") {
+    return (
+      <motion.div
+        ref={elementRef as React.RefObject<HTMLDivElement>}
+        className={containerClassName}
+        {...props}
+      >
+        {content}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.span
+      ref={elementRef as React.RefObject<HTMLSpanElement>}
+      className={containerClassName}
+      {...props}
+    >
+      {content}
+    </motion.span>
   );
 }
