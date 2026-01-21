@@ -83,7 +83,7 @@ export function TestimonialsSection() {
     if (autoplayInterval.current) return;
     autoplayInterval.current = setInterval(() => {
       api?.scrollNext();
-    }, 2000);
+    }, 3000);
   }, [api]);
 
   const stopAutoplay = React.useCallback(() => {
@@ -107,7 +107,7 @@ export function TestimonialsSection() {
       if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
       resumeTimeout.current = setTimeout(() => {
         startAutoplay();
-      }, 3000); // Resume after 3 seconds of inactivity
+      }, 2500); // Resume after 3 seconds of inactivity
     };
 
     api.on("pointerDown", handlePointerDown);
