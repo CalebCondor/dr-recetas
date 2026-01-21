@@ -144,8 +144,9 @@ export default function Hero() {
       className="relative w-full min-h-[750px] lg:min-h-[750px] flex items-center justify-center overflow-hidden"
     >
       {/* Mobile Blue-predominant Background Overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-blue-900/20 via-transparent to-transparent lg:hidden pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[80%] h-[50%] bg-blue-500/10 blur-[100px] rounded-full lg:hidden pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-blue-900/40 via-transparent to-transparent lg:hidden pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[80%] h-[50%] bg-blue-500/30 blur-[100px] rounded-full lg:hidden pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[60%] h-[40%] bg-blue-400/20 blur-[80px] rounded-full lg:hidden pointer-events-none" />
 
       {/* Content Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
