@@ -7,27 +7,27 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 const consultations = [
   {
     id: 1,
-    name: '1 Receta de medicamentoss o "refill"',
+    name: '1 Receta de medicamentos o "refill"',
   },
   {
     id: 2,
-    name: '2 Receta de medicsaaamentos o "refill"',
+    name: '2 Receta de medicamentos o "refill"',
   },
   {
     id: 3,
-    name: '3 Receta de medasaicamentos o "refill"',
+    name: '3 Receta de medicamentos o "refill"',
   },
   {
     id: 4,
-    name: '4 Receta de medicamasasentos o "refill"',
+    name: '4 Receta de medicamentos o "refill"',
   },
   {
     id: 5,
-    name: '5 Receta de medicamasaentos o "refill"',
+    name: '5 Receta de medicamentos o "refill"',
   },
   {
     id: 6,
-    name: '6 Receta de medasicamentos o "refill"',
+    name: '6 Receta de medicamentos o "refill"',
   },
 ];
 
@@ -35,7 +35,7 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
-  const COOLDOWN = 250; // Increased for a more intentional feel on touch
+  const COOLDOWN = 200; // Slightly reduced for better responsiveness
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
 
@@ -44,7 +44,7 @@ export default function Hero() {
       ([entry]) => {
         setIsHeroVisible(entry.isIntersecting);
       },
-      { threshold: 0.6 }, // Hero must be 60% visible to trigger lock
+      { threshold: 0.6 },
     );
 
     if (containerRef.current) {
@@ -64,22 +64,21 @@ export default function Hero() {
       const isScrollDown = e.deltaY > 0;
       const isScrollUp = e.deltaY < 0;
 
-      if (Math.abs(e.deltaY) < 5) return;
-
       const isAtEnd = activeIndex >= consultations.length - 1;
       const isAtStart = activeIndex === 0;
 
-      // Intercept global scroll if we are not at the boundaries of the list
+      // Strict interception: if we are not at the boundaries, we ALWAYS prevent global scroll
       if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
 
-        if (now - lastScrollTime.current > COOLDOWN) {
+        if (
+          now - lastScrollTime.current > COOLDOWN &&
+          Math.abs(e.deltaY) > 20
+        ) {
           if (isScrollDown && !isAtEnd) {
-            setActiveIndex((prev) =>
-              Math.min(prev + 1, consultations.length - 1),
-            );
+            setActiveIndex((prev) => prev + 1);
           } else if (isScrollUp && !isAtStart) {
-            setActiveIndex((prev) => Math.max(prev - 1, 0));
+            setActiveIndex((prev) => prev - 1);
           }
           lastScrollTime.current = now;
         }
@@ -95,23 +94,23 @@ export default function Hero() {
       const touchEnd = e.touches[0].clientY;
       const delta = touchStart - touchEnd;
 
-      const isScrollDown = delta > 40; // Higher threshold for smoother mobile feel
-      const isScrollUp = delta < -40;
-
       const isAtEnd = activeIndex >= consultations.length - 1;
       const isAtStart = activeIndex === 0;
 
-      if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
+      // Strictly lock global scroll if any vertical movement happens while not at boundaries
+      const isMovingDown = delta > 0;
+      const isMovingUp = delta < 0;
+
+      if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
         if (e.cancelable) e.preventDefault();
 
-        if (now - lastScrollTime.current > COOLDOWN) {
-          if (isScrollDown && !isAtEnd) {
-            setActiveIndex((prev) =>
-              Math.min(prev + 1, consultations.length - 1),
-            );
+        // Separate movement logic from lock logic for a smoother, 'liquid' feel
+        if (now - lastScrollTime.current > COOLDOWN && Math.abs(delta) > 30) {
+          if (isMovingDown && !isAtEnd) {
+            setActiveIndex((prev) => prev + 1);
             touchStart = touchEnd;
-          } else if (isScrollUp && !isAtStart) {
-            setActiveIndex((prev) => Math.max(prev - 1, 0));
+          } else if (isMovingUp && !isAtStart) {
+            setActiveIndex((prev) => prev - 1);
             touchStart = touchEnd;
           }
           lastScrollTime.current = now;
@@ -140,7 +139,7 @@ export default function Hero() {
   const showBottomFade = windowStartIndex + WINDOW_SIZE < consultations.length;
   const maskStyle = `linear-gradient(to bottom, ${showTopFade ? "transparent" : "black"} 0%, black 15%, black 85%, ${showBottomFade ? "transparent" : "black"} 100%)`;
 
-  const ITEM_HEIGHT = 90; // Increased to handle potential wrapping on mobile
+  const ITEM_HEIGHT = 90;
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
 
   return (
@@ -148,11 +147,15 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-[750px] lg:min-h-[750px] flex items-center justify-center overflow-hidden"
     >
+      {/* Mobile Blue-predominant Background Overlay */}
+      <div className="absolute inset-0 bg-linear-to-b from-blue-900/20 via-transparent to-transparent lg:hidden pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[80%] h-[50%] bg-blue-500/10 blur-[100px] rounded-full lg:hidden pointer-events-none" />
+
       {/* Content Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         {/* Left Content */}
         <div className="flex-1 w-full max-w-4xl">
-          <h1 className="text-[2.2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
+          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
             <br className="block lg:hidden" />{" "}
             <span className="text-[#6CE4AE]">

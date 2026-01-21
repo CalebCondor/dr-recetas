@@ -297,7 +297,7 @@ export function HowItWorks() {
                 </motion.div>
 
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative w-32 h-32 mb-6 brightness-110">
+                  <div className="relative w-32 h-32 mb-2 brightness-110">
                     <Image
                       src={step.imageSrc}
                       alt={`Paso ${step.number}`}

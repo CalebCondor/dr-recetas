@@ -39,9 +39,16 @@ const services = [
   },
 ];
 
+import { motion } from "framer-motion";
+
 export default function Home() {
   return (
-    <main className="flex flex-col gap-0 overflow-x-hidden">
+    <motion.main
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
+      className="flex flex-col gap-0 overflow-x-hidden"
+    >
       <Hero />
 
       {/* Services Section */}
@@ -85,7 +92,7 @@ export default function Home() {
       <FAQSection />
       <TestimonialsSection />
       <BenefitsSection />
-    </main>
+    </motion.main>
   );
 }
 
