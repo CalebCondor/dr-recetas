@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
-import Image from "next/image";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,15 +28,9 @@ export default function RootLayout({
         {/* Global Top Background Layer */}
         <div className="absolute top-0 left-0 w-full h-[1400px] -z-10 overflow-hidden pointer-events-none">
           <div className="relative w-full h-full">
-            <Image
-              src="/background.png"
-              alt=""
-              fill
-              className="object-cover object-[20%_top] lg:object-top scale-105 lg:scale-[1.3] opacity-100"
-              priority
-            />
+            <BackgroundGradientAnimation containerClassName="h-full w-full" />
             {/* Extended Bottom Fade to integrate with sections below */}
-            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-linear-to-t from-white via-white/50 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-white via-white/50 to-transparent pointer-events-none" />
           </div>
         </div>
 
