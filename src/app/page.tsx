@@ -45,10 +45,7 @@ export default function Home() {
       <Hero />
 
       {/* Services Section */}
-      <section
-        id="servicios"
-        className="w-full lg:py-12 relative group border-b border-black/5"
-      >
+      <section id="servicios" className="w-full sm:py-12 relative group">
         <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="flex justify-center mb-16 px-2">
             <div className="space-y-4 text-center">

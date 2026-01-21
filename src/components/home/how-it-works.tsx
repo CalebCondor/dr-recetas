@@ -41,6 +41,13 @@ const steps: TimelineStep[] = [
   },
 ];
 
+const stepColors = [
+  "#89CBB9", // Paso 1 (Lighter)
+  "#63B1A5", // Paso 2
+  "#50A49C", // Paso 3
+  "#3C9792", // Paso 4 (Darker)
+];
+
 export function HowItWorks() {
   const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
@@ -78,34 +85,16 @@ export function HowItWorks() {
     visibleSteps.length > 0 ? Math.max(...visibleSteps) : -1;
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Background SVG */}
+    <section className="relative py-16 lg:py-28 overflow-hidden">
+      {/* Background Decorator */}
       <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10 px-6 md:px-12 lg:px-[8%]">
-        <svg
-          viewBox="0 0 1380 1211"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full opacity-100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 80C0 35.8172 35.8172 0 80 0H1300C1344.18 0 1380 35.8172 1380 80V1131C1380 1175.18 1344.18 1211 1300 1211H80C35.8172 1211 0 1175.18 0 1131V80Z"
-            fill="url(#paint0_linear_3227_4195)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_3227_4195"
-              x1="690"
-              y1="0"
-              x2="690"
-              y2="694.841"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#89CBB9" stopOpacity="0.18" />
-              <stop offset="1" stopColor="#89CBB9" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <div
+          className="w-full h-full rounded-[2.5rem] md:rounded-[5rem]"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(137, 203, 185, 0.18) 0%, rgba(137, 203, 185, 0) 60%)",
+          }}
+        />
       </div>
 
       <div className="w-full px-8 md:px-16 lg:px-[10%]">
@@ -114,7 +103,7 @@ export function HowItWorks() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
             ¿Cómo funciona?
           </h2>
-          <p className="text-xl md:text-2xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
             Sigue estos pasos para obtener la receta deseada
           </p>
         </div>
@@ -214,7 +203,10 @@ export function HowItWorks() {
               >
                 {/* Content Card */}
                 <div className="w-[42%] lg:w-[40%] flex justify-center px-2">
-                  <div className="w-full rounded-[2rem] bg-[#75BBA7] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                  <div
+                    className="w-full rounded-[2rem] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                    style={{ backgroundColor: stepColors[index] }}
+                  >
                     <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-5">
                       {/* Illustration */}
                       <div className="relative w-20 h-20 lg:w-32 lg:h-32 shrink-0 brightness-110">
@@ -249,7 +241,10 @@ export function HowItWorks() {
                     damping: 15,
                   }}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#75BBA7] text-white text-2xl font-extrabold shadow-lg ring-4 ring-white">
+                  <div
+                    className="flex h-14 w-14 items-center justify-center rounded-full text-white text-2xl font-extrabold shadow-lg ring-4 ring-white"
+                    style={{ backgroundColor: stepColors[index] }}
+                  >
                     {step.number}
                   </div>
                 </motion.div>
@@ -276,59 +271,48 @@ export function HowItWorks() {
               }}
               className="flex flex-col items-center"
             >
-              {/* Number Badge */}
-              <motion.div
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg mb-4"
-                initial={{ scale: 0, rotate: -180 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                whileTap={{ scale: 0.9 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.08 + 0.1,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15,
-                }}
-              >
-                {step.number}
-              </motion.div>
-
               {/* Content Card */}
               <motion.div
-                className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg"
+                className="w-full rounded-[2.5rem] p-8 text-white shadow-lg relative overflow-hidden"
+                style={{ backgroundColor: stepColors[index] }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.15 }}
               >
+                {/* Number Badge - Now inside the card at top-left */}
+                <motion.div
+                  className="absolute top-6 left-6 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-lg font-extrabold z-10"
+                  style={{ color: stepColors[index] }}
+                  initial={{ scale: 0, rotate: -180 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.08 + 0.1,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                  }}
+                >
+                  {step.number}
+                </motion.div>
+
                 <div className="flex flex-col items-center text-center">
-                  <motion.div
-                    className="relative w-32 h-32 mb-6 brightness-110"
-                    initial={{ scale: 0, rotate: -90 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.35,
-                      delay: index * 0.08 + 0.2,
-                      type: "spring",
-                      stiffness: 150,
-                      damping: 12,
-                    }}
-                  >
+                  <div className="relative w-32 h-32 mb-6 brightness-110">
                     <Image
                       src={step.imageSrc}
                       alt={`Paso ${step.number}`}
                       fill
                       className="object-contain"
                     />
-                  </motion.div>
+                  </div>
                   <motion.p
                     className="text-lg font-bold leading-tight"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.3,
-                      delay: index * 0.08 + 0.3,
+                      duration: 0.5,
+                      delay: 0.2,
                     }}
                   >
                     {step.description}

@@ -138,7 +138,7 @@ export function ServiceCard({
           hover: { opacity: 1 },
           view: isMobile ? { opacity: 0.2 } : { opacity: 0 },
         }}
-        className="absolute inset-0 border-2 border-white/20 rounded-[2.5rem] pointer-events-none z-40"
+        className="absolute inset-0 rounded-[2.5rem] pointer-events-none z-40"
       />
     </motion.div>
   );
