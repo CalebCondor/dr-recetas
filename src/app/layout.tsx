@@ -26,11 +26,11 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
         {/* Global Top Background Layer */}
-        <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[1400px] -z-10 overflow-hidden pointer-events-none">
           <div className="relative w-full h-full">
             <BackgroundGradientAnimation containerClassName="h-full w-full" />
             {/* Extended Bottom Fade to integrate with sections below */}
-            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-linear-to-t from-white via-white/50 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-white via-white/50 to-transparent pointer-events-none" />
           </div>
         </div>
 

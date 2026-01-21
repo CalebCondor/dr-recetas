@@ -7,27 +7,27 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 const consultations = [
   {
     id: 1,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medicamentoss o "refill"',
   },
   {
     id: 2,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medicsaaamentos o "refill"',
   },
   {
     id: 3,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medasaicamentos o "refill"',
   },
   {
     id: 4,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medicamasasentos o "refill"',
   },
   {
     id: 5,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medicamasaentos o "refill"',
   },
   {
     id: 6,
-    name: 'Receta de medicamentos o "refill"',
+    name: 'Receta de medasicamentos o "refill"',
   },
 ];
 
@@ -72,8 +72,6 @@ export default function Hero() {
     return () => container.removeEventListener("wheel", handleWheel);
   }, [activeIndex]);
 
-  const visibleItems = consultations.slice(activeIndex, activeIndex + 3);
-
   return (
     <main className="relative w-full min-h-[850px] lg:min-h-[750px] flex items-center justify-center">
       {/* Content Layer */}
@@ -99,49 +97,94 @@ export default function Hero() {
         </div>
 
         {/* Right Content - Animated List */}
-        <div className="flex-1 w-full max-w-md lg:max-w-xl">
+        <div className="flex-1 w-full max-w-md lg:max-w-lg">
           <div
             ref={containerRef}
-            className="relative h-[250px] w-full perspective-1000"
+            className="relative w-full"
+            style={{
+              perspective: "1200px",
+              minHeight: "250px",
+              height: `${Math.min(250, 80 + Math.min(3, consultations.length - activeIndex - 1) * 55)}px`,
+            }}
           >
-            <AnimatePresence mode="popLayout">
-              {visibleItems.map((item, index) => {
-                const isFirst = index === 0;
-                const isSecond = index === 1;
+            <AnimatePresence initial={false}>
+              {consultations
+                .filter(
+                  (_, index) =>
+                    index >= activeIndex && index <= activeIndex + 3,
+                )
+                .map((item, arrayIndex) => {
+                  const index = activeIndex + arrayIndex;
+                  const isPast = index < activeIndex;
+                  const isActive = index === activeIndex;
+                  const distance = Math.abs(index - activeIndex);
 
-                return (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, scale: 0.9, y: 50, zIndex: 0 }}
-                    animate={{
-                      opacity: 1,
-                      scale: isFirst ? 1 : isSecond ? 0.95 : 0.9,
-                      zIndex: isFirst ? 30 : isSecond ? 20 : 10,
-                      y: isFirst ? 0 : isSecond ? 85 : 160,
-                      rotateX: isFirst ? 0 : -5,
-                    }}
-                    exit={{ opacity: 0, scale: 1.05, y: -100, rotateX: 10 }}
-                    transition={{
-                      duration: 0.5,
-                      type: "spring",
-                      stiffness: 200,
-                      damping: 25,
-                    }}
-                    className="absolute top-0 left-0 w-full"
-                  >
-                    <div className="rounded-[2rem] bg-white p-4 lg:p-6 shadow-lg border border-white/20">
-                      <div className="flex items-center justify-between gap-4">
-                        <p className="text-slate-700 ml-2 text-[0.95rem] sm:text-lg lg:text-xl font-semibold text-left">
-                          {item.name}
-                        </p>
-                        <div className="w-10 h-10 lg:hidden rounded-full border border-teal-500/30 flex items-center justify-center text-teal-600 shrink-0">
-                          <ArrowUpRight className="w-5 h-5" />
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={false}
+                      animate={{
+                        opacity: isPast
+                          ? 0.2
+                          : isActive
+                            ? 1
+                            : Math.max(0.4, 1 - distance * 0.15),
+                        y: arrayIndex * 55, // Position based on array index in visible window
+                        zIndex: isPast ? 5 : isActive ? 100 : 100 - distance,
+                        rotateX: isPast ? 5 : arrayIndex * -8, // Rotate based on position in stack
+                        filter: isPast
+                          ? "blur(3px)"
+                          : isActive
+                            ? "blur(0px)"
+                            : `blur(${distance * 1.5}px)`,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 25,
+                      }}
+                      className="absolute top-0 left-0 w-full cursor-pointer"
+                      onClick={() => setActiveIndex(index)}
+                    >
+                      <div
+                        className={`
+                        group relative overflow-hidden rounded-[1.8rem] p-5 lg:p-6 
+                        border transition-all duration-500
+                        ${
+                          isActive
+                            ? "bg-white border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
+                            : isPast
+                              ? "bg-white/25 border-white/10 backdrop-blur-sm"
+                              : "bg-white/40 border-white/20 backdrop-blur-md hover:opacity-100"
+                        }
+                      `}
+                      >
+                        {/* Card Glow Effect */}
+                        {isActive && (
+                          <div className="absolute inset-0 bg-linear-to-br from-teal-500/5 to-transparent pointer-events-none" />
+                        )}
+
+                        <div className="flex items-center justify-between gap-4 relative z-10">
+                          <div className="flex items-center gap-4">
+                            <div
+                              className={`
+                              w-1.5 h-10 rounded-full transition-all duration-500
+                            `}
+                            />
+                            <p
+                              className={`
+                              text-[1rem] sm:text-lg lg:text-xl font-bold text-left tracking-tight
+                              ${isActive ? "text-slate-800" : isPast ? "text-slate-400" : "text-slate-600"}
+                            `}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
             </AnimatePresence>
           </div>
 
