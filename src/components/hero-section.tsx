@@ -54,20 +54,25 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
 
+  const activeIndexRef = useRef(activeIndex);
+  const touchStartRef = useRef(0);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
   useEffect(() => {
     if (!isHeroVisible) return;
 
-    let touchStart = 0;
-
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
+      const currentActiveIndex = activeIndexRef.current;
       const isScrollDown = e.deltaY > 0;
       const isScrollUp = e.deltaY < 0;
 
-      const isAtEnd = activeIndex >= consultations.length - 1;
-      const isAtStart = activeIndex === 0;
+      const isAtEnd = currentActiveIndex >= consultations.length - 1;
+      const isAtStart = currentActiveIndex === 0;
 
-      // Strict interception: if we are not at the boundaries, we ALWAYS prevent global scroll
       if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
         if (e.cancelable) e.preventDefault();
 
@@ -86,17 +91,18 @@ export default function Hero() {
     };
 
     const handleTouchStart = (e: TouchEvent) => {
-      touchStart = e.touches[0].clientY;
+      touchStartRef.current = e.touches[0].clientY;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       const now = Date.now();
       const touchEnd = e.touches[0].clientY;
-      const delta = touchStart - touchEnd;
+      const delta = touchStartRef.current - touchEnd;
       const absDelta = Math.abs(delta);
+      const currentActiveIndex = activeIndexRef.current;
 
-      const isAtEnd = activeIndex >= consultations.length - 1;
-      const isAtStart = activeIndex === 0;
+      const isAtEnd = currentActiveIndex >= consultations.length - 1;
+      const isAtStart = currentActiveIndex === 0;
 
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
@@ -104,7 +110,6 @@ export default function Hero() {
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
         if (e.cancelable) e.preventDefault();
 
-        // Responsive but stable mobile scrolling
         const THRESHOLD = 25;
         const MOBILE_COOLDOWN = 50;
 
@@ -118,7 +123,7 @@ export default function Hero() {
             setActiveIndex((prev) => prev - 1);
           }
 
-          touchStart = touchEnd;
+          touchStartRef.current = touchEnd;
           lastScrollTime.current = now;
         }
       }
@@ -133,7 +138,7 @@ export default function Hero() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [activeIndex, isHeroVisible]);
+  }, [isHeroVisible]);
 
   const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(
