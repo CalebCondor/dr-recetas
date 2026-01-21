@@ -104,23 +104,18 @@ export default function Hero() {
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
         if (e.cancelable) e.preventDefault();
 
-        // Faster response for mobile: lower threshold and cooldown
-        const THRESHOLD = 20;
-        const MOBILE_COOLDOWN = 40;
+        // Responsive but stable mobile scrolling
+        const THRESHOLD = 25;
+        const MOBILE_COOLDOWN = 50;
 
         if (
           now - lastScrollTime.current > MOBILE_COOLDOWN &&
           absDelta > THRESHOLD
         ) {
-          // Allow moving multiple steps for faster scrolling on long swipes
-          const steps = Math.max(1, Math.floor(absDelta / THRESHOLD));
-
           if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) =>
-              Math.min(consultations.length - 1, prev + steps),
-            );
+            setActiveIndex((prev) => prev + 1);
           } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => Math.max(0, prev - steps));
+            setActiveIndex((prev) => prev - 1);
           }
 
           touchStart = touchEnd;
