@@ -34,64 +34,71 @@ export const BackgroundGradientAnimation = ({
   containerClassName?: string;
 }) => {
   const interactiveRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [curX, setCurX] = useState(0);
-  const [curY, setCurY] = useState(0);
-  const [tgX, setTgX] = useState(0);
-  const [tgY, setTgY] = useState(0);
+  // Use refs for animation variables to avoid re-renders
+  const curXRef = useRef(0);
+  const curYRef = useRef(0);
+  const tgXRef = useRef(0);
+  const tgYRef = useRef(0);
+
   useEffect(() => {
-    document.body.style.setProperty(
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    container.style.setProperty(
       "--gradient-background-start",
       gradientBackgroundStart,
     );
-    document.body.style.setProperty(
+    container.style.setProperty(
       "--gradient-background-end",
       gradientBackgroundEnd,
     );
-    document.body.style.setProperty("--first-color", firstColor);
-    document.body.style.setProperty("--second-color", secondColor);
-    document.body.style.setProperty("--third-color", thirdColor);
-    document.body.style.setProperty("--fourth-color", fourthColor);
-    document.body.style.setProperty("--fifth-color", fifthColor);
-    document.body.style.setProperty("--pointer-color", pointerColor);
-    document.body.style.setProperty("--size", size);
-    document.body.style.setProperty("--blending-value", blendingValue);
-  }, []);
+    container.style.setProperty("--first-color", firstColor);
+    container.style.setProperty("--second-color", secondColor);
+    container.style.setProperty("--third-color", thirdColor);
+    container.style.setProperty("--fourth-color", fourthColor);
+    container.style.setProperty("--fifth-color", fifthColor);
+    container.style.setProperty("--pointer-color", pointerColor);
+    container.style.setProperty("--size", size);
+    container.style.setProperty("--blending-value", blendingValue);
+  }, [
+    gradientBackgroundStart,
+    gradientBackgroundEnd,
+    firstColor,
+    secondColor,
+    thirdColor,
+    fourthColor,
+    fifthColor,
+    pointerColor,
+    size,
+    blendingValue,
+  ]);
 
   useEffect(() => {
     let animationFrameId: number;
 
-    function move() {
-      if (!interactiveRef.current) {
-        return;
+    const move = () => {
+      if (interactiveRef.current) {
+        // Smoothly interpolate towards target
+        curXRef.current += (tgXRef.current - curXRef.current) / 20;
+        curYRef.current += (tgYRef.current - curYRef.current) / 20;
+
+        interactiveRef.current.style.transform = `translate(${Math.round(
+          curXRef.current,
+        )}px, ${Math.round(curYRef.current)}px)`;
       }
-      setCurX((prevCurX) => prevCurX + (tgX - prevCurX) / 60);
-      setCurY((prevCurY) => prevCurY + (tgY - prevCurY) / 60);
-
       animationFrameId = requestAnimationFrame(move);
-    }
-
-    if (interactive) {
-      animationFrameId = requestAnimationFrame(move);
-    }
-
-    return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
     };
-  }, [tgX, tgY, interactive]);
 
-  useEffect(() => {
-    if (!interactiveRef.current) return;
-
-    interactiveRef.current.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
-  }, [curX, curY]);
+    move();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      setTgX(event.clientX);
-      setTgY(event.clientY);
+      tgXRef.current = event.clientX;
+      tgYRef.current = event.clientY;
     };
 
     if (interactive) {
@@ -120,6 +127,7 @@ export const BackgroundGradientAnimation = ({
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "h-screen w-screen relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] pointer-events-none",
         containerClassName,
@@ -179,7 +187,7 @@ export const BackgroundGradientAnimation = ({
         ></div>
         <div
           className={cn(
-            `absolute [background:radial-gradient(circle_at_center,_rgba(var(--fourth-color),_1)_0,_rgba(var(--fourth-color),_0)_50%)_no-repeat]`,
+            `absolute[background:radial-gradient(circle_at_center,rgba(var(--fifth-color),1)_0,rgba(var(--fifth-color),0)_50%)_no-repeat] [background:radial-gradient(circle_at_center,_rgba(var(--fourth-color),_1)_0,_rgba(var(--fourth-color),_0)_50%)_no-repeat]`,
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[10%] left-[30%]`,
             `[transform-origin:calc(50%-200px)]`,
             `animate-fourth`,

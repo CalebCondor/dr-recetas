@@ -2,12 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TimelineStep {
   number: number;
@@ -47,25 +42,40 @@ const steps: TimelineStep[] = [
 ];
 
 export function HowItWorks() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
+  const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
+  const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useEffect(() => {
-    if (!api) return;
+    const observers = stepRefs.current.map((ref, index) => {
+      if (!ref) return null;
 
-    const onSelect = () => {
-      setCurrent(api.selectedScrollSnap());
-    };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleSteps((prev) => {
+                if (!prev.includes(index)) {
+                  return [...prev, index].sort((a, b) => a - b);
+                }
+                return prev;
+              });
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
 
-    onSelect();
-    api.on("select", onSelect);
-    api.on("reInit", onSelect);
+      observer.observe(ref);
+      return observer;
+    });
 
     return () => {
-      api.off("select", onSelect);
-      api.off("reInit", onSelect);
+      observers.forEach((observer) => observer?.disconnect());
     };
-  }, [api]);
+  }, []);
+
+  const maxVisibleStep =
+    visibleSteps.length > 0 ? Math.max(...visibleSteps) : -1;
 
   return (
     <section className="relative py-20 lg:py-32 overflow-hidden">
@@ -98,7 +108,7 @@ export function HowItWorks() {
         </svg>
       </div>
 
-      <div className="w-full px-6 md:px-12 lg:px-[8%]">
+      <div className="w-full px-8 md:px-16 lg:px-[10%]">
         {/* Header */}
         <div className="mb-16 md:mb-20 text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
@@ -110,16 +120,92 @@ export function HowItWorks() {
         </div>
 
         {/* Timeline Container - Desktop */}
-        <div className="relative hidden md:block">
-          {/* Vertical Dashed Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2">
-            <div className="h-full w-full border-l-2 border-dashed border-teal-500/40" />
+        <div className="relative hidden md:block px-4">
+          {/* Animated Vertical Line with Chain Effect */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden">
+            {/* Background line */}
+            <div className="absolute inset-0 bg-gradient-to-b from-teal-200/40 to-teal-300/40 rounded-full" />
+
+            {/* Animated progress line */}
+            <motion.div
+              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-teal-500 via-teal-600 to-teal-500 rounded-full shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+              initial={{ height: "0%" }}
+              animate={{
+                height:
+                  maxVisibleStep >= 0 ? `${(maxVisibleStep + 1) * 25}%` : "0%",
+              }}
+              transition={{
+                duration: 1,
+                ease: "easeOut",
+              }}
+            >
+              {/* Chain link pattern */}
+              <div className="absolute inset-0 opacity-30">
+                {[...Array(8)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute left-1/2 -translate-x-1/2 w-3 h-3 border-2 border-white rounded-full"
+                    style={{ top: `${i * 12.5}%` }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: i * 0.1, duration: 0.3 }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Animated arrow at the end */}
+            <AnimatePresence>
+              {maxVisibleStep >= 0 && (
+                <motion.div
+                  className="absolute left-1/2 -translate-x-1/2"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    top: `${(maxVisibleStep + 1) * 25}%`,
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 1,
+                    ease: "easeOut",
+                  }}
+                >
+                  <motion.svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    className="text-teal-500 drop-shadow-lg"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <path
+                      d="M10 0L0 10L10 20L20 10L10 0Z"
+                      fill="currentColor"
+                    />
+                  </motion.svg>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <div className="space-y-16 lg:space-y-0 text-[#0D4B4D]">
-            {steps.map((step) => (
-              <div
+            {steps.map((step, index) => (
+              <motion.div
                 key={step.number}
+                ref={(el) => {
+                  stepRefs.current[index] = el;
+                }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={
+                  visibleSteps.includes(index)
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 50 }
+                }
+                transition={{
+                  duration: 0.7,
+                  ease: "easeOut",
+                }}
                 className={`relative flex items-center justify-between md:mb-20 lg:mb-24 last:mb-0 ${
                   step.position === "right"
                     ? "md:flex-row-reverse"
@@ -127,11 +213,11 @@ export function HowItWorks() {
                 }`}
               >
                 {/* Content Card */}
-                <div className="w-[45%] lg:w-[42%] flex justify-center">
-                  <div className="w-full rounded-[2.5rem] bg-[#75BBA7] p-5 lg:p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                    <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6">
+                <div className="w-[42%] lg:w-[40%] flex justify-center px-2">
+                  <div className="w-full rounded-[2rem] bg-[#75BBA7] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-5">
                       {/* Illustration */}
-                      <div className="relative w-24 h-24 lg:w-40 lg:h-40 shrink-0 brightness-110">
+                      <div className="relative w-20 h-20 lg:w-32 lg:h-32 shrink-0 brightness-110">
                         <Image
                           src={step.imageSrc}
                           alt={`Paso ${step.number}`}
@@ -141,7 +227,7 @@ export function HowItWorks() {
                       </div>
                       {/* Text content */}
                       <div className="flex-1 text-center lg:text-left">
-                        <p className="text-base lg:text-xl font-bold leading-tight">
+                        <p className="text-sm lg:text-lg font-bold leading-tight">
                           {step.description}
                         </p>
                       </div>
@@ -150,73 +236,107 @@ export function HowItWorks() {
                 </div>
 
                 {/* Number Circle (Desktop) */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg">
+                <motion.div
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center"
+                  initial={{ scale: 0 }}
+                  animate={
+                    visibleSteps.includes(index) ? { scale: 1 } : { scale: 0 }
+                  }
+                  transition={{
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                  }}
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#75BBA7] text-white text-2xl font-extrabold shadow-lg ring-4 ring-white">
                     {step.number}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Spacer for desktop layout */}
-                <div className="w-[45%] lg:w-[42%]" />
-              </div>
+                <div className="w-[42%] lg:w-[40%]" />
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Carousel Container - Mobile */}
-        <div className="md:hidden">
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {steps.map((step, index) => (
-                <CarouselItem
-                  key={step.number}
-                  className="basis-[88%] pl-4 transition-opacity duration-300"
-                >
-                  <div
-                    className={`flex flex-col items-center transition-all duration-500 ${index === current ? "scale-100 opacity-100" : "scale-95 opacity-50"}`}
-                  >
-                    <div className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg flex flex-col items-center text-center h-[320px] justify-center">
-                      <div className="relative w-32 h-32 mb-6 brightness-110">
-                        <Image
-                          src={step.imageSrc}
-                          alt={`Paso ${step.number}`}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                      <p className="text-lg font-bold leading-tight">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+        {/* Mobile Layout - Vertical Stack */}
+        <div className="md:hidden space-y-8">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 100, scale: 0.8 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.4,
+                delay: index * 0.08,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="flex flex-col items-center"
+            >
+              {/* Number Badge */}
+              <motion.div
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg mb-4"
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                whileTap={{ scale: 0.9 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.08 + 0.1,
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 15,
+                }}
+              >
+                {step.number}
+              </motion.div>
 
-            {/* Pagination Step Numbers (Bottom Navigation) */}
-            <div className="flex justify-center gap-4 mt-8">
-              {steps.map((step, index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-all duration-300 shadow-sm ${
-                    index === current
-                      ? "bg-[#75BBA7] text-white scale-110 shadow-md"
-                      : "bg-[#75BBA7]/10 text-[#75BBA7] border border-[#75BBA7]/20 hover:bg-[#75BBA7]/20"
-                  }`}
-                >
-                  {step.number}
-                </button>
-              ))}
-            </div>
-          </Carousel>
+              {/* Content Card */}
+              <motion.div
+                className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg"
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.15 }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <motion.div
+                    className="relative w-32 h-32 mb-6 brightness-110"
+                    initial={{ scale: 0, rotate: -90 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.35,
+                      delay: index * 0.08 + 0.2,
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 12,
+                    }}
+                  >
+                    <Image
+                      src={step.imageSrc}
+                      alt={`Paso ${step.number}`}
+                      fill
+                      className="object-contain"
+                    />
+                  </motion.div>
+                  <motion.p
+                    className="text-lg font-bold leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.08 + 0.3,
+                    }}
+                  >
+                    {step.description}
+                  </motion.p>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

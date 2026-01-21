@@ -98,6 +98,25 @@ export default function Hero() {
 
         {/* Right Content - Animated List */}
         <div className="flex-1 w-full max-w-md lg:max-w-lg">
+          {/* Progress Counter */}
+          <div className="absolute -top-10 left-2 flex items-center gap-3">
+            <span className="text-teal-400 font-mono text-sm tracking-widest">
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
+            <div className="w-12 h-[2px] bg-white/10 relative overflow-hidden">
+              <motion.div
+                className="absolute inset-0 bg-teal-500"
+                initial={false}
+                animate={{
+                  x: `${(activeIndex / (consultations.length - 1)) * 100 - 100}%`,
+                }}
+              />
+            </div>
+            <span className="text-white/40 font-mono text-sm">
+              {String(consultations.length).padStart(2, "0")}
+            </span>
+          </div>
+
           <div
             ref={containerRef}
             className="relative w-full"
@@ -169,6 +188,7 @@ export default function Hero() {
                             <div
                               className={`
                               w-1.5 h-10 rounded-full transition-all duration-500
+                              ${isActive ? "bg-teal-500" : isPast ? "bg-slate-400/30" : "bg-slate-300/50"}
                             `}
                             />
                             <p
@@ -179,6 +199,21 @@ export default function Hero() {
                             >
                               {item.name}
                             </p>
+                          </div>
+
+                          <div
+                            className={`
+                            w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500
+                            ${
+                              isActive
+                                ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30 rotate-0"
+                                : isPast
+                                  ? "bg-slate-200/50 text-slate-400 rotate-180 opacity-50"
+                                  : "bg-slate-100 text-teal-600 -rotate-45 group-hover:rotate-0"
+                            }
+                          `}
+                          >
+                            <ArrowUpRight className="w-5 h-5" />
                           </div>
                         </div>
                       </div>
