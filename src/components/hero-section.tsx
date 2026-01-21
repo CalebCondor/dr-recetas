@@ -7,11 +7,11 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 const consultations = [
   {
     id: 1,
-    name: '1 Receta de medicamentos o "refill"',
+    name: 'Receta de medicamentos o "Refill"',
   },
   {
     id: 2,
-    name: '2 Receta de medicamentos o "refill"',
+    name: "Consultas Médicas Generales",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
-  const COOLDOWN = 200; // Slightly reduced for better responsiveness
+  const COOLDOWN = 80; // Snappier response for all interactions
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
 
@@ -73,7 +73,7 @@ export default function Hero() {
 
         if (
           now - lastScrollTime.current > COOLDOWN &&
-          Math.abs(e.deltaY) > 20
+          Math.abs(e.deltaY) > 15
         ) {
           if (isScrollDown && !isAtEnd) {
             setActiveIndex((prev) => prev + 1);
@@ -93,26 +93,37 @@ export default function Hero() {
       const now = Date.now();
       const touchEnd = e.touches[0].clientY;
       const delta = touchStart - touchEnd;
+      const absDelta = Math.abs(delta);
 
       const isAtEnd = activeIndex >= consultations.length - 1;
       const isAtStart = activeIndex === 0;
 
-      // Strictly lock global scroll if any vertical movement happens while not at boundaries
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
         if (e.cancelable) e.preventDefault();
 
-        // Separate movement logic from lock logic for a smoother, 'liquid' feel
-        if (now - lastScrollTime.current > COOLDOWN && Math.abs(delta) > 30) {
+        // Faster response for mobile: lower threshold and cooldown
+        const THRESHOLD = 20;
+        const MOBILE_COOLDOWN = 40;
+
+        if (
+          now - lastScrollTime.current > MOBILE_COOLDOWN &&
+          absDelta > THRESHOLD
+        ) {
+          // Allow moving multiple steps for faster scrolling on long swipes
+          const steps = Math.max(1, Math.floor(absDelta / THRESHOLD));
+
           if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) => prev + 1);
-            touchStart = touchEnd;
+            setActiveIndex((prev) =>
+              Math.min(consultations.length - 1, prev + steps),
+            );
           } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => prev - 1);
-            touchStart = touchEnd;
+            setActiveIndex((prev) => Math.max(0, prev - steps));
           }
+
+          touchStart = touchEnd;
           lastScrollTime.current = now;
         }
       }

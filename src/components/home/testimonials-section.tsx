@@ -76,16 +76,50 @@ export function TestimonialsSection() {
     });
   }, [api]);
 
-  // Auto-play functionality for mobile
+  const autoplayInterval = React.useRef<NodeJS.Timeout | null>(null);
+  const resumeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
+  const startAutoplay = React.useCallback(() => {
+    if (autoplayInterval.current) return;
+    autoplayInterval.current = setInterval(() => {
+      api?.scrollNext();
+    }, 3000);
+  }, [api]);
+
+  const stopAutoplay = React.useCallback(() => {
+    if (autoplayInterval.current) {
+      clearInterval(autoplayInterval.current);
+      autoplayInterval.current = null;
+    }
+  }, []);
+
   React.useEffect(() => {
     if (!api) return;
 
-    const autoPlay = setInterval(() => {
-      api.scrollNext();
-    }, 2000); // Change every 2 seconds
+    startAutoplay();
 
-    return () => clearInterval(autoPlay);
-  }, [api]);
+    const handlePointerDown = () => {
+      stopAutoplay();
+      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+    };
+
+    const handlePointerUp = () => {
+      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+      resumeTimeout.current = setTimeout(() => {
+        startAutoplay();
+      }, 2500); // Resume after 3 seconds of inactivity
+    };
+
+    api.on("pointerDown", handlePointerDown);
+    api.on("pointerUp", handlePointerUp);
+
+    return () => {
+      stopAutoplay();
+      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+      api.off("pointerDown", handlePointerDown);
+      api.off("pointerUp", handlePointerUp);
+    };
+  }, [api, startAutoplay, stopAutoplay]);
 
   return (
     <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
