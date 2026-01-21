@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { IoStorefrontOutline } from "react-icons/io5";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

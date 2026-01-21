@@ -265,9 +265,9 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{
-                duration: 0.4,
-                delay: index * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                duration: 0.3,
+                delay: index * 0.05,
+                ease: "easeOut",
               }}
               className="flex flex-col items-center"
             >
@@ -286,11 +286,11 @@ export function HowItWorks() {
                   whileInView={{ scale: 1, rotate: 0 }}
                   viewport={{ once: true }}
                   transition={{
-                    duration: 0.3,
-                    delay: index * 0.08 + 0.1,
+                    duration: 0.2,
+                    delay: index * 0.05 + 0.05,
                     type: "spring",
-                    stiffness: 200,
-                    damping: 15,
+                    stiffness: 260,
+                    damping: 20,
                   }}
                 >
                   {step.number}
@@ -311,8 +311,8 @@ export function HowItWorks() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.5,
-                      delay: 0.2,
+                      duration: 0.3,
+                      delay: 0.1,
                     }}
                   >
                     {step.description}
