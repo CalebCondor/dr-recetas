@@ -41,6 +41,13 @@ const steps: TimelineStep[] = [
   },
 ];
 
+const stepColors = [
+  "#89CBB9", // Paso 1 (Lighter)
+  "#63B1A5", // Paso 2
+  "#50A49C", // Paso 3
+  "#3C9792", // Paso 4 (Darker)
+];
+
 export function HowItWorks() {
   const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
@@ -214,7 +221,10 @@ export function HowItWorks() {
               >
                 {/* Content Card */}
                 <div className="w-[42%] lg:w-[40%] flex justify-center px-2">
-                  <div className="w-full rounded-[2rem] bg-[#75BBA7] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                  <div
+                    className="w-full rounded-[2rem] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                    style={{ backgroundColor: stepColors[index] }}
+                  >
                     <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-5">
                       {/* Illustration */}
                       <div className="relative w-20 h-20 lg:w-32 lg:h-32 shrink-0 brightness-110">
@@ -249,7 +259,10 @@ export function HowItWorks() {
                     damping: 15,
                   }}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#75BBA7] text-white text-2xl font-extrabold shadow-lg ring-4 ring-white">
+                  <div
+                    className="flex h-14 w-14 items-center justify-center rounded-full text-white text-2xl font-extrabold shadow-lg ring-4 ring-white"
+                    style={{ backgroundColor: stepColors[index] }}
+                  >
                     {step.number}
                   </div>
                 </motion.div>
@@ -276,30 +289,31 @@ export function HowItWorks() {
               }}
               className="flex flex-col items-center"
             >
-              {/* Number Badge */}
-              <motion.div
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-[#75BBA7] text-white text-xl font-extrabold shadow-lg mb-4"
-                initial={{ scale: 0, rotate: -180 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                whileTap={{ scale: 0.9 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.08 + 0.1,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15,
-                }}
-              >
-                {step.number}
-              </motion.div>
-
               {/* Content Card */}
               <motion.div
-                className="w-full rounded-[2.5rem] bg-[#75BBA7] p-8 text-white shadow-lg"
+                className="w-full rounded-[2.5rem] p-8 text-white shadow-lg relative overflow-hidden"
+                style={{ backgroundColor: stepColors[index] }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.15 }}
               >
+                {/* Number Badge - Now inside the card at top-left */}
+                <motion.div
+                  className="absolute top-6 left-6 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-lg font-extrabold z-10"
+                  style={{ color: stepColors[index] }}
+                  initial={{ scale: 0, rotate: -180 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.08 + 0.1,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                  }}
+                >
+                  {step.number}
+                </motion.div>
+
                 <div className="flex flex-col items-center text-center">
                   <motion.div
                     className="relative w-32 h-32 mb-6 brightness-110"
