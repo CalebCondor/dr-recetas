@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { motion, Variants } from "motion/react";
+import NextImage from "next/image";
 
 interface Testimonial {
   id: number;
@@ -7,7 +8,24 @@ interface Testimonial {
   role: string;
   image: string;
 }
+const testimonialContainer: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
+const testimonialItem: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 80 },
+  },
+};
 const testimonials: Testimonial[] = [
   {
     id: 1,
@@ -38,46 +56,57 @@ const testimonials: Testimonial[] = [
 export function TestimonialsSection() {
   return (
     <section className="py-20 lg:py-32 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-teal-800 text-balance">
-            Clientes satisfechos confían con Dr.Recetas
-          </h2>
-        </div>
+      <motion.div
+        variants={testimonialContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        {testimonials.map((testimonial) => (
+          <motion.div
+            variants={testimonialItem}
+            key={testimonial.id}
+            className="flex flex-col"
+          >
+            {/* Speech Bubble */}
+            <motion.div
+              whileHover={{
+                y: -5,
+                boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+              }}
+              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
+            >
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {testimonial.text}
+              </p>
+              {/* Tail arrow */}
+              <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
+            </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="text-center">
-              {/* Card */}
-              <div className="bg-white rounded-2xl p-8 mb-6 shadow-sm min-h-40 flex items-center justify-center">
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  {testimonial.text}
+            {/* User Profile */}
+            <div className="flex items-center gap-4 pl-6">
+              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                <NextImage
+                  src={testimonial.image}
+                  alt={testimonial.author}
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-800 text-base leading-tight">
+                  {testimonial.author}
+                </h4>
+                <p className="text-xs text-gray-400 font-medium">
+                  {testimonial.role}
                 </p>
               </div>
-
-              {/* Author Info */}
-              <div className="flex flex-col items-center gap-4">
-                <div className="relative w-16 h-16">
-                  <Image
-                    src={testimonial.image || "/placeholder.svg"}
-                    alt={testimonial.author}
-                    fill
-                    className="rounded-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base">
-                    {testimonial.author}
-                  </h3>
-                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
-                </div>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --animate-first: moveVertical 30s ease infinite;
-  --animate-second: moveInCircle 20s reverse infinite;
-  --animate-third: moveInCircle 40s linear infinite;
-  --animate-fourth: moveHorizontal 40s ease infinite;
-  --animate-fifth: moveInCircle 20s ease infinite;
+  --animate-first: moveVertical 15s ease infinite;
+  --animate-second: moveInCircle 10s reverse infinite;
+  --animate-third: moveInCircle 20s linear infinite;
+  --animate-fourth: moveHorizontal 20s ease infinite;
+  --animate-fifth: moveInCircle 10s ease infinite;
 }
  
 @keyframes moveHorizontal {
