@@ -76,6 +76,17 @@ export function TestimonialsSection() {
     });
   }, [api]);
 
+  // Auto-play functionality for mobile
+  React.useEffect(() => {
+    if (!api) return;
+
+    const autoPlay = setInterval(() => {
+      api.scrollNext();
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(autoPlay);
+  }, [api]);
+
   return (
     <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
       {/* Dynamic Background Effect */}
@@ -96,7 +107,7 @@ export function TestimonialsSection() {
       <div className="relative z-10">
         {/* Header - Matching HowItWorks style */}
         <div className="mb-16 md:mb-20 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight leading-snug">
             Clientes satisfechos confían con Dr.Recetas
           </h2>
         </div>

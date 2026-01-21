@@ -41,7 +41,7 @@ export function ChatbotSection() {
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         {/* Banner Section */}
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0D4B4D] tracking-tight">
+          <h2 className="mb-4 text-3xl md:text-5xl lg:text-6xl font-extrabold text-[#0D4B4D] tracking-tight whitespace-nowrap">
             ¿Qué necesitas hoy?
           </h2>
           <div className="mx-auto max-w-3xl">
@@ -136,11 +136,6 @@ export function ChatbotSection() {
                   <span className="hidden sm:inline">Enviar</span>
                   <Send className="h-4 w-4" />
                 </Button>
-              </div>
-              <div className="mt-4 text-center">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#0D4B4D]/30 font-bold">
-                  Seguridad garantizada por Dr. Recetas
-                </p>
               </div>
             </div>
           </div>
