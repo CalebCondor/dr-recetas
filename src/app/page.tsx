@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { FAQSection } from "@/components/home/faq-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { BenefitsSection } from "@/components/home/benefits-section";
+import { motion } from "motion/react";
 
 const services = [
   {
@@ -39,14 +40,12 @@ const services = [
   },
 ];
 
-import { motion } from "framer-motion";
-
 export default function Home() {
   return (
     <motion.main
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
+      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
       className="flex flex-col gap-0 overflow-x-hidden"
     >
       <Hero />

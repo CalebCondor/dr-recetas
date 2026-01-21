@@ -38,9 +38,13 @@ export function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-white"
+          className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-linear-to-br from-[#B0E5CC] via-[#DFF6EC] to-[#B0E5CC]"
         >
-          <div className="relative flex flex-col items-center gap-8 w-full max-w-xs md:max-w-sm">
+          {/* Decorative Blur Background Blobs */}
+          <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#167D7F]/15 blur-[120px] rounded-full animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#2DD4BF]/15 blur-[120px] rounded-full animate-pulse [animation-delay:1s]" />
+
+          <div className="relative flex flex-col items-center gap-8 w-full max-w-xs md:max-w-sm z-10">
             {/* Logo or Branded Element */}
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -53,33 +57,30 @@ export function LoadingScreen() {
                 alt="Dr. Recetas"
                 width={200}
                 height={60}
-                className="h-12 md:h-16 w-auto"
+                className="h-12 md:h-16 w-auto drop-shadow-[0_10px_30px_rgba(13,75,77,0.2)]"
                 priority
               />
             </motion.div>
 
             {/* Progress Container */}
-            <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
+            <div className="w-full h-2 bg-white/40 backdrop-blur-md rounded-full overflow-hidden relative shadow-inner border border-white/20">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
-                className="absolute inset-y-0 left-0 bg-linear-to-r from-[#B0E5CC] to-[#167D7F] rounded-full shadow-[0_0_15px_rgba(22,125,127,0.3)]"
+                className="absolute inset-y-0 left-0 bg-[#0D4B4D] rounded-full shadow-[0_0_15px_rgba(13,75,77,0.3)]"
               />
             </div>
 
             {/* Percentage Label */}
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] uppercase tracking-[0.4em] font-black text-[#0D4B4D]/40">
                 Página cargando
               </span>
-              <span className="text-sm font-black text-teal-800 tabular-nums">
+              <span className="text-sm font-black text-[#0D4B4D] tabular-nums">
                 {progress}%
               </span>
             </div>
           </div>
-
-          {/* Subtle Background Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-teal-50 blur-[120px] rounded-full -z-10 opacity-50" />
         </motion.div>
       )}
     </AnimatePresence>

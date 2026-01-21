@@ -135,10 +135,6 @@ export default function Hero() {
     Math.min(activeIndex, consultations.length - WINDOW_SIZE),
   );
 
-  const showTopFade = windowStartIndex > 0;
-  const showBottomFade = windowStartIndex + WINDOW_SIZE < consultations.length;
-  const maskStyle = `linear-gradient(to bottom, ${showTopFade ? "transparent" : "black"} 0%, black 15%, black 85%, ${showBottomFade ? "transparent" : "black"} 100%)`;
-
   const ITEM_HEIGHT = 90;
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
 
@@ -179,8 +175,6 @@ export default function Hero() {
             style={{
               minHeight: `${CONTAINER_HEIGHT}px`,
               height: `${CONTAINER_HEIGHT}px`,
-              maskImage: maskStyle,
-              WebkitMaskImage: maskStyle,
             }}
           >
             <AnimatePresence initial={false} mode="popLayout">
@@ -194,17 +188,27 @@ export default function Hero() {
                   return (
                     <motion.div
                       key={item.id}
-                      initial={{ opacity: 0, y: localIndex * ITEM_HEIGHT + 10 }}
+                      initial={{
+                        opacity: 0,
+                        y: localIndex * ITEM_HEIGHT + 20,
+                        scale: 0.9,
+                      }}
                       animate={{
-                        opacity: 1,
+                        opacity: isActive ? 1 : 0.9,
                         y: localIndex * ITEM_HEIGHT,
+                        scale: isActive ? 1.025 : 1,
                         zIndex: 100 - distance,
                       }}
-                      exit={{ opacity: 0, y: localIndex * ITEM_HEIGHT - 10 }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.9,
+                        y: localIndex * ITEM_HEIGHT - 20,
+                      }}
                       transition={{
                         type: "spring",
-                        stiffness: 240,
-                        damping: 34,
+                        stiffness: 200,
+                        damping: 25,
+                        mass: 1,
                         opacity: { duration: 0.3 },
                       }}
                       className="absolute top-0 left-0 w-full cursor-pointer"
@@ -212,21 +216,17 @@ export default function Hero() {
                     >
                       <div
                         className={`
-                        relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
-                        border transition-all duration-300 bg-white flex flex-col justify-center min-h-[80px]
-                        ${
-                          isActive
-                            ? "border-slate-200 shadow-md translate-x-1 lg:translate-x-2"
-                            : "border-transparent"
-                        }
-                      `}
+                          relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
+                          transition-all duration-500 bg-white flex flex-col justify-center min-h-[80px]
+                          ${isActive ? "shadow-2xl ring-1 ring-black/5" : "shadow-sm"}
+                        `}
                       >
-                        <div className="flex items-center justify-between gap-4 relative z-10">
+                        <div className="relative z-10">
                           <p
                             className={`
-                            text-base lg:text-lg font-semibold text-left tracking-tight
-                            ${isActive ? "text-slate-900" : "text-slate-600"}
-                          `}
+                              text-base lg:text-lg font-bold text-left tracking-tight transition-colors duration-500
+                              ${isActive ? "text-[#0D4B4D]" : "text-slate-600"}
+                            `}
                           >
                             {item.name}
                           </p>
