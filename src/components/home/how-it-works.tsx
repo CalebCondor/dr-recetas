@@ -85,34 +85,16 @@ export function HowItWorks() {
     visibleSteps.length > 0 ? Math.max(...visibleSteps) : -1;
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Background SVG */}
+    <section className="relative py-16 lg:py-28 overflow-hidden">
+      {/* Background Decorator */}
       <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10 px-6 md:px-12 lg:px-[8%]">
-        <svg
-          viewBox="0 0 1380 1211"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full opacity-100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 80C0 35.8172 35.8172 0 80 0H1300C1344.18 0 1380 35.8172 1380 80V1131C1380 1175.18 1344.18 1211 1300 1211H80C35.8172 1211 0 1175.18 0 1131V80Z"
-            fill="url(#paint0_linear_3227_4195)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_3227_4195"
-              x1="690"
-              y1="0"
-              x2="690"
-              y2="694.841"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#89CBB9" stopOpacity="0.18" />
-              <stop offset="1" stopColor="#89CBB9" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <div
+          className="w-full h-full rounded-[2.5rem] md:rounded-[5rem]"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(137, 203, 185, 0.18) 0%, rgba(137, 203, 185, 0) 60%)",
+          }}
+        />
       </div>
 
       <div className="w-full px-8 md:px-16 lg:px-[10%]">
@@ -121,7 +103,7 @@ export function HowItWorks() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
             ¿Cómo funciona?
           </h2>
-          <p className="text-xl md:text-2xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
             Sigue estos pasos para obtener la receta deseada
           </p>
         </div>

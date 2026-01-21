@@ -1,5 +1,12 @@
+import React from "react";
 import { motion, Variants } from "framer-motion";
 import NextImage from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 interface Testimonial {
   id: number;
@@ -56,11 +63,24 @@ const testimonials: Testimonial[] = [
 ];
 
 export function TestimonialsSection() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
     <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
       {/* Dynamic Background Effect */}
       <div
-        className="absolute -inset-x-0 -top-40 -bottom-40 pointer-events-none z-0"
+        className="absolute inset-x-0 -top-40 -bottom-40 pointer-events-none z-0"
         style={{
           background:
             "linear-gradient(148deg, rgba(240, 244, 253, 0.00) 19.34%, rgba(29, 125, 126, 0.21) 47.29%, rgba(240, 244, 253, 0.54) 79.28%)",
@@ -81,12 +101,13 @@ export function TestimonialsSection() {
           </h2>
         </div>
 
+        {/* Desktop Grid Layout */}
         <motion.div
           variants={testimonialContainer}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {testimonials.map((testimonial) => (
             <motion.div
@@ -94,45 +115,100 @@ export function TestimonialsSection() {
               key={testimonial.id}
               className="flex flex-col"
             >
-              {/* Speech Bubble */}
-              <motion.div
-                whileHover={{
-                  y: -5,
-                  boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                }}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
-              >
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  &quot;{testimonial.text}&quot;
-                </p>
-                {/* Tail arrow */}
-                <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
-              </motion.div>
-
-              {/* User Profile */}
-              <div className="flex items-center gap-4 pl-6">
-                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
-                  <NextImage
-                    src={testimonial.image}
-                    alt={testimonial.author}
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#0D4B4D] text-base leading-tight">
-                    {testimonial.author}
-                  </h4>
-                  <p className="text-xs text-gray-400 font-medium">
-                    {testimonial.role}
-                  </p>
-                </div>
-              </div>
+              <TestimonialCard testimonial={testimonial} />
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Mobile Carousel Layout */}
+        <div className="md:hidden -mx-4">
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="ml-0">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem
+                  key={testimonial.id}
+                  className="pl-4 basis-[85%] transition-opacity duration-300"
+                >
+                  <div
+                    className={`transition-all duration-500 h-full py-4 ${
+                      index === current
+                        ? "scale-100 opacity-100"
+                        : "scale-90 opacity-40"
+                    }`}
+                  >
+                    <TestimonialCard testimonial={testimonial} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Carousel Pagination */}
+            <div className="flex justify-center gap-3 mt-8">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => api?.scrollTo(i)}
+                  className={`transition-all duration-500 h-2 rounded-full ${
+                    i === current
+                      ? "bg-[#0D4B4D] w-8"
+                      : "bg-[#0D4B4D]/20 w-2 hover:bg-[#0D4B4D]/40"
+                  }`}
+                  aria-label={`Ir a testimonio ${i + 1}`}
+                />
+              ))}
+            </div>
+          </Carousel>
+        </div>
       </div>
     </section>
+  );
+}
+
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  return (
+    <div className="flex flex-col">
+      {/* Speech Bubble */}
+      <motion.div
+        whileHover={{
+          y: -5,
+          boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+        }}
+        className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
+      >
+        <p className="text-gray-500 text-sm leading-relaxed">
+          &quot;{testimonial.text}&quot;
+        </p>
+        {/* Tail arrow */}
+        <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
+      </motion.div>
+
+      {/* User Profile */}
+      <div className="flex items-center gap-4 pl-6">
+        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+          <NextImage
+            src={testimonial.image}
+            alt={testimonial.author}
+            width={48}
+            height={48}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div>
+          <h4 className="font-bold text-[#0D4B4D] text-base leading-tight">
+            {testimonial.author}
+          </h4>
+          <p className="text-xs text-gray-400 font-medium">
+            {testimonial.role}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
