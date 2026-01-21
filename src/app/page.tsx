@@ -47,7 +47,7 @@ export default function Home() {
       {/* Services Section */}
       <section
         id="servicios"
-        className="w-full lg:py-12 relative group border-b border-black/5"
+        className="w-full sm:py-12 relative group border-b border-black/5"
       >
         <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="flex justify-center mb-16 px-2">

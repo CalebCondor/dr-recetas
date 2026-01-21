@@ -35,23 +35,41 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
-  const COOLDOWN = 150; // Reduced for better responsiveness
+  const COOLDOWN = 250; // Increased for a more intentional feel on touch
+
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      { threshold: 0.6 }, // Hero must be 60% visible to trigger lock
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isHeroVisible) return;
+
+    let touchStart = 0;
 
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
       const isScrollDown = e.deltaY > 0;
       const isScrollUp = e.deltaY < 0;
 
-      // Use absolute delta to allow fast users to skip items more naturally
-      if (Math.abs(e.deltaY) < 10) return;
+      if (Math.abs(e.deltaY) < 5) return;
 
       const isAtEnd = activeIndex >= consultations.length - 1;
       const isAtStart = activeIndex === 0;
 
+      // Intercept global scroll if we are not at the boundaries of the list
       if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
         e.preventDefault();
 
@@ -68,21 +86,70 @@ export default function Hero() {
       }
     };
 
-    // Passive: false is required to use preventDefault
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, [activeIndex]);
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStart = e.touches[0].clientY;
+    };
 
-  const WINDOW_SIZE = 4;
+    const handleTouchMove = (e: TouchEvent) => {
+      const now = Date.now();
+      const touchEnd = e.touches[0].clientY;
+      const delta = touchStart - touchEnd;
+
+      const isScrollDown = delta > 40; // Higher threshold for smoother mobile feel
+      const isScrollUp = delta < -40;
+
+      const isAtEnd = activeIndex >= consultations.length - 1;
+      const isAtStart = activeIndex === 0;
+
+      if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
+        if (e.cancelable) e.preventDefault();
+
+        if (now - lastScrollTime.current > COOLDOWN) {
+          if (isScrollDown && !isAtEnd) {
+            setActiveIndex((prev) =>
+              Math.min(prev + 1, consultations.length - 1),
+            );
+            touchStart = touchEnd;
+          } else if (isScrollUp && !isAtStart) {
+            setActiveIndex((prev) => Math.max(prev - 1, 0));
+            touchStart = touchEnd;
+          }
+          lastScrollTime.current = now;
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [activeIndex, isHeroVisible]);
+
+  const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(
     0,
     Math.min(activeIndex, consultations.length - WINDOW_SIZE),
   );
 
+  const showTopFade = windowStartIndex > 0;
+  const showBottomFade = windowStartIndex + WINDOW_SIZE < consultations.length;
+  const maskStyle = `linear-gradient(to bottom, ${showTopFade ? "transparent" : "black"} 0%, black 15%, black 85%, ${showBottomFade ? "transparent" : "black"} 100%)`;
+
+  const ITEM_HEIGHT = 90; // Increased to handle potential wrapping on mobile
+  const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
+
   return (
-    <main className="relative w-full min-h-[850px] lg:min-h-[750px] flex items-center justify-center">
+    <main
+      ref={containerRef}
+      className="relative w-full min-h-[750px] lg:min-h-[750px] flex items-center justify-center overflow-hidden"
+    >
       {/* Content Layer */}
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left py-12 lg:py-16">
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         {/* Left Content */}
         <div className="flex-1 w-full max-w-4xl">
           <h1 className="text-[2.2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
@@ -105,14 +172,15 @@ export default function Hero() {
         {/* Right Content - Animated List */}
         <div className="flex-1 w-full max-w-md lg:max-w-lg">
           <div
-            ref={containerRef}
-            className="relative w-full"
+            className="relative w-full px-2"
             style={{
-              minHeight: "280px",
-              height: "280px",
+              minHeight: `${CONTAINER_HEIGHT}px`,
+              height: `${CONTAINER_HEIGHT}px`,
+              maskImage: maskStyle,
+              WebkitMaskImage: maskStyle,
             }}
           >
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} mode="popLayout">
               {consultations
                 .slice(windowStartIndex, windowStartIndex + WINDOW_SIZE)
                 .map((item, localIndex) => {
@@ -123,51 +191,42 @@ export default function Hero() {
                   return (
                     <motion.div
                       key={item.id}
-                      initial={false}
+                      initial={{ opacity: 0, y: localIndex * ITEM_HEIGHT + 10 }}
                       animate={{
-                        opacity: isActive
-                          ? 1
-                          : Math.max(0.2, 1 - distance * 0.3),
-                        y: localIndex * 65,
-                        zIndex: isActive ? 100 : 100 - distance,
-                        scale: isActive ? 1 : 0.98,
+                        opacity: 1,
+                        y: localIndex * ITEM_HEIGHT,
+                        zIndex: 100 - distance,
                       }}
+                      exit={{ opacity: 0, y: localIndex * ITEM_HEIGHT - 10 }}
                       transition={{
                         type: "spring",
-                        stiffness: 300,
-                        damping: 25,
+                        stiffness: 240,
+                        damping: 34,
+                        opacity: { duration: 0.3 },
                       }}
                       className="absolute top-0 left-0 w-full cursor-pointer"
                       onClick={() => setActiveIndex(globalIndex)}
                     >
                       <div
                         className={`
-                        group relative overflow-hidden rounded-[1.8rem] p-5 lg:p-6 
-                        border transition-all duration-500 bg-white border-white 
+                        relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
+                        border transition-all duration-300 bg-white flex flex-col justify-center min-h-[80px]
                         ${
                           isActive
-                            ? "shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
-                            : "opacity-60"
+                            ? "border-slate-200 shadow-md translate-x-1 lg:translate-x-2"
+                            : "border-transparent"
                         }
                       `}
                       >
-                        {/* Card Glow Effect */}
-                        {isActive && (
-                          <div className="absolute inset-0 bg-linear-to-br from-teal-500/5 to-transparent pointer-events-none" />
-                        )}
-
                         <div className="flex items-center justify-between gap-4 relative z-10">
-                          <div className="flex items-center gap-4">
-                            <div className="w-1.5 h-10 rounded-full transition-all duration-500" />
-                            <p
-                              className={`
-                              text-[1rem] sm:text-lg lg:text-xl font-bold text-left tracking-tight
-                              ${isActive ? "text-slate-800" : "text-slate-600"}
-                            `}
-                            >
-                              {item.name}
-                            </p>
-                          </div>
+                          <p
+                            className={`
+                            text-base lg:text-lg font-semibold text-left tracking-tight
+                            ${isActive ? "text-slate-900" : "text-slate-600"}
+                          `}
+                          >
+                            {item.name}
+                          </p>
                         </div>
                       </div>
                     </motion.div>

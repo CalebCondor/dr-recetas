@@ -1,4 +1,4 @@
-import { motion, Variants } from "motion/react";
+import { motion, Variants } from "framer-motion";
 import NextImage from "next/image";
 
 interface Testimonial {
@@ -8,6 +8,7 @@ interface Testimonial {
   role: string;
   image: string;
 }
+
 const testimonialContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -26,28 +27,29 @@ const testimonialItem: Variants = {
     transition: { type: "spring" as const, stiffness: 80 },
   },
 };
+
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    text: "Lorem ipsum dolor amet ipiscing elit elusmod tempor lorem ipsum incididunt.",
-    author: "Herman miller",
-    role: "Chief financial",
+    text: "Excelente servicio, la receta me llegó a mi email en menos de 10 minutos. Muy recomendado.",
+    author: "María Rodríguez",
+    role: "Paciente",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
   },
   {
     id: 2,
-    text: "Lorem ipsum dolor amet ipiscing elit elusmod tempor lorem ipsum incididunt.",
-    author: "Shoko mugikura",
-    role: "Financial manager",
+    text: "La atención del Dr. fue excepcional. Pude resolver mi refill de medicamentos sin salir de casa.",
+    author: "Carlos Ortiz",
+    role: "Paciente",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
   },
   {
     id: 3,
-    text: "Lorem ipsum dolor amet ipiscing elit elusmod tempor lorem ipsum incididunt.",
-    author: "Matthew taylor",
-    role: "Office manager",
+    text: "Muy fácil de usar. El proceso de pago con ATH Móvil fue súper rápido. ¡Gracias!",
+    author: "Elena Rivera",
+    role: "Paciente",
     image:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
   },
@@ -55,7 +57,25 @@ const testimonials: Testimonial[] = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-20 lg:py-32 px-4">
+    <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%] overflow-hidden">
+      {/* Dynamic Background Effect */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          background: "linear-gradient(148deg, rgba(240, 244, 253, 0.00) 19.34%, rgba(29, 125, 126, 0.21) 47.29%, rgba(240, 244, 253, 0.54) 79.28%)",
+          filter: "blur(55.95px)",
+          transform: "scale(1.1)" // Scale up slightly to cover edges due to blur
+        }}
+      />
+
+      <div className="relative z-10">
+        {/* Header - Matching HowItWorks style */}
+        <div className="mb-16 md:mb-20 text-center">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
+            Clientes satisfechos confían con Dr.Recetas
+          </h2>
+        </div>
+
       <motion.div
         variants={testimonialContainer}
         initial="hidden"
@@ -78,7 +98,7 @@ export function TestimonialsSection() {
               className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
             >
               <p className="text-gray-500 text-sm leading-relaxed">
-                {testimonial.text}
+                &quot;{testimonial.text}&quot;
               </p>
               {/* Tail arrow */}
               <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
@@ -96,7 +116,7 @@ export function TestimonialsSection() {
                 />
               </div>
               <div>
-                <h4 className="font-bold text-slate-800 text-base leading-tight">
+                <h4 className="font-bold text-[#0D4B4D] text-base leading-tight">
                   {testimonial.author}
                 </h4>
                 <p className="text-xs text-gray-400 font-medium">
