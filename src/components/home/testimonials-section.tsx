@@ -57,14 +57,19 @@ const testimonials: Testimonial[] = [
 
 export function TestimonialsSection() {
   return (
-    <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%] overflow-hidden">
+    <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
       {/* Dynamic Background Effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-0"
+      <div
+        className="absolute -inset-x-0 -top-40 -bottom-40 pointer-events-none z-0"
         style={{
-          background: "linear-gradient(148deg, rgba(240, 244, 253, 0.00) 19.34%, rgba(29, 125, 126, 0.21) 47.29%, rgba(240, 244, 253, 0.54) 79.28%)",
-          filter: "blur(55.95px)",
-          transform: "scale(1.1)" // Scale up slightly to cover edges due to blur
+          background:
+            "linear-gradient(148deg, rgba(240, 244, 253, 0.00) 19.34%, rgba(29, 125, 126, 0.21) 47.29%, rgba(240, 244, 253, 0.54) 79.28%)",
+          filter: "blur(60px)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+          transform: "scale(1.1)",
         }}
       />
 
@@ -76,57 +81,58 @@ export function TestimonialsSection() {
           </h2>
         </div>
 
-      <motion.div
-        variants={testimonialContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        {testimonials.map((testimonial) => (
-          <motion.div
-            variants={testimonialItem}
-            key={testimonial.id}
-            className="flex flex-col"
-          >
-            {/* Speech Bubble */}
+        <motion.div
+          variants={testimonialContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {testimonials.map((testimonial) => (
             <motion.div
-              whileHover={{
-                y: -5,
-                boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-              }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
+              variants={testimonialItem}
+              key={testimonial.id}
+              className="flex flex-col"
             >
-              <p className="text-gray-500 text-sm leading-relaxed">
-                &quot;{testimonial.text}&quot;
-              </p>
-              {/* Tail arrow */}
-              <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
-            </motion.div>
-
-            {/* User Profile */}
-            <div className="flex items-center gap-4 pl-6">
-              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
-                <NextImage
-                  src={testimonial.image}
-                  alt={testimonial.author}
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div>
-                <h4 className="font-bold text-[#0D4B4D] text-base leading-tight">
-                  {testimonial.author}
-                </h4>
-                <p className="text-xs text-gray-400 font-medium">
-                  {testimonial.role}
+              {/* Speech Bubble */}
+              <motion.div
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                }}
+                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative mb-6"
+              >
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  &quot;{testimonial.text}&quot;
                 </p>
+                {/* Tail arrow */}
+                <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white border-b border-r border-gray-100 transform rotate-45" />
+              </motion.div>
+
+              {/* User Profile */}
+              <div className="flex items-center gap-4 pl-6">
+                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                  <NextImage
+                    src={testimonial.image}
+                    alt={testimonial.author}
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#0D4B4D] text-base leading-tight">
+                    {testimonial.author}
+                  </h4>
+                  <p className="text-xs text-gray-400 font-medium">
+                    {testimonial.role}
+                  </p>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
