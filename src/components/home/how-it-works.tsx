@@ -124,11 +124,11 @@ export function HowItWorks() {
           {/* Animated Vertical Line with Chain Effect */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden">
             {/* Background line */}
-            <div className="absolute inset-0 bg-gradient-to-b from-teal-200/40 to-teal-300/40 rounded-full" />
+            <div className="absolute inset-0 bg-linear-to-b from-teal-200/40 to-teal-300/40 rounded-full" />
 
             {/* Animated progress line */}
             <motion.div
-              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-teal-500 via-teal-600 to-teal-500 rounded-full shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+              className="absolute top-0 left-0 right-0 bg-linear-to-b from-teal-500 via-teal-600 to-teal-500 rounded-full shadow-[0_0_20px_rgba(20,184,166,0.4)]"
               initial={{ height: "0%" }}
               animate={{
                 height:
