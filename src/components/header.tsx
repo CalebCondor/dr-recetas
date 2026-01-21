@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState } from "react";
-import { IoStorefrontOutline } from "react-icons/io5";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,12 +29,33 @@ export default function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-slate-600 hover:bg-white/50 rounded-lg transition-colors"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        <div className="flex md:hidden items-center gap-3">
+          <button className="bg-white p-2 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-11 h-11">
+            <Image
+              src="/store.svg"
+              alt="Store"
+              width={28}
+              height={28}
+              className="w-7 h-7 object-contain"
+            />
+          </button>
+          <button
+            className="bg-white p-2 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-11 h-11"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <X size={24} className="text-[#0D4B4D]" />
+            ) : (
+              <Image
+                src="/hamburguer.svg"
+                alt="Menu"
+                width={20}
+                height={14}
+                className="w-5 h-auto object-contain"
+              />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
