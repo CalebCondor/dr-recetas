@@ -37,7 +37,7 @@ export function ChatbotSection() {
   };
 
   return (
-    <section className="w-full py-16 lg:py-24">
+    <section id="chatbot" className="w-full py-16 lg:py-24">
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         {/* Banner Section */}
         <div className="mb-12 text-center">

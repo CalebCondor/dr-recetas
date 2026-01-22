@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 const consultations = [
   {
     id: 1,
@@ -15,19 +16,19 @@ const consultations = [
   },
   {
     id: 3,
-    name: '3 Receta de medicamentos o "refill"',
+    name: "Consulta por Covid",
   },
   {
     id: 4,
-    name: '4 Receta de medicamentos o "refill"',
+    name: "Prueba de sangre ETH",
   },
   {
     id: 5,
-    name: '5 Receta de medicamentos o "refill"',
+    name: "Evaluacion Medica del sueño",
   },
   {
     id: 6,
-    name: '6 Receta de medicamentos o "refill"',
+    name: "Receta de medicamentos o 'refill'",
   },
 ];
 
@@ -154,10 +155,20 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-[750px] lg:min-h-[750px] flex items-center justify-center overflow-hidden"
     >
-      {/* Mobile Blue-predominant Background Overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-blue-900/40 via-transparent to-transparent lg:hidden pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[80%] h-[50%] bg-blue-500/30 blur-[100px] rounded-full lg:hidden pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[60%] h-[40%] bg-blue-400/20 blur-[80px] rounded-full lg:hidden pointer-events-none" />
+      <div className="absolute inset-0 -top-40 opacity-40 pointer-events-none z-0 lg:hidden">
+        <BackgroundGradientAnimation
+          containerClassName="!h-full !w-full blur-[100px]"
+          firstColor="30, 210, 150" // Emerald
+          secondColor="52, 211, 153" // Emerald 400
+          thirdColor="20, 184, 166" // Teal 600
+          fourthColor="16, 185, 129" // Emerald 500
+          fifthColor="209, 250, 229" // Emerald 100 (Soft Mint)
+          pointerColor="30, 210, 150"
+          size="100%"
+          blendingValue="hard-light"
+          interactive={true}
+        />
+      </div>
 
       {/* Content Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
@@ -166,9 +177,13 @@ export default function Hero() {
           <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
             <br className="block lg:hidden" />{" "}
-            <span className="text-[#6CE4AE]">
+            <span className="text-[#2ba06b]">
               <TypingAnimation
-                words={["consulta médica"]}
+                words={[
+                  "consulta médica",
+                  "Excusa Medica",
+                  "Refill de recetas",
+                ]}
                 className="inline"
                 loop={false}
                 typeSpeed={100}
@@ -255,7 +270,14 @@ export default function Hero() {
             <span className="text-[#1e3434] font-semibold text-lg lg:text-xl">
               Otras consultas
             </span>
-            <button className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white text-teal-600 transition-all shadow-lg hover:scale-105 active:scale-95 group">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("chatbot")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white text-teal-600 transition-all shadow-lg hover:scale-105 active:scale-95 group"
+            >
               <Plus className="w-6 h-6 lg:w-8 lg:h-8 group-hover:rotate-90 transition-transform duration-300" />
             </button>
           </div>
