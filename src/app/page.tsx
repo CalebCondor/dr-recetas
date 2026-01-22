@@ -1,53 +1,74 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/hero-section";
-import { ServiceCard } from "@/components/home/service-card";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 import { PageWrapper } from "@/components/page-wrapper";
 
 // Dynamically import components below the fold
 const ChatbotSection = dynamic(() =>
-  import("@/components/home/chatbot-section").then((mod) => mod.ChatbotSection)
+  import("@/components/home/chatbot-section").then((mod) => mod.ChatbotSection),
 );
 const WhyChooseUs = dynamic(() =>
-  import("@/components/home/why-choose-us").then((mod) => mod.WhyChooseUs)
+  import("@/components/home/why-choose-us").then((mod) => mod.WhyChooseUs),
 );
 const HowItWorks = dynamic(() =>
-  import("@/components/home/how-it-works").then((mod) => mod.HowItWorks)
+  import("@/components/home/how-it-works").then((mod) => mod.HowItWorks),
 );
 const FAQSection = dynamic(() =>
-  import("@/components/home/faq-section").then((mod) => mod.FAQSection)
+  import("@/components/home/faq-section").then((mod) => mod.FAQSection),
 );
 const TestimonialsSection = dynamic(() =>
   import("@/components/home/testimonials-section").then(
-    (mod) => mod.TestimonialsSection
-  )
+    (mod) => mod.TestimonialsSection,
+  ),
 );
 const BenefitsSection = dynamic(() =>
   import("@/components/home/benefits-section").then(
-    (mod) => mod.BenefitsSection
-  )
+    (mod) => mod.BenefitsSection,
+  ),
 );
 
 const services = [
   {
-    title: "Receta de medicamentos o “refill”",
-    description: "Receta de medicamentos o “refill”.",
-    imageSrc: "/citas-medicas/3.png",
-    imageAlt: "Revisión ultrasónica",
-  },
-  {
-    title: "ECBC + DIFF Lab",
+    title: "Ordenes médicas",
     description:
-      "Electrocardiograma completo con análisis digital avanzado y monitoreo cardíaco en tiempo real.",
-    imageSrc: "/citas-medicas/2.png",
-    imageAlt: "ECG Scan",
-  },
-  {
-    title: "Análisis de orina y cultivo de orina",
-    description:
-      "Medición precisa de composición corporal, porcentaje de grasa y masa muscular mediante bioimpedancia.",
+      "Obtén de forma digital tus órdenes para Laboratorios, Rayos X, CT Scan, MRI y más, con entrega inmediata a tu correo electrónico.",
     imageSrc: "/citas-medicas/1.png",
-    imageAlt: "Análisis corporal",
+    imageAlt: "Ordenes médicas",
+  },
+  {
+    title: "Certificados médicos",
+    description:
+      "Emisión rápida de certificados de salud oficiales para procesos de empleo, estudios, deportes o viajes, validados por médicos expertos.",
+    imageSrc: "/citas-medicas/2.png",
+    imageAlt: "Certificados médicos",
+  },
+  {
+    title: "Consultas médicas",
+    description:
+      "Accede a atención médica general y primaria de alta calidad desde la comodidad de tu hogar, sin largas filas ni salas de espera.",
+    imageSrc: "/citas-medicas/3.png",
+    imageAlt: "Consultas médicas",
+  },
+  {
+    title: "Salud y bienestar",
+    description:
+      "Programas preventivos y de cuidado integral diseñados para mejorar tu calidad de vida y mantener un control riguroso de tu salud.",
+    imageSrc: "/citas-medicas/1.png",
+    imageAlt: "Salud y bienestar",
+  },
+  {
+    title: "Para él",
+    description:
+      "Servicios preventivos y diagnósticos especializados en salud masculina, enfocados en el bienestar integral y rendimiento óptimo.",
+    imageSrc: "/citas-medicas/2.png",
+    imageAlt: "Para él",
+  },
+  {
+    title: "Para ella",
+    description:
+      "Atención médica personalizada y servicios especializados para las necesidades de salud femenina, brindando soluciones preventivas y cuidado continuo.",
+    imageSrc: "/citas-medicas/3.png",
+    imageAlt: "Para ella",
   },
 ];
 
@@ -70,23 +91,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Desktop Grid / Mobile Carousel */}
+          {/* Unified Carousel for all screens */}
           <div className="relative">
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-              {services.map((service, index) => (
-                <div
-                  key={service.title}
-                  className="animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both hover:-translate-y-2 transition-transform"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <ServiceCard {...service} />
-                </div>
-              ))}
-            </div>
-
-            <div className="md:hidden">
-              <ServicesCarousel services={services} />
-            </div>
+            <ServicesCarousel services={services} />
           </div>
         </div>
       </section>

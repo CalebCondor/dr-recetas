@@ -10,6 +10,7 @@ export interface ServiceCardProps {
   description: string;
   imageSrc: string;
   imageAlt: string;
+  isActive?: boolean;
 }
 
 export function ServiceCard({
@@ -17,6 +18,7 @@ export function ServiceCard({
   description,
   imageSrc,
   imageAlt,
+  isActive = false,
 }: ServiceCardProps) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -30,22 +32,24 @@ export function ServiceCard({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Determine if we should show content ("hover" state)
+  // Show if: Hovered OR Active (Center) OR Mobile View (always visible)
+  const shouldShowContent = isActive;
+
   return (
     <motion.div
       initial="initial"
-      whileHover={!isMobile ? "hover" : undefined}
-      whileInView="view"
-      viewport={{ once: true, amount: 0.2 }}
-      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[450px] lg:h-[600px] cursor-pointer shadow-xl transition-shadow duration-500 hover:shadow-2xl will-change-transform"
+      whileHover="hover"
+      animate={isActive ? "hover" : "initial"}
+      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[500px] lg:h-[580px] cursor-pointer shadow-xl transition-all duration-500"
     >
       {/* Background Image Container */}
       <motion.div
         variants={{
           initial: { scale: 1 },
-          hover: { scale: 1.08 },
-          view: { scale: 1 },
+          hover: { scale: 1.05 },
         }}
-        transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
         <Image
@@ -56,90 +60,58 @@ export function ServiceCard({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={false}
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/40 to-transparent opacity-85" />
+        {/* Gradient Overlay matching the image feel */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90" />
       </motion.div>
 
-      {/* Top Badge */}
-      <div className="absolute top-6 right-6 z-20">
-        <motion.div
-          variants={{
-            initial: { opacity: 0.8, scale: 0.95 },
-            hover: { opacity: 1, scale: 1 },
-            view: { opacity: 1, scale: 1 },
-          }}
-          className="px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[0.65rem] font-extrabold uppercase tracking-[0.15em] flex items-center gap-2"
-        >
-          <div className="w-1.5 h-1.5 rounded-full shadow-[0_0_8px_rgba(45,212,191,0.6)] bg-teal-400" />
-          Citas médicas
-        </motion.div>
-      </div>
-
       {/* Bottom Content Area */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 z-30 pointer-events-none">
-        <div className="flex items-end justify-between gap-4 lg:gap-6 pointer-events-auto">
-          <div className="flex-1 space-y-0">
+      <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 z-30">
+        <motion.div
+          className="flex flex-col gap-4"
+          initial="initial"
+          animate={isActive ? "hover" : "initial"}
+          whileHover="hover"
+        >
+          <div className="space-y-2">
             <motion.h3
               variants={{
                 initial: { y: 0 },
-                hover: { y: -5 },
-                view: { y: 0 },
+                hover: { y: 0 },
               }}
-              transition={{ duration: 0.4 }}
-              className="font-extrabold text-white text-xl lg:text-2xl leading-tight tracking-tight drop-shadow-lg"
+              className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm"
             >
               {title}
             </motion.h3>
 
-            {/* Optimizamos la descripción para evitar layout shifts en scroll */}
-            <motion.p
+            <motion.div
               variants={{
-                initial: { opacity: 0, y: 10 },
-                hover: {
-                  opacity: 1,
-                  y: 0,
-                  display: "block",
-                  transition: { duration: 0.3 },
-                },
-                view: isMobile
-                  ? {
-                      opacity: 1,
-                      y: 0,
-                      transition: { delay: 0.1, duration: 0.4 },
-                    }
-                  : { opacity: 0, y: 10 },
+                initial: { opacity: 0, height: 0, marginTop: 0 },
+                hover: { opacity: 1, height: "auto", marginTop: 8 },
               }}
-              className="text-xs text-white/70 font-medium line-clamp-3 leading-relaxed mt-3 will-change-[opacity,transform]"
+              transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+              className="overflow-hidden"
             >
-              {description}
-            </motion.p>
+              <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
+                {description}
+              </p>
+            </motion.div>
           </div>
 
-          <motion.button
-            variants={{
-              initial: { scale: 0.9, opacity: 0.9 },
-              hover: { scale: 1, opacity: 1 },
-              view: { scale: 1, opacity: 1 },
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-3 lg:px-6 lg:py-3.5 rounded-full bg-white text-teal-900 font-extrabold text-[0.7rem] lg:text-[0.8rem] shadow-xl hover:bg-teal-50 transition-colors shrink-0 mb-1"
-          >
-            <div className="w-5 h-5 rounded-md bg-teal-50 flex items-center justify-center">
-              <RiShoppingBag4Fill className="w-3.5 h-3.5 text-teal-600" />
-            </div>
-            <span>Add</span>
-          </motion.button>
-        </div>
+          <div className="pt-2">
+            <button className="group/btn relative w-full flex items-center justify-between px-6 py-4 rounded-3xl font-bold text-sm transition-all duration-500 shadow-lg bg-white/20 backdrop-blur-xl text-white border border-white/20 hover:bg-white/30">
+              <span className="relative z-10">Reservar ahora</span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center transition-colors bg-white/20">
+                <RiShoppingBag4Fill className="w-4 h-4 text-white" />
+              </div>
+            </button>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Inner Border Glow */}
-      <motion.div
-        variants={{
-          initial: { opacity: 0 },
-          hover: { opacity: 1 },
-          view: isMobile ? { opacity: 0.2 } : { opacity: 0 },
-        }}
-        className="absolute inset-0 rounded-[2.5rem] pointer-events-none z-40"
-      />
+      {/* Subtle border for active card like image highlight */}
+      {isActive && (
+        <div className="absolute inset-0 rounded-[2.5rem] border-2 border-white/5 pointer-events-none z-40" />
+      )}
     </motion.div>
   );
 }
