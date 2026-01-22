@@ -261,11 +261,11 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 100, scale: 0.8 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{
-                duration: 0.3,
+                duration: 0.4,
                 delay: index * 0.05,
                 ease: "easeOut",
               }}

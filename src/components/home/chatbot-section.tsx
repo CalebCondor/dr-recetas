@@ -41,7 +41,7 @@ export function ChatbotSection() {
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         {/* Banner Section */}
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl md:text-5xl lg:text-6xl font-extrabold text-[#0D4B4D] tracking-tight whitespace-nowrap">
+          <h2 className="mb-4 text-3xl md:text-5xl lg:text-5xl font-extrabold text-[#0D4B4D] tracking-tight">
             ¿Qué necesitas hoy?
           </h2>
           <div className="mx-auto max-w-3xl">
@@ -54,7 +54,7 @@ export function ChatbotSection() {
 
         {/* Chatbot Container - Wider/Rectangular */}
         <div className="w-full max-w-6xl mx-auto">
-          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-[600px] bg-white">
+          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-[500px] md:h-[600px] bg-white relative">
             {/* Header - Light Mint */}
             <div className="bg-[#B0E5CC]/40 px-8 py-5 flex items-center justify-between border-b border-teal-50">
               <div className="flex items-center gap-4">
@@ -120,13 +120,21 @@ export function ChatbotSection() {
             </div>
 
             {/* Footer / Input Area - Light Mint */}
-            <div className="bg-[#B0E5CC]/30 p-6 md:px-8 md:py-6 border-t border-teal-50">
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-2 pl-6 rounded-2xl border border-white shadow-sm focus-within:ring-2 focus-within:ring-[#B0E5CC] transition-all">
+            <div className="bg-[#B0E5CC]/30 p-4 md:p-8 border-t border-teal-50">
+              <div className="flex items-center gap-4 bg-white p-2 pl-6 rounded-2xl border border-slate-100 shadow-sm focus-within:border-[#B0E5CC] focus-within:ring-4 focus-within:ring-[#B0E5CC]/20 transition-all duration-200">
                 <Input
                   placeholder="Escribe tu duda aquí..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                  onFocus={(e) => {
+                    // Prevenir que el scroll automático sea brusco o innecesario
+                    // si ya está en vista
+                    e.target.scrollIntoView({
+                      block: "nearest",
+                      behavior: "smooth",
+                    });
+                  }}
                   className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-base h-12 p-0"
                 />
                 <Button
