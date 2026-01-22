@@ -42,22 +42,16 @@ export default function Header() {
 
         <div className="flex md:hidden items-center gap-1.5">
           <button className="transition-all active:scale-95 flex items-center justify-center">
-            <Image
-              src="/store.svg"
-              alt="Store"
-              width={56}
-              height={56}
-              className="w-14 h-14 object-contain"
-            />
+            <Image src="/store.svg" alt="Store" width={62} height={62} />
           </button>
           <Sheet>
             <SheetTrigger asChild>
-              <button className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-10 h-10 border border-slate-50">
+              <button className="bg-white rounded-md shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-8 h-8 border border-slate-50">
                 <Image
                   src="/hamburguer.svg"
                   alt="Menu"
-                  width={24}
-                  height={24}
+                  width={20}
+                  height={20}
                 />
               </button>
             </SheetTrigger>
