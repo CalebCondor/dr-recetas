@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 export function ChatbotSection() {
@@ -25,14 +25,67 @@ export function ChatbotSection() {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = () => {
-    if (input.trim()) {
-      setMessages([
-        ...messages,
-        { id: messages.length + 1, type: "user", text: input },
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    const newUserMsg = {
+      id: Date.now(),
+      type: "user" as const,
+      text: userMessage,
+    };
+
+    setMessages((prev) => [...prev, newUserMsg]);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        "https://doctorrecetas.com/v3/chat-api.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: userMessage }),
+        },
+      );
+
+      const data = await response.json();
+
+      // Assume the API returns { response: "..." } or similar based on shared knowledge
+      const botResponse =
+        data.response ||
+        data.message ||
+        data.text ||
+        "Lo siento, tuve un problema al procesar tu mensaje.";
+
+      setMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, type: "bot" as const, text: botResponse },
       ]);
-      setInput("");
+    } catch (error) {
+      console.error("Error calling chat API:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          type: "bot" as const,
+          text: "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,6 +138,7 @@ export function ChatbotSection() {
 
             {/* Chat Body - Light Green to White Gradient */}
             <div
+              ref={scrollRef}
               className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-hide"
               style={{
                 background:
@@ -107,16 +161,40 @@ export function ChatbotSection() {
                     </div>
                   )}
                   <div
-                    className={`max-w-[80%] rounded-3xl px-6 py-3.5 text-sm md:text-base shadow-sm transition-all ${
+                    className={`max-w-[85%] rounded-[2rem] px-6 py-4 text-sm md:text-base shadow-sm transition-all whitespace-pre-wrap ${
                       msg.type === "user"
                         ? "bg-[#0D4B4D] text-white rounded-br-none"
-                        : "bg-white border border-teal-50 text-slate-700 rounded-bl-none"
+                        : "bg-white border border-teal-50 text-slate-700 rounded-bl-none prose prose-slate prose-sm max-w-none [&_b]:text-[#0D4B4D] [&_b]:font-bold [&_a]:text-teal-600 [&_a]:font-bold [&_a]:underline [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-4 [&_div.service-card]:bg-slate-50 [&_div.service-card]:p-4 [&_div.service-card]:rounded-xl [&_div.service-card]:my-3 [&_div.service-card]:border [&_div.service-card]:border-teal-100"
                     }`}
-                  >
-                    {msg.text}
-                  </div>
+                    dangerouslySetInnerHTML={{
+                      __html: msg.text
+                        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+                        .replace(/\n/g, "<br/>"),
+                    }}
+                  />
                 </div>
               ))}
+              {isLoading && (
+                <div className="flex items-center gap-3 justify-start">
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-white border border-teal-100 shrink-0 mb-1 shadow-sm">
+                    <Image
+                      src="/logo_bot.png"
+                      alt="ANA"
+                      width={32}
+                      height={32}
+                    />
+                  </div>
+                  <div className="bg-white border border-teal-50 text-slate-400 rounded-3xl px-6 py-3.5 text-sm flex gap-1">
+                    <span className="animate-bounce">.</span>
+                    <span className="animate-bounce [animation-delay:0.2s]">
+                      .
+                    </span>
+                    <span className="animate-bounce [animation-delay:0.4s]">
+                      .
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Footer / Input Area - Light Mint */}
@@ -139,10 +217,15 @@ export function ChatbotSection() {
                 />
                 <Button
                   onClick={handleSend}
-                  className="bg-[#0D4B4D] text-white hover:bg-[#0D4B4D]/90 rounded-xl px-6 h-12 font-bold transition-all shadow-md active:scale-95 flex items-center gap-2"
+                  disabled={isLoading}
+                  className="bg-[#0D4B4D] text-white hover:bg-[#0D4B4D]/90 rounded-xl px-6 h-12 font-bold transition-all shadow-md active:scale-95 flex items-center gap-2 disabled:opacity-50"
                 >
-                  <span className="hidden sm:inline">Enviar</span>
-                  <Send className="h-4 w-4" />
+                  <span className="hidden sm:inline">
+                    {isLoading ? "Enviando..." : "Enviar"}
+                  </span>
+                  <Send
+                    className={`h-4 w-4 ${isLoading ? "animate-pulse" : ""}`}
+                  />
                 </Button>
               </div>
             </div>
