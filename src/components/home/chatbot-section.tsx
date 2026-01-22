@@ -27,11 +27,12 @@ export function ChatbotSection() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll to bottom when messages or loading state change
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [messages, isLoading]);
 
@@ -63,7 +64,6 @@ export function ChatbotSection() {
 
       const data = await response.json();
 
-      // Assume the API returns { response: "..." } or similar based on shared knowledge
       const botResponse =
         data.response ||
         data.message ||
@@ -107,7 +107,7 @@ export function ChatbotSection() {
 
         {/* Chatbot Container - Wider/Rectangular */}
         <div className="w-full max-w-6xl mx-auto">
-          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-[500px] md:h-[600px] bg-white relative">
+          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-[650px] md:h-[600px] bg-white relative">
             {/* Header - Light Mint */}
             <div className="bg-[#B0E5CC]/40 px-8 py-5 flex items-center justify-between border-b border-teal-50">
               <div className="flex items-center gap-4">
@@ -195,6 +195,8 @@ export function ChatbotSection() {
                   </div>
                 </div>
               )}
+              {/* Anchor to ensure scroll moves to the end (includes spinner) */}
+              <div ref={bottomRef} />
             </div>
 
             {/* Footer / Input Area - Light Mint */}
