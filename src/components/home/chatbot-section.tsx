@@ -231,14 +231,6 @@ export function ChatbotSection() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                  onFocus={(e) => {
-                    // Prevenir que el scroll automático sea brusco o innecesario
-                    // si ya está en vista
-                    e.target.scrollIntoView({
-                      block: "nearest",
-                      behavior: "smooth",
-                    });
-                  }}
                   className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-base h-12 p-0"
                 />
                 <Button
