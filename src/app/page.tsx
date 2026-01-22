@@ -41,6 +41,20 @@ const services = [
 ];
 
 export default function Home() {
+  // Forzar scroll al tope y limpiar hash al cargar
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      if (window.location.hash) {
+        window.history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search
+        );
+      }
+    }
+  }, []);
+
   return (
     <motion.main
       initial={{ opacity: 0 }}

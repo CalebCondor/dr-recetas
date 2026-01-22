@@ -152,7 +152,7 @@ export function TypingAnimation({
     }
   };
 
-  const containerClassName = cn("leading- tracking-[-0.02em]", className);
+  const containerClassName = cn("leading- tracking-[-0.01em]", className);
 
   const content = (
     <>
