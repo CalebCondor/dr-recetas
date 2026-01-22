@@ -270,12 +270,18 @@ export default function Hero() {
             <span className="text-[#1e3434] font-semibold text-lg lg:text-xl">
               Otras consultas
             </span>
-            <a
-              href="#chatbot"
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById("chatbot");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white text-teal-600 transition-all shadow-lg hover:scale-105 active:scale-95 group"
             >
               <Plus className="w-6 h-6 lg:w-8 lg:h-8 group-hover:rotate-90 transition-transform duration-300" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
