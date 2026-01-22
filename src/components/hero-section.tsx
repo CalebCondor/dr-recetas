@@ -177,12 +177,12 @@ export default function Hero() {
           <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
             <br className="block lg:hidden" />{" "}
-            <span className="text-[#2ba06b]">
+            <span className="text-[#00CD7D]">
               <TypingAnimation
                 words={[
                   "consulta médica",
                   "Excusa Medica",
-                  "Pureba Covid",
+                  "Prueba Covid",
                 ]}
                 className="inline"
                 loop={false}
