@@ -174,16 +174,12 @@ export default function Hero() {
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         {/* Left Content */}
         <div className="flex-1 w-full max-w-4xl">
-          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[2.5rem] xl:text-[2rem] 2xl:text-[3rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
+          <h1 className="text-[2.4rem] leading-[1.1] sm:text-3xl md:text-6xl lg:text-[2.5rem] xl:text-[2rem] 2xl:text-[3rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
             <br className="block lg:hidden" />{" "}
             <span className="text-[#6CE4AE]">
               <TypingAnimation
-                words={[
-                  "consulta médica",
-                  "Excusa Medica",
-                  "Prueba Covid",
-                ]}
+                words={["consulta médica", "Excusa Medica", "Prueba Covid"]}
                 className="inline"
                 loop={false}
                 typeSpeed={100}

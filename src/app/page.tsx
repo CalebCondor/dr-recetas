@@ -1,21 +1,32 @@
-"use client";
-
+import dynamic from "next/dynamic";
 import Hero from "@/components/hero-section";
-import { ChatbotSection } from "@/components/home/chatbot-section";
 import { ServiceCard } from "@/components/home/service-card";
-import { HowItWorks } from "@/components/home/how-it-works";
-import { WhyChooseUs } from "@/components/home/why-choose-us";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import { useState, useEffect } from "react";
-import { FAQSection } from "@/components/home/faq-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
-import { BenefitsSection } from "@/components/home/benefits-section";
-import { motion } from "motion/react";
+import { ServicesCarousel } from "@/components/home/services-carousel";
+import { PageWrapper } from "@/components/page-wrapper";
+
+// Dynamically import components below the fold
+const ChatbotSection = dynamic(() =>
+  import("@/components/home/chatbot-section").then((mod) => mod.ChatbotSection)
+);
+const WhyChooseUs = dynamic(() =>
+  import("@/components/home/why-choose-us").then((mod) => mod.WhyChooseUs)
+);
+const HowItWorks = dynamic(() =>
+  import("@/components/home/how-it-works").then((mod) => mod.HowItWorks)
+);
+const FAQSection = dynamic(() =>
+  import("@/components/home/faq-section").then((mod) => mod.FAQSection)
+);
+const TestimonialsSection = dynamic(() =>
+  import("@/components/home/testimonials-section").then(
+    (mod) => mod.TestimonialsSection
+  )
+);
+const BenefitsSection = dynamic(() =>
+  import("@/components/home/benefits-section").then(
+    (mod) => mod.BenefitsSection
+  )
+);
 
 const services = [
   {
@@ -41,27 +52,8 @@ const services = [
 ];
 
 export default function Home() {
-  // Forzar scroll al tope y limpiar hash al cargar
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "auto" });
-      if (window.location.hash) {
-        window.history.replaceState(
-          null,
-          "",
-          window.location.pathname + window.location.search
-        );
-      }
-    }
-  }, []);
-
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-      className="flex flex-col gap-0 overflow-x-hidden"
-    >
+    <PageWrapper>
       <Hero />
 
       {/* Services Section */}
@@ -105,81 +97,6 @@ export default function Home() {
       <FAQSection />
       <TestimonialsSection />
       <BenefitsSection />
-    </motion.main>
-  );
-}
-
-interface Service {
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-}
-
-function ServicesCarousel({ services }: { services: Service[] }) {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) return;
-
-    const onSelect = () => {
-      setCurrent(api.selectedScrollSnap());
-    };
-
-    onSelect();
-    api.on("select", onSelect);
-    api.on("reInit", onSelect);
-
-    return () => {
-      api.off("select", onSelect);
-      api.off("reInit", onSelect);
-    };
-  }, [api]);
-
-  return (
-    <div className="-mx-6 lg:mx-0">
-      <Carousel
-        setApi={setApi}
-        opts={{
-          align: "center",
-          loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent className="-ml-2 px-4 md:px-0">
-          {services.map((service, index) => (
-            <CarouselItem
-              key={service.title}
-              className="pl-2 basis-[82%] sm:basis-[70%] transition-opacity duration-300"
-            >
-              <div
-                className={`transition-all duration-500 ${
-                  index === current
-                    ? "scale-100 opacity-100"
-                    : "scale-90 opacity-40"
-                }`}
-              >
-                <ServiceCard {...service} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-center gap-3 mt-10">
-          {services.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => api?.scrollTo(i)}
-              className={`transition-all duration-500 h-2 rounded-full ${
-                i === current
-                  ? "bg-teal-600 w-8"
-                  : "bg-teal-600/20 w-2 hover:bg-teal-600/40"
-              }`}
-              aria-label={`Ir a servicio ${i + 1}`}
-            />
-          ))}
-        </div>
-      </Carousel>
-    </div>
+    </PageWrapper>
   );
 }
