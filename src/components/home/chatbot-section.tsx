@@ -34,7 +34,10 @@ export function ChatbotSection() {
     // If loading, keep spinner in view at the bottom
     if (isLoading) {
       if (bottomRef.current) {
-        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        bottomRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }
       return;
     }
@@ -42,11 +45,16 @@ export function ChatbotSection() {
     // When a new bot message arrives, scroll so the START of that message is visible
     if (messages.length > 0 && messages[messages.length - 1].type === "bot") {
       const lastMsg = messages[messages.length - 1];
-      const el = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`) as HTMLElement | null;
+      const el = scrollRef.current?.querySelector(
+        `[data-msg-id="${lastMsg.id}"]`,
+      ) as HTMLElement | null;
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (bottomRef.current) {
-        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        bottomRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }
     }
   }, [messages, isLoading]);
@@ -122,7 +130,7 @@ export function ChatbotSection() {
 
         {/* Chatbot Container - Wider/Rectangular */}
         <div className="w-full max-w-6xl mx-auto">
-          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-[650px] md:h-[600px] bg-white relative">
+          <div className="w-full rounded-[2.5rem] overflow-hidden border border-teal-100 shadow-2xl flex flex-col h-162.5 md:h-[600px] bg-white relative">
             {/* Header - Light Mint */}
             <div className="bg-[#B0E5CC]/40 px-8 py-5 flex items-center justify-between border-b border-teal-50">
               <div className="flex items-center gap-4">
