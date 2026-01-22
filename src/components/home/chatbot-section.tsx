@@ -29,10 +29,25 @@ export function ChatbotSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when messages or loading state change
+  // Auto-scroll to bottom only when a new bot message arrives or loading starts
   useEffect(() => {
-    if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    // If loading, keep spinner in view at the bottom
+    if (isLoading) {
+      if (bottomRef.current) {
+        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+      return;
+    }
+
+    // When a new bot message arrives, scroll so the START of that message is visible
+    if (messages.length > 0 && messages[messages.length - 1].type === "bot") {
+      const lastMsg = messages[messages.length - 1];
+      const el = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`) as HTMLElement | null;
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (bottomRef.current) {
+        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     }
   }, [messages, isLoading]);
 
@@ -148,6 +163,7 @@ export function ChatbotSection() {
               {messages.map((msg) => (
                 <div
                   key={msg.id}
+                  data-msg-id={msg.id}
                   className={`flex items-end gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.type === "bot" && (
