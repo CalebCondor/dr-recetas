@@ -40,26 +40,24 @@ export default function Header() {
           </Button>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden items-center gap-3">
+        <div className="flex md:hidden items-center gap-1.5">
           <button className="transition-all active:scale-95 flex items-center justify-center">
             <Image
               src="/store.svg"
               alt="Store"
-              width={44}
-              height={44}
-              className="w-11 h-11 object-contain"
+              width={56}
+              height={56}
+              className="w-14 h-14 object-contain"
             />
           </button>
           <Sheet>
             <SheetTrigger asChild>
-              <button className="bg-white p-2 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-11 h-11">
+              <button className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-10 h-10 border border-slate-50">
                 <Image
                   src="/hamburguer.svg"
                   alt="Menu"
-                  width={20}
-                  height={14}
-                  className="w-5 h-auto object-contain"
+                  width={24}
+                  height={24}
                 />
               </button>
             </SheetTrigger>
@@ -70,16 +68,16 @@ export default function Header() {
               <div className="flex flex-col h-full p-6 sm:p-8">
                 {/* Top Section: Header + Links */}
                 <div className="flex-1">
-                  <SheetHeader className="mt-2 mb-6 text-left p-0 space-y-1">
-                    <SheetTitle className="text-xl font-bold text-[#0D4B4D]">
+                  <SheetHeader className="mt-2 mb-8 text-left p-0 space-y-1">
+                    <SheetTitle className="text-xl font-extrabold text-[#0D4B4D] tracking-tight">
                       Explorar
                     </SheetTitle>
-                    <p className="text-slate-400 text-xs">
+                    <p className="text-slate-400 text-xs font-medium">
                       Todo lo que necesitas en un solo lugar
                     </p>
                   </SheetHeader>
 
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1.5">
                     {[
                       {
                         name: "Servicios",
@@ -97,12 +95,12 @@ export default function Header() {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="flex items-center gap-3 py-3 px-3 rounded-xl text-slate-700 hover:bg-slate-50 transition-all group"
+                        className="flex items-center gap-4 py-3.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 transition-all group"
                       >
-                        <div className="p-2 rounded-lg bg-slate-50 group-hover:bg-[#0D4B4D]/10 transition-colors">
-                          <item.icon size={18} className="text-[#0D4B4D]" />
+                        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-slate-50 group-hover:bg-[#0D4B4D]/10 transition-colors shrink-0">
+                          <item.icon size={20} className="text-[#0D4B4D]" />
                         </div>
-                        <span className="text-base font-semibold">
+                        <span className="text-base font-bold tracking-tight">
                           {item.name}
                         </span>
                       </a>
@@ -111,9 +109,9 @@ export default function Header() {
                 </div>
 
                 {/* Bottom Section: Socials + Auth */}
-                <div className="pt-4 space-y-6">
-                  <div className="pt-4 border-t border-slate-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+                <div className="pt-6 space-y-6">
+                  <div className="pt-6 border-t border-slate-100">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4 ml-1">
                       Síguenos
                     </p>
                     <div className="flex gap-4">
@@ -121,9 +119,9 @@ export default function Header() {
                         <a
                           key={i}
                           href="#"
-                          className="p-2.5 rounded-full bg-slate-50 text-slate-600 hover:bg-[#0D4B4D] hover:text-white transition-all"
+                          className="flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 text-slate-600 hover:bg-[#0D4B4D] hover:text-white transition-all shadow-sm"
                         >
-                          <Icon size={18} />
+                          <Icon size={20} />
                         </a>
                       ))}
                     </div>
@@ -131,7 +129,7 @@ export default function Header() {
 
                   <Button
                     variant="outline"
-                    className="w-full py-5 rounded-xl border-2 border-slate-100 text-[#0D4B4D] font-bold active:scale-95 transition-all text-base bg-white"
+                    className="w-full py-6 rounded-2xl border-2 border-slate-100 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-white hover:bg-slate-50 hover:border-slate-200"
                   >
                     Iniciar sesión
                   </Button>
