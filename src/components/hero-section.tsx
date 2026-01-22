@@ -182,7 +182,7 @@ export default function Hero() {
                 words={[
                   "consulta médica",
                   "Excusa Medica",
-                  "Refill de recetas",
+                  "Pureba Covid",
                 ]}
                 className="inline"
                 loop={false}
