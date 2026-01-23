@@ -95,8 +95,8 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
                     opacity: isMobile ? (isActiveOnMobile ? 1 : 0.4) : 1,
                   }}
                   transition={{
-                    duration: 0.6,
-                    ease: [0.32, 0.72, 0, 1], // Quintic out for premium smoothness
+                    duration: isMobile ? 0.6 : 0.8,
+                    ease: isMobile ? [0.32, 0.72, 0, 1] : "easeInOut",
                   }}
                   className="h-full"
                 >
