@@ -41,7 +41,7 @@ export function ServiceCard({
       initial="initial"
       whileHover="hover"
       animate={isActive ? "hover" : "initial"}
-      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[500px] lg:h-[580px] cursor-pointer shadow-xl transition-all duration-500"
+      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[500px] lg:h-[580px] cursor-pointer shadow-xl"
     >
       {/* Background Image Container */}
       <motion.div
@@ -66,46 +66,44 @@ export function ServiceCard({
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 z-30">
-        <motion.div
-          className="flex flex-col gap-4"
-          initial="initial"
-          animate={isActive ? "hover" : "initial"}
-          whileHover="hover"
-        >
-          <div className="space-y-2">
-            <motion.h3
-              variants={{
-                initial: { y: 0 },
-                hover: { y: 0 },
-              }}
-              className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm"
-            >
+        <div className="flex flex-col gap-4">
+          <div className="space-y-3">
+            <h3 className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
               {title}
-            </motion.h3>
-
+            </h3>
             <motion.div
-              variants={{
-                initial: { opacity: 0, height: 0, marginTop: 0 },
-                hover: { opacity: 1, height: "auto", marginTop: 8 },
+              layout="size"
+              initial={false}
+              animate={{ opacity: isActive ? 1 : 0 }}
+              transition={{
+                opacity: {
+                  duration: 0.4,
+                  delay: isActive ? 0.1 : 0,
+                },
+                layout: {
+                  duration: 0.6,
+                  ease: [0.32, 0.72, 0, 1],
+                },
               }}
-              transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
               className="overflow-hidden"
             >
-              <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
-                {description}
-              </p>
+              <div className="pt-3 pb-1">
+                <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
+                  {description}
+                </p>
+              </div>
             </motion.div>
           </div>
 
           <div className="pt-2">
-            <button className="group/btn relative w-full flex items-center justify-between px-6 py-4 rounded-3xl font-bold text-sm transition-all duration-500 shadow-lg bg-white/20 backdrop-blur-xl text-white border border-white/20 hover:bg-white/30">
+            <button className="group/btn relative w-full flex items-center justify-between px-6 py-4 rounded-3xl font-bold text-sm transition-colors duration-300 shadow-lg bg-white/20 backdrop-blur-xl text-white border border-white/20 hover:bg-white/30">
               <span className="relative z-10">Reservar ahora</span>
               <div className="w-8 h-8 rounded-full flex items-center justify-center transition-colors bg-white/20">
                 <RiShoppingBag4Fill className="w-4 h-4 text-white" />
               </div>
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Subtle border for active card like image highlight */}
