@@ -153,20 +153,20 @@ export default function Hero() {
   return (
     <main
       ref={containerRef}
-      className="relative w-full min-h-[750px] lg:min-h-[750px] flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
-      <div className="absolute inset-0 -top-40 opacity-40 pointer-events-none z-0 lg:hidden">
+      <div className="absolute top-0 left-0 w-full h-full opacity-50 pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full blur-[100px]"
+          containerClassName="h-full w-full blur-2xl"
           firstColor="30, 210, 150" // Emerald
           secondColor="52, 211, 153" // Emerald 400
           thirdColor="20, 184, 166" // Teal 600
           fourthColor="16, 185, 129" // Emerald 500
           fifthColor="209, 250, 229" // Emerald 100 (Soft Mint)
           pointerColor="30, 210, 150"
-          size="100%"
+          size="40%"
           blendingValue="hard-light"
-          interactive={true}
+          interactive={false}
         />
       </div>
 
