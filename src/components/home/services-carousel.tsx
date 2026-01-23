@@ -59,21 +59,27 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
     };
   }, [api]);
 
-  const handleScrollbarDrag = useCallback((e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
-    if (!api || !scrollbarRef.current) return;
+  const handleScrollbarDrag = useCallback(
+    (e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
+      if (!api || !scrollbarRef.current) return;
 
-    const rect = scrollbarRef.current.getBoundingClientRect();
-    const clickX = 'clientX' in e ? e.clientX - rect.left : 0;
-    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
-    const targetIndex = Math.round(percentage * (count - 1));
+      const rect = scrollbarRef.current.getBoundingClientRect();
+      const clickX = "clientX" in e ? e.clientX - rect.left : 0;
+      const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+      const targetIndex = Math.round(percentage * (count - 1));
 
-    api.scrollTo(targetIndex);
-  }, [api, count]);
+      api.scrollTo(targetIndex);
+    },
+    [api, count],
+  );
 
-  const handleScrollbarMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    handleScrollbarDrag(e);
-  }, [handleScrollbarDrag]);
+  const handleScrollbarMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      setIsDragging(true);
+      handleScrollbarDrag(e);
+    },
+    [handleScrollbarDrag],
+  );
 
   useEffect(() => {
     if (!isDragging) return;
@@ -111,11 +117,11 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       <Carousel
         setApi={setApi}
         opts={{
-          align: "center", // Center for mobile visuals
-          loop: false, // Prevents the 'weird return' at the end
+          align: "center",
+          loop: false,
           breakpoints: {
             "(min-width: 1024px)": {
-              align: "start", // Grid start for desktop
+              align: "start",
               slidesToScroll: 3,
             },
             "(min-width: 640px)": {
@@ -128,8 +134,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       >
         <CarouselContent className="-ml-2 px-4 md:px-0 lg:-ml-6">
           {services.map((service, index) => {
-            // Logic for focus:
-            // Mobile: The 'current' snap index matches the item index.
             const isActiveOnMobile = index === current;
 
             return (

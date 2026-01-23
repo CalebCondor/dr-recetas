@@ -72,7 +72,7 @@ export function ServiceCard({
         <div className="flex flex-col gap-4">
           <div className="">
             {isMobile ? (
-              <h3 className="font-black text-white text-2xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
+              <h3 className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
                 {title}
               </h3>
             ) : (
