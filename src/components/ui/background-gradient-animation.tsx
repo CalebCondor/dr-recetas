@@ -129,7 +129,7 @@ export const BackgroundGradientAnimation = ({
     <div
       ref={containerRef}
       className={cn(
-        "h-screen w-screen relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] pointer-events-none",
+        "h-full w-full relative top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] pointer-events-none",
         containerClassName,
       )}
     >
@@ -151,7 +151,7 @@ export const BackgroundGradientAnimation = ({
           </filter>
         </defs>
       </svg>
-      <div className={cn("", className)}>{children}</div>
+      <div className={cn(className)}>{children}</div>
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg",
@@ -187,7 +187,7 @@ export const BackgroundGradientAnimation = ({
         ></div>
         <div
           className={cn(
-            `absolute[background:radial-gradient(circle_at_center,rgba(var(--fifth-color),1)_0,rgba(var(--fifth-color),0)_50%)_no-repeat] [background:radial-gradient(circle_at_center,_rgba(var(--fourth-color),_1)_0,_rgba(var(--fourth-color),_0)_50%)_no-repeat]`,
+            `absolute [background:radial-gradient(circle_at_center,_rgba(var(--fourth-color),_1)_0,_rgba(var(--fourth-color),_0)_50%)_no-repeat]`,
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[10%] left-[30%]`,
             `[transform-origin:calc(50%-200px)]`,
             `animate-fourth`,
