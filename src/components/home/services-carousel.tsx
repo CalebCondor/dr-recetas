@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -23,6 +23,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   const [count, setCount] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
+  const scrollbarRef = useRef<HTMLDivElement>(null);
 
   // Detect layout for specific mobile behaviors
   useEffect(() => {
@@ -58,52 +59,50 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
     };
   }, [api]);
 
-  const handleScrollbarDrag = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!api) return;
+  const handleScrollbarDrag = useCallback((e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
+    if (!api || !scrollbarRef.current) return;
 
-    const scrollbar = e.currentTarget;
-    const rect = scrollbar.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
+    const rect = scrollbarRef.current.getBoundingClientRect();
+    const clickX = 'clientX' in e ? e.clientX - rect.left : 0;
     const percentage = Math.max(0, Math.min(1, clickX / rect.width));
     const targetIndex = Math.round(percentage * (count - 1));
 
     api.scrollTo(targetIndex);
-  };
+  }, [api, count]);
 
-  const handleScrollbarMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleScrollbarMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
     handleScrollbarDrag(e);
-  };
+  }, [handleScrollbarDrag]);
 
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const scrollbars = document.querySelectorAll('[data-carousel-scrollbar]');
-      scrollbars.forEach(scrollbar => {
-        const rect = (scrollbar as HTMLElement).getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const percentage = Math.max(0, Math.min(1, clickX / rect.width));
-        const targetIndex = Math.round(percentage * (count - 1));
+    let throttleTimer: ReturnType<typeof setTimeout> | null = null;
 
-        if (api) {
-          api.scrollTo(targetIndex);
-        }
-      });
+    const handleMouseMove = (e: MouseEvent) => {
+      if (throttleTimer) return;
+
+      throttleTimer = setTimeout(() => {
+        handleScrollbarDrag(e);
+        throttleTimer = null;
+      }, 16);
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      if (throttleTimer) clearTimeout(throttleTimer);
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
     document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      if (throttleTimer) clearTimeout(throttleTimer);
     };
-  }, [isDragging, api, count]);
+  }, [isDragging, handleScrollbarDrag]);
 
   const scrollbarPercentage = count > 0 ? (current / (count - 1)) * 100 : 0;
 
@@ -145,8 +144,8 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
                     opacity: isMobile ? (isActiveOnMobile ? 1 : 0.4) : 1,
                   }}
                   transition={{
-                    duration: isMobile ? 0.6 : 0.8,
-                    ease: isMobile ? [0.32, 0.72, 0, 1] : "easeInOut",
+                    duration: 0.3,
+                    ease: "easeInOut",
                   }}
                   className="h-full"
                 >
@@ -190,7 +189,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
           >
             <motion.div
               animate={{ left: `${scrollbarPercentage}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-teal-600 rounded-full shadow-lg group-hover:w-8 group-hover:h-8 transition-all duration-200"
             />
           </div>

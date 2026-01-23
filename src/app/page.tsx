@@ -49,27 +49,27 @@ const services = [
     imageSrc: "/citas-medicas/3.png",
     imageAlt: "Consultas médicas",
   },
-  // {
-  //   title: "Salud y bienestar",
-  //   description:
-  //     "Programas preventivos y de cuidado integral diseñados para mejorar tu calidad de vida y mantener un control riguroso de tu salud.",
-  //   imageSrc: "/citas-medicas/1.png",
-  //   imageAlt: "Salud y bienestar",
-  // },
-  // {
-  //   title: "Para él",
-  //   description:
-  //     "Servicios preventivos y diagnósticos especializados en salud masculina, enfocados en el bienestar integral y rendimiento óptimo.",
-  //   imageSrc: "/citas-medicas/2.png",
-  //   imageAlt: "Para él",
-  // },
-  // {
-  //   title: "Para ella",
-  //   description:
-  //     "Atención médica personalizada y servicios especializados para las necesidades de salud femenina, brindando soluciones preventivas y cuidado continuo.",
-  //   imageSrc: "/citas-medicas/3.png",
-  //   imageAlt: "Para ella",
-  // },
+  {
+    title: "Salud y bienestar",
+    description:
+      "Programas preventivos y de cuidado integral diseñados para mejorar tu calidad de vida y mantener un control riguroso de tu salud.",
+    imageSrc: "/citas-medicas/1.png",
+    imageAlt: "Salud y bienestar",
+  },
+  {
+    title: "Para él",
+    description:
+      "Servicios preventivos y diagnósticos especializados en salud masculina, enfocados en el bienestar integral y rendimiento óptimo.",
+    imageSrc: "/citas-medicas/2.png",
+    imageAlt: "Para él",
+  },
+  {
+    title: "Para ella",
+    description:
+      "Atención médica personalizada y servicios especializados para las necesidades de salud femenina, brindando soluciones preventivas y cuidado continuo.",
+    imageSrc: "/citas-medicas/3.png",
+    imageAlt: "Para ella",
+  },
 ];
 
 export default function Home() {
