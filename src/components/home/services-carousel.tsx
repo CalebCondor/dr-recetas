@@ -15,6 +15,7 @@ interface Service {
   description: string;
   imageSrc: string;
   imageAlt: string;
+  href?: string;
 }
 
 export function ServicesCarousel({ services }: { services: Service[] }) {
@@ -29,8 +30,18 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkMobile, 150);
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimer) clearTimeout(resizeTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -148,10 +159,11 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
                     opacity: isMobile ? (isActiveOnMobile ? 1 : 0.4) : 1,
                   }}
                   transition={{
-                    duration: 0.3,
+                    duration: isMobile ? 0.15 : 0.3,
                     ease: "easeInOut",
                   }}
-                  className="h-full"
+                  className="h-full will-change-transform"
+                  style={{ backfaceVisibility: "hidden" }}
                 >
                   <ServiceCard
                     {...service}
@@ -170,10 +182,10 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
               <button
                 key={i}
                 onClick={() => api?.scrollTo(i)}
-                className={`transition-all duration-500 h-2 rounded-full ${
+                className={`h-2 rounded-full ${
                   i === current
-                    ? "bg-teal-600 w-8"
-                    : "bg-teal-600/20 w-2 hover:bg-teal-600/40"
+                    ? "bg-teal-600 w-8 transition-all duration-200"
+                    : "bg-teal-600/20 w-2 transition-all duration-200 hover:bg-teal-600/40"
                 }`}
                 aria-label={`Ir a sección ${i + 1}`}
               />
@@ -193,8 +205,9 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
           >
             <motion.div
               animate={{ left: `${scrollbarPercentage}%` }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-teal-600 rounded-full shadow-lg group-hover:w-8 group-hover:h-8 transition-all duration-200"
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-teal-600 rounded-full shadow-lg group-hover:w-8 group-hover:h-8 transition-all duration-200 will-change-transform"
+              style={{ backfaceVisibility: "hidden" }}
             />
           </div>
         </div>

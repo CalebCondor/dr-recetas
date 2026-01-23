@@ -17,12 +17,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <header className="w-full absolute top-0 left-0 z-50">
       <div className="w-full px-6 md:px-12 lg:px-[8%] py-4 lg:py-10 flex items-center justify-between">
-        <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
+        <Link href="/">
+          <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-12">

@@ -27,50 +27,15 @@ const BenefitsSection = dynamic(() =>
   ),
 );
 
-const services = [
-  {
-    title: "Ordenes médicas",
-    description:
-      "Obtén de forma digital tus órdenes para Laboratorios, Rayos X, CT Scan, MRI y más, con entrega inmediata a tu correo electrónico.",
-    imageSrc: "/citas-medicas/1.png",
-    imageAlt: "Ordenes médicas",
-  },
-  {
-    title: "Certificados médicos",
-    description:
-      "Emisión rápida de certificados de salud oficiales para procesos de empleo, estudios, deportes o viajes, validados por médicos expertos.",
-    imageSrc: "/citas-medicas/2.png",
-    imageAlt: "Certificados médicos",
-  },
-  {
-    title: "Consultas médicas",
-    description:
-      "Accede a atención médica general y primaria de alta calidad desde la comodidad de tu hogar, sin largas filas ni salas de espera.",
-    imageSrc: "/citas-medicas/3.png",
-    imageAlt: "Consultas médicas",
-  },
-  {
-    title: "Salud y bienestar",
-    description:
-      "Programas preventivos y de cuidado integral diseñados para mejorar tu calidad de vida y mantener un control riguroso de tu salud.",
-    imageSrc: "/citas-medicas/1.png",
-    imageAlt: "Salud y bienestar",
-  },
-  {
-    title: "Para él",
-    description:
-      "Servicios preventivos y diagnósticos especializados en salud masculina, enfocados en el bienestar integral y rendimiento óptimo.",
-    imageSrc: "/citas-medicas/2.png",
-    imageAlt: "Para él",
-  },
-  {
-    title: "Para ella",
-    description:
-      "Atención médica personalizada y servicios especializados para las necesidades de salud femenina, brindando soluciones preventivas y cuidado continuo.",
-    imageSrc: "/citas-medicas/3.png",
-    imageAlt: "Para ella",
-  },
-];
+import { servicesData } from "@/lib/services-data";
+
+const services = servicesData.map((service) => ({
+  title: service.title,
+  description: service.description,
+  imageSrc: service.imageSrc,
+  imageAlt: service.imageAlt,
+  href: `/servicios/${service.slug}`,
+}));
 
 export default function Home() {
   return (
