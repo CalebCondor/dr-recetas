@@ -22,6 +22,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Detect layout for specific mobile behaviors
   useEffect(() => {
@@ -56,6 +57,55 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       api.off("reInit", handleReInit);
     };
   }, [api]);
+
+  const handleScrollbarDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!api) return;
+
+    const scrollbar = e.currentTarget;
+    const rect = scrollbar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+    const targetIndex = Math.round(percentage * (count - 1));
+
+    api.scrollTo(targetIndex);
+  };
+
+  const handleScrollbarMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    handleScrollbarDrag(e);
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const scrollbars = document.querySelectorAll('[data-carousel-scrollbar]');
+      scrollbars.forEach(scrollbar => {
+        const rect = (scrollbar as HTMLElement).getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+        const targetIndex = Math.round(percentage * (count - 1));
+
+        if (api) {
+          api.scrollTo(targetIndex);
+        }
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, api, count]);
+
+  const scrollbarPercentage = count > 0 ? (current / (count - 1)) * 100 : 0;
 
   return (
     <div className="-mx-6 lg:mx-0">
@@ -128,6 +178,24 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
           </div>
         )}
       </Carousel>
+
+      {/* Horizontal Scrollbar - Desktop only */}
+      {count > 1 && !isMobile && (
+        <div className="mt-8 px-4 lg:px-0">
+          <div
+            data-carousel-scrollbar
+            onMouseDown={handleScrollbarMouseDown}
+            onClick={handleScrollbarDrag}
+            className="relative w-full h-2 bg-gray-300/30 rounded-full cursor-pointer group"
+          >
+            <motion.div
+              animate={{ left: `${scrollbarPercentage}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-teal-600 rounded-full shadow-lg group-hover:w-8 group-hover:h-8 transition-all duration-200"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
