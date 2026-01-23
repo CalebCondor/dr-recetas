@@ -34,17 +34,27 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   useEffect(() => {
     if (!api) return;
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-
-    api.on("reInit", () => {
+    // Set initial values only after api is available
+    const handleReInit = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
-    });
+    };
+
+    const handleSelect = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    // Initialize state
+    handleReInit();
+
+    api.on("select", handleSelect);
+    api.on("reInit", handleReInit);
+
+    // Cleanup listeners on unmount or api change
+    return () => {
+      api.off("select", handleSelect);
+      api.off("reInit", handleReInit);
+    };
   }, [api]);
 
   return (
