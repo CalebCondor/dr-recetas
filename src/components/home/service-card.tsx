@@ -20,7 +20,6 @@ export function ServiceCard({
   imageAlt,
   isActive = false,
 }: ServiceCardProps) {
-
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -69,12 +68,22 @@ export function ServiceCard({
       </motion.div>
 
       {/* Bottom Content Area */}
-      <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 z-30">
+      <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10 z-30">
         <div className="flex flex-col gap-4">
-          <div className="space-y-3">
-            <h3 className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
-              {title}
-            </h3>
+          <div className="">
+            {isMobile ? (
+              <h3 className="font-black text-white text-2xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
+                {title}
+              </h3>
+            ) : (
+              <motion.h3
+                animate={shouldShowContent ? { y: -5 } : { y: 0 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+                className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm"
+              >
+                {title}
+              </motion.h3>
+            )}
             {isMobile ? (
               <motion.div
                 layout="size"
@@ -92,7 +101,7 @@ export function ServiceCard({
                 }}
                 className="overflow-hidden"
               >
-                <div className="pt-3 pb-1">
+                <div className="pb-2">
                   <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
                     {description}
                   </p>
@@ -101,9 +110,13 @@ export function ServiceCard({
             ) : (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={shouldShowContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                style={{ pointerEvents: shouldShowContent ? 'auto' : 'none' }}
+                animate={
+                  shouldShowContent
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 20 }
+                }
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+                style={{ pointerEvents: shouldShowContent ? "auto" : "none" }}
               >
                 {shouldShowContent && (
                   <div className="pt-3 pb-1">
