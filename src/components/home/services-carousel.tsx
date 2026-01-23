@@ -7,6 +7,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { motion } from "motion/react";
 import { ServiceCard } from "@/components/home/service-card";
 
 interface Service {
@@ -19,22 +20,31 @@ interface Service {
 export function ServicesCarousel({ services }: { services: Service[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+  const [isMobile, setIsMobile] = useState(true);
+
+  // Detect layout for specific mobile behaviors
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!api) return;
 
-    const onSelect = () => {
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
-    };
+    });
 
-    onSelect();
-    api.on("select", onSelect);
-    api.on("reInit", onSelect);
-
-    return () => {
-      api.off("select", onSelect);
-      api.off("reInit", onSelect);
-    };
+    api.on("reInit", () => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap());
+    });
   }, [api]);
 
   return (
@@ -42,64 +52,71 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       <Carousel
         setApi={setApi}
         opts={{
-          align: "center",
-          loop: true,
+          align: "center", // Center for mobile visuals
+          loop: false, // Prevents the 'weird return' at the end
+          breakpoints: {
+            "(min-width: 1024px)": {
+              align: "start", // Grid start for desktop
+              slidesToScroll: 3,
+            },
+            "(min-width: 640px)": {
+              align: "center",
+              slidesToScroll: 1,
+            },
+          },
         }}
         className="w-full"
       >
         <CarouselContent className="-ml-2 px-4 md:px-0 lg:-ml-6">
           {services.map((service, index) => {
-            // Calculate circular distance and relative index for direction
-            const len = services.length;
-            let relativeIndex = index - current;
-            if (relativeIndex > len / 2) relativeIndex -= len;
-            else if (relativeIndex < -len / 2) relativeIndex += len;
-
-            // distance handles the absolute proximity (0 = center, 1 = neighbor)
-            const distance = Math.abs(relativeIndex);
-
-            // User request: "Blur only on the right side"
-            // We define "right side blur" as items strictly to the right (> 1)
-            // Items on the left (< 0) or immedate neighbors (<= 1) are clear
-            const shouldBlur = relativeIndex > 1;
+            // Logic for focus:
+            // Mobile: The 'current' snap index matches the item index.
+            const isActiveOnMobile = index === current;
 
             return (
               <CarouselItem
                 key={index}
-                className="pl-2 lg:pl-6 basis-[85%] sm:basis-[50%] lg:basis-[28%] transition-all duration-500"
+                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3"
               >
-                <div
-                  className={`transition-all duration-700 h-full ${
-                    // Mobile: Solo el centro al 100%
-                    distance === 0
-                      ? "scale-100 opacity-100"
-                      : "scale-90 opacity-40"
-                  } ${
-                    // Desktop: Solo difuminar el lado derecho lejano (>1)
-                    // El lado izquierdo y los vecinos inmediatos se mantienen claros
-                    shouldBlur
-                      ? "lg:scale-90 lg:opacity-40 lg:blur-md"
-                      : "lg:scale-100 lg:opacity-100 lg:blur-0"
-                  }`}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    scale: isMobile ? (isActiveOnMobile ? 1 : 0.9) : 1,
+                    opacity: isMobile ? (isActiveOnMobile ? 1 : 0.4) : 1,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.32, 0.72, 0, 1], // Quintic out for premium smoothness
+                  }}
+                  className="h-full"
                 >
-                  <ServiceCard {...service} isActive={distance === 0} />
-                </div>
+                  <ServiceCard
+                    {...service}
+                    isActive={isMobile ? isActiveOnMobile : false}
+                  />
+                </motion.div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
-        <div className="flex justify-center gap-3 mt-10">
-          {services.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => api?.scrollTo(i)}
-              className={`transition-all duration-500 h-2 rounded-full ${
-                i === current ? "bg-teal-600 w-8" : "bg-teal-600/20 w-2"
-              }`}
-              aria-label={`Ir a servicio ${i + 1}`}
-            />
-          ))}
-        </div>
+
+        {/* Navigation Dots */}
+        {count > 1 && (
+          <div className="flex justify-center gap-3 mt-10">
+            {Array.from({ length: count }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => api?.scrollTo(i)}
+                className={`transition-all duration-500 h-2 rounded-full ${
+                  i === current
+                    ? "bg-teal-600 w-8"
+                    : "bg-teal-600/20 w-2 hover:bg-teal-600/40"
+                }`}
+                aria-label={`Ir a sección ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </Carousel>
     </div>
   );
