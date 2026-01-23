@@ -20,11 +20,12 @@ export function ServiceCard({
   imageAlt,
   isActive = false,
 }: ServiceCardProps) {
+
   const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
-      // Usamos 1024 para consistencia con lg en Tailwind
       setIsMobile(window.innerWidth < 1024);
     };
     checkMobile();
@@ -32,9 +33,10 @@ export function ServiceCard({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Determine if we should show content ("hover" state)
-  // Show if: Hovered OR Active (Center) OR Mobile View (always visible)
-  const shouldShowContent = isActive;
+  // Mostrar contenido si:
+  // - En mobile: isActive (central)
+  // - En desktop: hover
+  const shouldShowContent = isMobile ? isActive : isHovered;
 
   return (
     <motion.div
@@ -42,6 +44,8 @@ export function ServiceCard({
       whileHover="hover"
       animate={isActive ? "hover" : "initial"}
       className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[500px] lg:h-[580px] cursor-pointer shadow-xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background Image Container */}
       <motion.div
@@ -71,28 +75,45 @@ export function ServiceCard({
             <h3 className="font-black text-white text-3xl lg:text-4xl leading-tight tracking-tight drop-shadow-sm">
               {title}
             </h3>
-            <motion.div
-              layout="size"
-              initial={false}
-              animate={{ opacity: isActive ? 1 : 0 }}
-              transition={{
-                opacity: {
-                  duration: 0.4,
-                  delay: isActive ? 0.1 : 0,
-                },
-                layout: {
-                  duration: 0.6,
-                  ease: [0.32, 0.72, 0, 1],
-                },
-              }}
-              className="overflow-hidden"
-            >
-              <div className="pt-3 pb-1">
-                <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
-                  {description}
-                </p>
-              </div>
-            </motion.div>
+            {isMobile ? (
+              <motion.div
+                layout="size"
+                initial={false}
+                animate={{ opacity: shouldShowContent ? 1 : 0 }}
+                transition={{
+                  opacity: {
+                    duration: 0.4,
+                    delay: shouldShowContent ? 0.1 : 0,
+                  },
+                  layout: {
+                    duration: 0.6,
+                    ease: [0.32, 0.72, 0, 1],
+                  },
+                }}
+                className="overflow-hidden"
+              >
+                <div className="pt-3 pb-1">
+                  <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
+                    {description}
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={shouldShowContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+                style={{ pointerEvents: shouldShowContent ? 'auto' : 'none' }}
+              >
+                {shouldShowContent && (
+                  <div className="pt-3 pb-1">
+                    <p className="text-sm lg:text-base font-medium leading-relaxed text-white/90">
+                      {description}
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            )}
           </div>
 
           <div className="pt-2">
