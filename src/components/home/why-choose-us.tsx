@@ -41,7 +41,10 @@ function WhyChooseUsContent() {
   }, []);
 
   return (
-    <section className="relative py-20 lg:py-32" aria-labelledby="why-choose-us-title">
+    <section
+      className="relative py-20 lg:py-32"
+      aria-labelledby="why-choose-us-title"
+    >
       {/* Centered Background Gradient - Subdued version */}
       <div className="absolute inset-0 -top-40 opacity-40 pointer-events-none z-0">
         <BackgroundGradientAnimation
@@ -52,7 +55,7 @@ function WhyChooseUsContent() {
           fourthColor="40, 240, 180"
           fifthColor="200, 255, 240"
           pointerColor="60, 130, 255"
-          size="100%"
+          size="80%"
           blendingValue="hard-light"
           interactive={isInteractive}
         />
@@ -67,7 +70,10 @@ function WhyChooseUsContent() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h2 id="why-choose-us-title" className="text-4xl font-bold text-teal-900 mb-6 tracking-tight">
+            <h2
+              id="why-choose-us-title"
+              className="text-4xl font-bold text-teal-900 mb-6 tracking-tight"
+            >
               ¿Por qué elegirnos?
             </h2>
 
@@ -115,7 +121,7 @@ function WhyChooseUsContent() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative h-[450px] w-full overflow-hidden rounded-[2.5rem] shadow-2xl border-4 border-white/50">
+            <div className="relative h-[450px] w-full overflow-hidden rounded-[2.5rem] shadow-2xl">
               <Image
                 src="/meet.png"
                 alt="Medical consultation via video"
@@ -128,9 +134,6 @@ function WhyChooseUsContent() {
               {/* Refined Gradient Overlay */}
               <div className="absolute inset-0 bg-linear-to-br from-teal-400/10 via-transparent to-blue-400/10" />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-teal-100/50 rounded-full blur-3xl -z-10" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -z-10" />
           </motion.div>
         </div>
       </div>
@@ -143,7 +146,8 @@ function WhyChooseUsContent() {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Doctor Recetas",
-            description: "Compañía puertorriqueña de servicios médicos establecida en 2020",
+            description:
+              "Compañía puertorriqueña de servicios médicos establecida en 2020",
             founded: "2020",
             areaServed: "Puerto Rico",
             knowsAbout: ["Medical Services", "Telemedicine", "Healthcare"],

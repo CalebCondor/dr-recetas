@@ -155,17 +155,17 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
-      <div className="absolute top-0 left-0 w-full h-full opacity-50 pointer-events-none z-0 lg:hidden">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="h-full w-full blur-1xl"
-          firstColor="59, 130, 246" // Blue 500
-          secondColor="96, 165, 250" // Blue 400
-          thirdColor="56, 189, 248" // Sky 400
-          fourthColor="14, 165, 233" // Sky 500
-          fifthColor="224, 242, 254" // Sky 100 (muy suave)
-          pointerColor="59, 130, 246"
-          size="100%"
-          blendingValue="hard-light"
+          containerClassName="h-full w-full"
+          firstColor="16, 185, 129" // Emerald 500
+          secondColor="5, 150, 105" // Emerald 600
+          thirdColor="20, 184, 166" // Teal 500
+          fourthColor="13, 148, 136" // Teal 600
+          fifthColor="52, 211, 153" // Emerald 400
+          pointerColor="16, 185, 129"
+          size="120%"
+          blendingValue="screen"
           interactive={false}
         />
       </div>
@@ -177,7 +177,7 @@ export default function Hero() {
           <h1 className="text-[2.4rem] leading-[1.1] sm:text-3xl md:text-6xl lg:text-[2.5rem] xl:text-[2rem] 2xl:text-[3rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
             <br className="block lg:hidden" />{" "}
-            <span className="text-[#00FF8C]">
+            <span className="text-[#3499EA] md:text-[#00FF8C]">
               <TypingAnimation
                 words={["consulta médica", "Excusa Medica", "Prueba Covid"]}
                 className="inline"
@@ -240,7 +240,7 @@ export default function Hero() {
                       <div
                         className={`
                           relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
-                          transition-all duration-500 bg-white flex flex-col justify-center min-h-[80px]
+                          transition-all duration-500 bg-white flex flex-col justify-center min-h-[70px]
                           ${isActive ? "shadow-2xl ring-1 ring-black/5" : "shadow-sm"}
                         `}
                       >

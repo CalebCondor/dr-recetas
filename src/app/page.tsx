@@ -27,17 +27,33 @@ const BenefitsSection = dynamic(() =>
   ),
 );
 
-import { servicesData } from "@/lib/services-data";
+interface Category {
+  id: number;
+  nombre: string;
+  tipo: number;
+  tag: string;
+  lead: string;
+  imagen: string;
+}
 
-const services = servicesData.map((service) => ({
-  title: service.title,
-  description: service.description,
-  imageSrc: service.imageSrc,
-  imageAlt: service.imageAlt,
-  href: `/servicios/${service.slug}`,
-}));
+async function getCategories() {
+  const res = await fetch("https://doctorrecetas.com/v3/api_categorias.php", {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
 
-export default function Home() {
+export default async function Home() {
+  const categories = await getCategories();
+
+  const services = categories.map((cat: Category) => ({
+    title: cat.nombre,
+    description: cat.lead,
+    imageSrc: cat.imagen,
+    imageAlt: cat.nombre,
+    href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
+  }));
   return (
     <PageWrapper>
       <Hero />
