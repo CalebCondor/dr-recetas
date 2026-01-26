@@ -84,14 +84,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
     [api, count],
   );
 
-  const handleScrollbarMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      setIsDragging(true);
-      handleScrollbarDrag(e);
-    },
-    [handleScrollbarDrag],
-  );
-
   useEffect(() => {
     if (!isDragging) return;
 
@@ -120,8 +112,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       if (throttleTimer) clearTimeout(throttleTimer);
     };
   }, [isDragging, handleScrollbarDrag]);
-
-  const scrollbarPercentage = count > 0 ? (current / (count - 1)) * 100 : 0;
 
   return (
     <div className="-mx-6 lg:mx-0">
@@ -193,25 +183,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
           </div>
         )}
       </Carousel>
-
-      {/* Horizontal Scrollbar - Desktop only */}
-      {count > 1 && !isMobile && (
-        <div className="mt-8 px-4 lg:px-0">
-          <div
-            data-carousel-scrollbar
-            onMouseDown={handleScrollbarMouseDown}
-            onClick={handleScrollbarDrag}
-            className="relative w-full h-2 bg-gray-300/30 rounded-full cursor-pointer group"
-          >
-            <motion.div
-              animate={{ left: `${scrollbarPercentage}%` }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-teal-600 rounded-full shadow-lg group-hover:w-8 group-hover:h-8 transition-all duration-200 will-change-transform"
-              style={{ backfaceVisibility: "hidden" }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
