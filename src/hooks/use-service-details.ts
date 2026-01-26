@@ -57,6 +57,20 @@ export function useServiceDetails(slug: string) {
 
       let currentServiceInfo: ServiceData | null = localServiceInfo || null;
 
+      if (slug === "otros") {
+        currentServiceInfo = {
+          id: "otros",
+          slug: "otros",
+          title: "Otros Servicios",
+          description: "Explora nuestra amplia gama de servicios médicos adicionales.",
+          longDescription: "En Doctor Recetas ofrecemos una variedad de servicios complementarios para cubrir todas tus necesidades de salud.",
+          imageSrc: "/citas-medicas/1.png",
+          imageAlt: "Otros Servicios",
+          apiTag: "ALL",
+          accordionItems: [],
+        };
+      }
+
       if (!currentServiceInfo) {
         const catMatch = fetchedCats.find(
           (c) =>
@@ -89,31 +103,35 @@ export function useServiceDetails(slug: string) {
           });
         });
 
-        const targetTag = currentServiceInfo.apiTag;
+        if (slug === "otros") {
+          relevantItems = flattenedItems;
+        } else {
+          const targetTag = currentServiceInfo.apiTag;
 
-        if (targetTag) {
-          relevantItems = flattenedItems.filter((item) => {
-            const hasTag = item.pq_tag
-              ?.split(",")
-              .map((t) => t.trim().toLowerCase())
-              .includes(targetTag.toLowerCase());
+          if (targetTag) {
+            relevantItems = flattenedItems.filter((item) => {
+              const hasTag = item.pq_tag
+                ?.split(",")
+                .map((t) => t.trim().toLowerCase())
+                .includes(targetTag.toLowerCase());
 
-            const isInCategory =
-              item.category?.toLowerCase() ===
-              currentServiceInfo!.title.toLowerCase();
+              const isInCategory =
+                item.category?.toLowerCase() ===
+                currentServiceInfo!.title.toLowerCase();
 
-            return hasTag || isInCategory;
-          });
-        }
+              return hasTag || isInCategory;
+            });
+          }
 
-        if (relevantItems.length === 0) {
-          relevantItems = flattenedItems.filter((item) => {
-            const titleMatch = item.titulo
-              .toLowerCase()
-              .includes(currentServiceInfo!.title.toLowerCase());
-            const slugMatch = item.slug.includes(slug);
-            return titleMatch || slugMatch;
-          });
+          if (relevantItems.length === 0) {
+            relevantItems = flattenedItems.filter((item) => {
+              const titleMatch = item.titulo
+                .toLowerCase()
+                .includes(currentServiceInfo!.title.toLowerCase());
+              const slugMatch = item.slug.includes(slug);
+              return titleMatch || slugMatch;
+            });
+          }
         }
       }
 

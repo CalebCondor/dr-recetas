@@ -52,7 +52,7 @@ export default async function Home() {
     description: cat.lead,
     imageSrc: cat.imagen,
     imageAlt: cat.nombre,
-    href: `/servicios/${cat.tag.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
+    href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
   }));
   return (
     <PageWrapper>

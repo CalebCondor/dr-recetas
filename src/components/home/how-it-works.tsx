@@ -41,12 +41,7 @@ const steps: TimelineStep[] = [
   },
 ];
 
-const stepColors = [
-  "#89CBB9", // Paso 1 (Lighter)
-  "#63B1A5", // Paso 2
-  "#50A49C", // Paso 3
-  "#3C9792", // Paso 4 (Darker)
-];
+const stepColors = ["#89CBB9", "#63B1A5", "#50A49C", "#3C9792"];
 
 export function HowItWorks() {
   const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
@@ -87,7 +82,7 @@ export function HowItWorks() {
   return (
     <section className="relative py-16 lg:py-28 overflow-hidden">
       {/* Background Decorator */}
-      <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10 px-6 md:px-12 lg:px-[8%]">
+      <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10 md:px-12 lg:px-[8%]">
         <div
           className="w-full h-full rounded-[2.5rem] md:rounded-[5rem]"
           style={{
