@@ -155,17 +155,17 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
-      <div className="absolute top-0 left-0 w-full h-full opacity-50 pointer-events-none z-0 lg:hidden">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="h-full w-full blur-1xl"
-          firstColor="59, 130, 246" // Blue 500
-          secondColor="96, 165, 250" // Blue 400
-          thirdColor="56, 189, 248" // Sky 400
-          fourthColor="14, 165, 233" // Sky 500
-          fifthColor="224, 242, 254" // Sky 100 (muy suave)
-          pointerColor="59, 130, 246"
-          size="100%"
-          blendingValue="hard-light"
+          containerClassName="h-full w-full"
+          firstColor="37, 99, 235" // Blue 600 (más profundo)
+          secondColor="37, 99, 235" // Blue 500
+          thirdColor="37, 99, 235" // Sky 500
+          fourthColor="37, 99, 235" // Sky 600 (más contraste)
+          fifthColor="37, 99, 235" // Sky 300 (ya no tan lavado)
+          pointerColor="37, 99, 235"
+          size="120%"
+          blendingValue="screen"
           interactive={false}
         />
       </div>

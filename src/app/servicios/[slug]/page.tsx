@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { servicesData } from "@/lib/services-data";
 import { useParams } from "next/navigation";
 import { PageWrapper } from "@/components/page-wrapper";
@@ -9,23 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { RiArrowRightUpLine, RiLoader4Line } from "react-icons/ri";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 
-interface ApiServiceItem {
-  id: number;
-  slug: string;
-  titulo: string;
-  resumen: string;
-  detalle: string;
-  precio: string;
-  imagen: string;
-  tags: string[];
-  pq_tag: string | null;
-  url: string;
-  category?: string; // Internal helper to track which key it came from
-}
-
-interface ApiResponse {
-  [key: string]: ApiServiceItem[];
-}
+import { useServiceDetails } from "@/hooks/use-service-details";
 
 // Helper component for the Bento card
 function ServiceBentoCard({
@@ -56,7 +39,7 @@ function ServiceBentoCard({
       {/* Background Image */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center brightness-[0.7] group-hover:brightness-[0.8] transition-all duration-1000"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        style={{ backgroundImage: `url("${bgImage}")` }}
         whileHover={{ scale: 1.08 }}
       />
 
@@ -102,100 +85,53 @@ function ServiceBentoCard({
   );
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 12;
 
 export default function ServicePage() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  const [apiItems, setApiItems] = useState<ApiServiceItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { categories, apiItems, loading, serviceInfo } =
+    useServiceDetails(slug);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-
-  // Sync with local fallback data if needed, but primary is the slug
-  const serviceInfo = servicesData.find((s) => s.slug === slug);
-
-  const fetchItems = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get<ApiResponse>(
-        "https://doctorrecetas.com/v3/api.php?action=getServices",
-      );
-
-      const allData = response.data;
-      let relevantItems: ApiServiceItem[] = [];
-
-      if (serviceInfo) {
-        // Flatten all items and tag them with their category name
-        const flattenedItems: ApiServiceItem[] = [];
-        Object.entries(allData).forEach(([categoryName, items]) => {
-          items.forEach((item) => {
-            flattenedItems.push({ ...item, category: categoryName });
-          });
-        });
-
-        // Current service tag to look for
-        // Assuming serviceInfo has an 'apiTag' property for filtering
-        const targetTag = (serviceInfo as any).apiTag;
-
-        if (targetTag) {
-          relevantItems = flattenedItems.filter((item) => {
-            if (!item.pq_tag) return false;
-            // Split by comma and check if targetTag exists (case insensitive or exact)
-            const tags = item.pq_tag.split(",").map((t) => t.trim());
-            return tags.includes(targetTag);
-          });
-        }
-
-        // Fallback: If no items found by tag, try filtering by title/slug as before
-        if (relevantItems.length === 0) {
-          relevantItems = flattenedItems.filter((item) => {
-            const titleMatch = item.titulo
-              .toLowerCase()
-              .includes(serviceInfo.title.toLowerCase());
-            const slugMatch = item.slug.includes(slug);
-            return titleMatch || slugMatch;
-          });
-        }
-      }
-
-      // Final Fallback: if STILL nothing, just take the first category
-      if (relevantItems.length === 0) {
-        const firstCategoryKey = Object.keys(allData)[0];
-        relevantItems = (allData[firstCategoryKey] || []).map((item) => ({
-          ...item,
-          category: firstCategoryKey,
-        }));
-      }
-
-      setApiItems(relevantItems);
-    } catch (error) {
-      console.error("Error fetching services:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [slug, serviceInfo]);
-
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
 
   if (!serviceInfo) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-400">
-          Servicio no encontrado
-        </h1>
+      <div className="min-h-screen flex items-center justify-center bg-[#F5F7F6]">
+        {loading ? (
+          <RiLoader4Line className="w-12 h-12 text-teal-600 animate-spin" />
+        ) : (
+          <h1 className="text-2xl font-bold text-gray-400">
+            Servicio no encontrado
+          </h1>
+        )}
       </div>
     );
   }
 
-  const otherServices = servicesData
-    .filter((s) => s.slug !== slug)
-    .map((s) => ({
-      ...s,
-      href: `/servicios/${s.slug}`,
-    }));
+  const otherServices = (
+    categories.length > 0
+      ? categories
+          .filter(
+            (c) =>
+              (c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros") !== slug,
+          )
+          .map((c) => ({
+            title: c.nombre,
+            description: c.lead,
+            imageSrc: c.imagen,
+            imageAlt: c.nombre,
+            href: `/servicios/${
+              c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"
+            }`,
+          }))
+      : servicesData
+          .filter((s) => s.slug !== slug)
+          .map((s) => ({
+            ...s,
+            href: `/servicios/${s.slug}`,
+          }))
+  ).slice(0, 6);
 
   const visibleItems = apiItems.slice(0, visibleCount);
   const hasMore = visibleCount < apiItems.length;
@@ -207,32 +143,34 @@ export default function ServicePage() {
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#E0F3F1]/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#EEF5F4]/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none" />
 
-        {/* Header Section */}
-        <div className="container mx-auto px-6 text-center mb-24 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
-          >
-            Nuestros Servicios
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-8xl font-black text-[#0D4B4D] mb-8 tracking-tighter leading-[0.9]"
-          >
-            {serviceInfo.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-teal-900/60 text-lg md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto"
-          >
-            {serviceInfo.longDescription || serviceInfo.description}
-          </motion.p>
+        {/* Header Section with Image Background */}
+        <div className="relative mb-24">
+          <div className="container mx-auto px-6 text-center relative z-10 pt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
+            >
+              Nuestros Servicios
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-5xl md:text-6xl lg:text-8xl font-black text-[#0D4B4D] mb-8 tracking-tighter leading-[0.9]"
+            >
+              {serviceInfo?.title}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-teal-900/60 text-lg md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto"
+            >
+              {serviceInfo?.longDescription || serviceInfo?.description}
+            </motion.p>
+          </div>
         </div>
 
         {/* Bento Grid */}
@@ -258,7 +196,22 @@ export default function ServicePage() {
 
                   // Adjust pattern for subsequent blocks of 4 if needed,
                   // or just tile the pattern
-                  const gridClass = classNames[idx % 4];
+                  const isLast = idx === visibleItems.length - 1;
+                  let gridClass = classNames[idx % 4];
+
+                  // Strategic adjustments to fill gaps at the end of the grid
+                  if (isLast) {
+                    if (idx % 4 === 0) {
+                      // If it's a wide item and it's the last one, make it fill the whole row
+                      gridClass = "md:col-span-3 md:row-span-1";
+                    } else if (idx % 4 === 1) {
+                      // If a tall item is last, don't let it create an empty row below
+                      gridClass = "md:col-span-1 md:row-span-1";
+                    } else if (idx % 4 === 2) {
+                      // If it's a small item following a tall one, make it wider to fill the remaining row
+                      gridClass = "md:col-span-2 md:row-span-1";
+                    }
+                  }
 
                   return (
                     <motion.div
@@ -275,7 +228,7 @@ export default function ServicePage() {
                     >
                       <ServiceBentoCard
                         title={item.titulo}
-                        content={item.resumen}
+                        content={item.resumen || item.detalle || item.titulo}
                         price={item.precio}
                         image={item.imagen}
                         category={item.category}
