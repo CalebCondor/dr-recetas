@@ -246,9 +246,18 @@ export default function ServicePage() {
                               slots[r + dr][c + dc] = true;
                             }
                           }
-                          gridClasses.push(
-                            `md:col-span-${actualCSpan} md:row-span-${finalRSpan}`,
-                          );
+                          const colSpanClass =
+                            actualCSpan === 1
+                              ? "md:col-span-1"
+                              : actualCSpan === 2
+                                ? "md:col-span-2"
+                                : "md:col-span-3";
+                          const rowSpanClass =
+                            finalRSpan === 1
+                              ? "md:row-span-1"
+                              : "md:row-span-2";
+
+                          gridClasses.push(`${colSpanClass} ${rowSpanClass}`);
                           placed = true;
                         }
                       }

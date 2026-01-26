@@ -57,7 +57,7 @@ export function useServiceDetails(slug: string) {
 
       let currentServiceInfo: ServiceData | null = localServiceInfo || null;
 
-      if (slug === "otros") {
+      if (slug?.toLowerCase() === "otros") {
         currentServiceInfo = {
           id: "otros",
           slug: "otros",
@@ -103,7 +103,7 @@ export function useServiceDetails(slug: string) {
           });
         });
 
-        if (slug === "otros") {
+        if (slug?.toLowerCase() === "otros") {
           relevantItems = flattenedItems;
         } else {
           const targetTag = currentServiceInfo.apiTag;
