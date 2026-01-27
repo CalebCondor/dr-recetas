@@ -119,6 +119,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
         setApi={setApi}
         opts={{
           align: "center",
+          containScroll: false,
           loop: false,
           breakpoints: {
             "(min-width: 1024px)": {
@@ -133,14 +134,14 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-2 px-4 md:px-0 lg:-ml-6">
+        <CarouselContent className="-ml-2 lg:-ml-6">
           {services.map((service, index) => {
             const isActiveOnMobile = index === current;
 
             return (
               <CarouselItem
                 key={index}
-                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3"
+                className="pl-2 lg:pl-6 basis-[80%] sm:basis-[70%] lg:basis-1/3"
               >
                 <motion.div
                   initial={false}
