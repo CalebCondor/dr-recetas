@@ -76,64 +76,38 @@ export const BackgroundGradientAnimation = ({
   ]);
 
   useEffect(() => {
-    let animationFrameId: number | null = null;
+    let animationFrameId: number;
 
     const move = () => {
-      if (!interactiveRef.current) return;
+      if (interactiveRef.current) {
+        // Smoothly interpolate towards target
+        curXRef.current += (tgXRef.current - curXRef.current) / 20;
+        curYRef.current += (tgYRef.current - curYRef.current) / 20;
 
-      const dx = tgXRef.current - curXRef.current;
-      const dy = tgYRef.current - curYRef.current;
-
-      // Stop RAF if we're close enough to the target
-      if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) {
-        animationFrameId = null;
-        return;
+        interactiveRef.current.style.transform = `translate(${Math.round(
+          curXRef.current,
+        )}px, ${Math.round(curYRef.current)}px)`;
       }
-
-      curXRef.current += dx / 20;
-      curYRef.current += dy / 20;
-
-      interactiveRef.current.style.transform = `translate3d(${Math.round(
-        curXRef.current,
-      )}px, ${Math.round(curYRef.current)}px, 0)`;
-
       animationFrameId = requestAnimationFrame(move);
     };
 
-    const startAnimation = () => {
-      if (animationFrameId === null) {
-        animationFrameId = requestAnimationFrame(move);
-      }
-    };
+    move();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
+  useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       tgXRef.current = event.clientX;
       tgYRef.current = event.clientY;
-      startAnimation();
     };
 
     if (interactive) {
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+      };
     }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    };
   }, [interactive]);
-
-  useEffect(() => {
-    const onVisibility = () => {
-      if (document.hidden) {
-        // Halt movement when tab is hidden
-        tgXRef.current = curXRef.current;
-        tgYRef.current = curYRef.current;
-      }
-    };
-
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
@@ -181,7 +155,7 @@ export const BackgroundGradientAnimation = ({
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg",
-          isSafari ? "blur-2xl" : "filter-[url(#blurMe)] blur-[40px]",
+          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]",
         )}
       >
         <div
@@ -273,7 +247,7 @@ export const BackgroundGradientAnimation = ({
             className={cn(
               `absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_1)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
               `[mix-blend-mode:var(--blending-value)] w-[40%] h-[40%] -top-[20%] -left-[20%]`,
-              `opacity-100 will-change-transform`,
+              `opacity-100 transition-transform duration-500 ease-out`,
             )}
           ></div>
         )}
