@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +8,7 @@ import Image from "next/image";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 
 const faqs = [
   {
@@ -28,6 +27,7 @@ const faqs = [
 
 function WhyChooseUsContent() {
   const [isInteractive, setIsInteractive] = useState(true);
+  const isMounted = useIsMounted();
 
   useEffect(() => {
     // Disable interactive mode on mobile for better performance
@@ -94,22 +94,24 @@ function WhyChooseUsContent() {
               </p>
             </div>
 
-            <Accordion type="single" collapsible className="w-full space-y-3">
-              {faqs.map((faq) => (
-                <AccordionItem
-                  key={faq.id}
-                  value={faq.id}
-                  className="rounded-xl border border-teal-100/50 bg-white/60 backdrop-blur-sm px-4 shadow-sm transition-all hover:shadow-md"
-                >
-                  <AccordionTrigger className="text-teal-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-teal-700">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            {isMounted && (
+              <Accordion type="single" collapsible className="w-full space-y-3">
+                {faqs.map((faq) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={faq.id}
+                    className="rounded-xl border border-teal-100/50 bg-white/60 backdrop-blur-sm px-4 shadow-sm transition-all hover:shadow-md"
+                  >
+                    <AccordionTrigger className="text-teal-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-teal-700">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            )}
           </motion.div>
 
           {/* Right Image */}
