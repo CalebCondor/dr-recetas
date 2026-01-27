@@ -47,7 +47,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   useEffect(() => {
     if (!api) return;
 
-    // Set initial values only after api is available
     const handleReInit = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
