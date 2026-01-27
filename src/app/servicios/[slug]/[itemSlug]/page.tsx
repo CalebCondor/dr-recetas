@@ -6,13 +6,26 @@ import { useProductDetail } from "@/hooks/use-product-detail";
 import { motion } from "motion/react";
 import {
   RiLoader4Line,
-  RiArrowLeftLine,
   RiShoppingBag4Line,
   RiCheckLine,
   RiStarFill,
+  RiHome5Line,
+  RiLayoutGridLine,
+  RiStethoscopeLine,
 } from "react-icons/ri";
+import { FaUserDoctor } from "react-icons/fa6";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -45,16 +58,43 @@ export default function ProductDetailPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-[#FDFDFD] pt-24 pb-32 relative overflow-hidden">
+      <div className="min-h-screen bg-[#FDFDFD] pt-40 pb-32 relative overflow-hidden">
         {/* Navigation */}
-        <div className="container mx-auto px-6 mb-12">
-          <button
-            onClick={() => router.back()}
-            className="group flex items-center gap-2 text-[#0D4B4D]/60 hover:text-[#0D4B4D] transition-colors font-bold uppercase tracking-widest text-xs"
-          >
-            <RiArrowLeftLine className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            Vover a {slug.replace(/-/g, " ")}
-          </button>
+        <div className="container mx-auto px-6 mb-12 relative z-[60]">
+          <Breadcrumb>
+            <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href="/"
+                    className="flex items-center gap-1.5 hover:text-[#0D4B4D] hover:opacity-100 transition-all cursor-pointer"
+                  >
+                    <RiHome5Line className="w-3.5 h-3.5" />
+                    Inicio
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="opacity-20" />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/servicios/${slug}`}
+                    className="flex items-center gap-1.5 hover:text-[#0D4B4D] hover:opacity-100 transition-all cursor-pointer"
+                  >
+                    <FaUserDoctor className="w-3.5 h-3.5" />
+                    {slug.replace(/-/g, " ")}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="opacity-20" />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="flex items-center gap-1.5 text-[#0D4B4D] font-black cursor-default">
+                  <RiStethoscopeLine className="w-3.5 h-3.5" />
+                  {product.titulo}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
 
         <div className="container mx-auto px-6">
@@ -244,7 +284,7 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        {/* Floating Credit Card Card (Visual Detail) */}
+        {/* Floating Credit Card Card (Visual Detail)
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -283,7 +323,7 @@ export default function ProductDetailPage() {
               Continuar
             </Button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </PageWrapper>
   );
