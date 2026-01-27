@@ -154,12 +154,12 @@ export default function ServicePage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-[#F5F7F6] pt-32 pb-24 overflow-hidden relative">
+      <div className="min-h-screen bg-[#F5F7F6] pt-16 pb-24 overflow-hidden relative">
         {/* Background Accents */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#E0F3F1]/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#EEF5F4]/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none" />
 
-        <div className="relative mb-24">
+        <div className="relative mb-12">
           <div className="container mx-auto px-6 text-center relative z-10 pt-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
