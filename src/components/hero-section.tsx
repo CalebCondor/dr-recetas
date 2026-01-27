@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
+
 const consultations = [
   {
     id: 1,
@@ -36,7 +37,7 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
-  const COOLDOWN = 80; // Snappier response for all interactions
+  const COOLDOWN = 80;
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
 
@@ -45,7 +46,7 @@ export default function Hero() {
       ([entry]) => {
         setIsHeroVisible(entry.isIntersecting);
       },
-      { threshold: 0.5 }, // More forgiving threshold
+      { threshold: 0.6 },
     );
 
     if (containerRef.current) {
@@ -79,7 +80,7 @@ export default function Hero() {
 
         if (
           now - lastScrollTime.current > COOLDOWN &&
-          Math.abs(e.deltaY) > 10
+          Math.abs(e.deltaY) > 15
         ) {
           if (isScrollDown && !isAtEnd) {
             setActiveIndex((prev) => prev + 1);
@@ -96,8 +97,9 @@ export default function Hero() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      const touchY = e.touches[0].clientY;
-      const delta = touchStartRef.current - touchY;
+      const now = Date.now();
+      const touchEnd = e.touches[0].clientY;
+      const delta = touchStartRef.current - touchEnd;
       const absDelta = Math.abs(delta);
       const currentActiveIndex = activeIndexRef.current;
 
@@ -107,25 +109,24 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
-      // Only highjack if we are actually going to move an item
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
-        const THRESHOLD = 35; // Slightly higher to avoid accidental triggers
+        if (e.cancelable) e.preventDefault();
 
-        if (absDelta > THRESHOLD) {
-          if (e.cancelable) e.preventDefault();
+        const THRESHOLD = 25;
+        const MOBILE_COOLDOWN = 80;
 
-          const now = Date.now();
-          const MOBILE_COOLDOWN = 150; // Higher cooldown for safer transitions
-
-          if (now - lastScrollTime.current > MOBILE_COOLDOWN) {
-            if (isMovingDown && !isAtEnd) {
-              setActiveIndex((prev) => prev + 1);
-            } else if (isMovingUp && !isAtStart) {
-              setActiveIndex((prev) => prev - 1);
-            }
-            lastScrollTime.current = now;
-            touchStartRef.current = touchY; // Update start point only on success
+        if (
+          now - lastScrollTime.current > MOBILE_COOLDOWN &&
+          absDelta > THRESHOLD
+        ) {
+          if (isMovingDown && !isAtEnd) {
+            setActiveIndex((prev) => prev + 1);
+          } else if (isMovingUp && !isAtStart) {
+            setActiveIndex((prev) => prev - 1);
           }
+
+          touchStartRef.current = touchEnd;
+          lastScrollTime.current = now;
         }
       }
     };
@@ -157,22 +158,20 @@ export default function Hero() {
     >
       <div className="absolute top-0 left-0 w-full h-full lg:h-[180%] pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full blur-[60px]" // Reduced blur for mobile GPU
-          firstColor="16, 185, 129" // Emerald 500
-          secondColor="20, 184, 166" // Teal 500
-          thirdColor="34, 197, 94" // Green 500
-          fourthColor="6, 182, 212" // Cyan 500
-          fifthColor="37, 99, 235" // Blue 600
-          pointerColor="52, 211, 153" // Emerald 400
+          containerClassName="!h-full !w-full blur-[40px] will-change-transform"
+          firstColor="16, 185, 129"
+          secondColor="20, 184, 166"
+          thirdColor="34, 197, 94"
+          fourthColor="6, 182, 212"
+          fifthColor="37, 99, 235"
+          pointerColor="52, 211, 153"
           size="120%"
           blendingValue="screen"
           interactive={false}
         />
       </div>
 
-      {/* Content Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
-        {/* Left Content */}
         <div className="flex-1 w-full max-w-4xl">
           <h1 className="text-[2.4rem] leading-[1.1] sm:text-3xl md:text-6xl lg:text-[2.5rem] xl:text-[2rem] 2xl:text-[3rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
             ¿Necesitas una
@@ -191,7 +190,6 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* Right Content - Animated List */}
         <div className="flex-1 w-full max-w-md lg:max-w-lg">
           <div
             className="relative w-full px-2"
@@ -200,7 +198,7 @@ export default function Hero() {
               height: `${CONTAINER_HEIGHT}px`,
             }}
           >
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} mode="popLayout">
               {consultations
                 .slice(windowStartIndex, windowStartIndex + WINDOW_SIZE)
                 .map((item, localIndex) => {
@@ -229,12 +227,12 @@ export default function Hero() {
                       }}
                       transition={{
                         type: "spring",
-                        stiffness: 150, // Slightly softer spring for mobile
-                        damping: 20,
-                        mass: 0.8,
-                        opacity: { duration: 0.2 },
+                        stiffness: 200,
+                        damping: 25,
+                        mass: 1,
+                        opacity: { duration: 0.3 },
                       }}
-                      className="absolute top-0 left-0 w-full cursor-pointer"
+                      className="absolute top-0 left-0 w-full cursor-pointer will-change-transform"
                       onClick={() => setActiveIndex(globalIndex)}
                     >
                       <div
@@ -261,7 +259,6 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* Button Below (Only Desktop or visible if needed) */}
           <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
             <span className="text-[#1e3434] font-semibold text-lg lg:text-xl">
               Otras consultas
