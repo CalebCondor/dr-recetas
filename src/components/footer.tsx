@@ -163,10 +163,16 @@ export function Footer() {
       {/* Bottom Section */}
       <div className="border-t border-white/20 w-full mx-auto px-6 md:px-12 lg:px-[5%] py-8">
         <div className="flex justify-between items-center mb-6 text-sm">
-          <a href="#" className="hover:opacity-80 transition-opacity">
+          <a
+            href="/politicas-privacidad"
+            className="hover:opacity-80 transition-opacity"
+          >
             Privacy Policy
           </a>
-          <a href="#" className="hover:opacity-80 transition-opacity">
+          <a
+            href="/terminos-condiciones"
+            className="hover:opacity-80 transition-opacity"
+          >
             Terms & Conditions
           </a>
         </div>

@@ -60,7 +60,7 @@ export default function ProductDetailPage() {
     <PageWrapper>
       <div className="min-h-screen bg-[#FDFDFD] pt-40 pb-32 relative overflow-hidden">
         {/* Navigation */}
-        <div className="container mx-auto px-6 mb-12 relative z-[60]">
+        <div className="container mx-auto px-6 mb-12 relative z-60">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
