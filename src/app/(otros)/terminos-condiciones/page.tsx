@@ -60,7 +60,7 @@ export default function TerminosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] pt-20 relative isolate overflow-hidden">
+    <div className="min-h-screen bg-[#FDFDFD] pt-20 relative isolate overflow-hidden scroll-smooth">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-[#0D4B4D]/5 blur-[60px] rounded-full translate-x-1/2 -translate-y-1/2 will-change-transform" />
       <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-[#0D4B4D]/5 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 will-change-transform" />
