@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
 import { GlobalBackground } from "@/components/global-background";
+import { PagePrefetcher } from "@/components/page-prefetcher";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -26,6 +27,7 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
         <GlobalBackground />
+        <PagePrefetcher />
 
         <Header />
         {children}

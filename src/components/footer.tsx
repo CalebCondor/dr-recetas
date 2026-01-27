@@ -5,6 +5,7 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaTiktok, FaInstagram, FaLinkedin } from "react-icons/fa";
+import Link from "next/link";
 
 export function Footer() {
   const [formData, setFormData] = useState({
@@ -163,18 +164,20 @@ export function Footer() {
       {/* Bottom Section */}
       <div className="border-t border-white/20 w-full mx-auto px-6 md:px-12 lg:px-[5%] py-8">
         <div className="flex justify-between items-center mb-6 text-sm">
-          <a
+          <Link
             href="/politicas-privacidad"
+            prefetch={true}
             className="hover:opacity-80 transition-opacity"
           >
             Privacy Policy
-          </a>
-          <a
+          </Link>
+          <Link
             href="/terminos-condiciones"
+            prefetch={true}
             className="hover:opacity-80 transition-opacity"
           >
             Terms & Conditions
-          </a>
+          </Link>
         </div>
         <p className="text-white/80 text-center text-sm">
           © 2025 DR. Recetas All rights reserved.

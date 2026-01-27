@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 
 interface FAQItem {
   id: number;
@@ -51,6 +52,7 @@ const faqItems: FAQItem[] = [
 export function FAQSection() {
   const leftColumnItems = faqItems.slice(0, 3);
   const rightColumnItems = faqItems.slice(3);
+  const isMounted = useIsMounted();
 
   return (
     <section className="lg:py-12 px-4 md:px-12 lg:px-[8%]">
@@ -66,66 +68,68 @@ export function FAQSection() {
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid md:grid-cols-2 gap-6 items-start">
-          {/* Left Column */}
-          <Accordion
-            type="single"
-            collapsible
-            defaultValue="item-1"
-            className="space-y-4"
-          >
-            {leftColumnItems.map((item) => (
-              <AccordionItem
-                key={item.id}
-                value={`item-${item.id}`}
-                className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
-              >
-                <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
-                  <div className="flex items-center justify-between w-full gap-4">
-                    <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
-                      {item.question}
-                    </h3>
-                    <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
-                      <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+        {isMounted && (
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            {/* Left Column */}
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="item-1"
+              className="space-y-4"
+            >
+              {leftColumnItems.map((item) => (
+                <AccordionItem
+                  key={item.id}
+                  value={`item-${item.id}`}
+                  className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
+                >
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
+                    <div className="flex items-center justify-between w-full gap-4">
+                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
+                        {item.question}
+                      </h3>
+                      <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
+                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+                      </div>
                     </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6 mt-2">
-                  <div className="text-gray-600 text-sm leading-relaxed space-y-4 whitespace-pre-line">
-                    {item.answer}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 mt-2">
+                    <div className="text-gray-600 text-sm leading-relaxed space-y-4 whitespace-pre-line">
+                      {item.answer}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
 
-          {/* Right Column */}
-          <Accordion type="single" collapsible className="space-y-4">
-            {rightColumnItems.map((item) => (
-              <AccordionItem
-                key={item.id}
-                value={`item-${item.id}`}
-                className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
-              >
-                <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
-                  <div className="flex items-center justify-between w-full gap-4">
-                    <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
-                      {item.question}
-                    </h3>
-                    <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
-                      <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+            {/* Right Column */}
+            <Accordion type="single" collapsible className="space-y-4">
+              {rightColumnItems.map((item) => (
+                <AccordionItem
+                  key={item.id}
+                  value={`item-${item.id}`}
+                  className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
+                >
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
+                    <div className="flex items-center justify-between w-full gap-4">
+                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
+                        {item.question}
+                      </h3>
+                      <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
+                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+                      </div>
                     </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6 mt-2">
-                  <div className="text-gray-600 text-sm leading-relaxed space-y-4 whitespace-pre-line">
-                    {item.answer}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 mt-2">
+                    <div className="text-gray-600 text-sm leading-relaxed space-y-4 whitespace-pre-line">
+                      {item.answer}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        )}
       </div>
     </section>
   );
