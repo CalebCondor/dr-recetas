@@ -62,11 +62,11 @@ export default function TerminosPage() {
   return (
     <div className="min-h-screen bg-[#FDFDFD] pt-20 relative isolate overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-[#0D4B4D]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-[#0D4B4D]/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2" />
+      <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-[#0D4B4D]/5 blur-[60px] rounded-full translate-x-1/2 -translate-y-1/2 will-change-transform" />
+      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-[#0D4B4D]/5 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 will-change-transform" />
 
       {/* Header */}
-      <header className="border-b border-[#0D4B4D]/10 bg-white/70 backdrop-blur-xl sticky top-0 z-100 shadow-sm">
+      <header className="border-b border-[#0D4B4D]/10 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-linear-to-br from-[#0D4B4D] to-[#126467] rounded-2xl shadow-lg shadow-[#0D4B4D]/20 transform rotate-3">
@@ -88,7 +88,7 @@ export default function TerminosPage() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}
           <aside className="lg:col-span-1">
-            <Card className="sticky top-40 border-[#0D4B4D]/10 bg-white/50 backdrop-blur-md shadow-xl shadow-[#0D4B4D]/5 rounded-3xl overflow-hidden">
+            <Card className="sticky top-40 border-[#0D4B4D]/10 bg-white shadow-xl shadow-[#0D4B4D]/5 rounded-3xl overflow-hidden">
               <CardHeader className="bg-[#0D4B4D]/5 border-b border-[#0D4B4D]/5">
                 <CardTitle className="text-sm font-black uppercase tracking-widest text-[#0D4B4D]">
                   Navegación
