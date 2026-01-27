@@ -57,7 +57,6 @@ function WhyChooseUsContent() {
           pointerColor="60, 130, 255"
           size="80%"
           blendingValue="hard-light"
-          interactive={isInteractive}
         />
       </div>
 

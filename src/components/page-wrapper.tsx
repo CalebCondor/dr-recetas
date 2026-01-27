@@ -20,9 +20,13 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 36 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 1.8,
+        delay: 0.2,
+        ease: [0.16, 1, 0.3, 1], // Custom premium easeOut
+      }}
       className="flex flex-col gap-0 overflow-x-hidden"
     >
       {children}

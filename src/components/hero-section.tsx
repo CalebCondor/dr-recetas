@@ -155,15 +155,15 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 lg:hidden">
+      <div className="absolute top-0 left-0 w-full h-full lg:h-[180%] pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="h-full w-full"
-          firstColor="16, 185, 129" // Emerald 500
-          secondColor="5, 150, 105" // Emerald 600
-          thirdColor="20, 184, 166" // Teal 500
-          fourthColor="13, 148, 136" // Teal 600
-          fifthColor="52, 211, 153" // Emerald 400
-          pointerColor="16, 185, 129"
+          containerClassName="!h-full !w-full blur-[100px]"
+          firstColor="16, 185, 129" // Emerald 500 (dominante)
+          secondColor="20, 184, 166" // Teal 500
+          thirdColor="34, 197, 94" // Green 500
+          fourthColor="6, 182, 212" // Cyan 500 (puente sutil)
+          fifthColor="37, 99, 235" // Blue 600 (profundidad mínima)
+          pointerColor="52, 211, 153" // Emerald 400
           size="120%"
           blendingValue="screen"
           interactive={false}
