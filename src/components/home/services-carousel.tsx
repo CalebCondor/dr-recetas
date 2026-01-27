@@ -57,13 +57,11 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       setCurrent(api.selectedScrollSnap());
     };
 
-    // Initialize state
     handleReInit();
 
     api.on("select", handleSelect);
     api.on("reInit", handleReInit);
 
-    // Cleanup listeners on unmount or api change
     return () => {
       api.off("select", handleSelect);
       api.off("reInit", handleReInit);
