@@ -26,7 +26,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   const [isDragging, setIsDragging] = useState(false);
   const scrollbarRef = useRef<HTMLDivElement>(null);
 
-  // Detect layout for specific mobile behaviors
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
