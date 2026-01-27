@@ -42,7 +42,7 @@ export default function Header() {
           isScrolled ? "py-4 lg:py-5" : "py-4 lg:py-10"
         }`}
       >
-        <Link href="/">
+        <Link href="/" prefetch={true}>
           <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
         </Link>
 

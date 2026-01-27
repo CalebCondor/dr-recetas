@@ -25,6 +25,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
+// Disable static generation for this dynamic route
+export const dynamic = "force-dynamic";
+
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
