@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { servicesData } from "@/lib/services-data";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { PageWrapper } from "@/components/page-wrapper";
 import { motion, AnimatePresence } from "motion/react";
 import { RiArrowRightUpLine, RiLoader4Line } from "react-icons/ri";
@@ -19,6 +20,8 @@ function ServiceBentoCard({
   image,
   category,
   index = 0,
+  slug,
+  categorySlug,
 }: {
   title: string;
   content: string;
@@ -26,6 +29,8 @@ function ServiceBentoCard({
   image?: string;
   category?: string;
   index?: number;
+  slug: string;
+  categorySlug: string;
 }) {
   const defaultImages = [
     "/citas-medicas/1.png",
@@ -49,7 +54,8 @@ function ServiceBentoCard({
     currentBg.includes("text-white") || currentBg.includes("bg-[#0D4B4D]");
 
   return (
-    <div
+    <Link
+      href={`/servicios/${categorySlug}/${slug}`}
       className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.15)] border`}
     >
       {/* Background Image/Overlay logic depending on the card type */}
@@ -97,7 +103,7 @@ function ServiceBentoCard({
           <RiArrowRightUpLine className="w-6 h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -270,6 +276,8 @@ export default function ServicePage() {
                         image={item.imagen}
                         category={item.category}
                         index={idx}
+                        slug={item.slug}
+                        categorySlug={slug}
                       />
                     </motion.div>
                   ));
