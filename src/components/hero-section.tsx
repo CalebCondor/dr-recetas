@@ -45,7 +45,7 @@ export default function Hero() {
       ([entry]) => {
         setIsHeroVisible(entry.isIntersecting);
       },
-      { threshold: 0.6 },
+      { threshold: 0.5 }, // More forgiving threshold
     );
 
     if (containerRef.current) {
@@ -79,7 +79,7 @@ export default function Hero() {
 
         if (
           now - lastScrollTime.current > COOLDOWN &&
-          Math.abs(e.deltaY) > 15
+          Math.abs(e.deltaY) > 10
         ) {
           if (isScrollDown && !isAtEnd) {
             setActiveIndex((prev) => prev + 1);
@@ -96,9 +96,8 @@ export default function Hero() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      const now = Date.now();
-      const touchEnd = e.touches[0].clientY;
-      const delta = touchStartRef.current - touchEnd;
+      const touchY = e.touches[0].clientY;
+      const delta = touchStartRef.current - touchY;
       const absDelta = Math.abs(delta);
       const currentActiveIndex = activeIndexRef.current;
 
@@ -108,24 +107,25 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
+      // Only highjack if we are actually going to move an item
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
-        if (e.cancelable) e.preventDefault();
+        const THRESHOLD = 35; // Slightly higher to avoid accidental triggers
 
-        const THRESHOLD = 25;
-        const MOBILE_COOLDOWN = 50;
+        if (absDelta > THRESHOLD) {
+          if (e.cancelable) e.preventDefault();
 
-        if (
-          now - lastScrollTime.current > MOBILE_COOLDOWN &&
-          absDelta > THRESHOLD
-        ) {
-          if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) => prev + 1);
-          } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => prev - 1);
+          const now = Date.now();
+          const MOBILE_COOLDOWN = 150; // Higher cooldown for safer transitions
+
+          if (now - lastScrollTime.current > MOBILE_COOLDOWN) {
+            if (isMovingDown && !isAtEnd) {
+              setActiveIndex((prev) => prev + 1);
+            } else if (isMovingUp && !isAtStart) {
+              setActiveIndex((prev) => prev - 1);
+            }
+            lastScrollTime.current = now;
+            touchStartRef.current = touchY; // Update start point only on success
           }
-
-          touchStartRef.current = touchEnd;
-          lastScrollTime.current = now;
         }
       }
     };
@@ -157,12 +157,12 @@ export default function Hero() {
     >
       <div className="absolute top-0 left-0 w-full h-full lg:h-[180%] pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full blur-[100px]"
-          firstColor="16, 185, 129" // Emerald 500 (dominante)
+          containerClassName="!h-full !w-full blur-[60px]" // Reduced blur for mobile GPU
+          firstColor="16, 185, 129" // Emerald 500
           secondColor="20, 184, 166" // Teal 500
           thirdColor="34, 197, 94" // Green 500
-          fourthColor="6, 182, 212" // Cyan 500 (puente sutil)
-          fifthColor="37, 99, 235" // Blue 600 (profundidad mínima)
+          fourthColor="6, 182, 212" // Cyan 500
+          fifthColor="37, 99, 235" // Blue 600
           pointerColor="52, 211, 153" // Emerald 400
           size="120%"
           blendingValue="screen"
@@ -200,7 +200,7 @@ export default function Hero() {
               height: `${CONTAINER_HEIGHT}px`,
             }}
           >
-            <AnimatePresence initial={false} mode="popLayout">
+            <AnimatePresence initial={false}>
               {consultations
                 .slice(windowStartIndex, windowStartIndex + WINDOW_SIZE)
                 .map((item, localIndex) => {
@@ -229,10 +229,10 @@ export default function Hero() {
                       }}
                       transition={{
                         type: "spring",
-                        stiffness: 200,
-                        damping: 25,
-                        mass: 1,
-                        opacity: { duration: 0.3 },
+                        stiffness: 150, // Slightly softer spring for mobile
+                        damping: 20,
+                        mass: 0.8,
+                        opacity: { duration: 0.2 },
                       }}
                       className="absolute top-0 left-0 w-full cursor-pointer"
                       onClick={() => setActiveIndex(globalIndex)}
