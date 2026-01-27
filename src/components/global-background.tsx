@@ -9,8 +9,11 @@ export function GlobalBackground() {
   // Hide on service category pages and product detail pages
   // Path examples: /servicios/slug or /servicios/slug/itemSlug
   const isServicePage = pathname?.startsWith("/servicios/");
+  const isLegalPage =
+    pathname?.startsWith("/politicas-privacidad") ||
+    pathname?.startsWith("/terminos-condiciones");
 
-  if (isServicePage) {
+  if (isServicePage || isLegalPage) {
     return null;
   }
 

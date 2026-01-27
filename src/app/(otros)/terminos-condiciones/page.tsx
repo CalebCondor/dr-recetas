@@ -43,16 +43,16 @@ export default function TerminosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <div className="min-h-screen bg-[#FDFDFD] pt-20">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <FileText className="h-6 w-6 text-primary" />
+            <div className="p-2 bg-[#0D4B4D]/10 rounded-lg">
+              <FileText className="h-6 w-6 text-[#0D4B4D]" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-primary text-balance">
+              <h1 className="text-3xl font-bold text-[#0D4B4D] text-balance">
                 Términos y Condiciones
               </h1>
               <p className="text-muted-foreground mt-1">
@@ -80,9 +80,9 @@ export default function TerminosPage() {
                         <button
                           key={section.id}
                           onClick={() => scrollToSection(section.id)}
-                          className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors group"
+                          className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-[#0D4B4D]/5 hover:text-[#0D4B4D] transition-colors group"
                         >
-                          <Icon className="h-4 w-4 text-muted-foreground group-hover:text-accent-foreground" />
+                          <Icon className="h-4 w-4 text-muted-foreground group-hover:text-[#0D4B4D]" />
                           <span className="text-sm font-medium">
                             {section.title}
                           </span>
@@ -98,19 +98,19 @@ export default function TerminosPage() {
           {/* Main Content */}
           <main className="lg:col-span-3 space-y-8">
             {/* Introduction */}
-            <Card className="border-l-4 border-l-primary">
+            <Card className="border-l-4 border-l-[#0D4B4D]">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <AlertCircle className="h-5 w-5 text-primary" />
+                  <div className="p-2 bg-[#0D4B4D]/10 rounded-lg">
+                    <AlertCircle className="h-5 w-5 text-[#0D4B4D]" />
                   </div>
                   <div className="flex-1">
                     <p className="text-lg leading-relaxed text-pretty">
                       Bienvenido a{" "}
-                      <strong className="text-primary">Doctor Recetas</strong>,
-                      una plataforma digital diseñada para ofrecer herramientas
-                      y recursos en línea dirigidos a pacientes que buscan
-                      optimizar sus procesos médicos y potenciar su salud
+                      <strong className="text-[#0D4B4D]">Doctor Recetas</strong>
+                      , una plataforma digital diseñada para ofrecer
+                      herramientas y recursos en línea dirigidos a pacientes que
+                      buscan optimizar sus procesos médicos y potenciar su salud
                       digital.
                     </p>
                     <p className="mt-4 text-muted-foreground leading-relaxed">
@@ -129,7 +129,7 @@ export default function TerminosPage() {
             <section id="introduccion">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <FileText className="h-5 w-5" />
                     1. Introducción y Definiciones
                   </CardTitle>
@@ -142,7 +142,7 @@ export default function TerminosPage() {
 
                   <div className="grid gap-4">
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
                         Plataforma
                       </h4>
                       <p className="text-sm leading-relaxed">
@@ -153,7 +153,7 @@ export default function TerminosPage() {
                     </div>
 
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
                         Usuario
                       </h4>
                       <p className="text-sm leading-relaxed">
@@ -164,7 +164,7 @@ export default function TerminosPage() {
                     </div>
 
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
                         Servicios
                       </h4>
                       <p className="text-sm leading-relaxed">
@@ -181,7 +181,7 @@ export default function TerminosPage() {
             <section id="aceptacion">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Users className="h-5 w-5" />
                     2. Aceptación de los Términos
                   </CardTitle>
@@ -201,7 +201,7 @@ export default function TerminosPage() {
             <section id="contacto">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Mail className="h-5 w-5" />
                     8. Contacto
                   </CardTitle>
@@ -213,9 +213,9 @@ export default function TerminosPage() {
                     con nosotros a través de:
                   </p>
 
-                  <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                  <div className="p-4 bg-[#0D4B4D]/5 border border-[#0D4B4D]/20 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <Mail className="h-5 w-5 text-primary" />
+                      <Mail className="h-5 w-5 text-[#0D4B4D]" />
                       <span className="font-medium">
                         contacto@doctorrecetas.com
                       </span>

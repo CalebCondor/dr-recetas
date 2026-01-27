@@ -66,16 +66,16 @@ export default function PrivacidadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <div className="min-h-screen bg-[#FDFDFD] pt-20">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Shield className="h-6 w-6 text-primary" />
+            <div className="p-2 bg-[#0D4B4D]/10 rounded-lg">
+              <Shield className="h-6 w-6 text-[#0D4B4D]" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-primary text-balance">
+              <h1 className="text-3xl font-bold text-[#0D4B4D] text-balance">
                 Políticas de Privacidad
               </h1>
               <p className="text-muted-foreground mt-1">
@@ -103,9 +103,9 @@ export default function PrivacidadPage() {
                         <button
                           key={section.id}
                           onClick={() => scrollToSection(section.id)}
-                          className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors group"
+                          className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-[#0D4B4D]/5 hover:text-[#0D4B4D] transition-colors group"
                         >
-                          <Icon className="h-4 w-4 text-muted-foreground group-hover:text-accent-foreground" />
+                          <Icon className="h-4 w-4 text-muted-foreground group-hover:text-[#0D4B4D]" />
                           <span className="text-xs font-medium">
                             {section.title}
                           </span>
@@ -120,9 +120,9 @@ export default function PrivacidadPage() {
 
           {/* Main Content */}
           <main className="lg:col-span-3 space-y-8">
-            <Card className="border-l-4 border-l-primary bg-primary/5">
+            <Card className="border-l-4 border-l-[#0D4B4D] bg-[#0D4B4D]/5">
               <CardContent className="p-6">
-                <p className="text-lg leading-relaxed text-pretty font-medium text-primary">
+                <p className="text-lg leading-relaxed text-pretty font-medium text-[#0D4B4D]">
                   Este aviso describe cómo se puede usar y divulgar su
                   información médica y cómo usted puede obtener acceso a esta
                   información. Por favor revise este documento cuidadosamente.
@@ -134,7 +134,7 @@ export default function PrivacidadPage() {
             <section id="practicas-salud">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Stethoscope className="h-5 w-5" />
                     1. Aviso de Prácticas de Privacidad de Información de Salud
                   </CardTitle>
@@ -156,7 +156,7 @@ export default function PrivacidadPage() {
             <section id="uso-divulgacion">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <FileText className="h-5 w-5" />
                     2. ¿Cómo usamos y divulgamos la información de salud?
                   </CardTitle>
@@ -169,7 +169,7 @@ export default function PrivacidadPage() {
                   </p>
                   <div className="grid gap-4">
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
                         Tratamiento
                       </h4>
                       <p className="text-sm leading-relaxed">
@@ -180,7 +180,9 @@ export default function PrivacidadPage() {
                       </p>
                     </div>
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">Pago</h4>
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
+                        Pago
+                      </h4>
                       <p className="text-sm leading-relaxed">
                         Documentamos los servicios para que usted o su plan
                         médico cumplan con el pago. Podemos compartir
@@ -188,7 +190,7 @@ export default function PrivacidadPage() {
                       </p>
                     </div>
                     <div className="p-4 bg-muted/50 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">
+                      <h4 className="font-semibold text-[#0D4B4D] mb-2">
                         Servicios de Salud
                       </h4>
                       <p className="text-sm leading-relaxed">
@@ -222,7 +224,7 @@ export default function PrivacidadPage() {
             <section id="responsabilidades">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <UserCheck className="h-5 w-5" />
                     3. Responsabilidades del Proveedor
                   </CardTitle>
@@ -237,7 +239,7 @@ export default function PrivacidadPage() {
                       "Informarle si su información ha sido comprometida.",
                     ].map((text, i) => (
                       <li key={i} className="flex gap-3 items-center text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D]" />
                         {text}
                       </li>
                     ))}
@@ -250,7 +252,7 @@ export default function PrivacidadPage() {
             <section id="derechos">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Scale className="h-5 w-5" />
                     4. ¿Tiene algún derecho federal?
                   </CardTitle>
@@ -284,7 +286,7 @@ export default function PrivacidadPage() {
             <section id="portal-electronico">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Smartphone className="h-5 w-5" />
                     5. Políticas del Portal Doctor Recetas
                   </CardTitle>
@@ -305,7 +307,7 @@ export default function PrivacidadPage() {
             <section id="hippa">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Shield className="h-5 w-5" />
                     6. Ley HIPAA
                   </CardTitle>
@@ -325,7 +327,7 @@ export default function PrivacidadPage() {
             <section id="menores">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Users className="h-5 w-5" />
                     7. Menores de Edad
                   </CardTitle>
@@ -343,7 +345,7 @@ export default function PrivacidadPage() {
             <section id="recoleccion">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Info className="h-5 w-5" />
                     8. Información Recopilada
                   </CardTitle>
@@ -379,12 +381,13 @@ export default function PrivacidadPage() {
             <section id="uso-personal">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Lock className="h-5 w-5" />
                     9. Uso de su Información Personal
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
+                  {/* Use of Personal Info Loop Update */}
                   {[
                     "Ofrecer servicios y control de calidad.",
                     "Estadísticas de uso del portal.",
@@ -393,7 +396,7 @@ export default function PrivacidadPage() {
                     "Cumplir con el propósito por el cual proveyó la información.",
                   ].map((text, i) => (
                     <div key={i} className="flex gap-2 items-start py-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D] mt-1.5 flex-shrink-0" />
                       <span className="text-sm">{text}</span>
                     </div>
                   ))}
@@ -405,7 +408,7 @@ export default function PrivacidadPage() {
             <section id="tecnologia">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Calendar className="h-5 w-5" />
                     11. Información recopilada tecnológicamente
                   </CardTitle>
@@ -435,7 +438,7 @@ export default function PrivacidadPage() {
             <section id="modificacion">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <FileText className="h-5 w-5" />
                     14. Modificación de la Información
                   </CardTitle>
@@ -456,7 +459,7 @@ export default function PrivacidadPage() {
             <section id="seguridad">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <Shield className="h-5 w-5" />
                     12. Seguridad de la Información
                   </CardTitle>
@@ -476,7 +479,7 @@ export default function PrivacidadPage() {
             <section id="reclamaciones">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-primary">
+                  <CardTitle className="flex items-center gap-3 text-[#0D4B4D]">
                     <AlertCircle className="h-5 w-5" />
                     13. Reclamaciones
                   </CardTitle>
@@ -492,17 +495,17 @@ export default function PrivacidadPage() {
             </section>
 
             {/* Call to Action */}
-            <Card className="border-primary/20 bg-primary/5">
-              <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-4 text-primary">
+            <Card className="border-[#0D4B4D]/20 bg-[#0D4B4D]/5 text-center">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-black mb-4 text-[#0D4B4D] tracking-tight">
                   ¿Necesita más información?
                 </h3>
-                <p className="text-muted-foreground mb-6 text-pretty">
+                <p className="text-slate-500 font-medium mb-8 text-pretty max-w-lg mx-auto">
                   Nuestro equipo está disponible para aclarar cualquier duda
-                  sobre el manejo de su información.
+                  sobre el manejo de su información médica.
                 </p>
-                <Button className="bg-primary hover:bg-primary/90">
-                  <Mail className="h-4 w-4 mr-2" />
+                <Button className="bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold h-auto py-4 px-10 rounded-2xl shadow-lg transition-all active:scale-[0.98]">
+                  <Mail className="h-5 w-5 mr-3" />
                   Contactar Soporte
                 </Button>
               </CardContent>
