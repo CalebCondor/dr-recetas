@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
       "placehold.co",
       "i.pravatar.cc",
       "doctorrecetas.com",
+      "api.dicebear.com",
     ],
+    dangerouslyAllowSVG: true,
   },
   allowedDevOrigins: ["http://192.168.100.221:3000"],
 };
