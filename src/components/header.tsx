@@ -18,11 +18,30 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="w-full absolute top-0 left-0 z-50">
-      <div className="w-full px-6 md:px-12 lg:px-[8%] py-4 lg:py-10 flex items-center justify-between">
+    <header
+      className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${
+        isScrolled ? "bg-white/90 backdrop-blur-xl shadow-sm" : "bg-transparent"
+      }`}
+    >
+      <div
+        className={`w-full px-6 md:px-12 lg:px-[8%] flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? "py-4 lg:py-5" : "py-4 lg:py-10"
+        }`}
+      >
         <Link href="/">
           <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
         </Link>

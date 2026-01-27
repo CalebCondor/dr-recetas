@@ -8,9 +8,7 @@ import {
   RiLoader4Line,
   RiShoppingBag4Line,
   RiCheckLine,
-  RiStarFill,
   RiHome5Line,
-  RiLayoutGridLine,
   RiStethoscopeLine,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
