@@ -186,12 +186,6 @@
     scrollbar-width: none;
   }
 
-  /* Performance optimizations for rendering and caching */
-  section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
-  }
-
   img, video {
     transform: translateZ(0);
   }

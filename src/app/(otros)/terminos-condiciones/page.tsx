@@ -60,23 +60,23 @@ export default function TerminosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] pt-20 relative isolate overflow-hidden scroll-smooth">
+    <div className="min-h-screen bg-[#FDFDFD] pt-16 md:pt-20 relative isolate overflow-hidden scroll-smooth">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-[#0D4B4D]/5 blur-[60px] rounded-full translate-x-1/2 -translate-y-1/2 will-change-transform" />
-      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-[#0D4B4D]/5 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 will-change-transform" />
+      <div className="absolute top-0 right-0 -z-10 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#0D4B4D]/5 blur-2xl md:blur-[60px] rounded-full translate-x-1/2 -translate-y-1/2 will-change-transform" />
+      <div className="absolute bottom-0 left-0 -z-10 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#0D4B4D]/5 blur-2xl md:blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 will-change-transform" />
 
       {/* Header */}
       <header className="border-b border-[#0D4B4D]/10 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-linear-to-br from-[#0D4B4D] to-[#126467] rounded-2xl shadow-lg shadow-[#0D4B4D]/20 transform rotate-3">
-              <FileText className="h-7 w-7 text-white" />
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 lg:py-8">
+          <div className="flex items-center gap-3 md:gap-4">
+            <div className="p-2 md:p-3 bg-linear-to-br from-[#0D4B4D] to-[#126467] rounded-xl md:rounded-2xl shadow-lg shadow-[#0D4B4D]/20 transform rotate-3">
+              <FileText className="h-5 w-5 md:h-7 md:w-7 text-white" />
             </div>
-            <div>
-              <h1 className="text-4xl font-black text-[#0D4B4D] tracking-tight text-balance leading-none">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-[#0D4B4D] tracking-tight text-balance leading-tight">
                 Términos y Condiciones
               </h1>
-              <p className="text-[#0D4B4D]/50 mt-2 font-bold uppercase tracking-widest text-[10px]">
+              <p className="text-[#0D4B4D]/50 mt-1 md:mt-2 font-bold uppercase tracking-wider md:tracking-widest text-[9px] md:text-[10px] truncate">
                 Doctor Recetas • Última actualización: Febrero 2025
               </p>
             </div>
@@ -84,18 +84,18 @@ export default function TerminosPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar Navigation */}
-          <aside className="lg:col-span-1">
-            <Card className="sticky top-40 border-[#0D4B4D]/10 bg-white shadow-xl shadow-[#0D4B4D]/5 rounded-3xl overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8">
+        <div className="grid lg:grid-cols-4 gap-6 md:gap-8">
+          {/* Sidebar Navigation - Hidden on mobile, shown on desktop */}
+          <aside className="hidden lg:block lg:col-span-1">
+            <Card className="sticky top-32 lg:top-40 border-[#0D4B4D]/10 bg-white shadow-xl shadow-[#0D4B4D]/5 rounded-2xl lg:rounded-3xl overflow-hidden">
               <CardHeader className="bg-[#0D4B4D]/5 border-b border-[#0D4B4D]/5">
                 <CardTitle className="text-sm font-black uppercase tracking-widest text-[#0D4B4D]">
                   Navegación
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
-                <ScrollArea className="h-[500px]">
+                <ScrollArea className="h-[400px] lg:h-[500px]">
                   <nav className="space-y-1 p-4">
                     {sections.map((section) => {
                       const Icon = section.icon;
@@ -103,10 +103,10 @@ export default function TerminosPage() {
                         <button
                           key={section.id}
                           onClick={() => scrollToSection(section.id)}
-                          className="w-full flex items-center gap-3 p-3 text-left rounded-xl hover:bg-[#0D4B4D] hover:text-white transition-all duration-300 group relative overflow-hidden"
+                          className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left rounded-lg md:rounded-xl hover:bg-[#0D4B4D] hover:text-white transition-all duration-300 group relative overflow-hidden"
                         >
-                          <Icon className="h-4 w-4 text-[#0D4B4D]/60 group-hover:text-white transition-colors z-10" />
-                          <span className="text-[11px] font-bold tracking-tight z-10">
+                          <Icon className="h-3.5 w-3.5 md:h-4 md:w-4 text-[#0D4B4D]/60 group-hover:text-white transition-colors z-10 shrink-0" />
+                          <span className="text-[10px] md:text-[11px] font-bold tracking-tight z-10 line-clamp-1">
                             {section.title}
                           </span>
                           <div className="absolute inset-0 bg-linear-to-r from-[#0D4B4D] to-[#126467] opacity-0 group-hover:opacity-100 transition-opacity -translate-x-full group-hover:translate-x-0 duration-300" />
@@ -120,7 +120,7 @@ export default function TerminosPage() {
           </aside>
 
           {/* Main Content */}
-          <main className="lg:col-span-3 space-y-8">
+          <main className="lg:col-span-3 space-y-6 md:space-y-8">
             {/* 1. Introducción */}
             <section id="introduccion">
               <Card className="border-l-4 border-l-[#0D4B4D] bg-[#0D4B4D]/5 shadow-xl shadow-[#0D4B4D]/5 overflow-hidden">

@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import NextImage from "next/image";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
 
 interface Testimonial {
   id: number;
@@ -18,24 +17,6 @@ interface Testimonial {
   image: string;
 }
 
-const testimonialContainer: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const testimonialItem: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring" as const, stiffness: 80 },
-  },
-};
 
 const testimonials: Testimonial[] = [
   {
@@ -65,153 +46,91 @@ const testimonials: Testimonial[] = [
 ];
 
 export function TestimonialsSection() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  const autoplayInterval = React.useRef<NodeJS.Timeout | null>(null);
-  const resumeTimeout = React.useRef<NodeJS.Timeout | null>(null);
-
-  const startAutoplay = React.useCallback(() => {
-    if (autoplayInterval.current) return;
-    autoplayInterval.current = setInterval(() => {
-      api?.scrollNext();
-    }, 3000);
-  }, [api]);
-
-  const stopAutoplay = React.useCallback(() => {
-    if (autoplayInterval.current) {
-      clearInterval(autoplayInterval.current);
-      autoplayInterval.current = null;
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    startAutoplay();
-
-    const handlePointerDown = () => {
-      stopAutoplay();
-      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
-    };
-
-    const handlePointerUp = () => {
-      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
-      resumeTimeout.current = setTimeout(() => {
-        startAutoplay();
-      }, 2500); // Resume after 3 seconds of inactivity
-    };
-
-    api.on("pointerDown", handlePointerDown);
-    api.on("pointerUp", handlePointerUp);
-
-    return () => {
-      stopAutoplay();
-      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
-      api.off("pointerDown", handlePointerDown);
-      api.off("pointerUp", handlePointerUp);
-    };
-  }, [api, startAutoplay, stopAutoplay]);
 
   return (
-    <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
+    <section className="relative py-12 lg:py-20 w-full px-8 md:px-16 lg:px-[10%]">
       {/* Dynamic Background Effect */}
       <div
-        className="absolute inset-x-0 -top-40 -bottom-40 pointer-events-none z-0"
+        className="absolute inset-x-0 pointer-events-none z-0"
         style={{
+          top: "-500px",
+          bottom: "-500px",
           background:
             "linear-gradient(148deg, rgba(240, 244, 253, 0.00) 19.34%, rgba(29, 125, 126, 0.21) 47.29%, rgba(240, 244, 253, 0.54) 79.28%)",
           filter: "blur(60px)",
           WebkitMaskImage:
-            "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+            "radial-gradient(ellipse at center, black 60%, transparent 150%)",
           maskImage:
-            "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+            "radial-gradient(ellipse at center, black 60%, transparent 150%)",
           transform: "scale(1.1)",
         }}
       />
 
       <div className="relative z-10">
-        {/* Header - Matching HowItWorks style */}
-        <div className="mb-16 md:mb-20 text-center">
+        {/* Header */}
+        <div className="mb-10 md:mb-12 text-center">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight leading-snug">
             Clientes satisfechos confían con Dr.Recetas
           </h2>
         </div>
 
-        {/* Desktop Grid Layout */}
-        <motion.div
-          variants={testimonialContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              variants={testimonialItem}
-              key={testimonial.id}
-              className="flex flex-col"
-            >
-              <TestimonialCard testimonial={testimonial} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Tabs Layout */}
+        <div className="w-full max-w-4xl mx-auto">
+          <Tabs defaultValue="maria" className="w-full">
+            <TabsList variant="line" className="w-full justify-center gap-4 md:gap-8 mb-8 md:mb-12 border-b border-gray-200">
+              <TabsTrigger
+                value="maria"
+                className="text-gray-500 data-[state=active]:text-[#0D4B4D] font-semibold text-sm md:text-base px-4 md:px-6 pb-3 hover:text-[#0D4B4D]/70"
+              >
+                María Rodríguez
+              </TabsTrigger>
+              <TabsTrigger
+                value="carlos"
+                className="text-gray-500 data-[state=active]:text-[#0D4B4D] font-semibold text-sm md:text-base px-4 md:px-6 pb-3 hover:text-[#0D4B4D]/70"
+              >
+                Carlos Ortiz
+              </TabsTrigger>
+              <TabsTrigger
+                value="elena"
+                className="text-gray-500 data-[state=active]:text-[#0D4B4D] font-semibold text-sm md:text-base px-4 md:px-6 pb-3 hover:text-[#0D4B4D]/70"
+              >
+                Elena Rivera
+              </TabsTrigger>
+            </TabsList>
 
-        {/* Mobile Carousel Layout */}
-        <div className="md:hidden -mx-4">
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="ml-0">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem
-                  key={testimonial.id}
-                  className="pl-4 basis-[85%] transition-opacity duration-300"
-                >
-                  <div
-                    className={`transition-all duration-500 h-full py-4 ${
-                      index === current
-                        ? "scale-100 opacity-100"
-                        : "scale-90 opacity-40"
-                    }`}
-                  >
-                    <TestimonialCard testimonial={testimonial} />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+            <TabsContent value="maria" className="mt-0 focus-visible:outline-none">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="max-w-2xl mx-auto"
+              >
+                <TestimonialCard testimonial={testimonials[0]} />
+              </motion.div>
+            </TabsContent>
 
-            {/* Carousel Pagination */}
-            <div className="flex justify-center gap-3 mt-8">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => api?.scrollTo(i)}
-                  className={`transition-all duration-500 h-2 rounded-full ${
-                    i === current
-                      ? "bg-[#0D4B4D] w-8"
-                      : "bg-[#0D4B4D]/20 w-2 hover:bg-[#0D4B4D]/40"
-                  }`}
-                  aria-label={`Ir a testimonio ${i + 1}`}
-                />
-              ))}
-            </div>
-          </Carousel>
+            <TabsContent value="carlos" className="mt-0 focus-visible:outline-none">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="max-w-2xl mx-auto"
+              >
+                <TestimonialCard testimonial={testimonials[1]} />
+              </motion.div>
+            </TabsContent>
+
+            <TabsContent value="elena" className="mt-0 focus-visible:outline-none">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="max-w-2xl mx-auto"
+              >
+                <TestimonialCard testimonial={testimonials[2]} />
+              </motion.div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </section>

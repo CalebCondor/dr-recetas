@@ -26,6 +26,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   const [isDragging, setIsDragging] = useState(false);
   const scrollbarRef = useRef<HTMLDivElement>(null);
 
+  // Detect layout for specific mobile behaviors
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -46,6 +47,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   useEffect(() => {
     if (!api) return;
 
+    // Set initial values only after api is available
     const handleReInit = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
@@ -55,11 +57,13 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
       setCurrent(api.selectedScrollSnap());
     };
 
+    // Initialize state
     handleReInit();
 
     api.on("select", handleSelect);
     api.on("reInit", handleReInit);
 
+    // Cleanup listeners on unmount or api change
     return () => {
       api.off("select", handleSelect);
       api.off("reInit", handleReInit);
@@ -115,7 +119,6 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
         setApi={setApi}
         opts={{
           align: "center",
-          containScroll: false,
           loop: false,
           breakpoints: {
             "(min-width: 1024px)": {
@@ -124,20 +127,20 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
             },
             "(min-width: 640px)": {
               align: "center",
-              slidesToScroll: 1,
+              slidesToScroll: 3,
             },
           },
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-2 lg:-ml-6">
+        <CarouselContent className="-ml-2 px-4 md:px-0 lg:-ml-6">
           {services.map((service, index) => {
             const isActiveOnMobile = index === current;
 
             return (
               <CarouselItem
                 key={index}
-                className="pl-2 lg:pl-6 basis-[80%] sm:basis-[70%] lg:basis-1/3"
+                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3"
               >
                 <motion.div
                   initial={false}
