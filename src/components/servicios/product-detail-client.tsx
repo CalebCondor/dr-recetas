@@ -40,7 +40,7 @@ export function ProductDetailClient({
     <PageWrapper>
       <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-32 relative overflow-visible">
         {/* Navigation */}
-        <div className="w-full px-6 md:px-12 lg:px-[8%] mb-12 relative z-60">
+        <div className="w-full px-6 md:px-12 lg:px-[8%] mb-12 relative z-10">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
@@ -268,19 +268,29 @@ export function ProductDetailClient({
               </TabsList>
 
               <div className="bg-[#FDFDFD] rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
-                <TabsContent value="description" className="mt-0">
-                  <div className="prose prose-slate max-w-none">
+                <TabsContent value="description" className="mt-0 outline-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="prose prose-slate max-w-none"
+                  >
                     <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
                       Descripción Detallada
                     </h3>
                     <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed whitespace-pre-line text-left">
                       {product.detalle || product.resumen}
                     </p>
-                  </div>
+                  </motion.div>
                 </TabsContent>
 
-                <TabsContent value="details" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <TabsContent value="details" className="mt-0 outline-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                  >
                     <div className="space-y-4">
                       <h3 className="text-2xl font-black text-[#0D4B4D] mb-2 tracking-tight">
                         Especificaciones
@@ -309,23 +319,29 @@ export function ProductDetailClient({
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </TabsContent>
 
-                <TabsContent value="tags" className="mt-0">
-                  <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
-                    Relacionado con
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {product.tags?.map((tag: string, i: number) => (
-                      <span
-                        key={i}
-                        className="inline-flex items-center px-6 py-3 rounded-full bg-teal-50/80 text-[#0D4B4D] font-bold text-sm border border-teal-100/50 hover:bg-teal-100/80 transition-colors cursor-default"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <TabsContent value="tags" className="mt-0 outline-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
+                      Relacionado con
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {product.tags?.map((tag: string, i: number) => (
+                        <span
+                          key={i}
+                          className="inline-flex items-center px-6 py-3 rounded-full bg-teal-50/80 text-[#0D4B4D] font-bold text-sm border border-teal-100/50 hover:bg-teal-100/80 transition-colors cursor-default"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
                 </TabsContent>
               </div>
             </Tabs>
