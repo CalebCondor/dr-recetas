@@ -40,7 +40,7 @@ export function ProductDetailClient({
     <PageWrapper>
       <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-32 relative overflow-visible">
         {/* Navigation */}
-        <div className="container mx-auto px-6 mb-12 relative z-60">
+        <div className="w-full px-6 md:px-12 lg:px-[8%] mb-12 relative z-60">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
@@ -77,7 +77,7 @@ export function ProductDetailClient({
           </Breadcrumb>
         </div>
 
-        <div className="container max-w-8xl mx-auto px-6">
+        <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-stretch">
             {/* Left Column: Visuals */}
             <div className="relative space-y-6 lg:sticky lg:top-40 mx-auto lg:ml-0">
@@ -238,7 +238,7 @@ export function ProductDetailClient({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="mt-24 border-t border-slate-100 pt-16"
+            className="mt-16 sm:mt-8 border-t border-slate-100 "
           >
             <Tabs defaultValue="description" className="w-full">
               <TabsList className="bg-slate-100/50 p-1.5 rounded-[2rem] h-auto gap-1 mb-12 flex flex-wrap justify-center md:justify-start w-fit mx-auto md:mx-0 border border-slate-200/50">
