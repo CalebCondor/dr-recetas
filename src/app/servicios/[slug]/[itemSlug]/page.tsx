@@ -1,5 +1,5 @@
 import { getProductBySlug } from "@/lib/api";
-import { ProductDetailClient } from "@/components/product-detail-client";
+import { ProductDetailClient } from "@/components/servicios/product-detail-client";
 import { PageWrapper } from "@/components/page-wrapper";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

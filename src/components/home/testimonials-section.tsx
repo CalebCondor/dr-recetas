@@ -125,8 +125,6 @@ export function TestimonialsSection() {
 
   return (
     <section className="relative py-20 lg:py-32 w-full px-8 md:px-16 lg:px-[10%]">
-      {" "}
-      {/* Dynamic Background Effect */}
       <div
         className="absolute inset-x-0 -top-40 -bottom-40 pointer-events-none z-0"
         style={{

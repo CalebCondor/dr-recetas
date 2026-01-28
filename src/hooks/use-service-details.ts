@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import { servicesData, type ServiceData } from "@/lib/services-data";
 
 export interface Category {
@@ -45,14 +44,16 @@ export function useServiceDetails(slug: string) {
       setLoading(true);
 
       const [servicesRes, catsRes] = await Promise.all([
-        axios.get<ApiResponse>(
-          "https://doctorrecetas.com/v3/api.php?action=getServices",
-        ),
-        axios.get("https://doctorrecetas.com/v3/api_categorias.php"),
+        fetch("https://doctorrecetas.com/v3/api.php?action=getServices"),
+        fetch("https://doctorrecetas.com/v3/api_categorias.php"),
       ]);
 
-      const allData = servicesRes.data;
-      const fetchedCats: Category[] = catsRes.data;
+      if (!servicesRes.ok || !catsRes.ok) {
+        throw new Error("One or more fetch requests failed");
+      }
+
+      const allData: ApiResponse = await servicesRes.json();
+      const fetchedCats: Category[] = await catsRes.json();
       setCategories(fetchedCats);
 
       let currentServiceInfo: ServiceData | null = localServiceInfo || null;
