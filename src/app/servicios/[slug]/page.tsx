@@ -94,21 +94,21 @@ function ServiceBentoCard({
         href={`/servicios/${categorySlug}/${slug}`}
         className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_90px_rgba(13,75,77,0.15)] border block`}
       >
-        {/* Shine/Glare Effect Overlay - Tied to focus state or hover */}
+        {/* Shine/Glare Effect Overlay */}
         <div
           className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${isFocused ? "opacity-40" : "opacity-0"} group-hover:opacity-100`}
         >
           <div className="absolute inset-x-0 -top-full bottom-0 bg-linear-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:animate-[shine_1.5s_ease-in-out_infinite] transition-transform duration-1000" />
         </div>
 
-        {/* Background Image with focus-driven motion */}
+        {/* Background Image */}
         <motion.div
-          className="absolute right-4 top-4 w-[60%] h-[70%] z-0"
+          className="absolute right-0 top-4 w-[65%] h-[75%] z-0"
           animate={{
             opacity: shouldAnimateFocus ? 0.7 : isMobile ? 0.4 : 0.7,
             scale: shouldAnimateFocus ? 1.1 : 1,
-            x: shouldAnimateFocus ? 10 : 0,
-            y: shouldAnimateFocus ? -10 : 0,
+            x: shouldAnimateFocus ? 5 : 0,
+            y: shouldAnimateFocus ? -5 : 0,
           }}
           transition={{ type: "spring", stiffness: 100 }}
         >
@@ -118,26 +118,35 @@ function ServiceBentoCard({
           />
         </motion.div>
 
-        {/* Header: Price */}
-        <div className="relative z-10 mb-8 transition-transform duration-500">
-          {price && (
-            <div className="text-3xl font-black tracking-tight">${price}</div>
-          )}
-        </div>
-
-        {/* Central Content */}
-        <div className="relative z-10 space-y-4 max-w-[75%] transition-transform duration-500">
-          <h3 className="text-2xl md:text-3xl font-black leading-tight tracking-tight">
+        {/* Central Content (Top Area) */}
+        <div className="relative z-20 space-y-3 max-w-[65%] transition-transform duration-500 mb-6">
+          <h3 className="text-2xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
             {title}
           </h3>
           <p
-            className={`text-sm md:text-base leading-relaxed line-clamp-3 font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
+            className={`text-sm md:text-base leading-relaxed line-clamp-3 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
           >
             {content}
           </p>
         </div>
 
-        {/* Category Tag on the top right */}
+        {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
+        <div className="mt-auto relative z-20">
+          {price && (
+            <div className="flex flex-col">
+              <span
+                className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-40 ${isDark ? "text-white" : "text-[#0D4B4D]"}`}
+              >
+                Precio base
+              </span>
+              <div className="text-3xl md:text-4xl font-black leading-none tracking-tighter">
+                ${price}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Category Tag (Absolute) */}
         {category && (
           <div
             className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 ${
@@ -150,7 +159,7 @@ function ServiceBentoCard({
           </div>
         )}
 
-        {/* Action Button: Circular Arrow */}
+        {/* Action Button (Absolute) */}
         <div className="absolute bottom-8 right-8 z-20">
           <div
             className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-[#0D4B4D] text-white"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}

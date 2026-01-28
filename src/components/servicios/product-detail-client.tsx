@@ -9,6 +9,7 @@ import {
   RiStethoscopeLine,
   RiInformationLine,
   RiListCheck,
+  RiZoomInLine,
   RiPriceTag3Line,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -38,9 +39,9 @@ export function ProductDetailClient({
 }: ProductDetailClientProps) {
   return (
     <PageWrapper>
-      <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-32 relative overflow-visible">
+      <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-20 relative overflow-visible">
         {/* Navigation */}
-        <div className="w-full px-6 md:px-12 lg:px-[8%] mb-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8 mb-12 relative z-10">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
@@ -77,15 +78,37 @@ export function ProductDetailClient({
           </Breadcrumb>
         </div>
 
-        <div className="w-full px-6 md:px-12 lg:px-[8%]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-stretch">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left Column: Visuals */}
-            <div className="relative space-y-6 lg:sticky lg:top-40 mx-auto lg:ml-0">
+            <div className="relative flex flex-col lg:flex-row gap-4 lg:sticky lg:top-32 w-full max-w-[580px]">
+              {/* Thumbnail Column (Left) */}
+              <div className="flex lg:flex-col gap-3 lg:w-24 shrink-0">
+                {[1, 2, 3].map((i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    className="aspect-square rounded-[1.25rem] bg-[#F2F2F2] overflow-hidden border border-transparent cursor-pointer hover:border-teal-200 transition-all w-full flex items-center justify-center p-2"
+                  >
+                    <Image
+                      src={product.imagen || "/placeholder.svg"}
+                      alt={product.titulo}
+                      width={120}
+                      height={120}
+                      className={`object-cover h-full w-full opacity-60 hover:opacity-100 transition-opacity ${i === 1 ? "opacity-100 ring-2 ring-teal-500/20" : ""}`}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Main Image Container */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-[#F5F8F7] shadow-sm border border-slate-100"
+                className="relative flex-1 aspect-4/5 lg:aspect-square rounded-[2rem] overflow-hidden bg-[#F2F2F2] border border-slate-100 flex items-center justify-center"
               >
                 <Image
                   src={product.imagen || "/placeholder.svg"}
@@ -96,37 +119,16 @@ export function ProductDetailClient({
                   unoptimized
                 />
 
-                {/* Floating Discount Badge */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                  className="absolute top-6 right-6 bg-[#CCFFD9] text-[#0A5D44] px-3 py-1.5 rounded-full font-black text-[10px] tracking-wider shadow-sm border border-emerald-100"
-                >
-                  -15% DESCUENTO
-                </motion.div>
-              </motion.div>
+                {/* Zoom Icon Button */}
+                <button className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-slate-800 hover:scale-110 transition-transform cursor-pointer z-20">
+                  <RiZoomInLine className="w-5 h-5" />
+                </button>
 
-              {/* Thumbnail/Gallery or Reviews Peek */}
-              <div className="grid grid-cols-3 gap-6">
-                {[1, 2, 3].map((i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    className="aspect-square rounded-2xl bg-[#F5F8F7] overflow-hidden border border-slate-100/50 cursor-pointer hover:border-teal-200 transition-colors"
-                  >
-                    <Image
-                      src={product.imagen || "/placeholder.svg"}
-                      alt={product.titulo}
-                      width={200}
-                      height={200}
-                      className={`object-cover h-full w-full opacity-40 hover:opacity-100 transition-opacity ${i === 1 ? "opacity-100" : ""}`}
-                    />
-                  </motion.div>
-                ))}
-              </div>
+                {/* Floating Discount Badge */}
+                <div className="absolute top-6 left-6 bg-[#CCFFD9] text-[#0A5D44] px-3 py-1.5 rounded-full font-black text-[10px] tracking-wider shadow-sm border border-emerald-100">
+                  -15% DESCUENTO
+                </div>
+              </motion.div>
             </div>
 
             {/* Right Column: Info */}
@@ -135,7 +137,7 @@ export function ProductDetailClient({
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="space-y-10 max-h-none overflow-visible"
+                className="space-y-6 max-h-none overflow-visible"
               >
                 <header className="space-y-4">
                   <div className="flex items-center gap-2 text-[#0D4B4D]/40 font-black text-xs tracking-[0.2em] uppercase">
@@ -143,7 +145,7 @@ export function ProductDetailClient({
                     <span className="w-1 h-1 rounded-full bg-teal-500/30" />
                     <span>Dr. Recetas</span>
                   </div>
-                  <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#0D4B4D] leading-[0.95] tracking-tighter">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] leading-[0.95] tracking-tighter">
                     {product.titulo.split(" ").map((word, i) => (
                       <span
                         key={i}
@@ -163,7 +165,7 @@ export function ProductDetailClient({
                   </div>
                 </header>
 
-                <div className="space-y-8">
+                <div className="space-y-6">
                   <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
                     {product.resumen}
                   </p>
@@ -176,7 +178,7 @@ export function ProductDetailClient({
                   </div>
 
                   {/* Social Proof */}
-                  <div className="flex items-center gap-4 pt-4">
+                  <div className="flex items-center gap-4 pt-2">
                     <div className="flex -space-x-3">
                       {[1, 2, 3, 4].map((i) => (
                         <div
@@ -241,17 +243,17 @@ export function ProductDetailClient({
             className=" mt-2 lg:mt-16 border-t border-slate-100 "
           >
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="bg-slate-100/50 p-1 rounded-[1.25rem] md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-nowrap overflow-x-auto pb-1 sm:pb-0 scrollbar-hide justify-start md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
+              <TabsList className="bg-slate-100/50 p-1 rounded-2xl md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-wrap justify-center md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
                 <TabsTrigger
                   value="description"
-                  className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
+                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                 >
                   <RiInformationLine className="w-4 h-4" />
                   Descripción
                 </TabsTrigger>
                 <TabsTrigger
                   value="details"
-                  className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
+                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                 >
                   <RiListCheck className="w-4 h-4" />
                   Ficha Técnica
@@ -259,7 +261,7 @@ export function ProductDetailClient({
                 {product.tags && product.tags.length > 0 && (
                   <TabsTrigger
                     value="tags"
-                    className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                   >
                     <RiPriceTag3Line className="w-4 h-4" />
                     Categorías
