@@ -54,18 +54,26 @@ function ServiceBentoCard({
 
   return (
     <motion.div
+      initial={{ opacity: 0.8, y: 20, scale: 0.98 }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.6, ease: "easeOut" },
+      }}
       whileHover={{
         y: -12,
-        scale: 1.01,
+        scale: 1.02,
         transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] },
       }}
+      viewport={{ once: false, amount: 0.4, margin: "-10%" }}
       className="h-full"
     >
       <Link
         href={`/servicios/${categorySlug}/${slug}`}
         className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_rgba(13,75,77,0.12)] border block`}
       >
-        {/* Shine/Glare Effect Overlay */}
+        {/* Shine/Glare Effect Overlay - Activates on hover OR when in view in mobile */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none">
           <div className="absolute inset-x-0 -top-full bottom-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:-translate-x-full transition-transform duration-1000 ease-in-out" />
         </div>
