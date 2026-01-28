@@ -7,6 +7,9 @@ import {
   RiCheckLine,
   RiHome5Line,
   RiStethoscopeLine,
+  RiInformationLine,
+  RiListCheck,
+  RiPriceTag3Line,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 
@@ -21,6 +24,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApiServiceItem } from "@/lib/api";
 
 interface ProductDetailClientProps {
@@ -34,9 +38,9 @@ export function ProductDetailClient({
 }: ProductDetailClientProps) {
   return (
     <PageWrapper>
-      <div className="min-h-auto bg-[#FDFDFD] pt-40 pb-32 relative overflow-visible">
+      <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-32 relative overflow-visible">
         {/* Navigation */}
-        <div className="container mx-auto px-6 mb-12 relative z-60">
+        <div className="w-full px-6 md:px-12 lg:px-[8%] mb-12 relative z-60">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
@@ -73,15 +77,15 @@ export function ProductDetailClient({
           </Breadcrumb>
         </div>
 
-        <div className="container mx-auto px-6">
+        <div className="w-full px-6 md:px-12 lg:px-[8%]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-stretch">
             {/* Left Column: Visuals */}
-            <div className="relative space-y-8 lg:sticky lg:top-40">
+            <div className="relative space-y-6 lg:sticky lg:top-40 mx-auto lg:ml-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative aspect-square rounded-[3rem] overflow-hidden bg-[#F5F8F7] shadow-sm border border-slate-100"
+                className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-[#F5F8F7] shadow-sm border border-slate-100"
               >
                 <Image
                   src={product.imagen || "/placeholder.svg"}
@@ -89,6 +93,7 @@ export function ProductDetailClient({
                   fill
                   className="object-cover"
                   priority
+                  unoptimized
                 />
 
                 {/* Floating Discount Badge */}
@@ -96,7 +101,7 @@ export function ProductDetailClient({
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="absolute top-8 right-8 bg-[#CCFFD9] text-[#0A5D44] px-4 py-2 rounded-full font-black text-xs tracking-wider shadow-sm border border-emerald-100"
+                  className="absolute top-6 right-6 bg-[#CCFFD9] text-[#0A5D44] px-3 py-1.5 rounded-full font-black text-[10px] tracking-wider shadow-sm border border-emerald-100"
                 >
                   -15% DESCUENTO
                 </motion.div>
@@ -158,15 +163,15 @@ export function ProductDetailClient({
                   </div>
                 </header>
 
-                <div className="space-y-6">
-                  <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
+                <div className="space-y-8">
+                  <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
                     {product.resumen}
                   </p>
 
-                  <div className="pt-6">
-                    <Button className="w-full sm:w-auto h-auto py-5 px-12 rounded-[2rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-lg transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] group flex items-center gap-3">
-                      Comenzar mi consulta
-                      <RiShoppingBag4Line className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                  <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-slate-50">
+                    <Button className="w-full sm:flex-1 h-auto py-4 px-8 rounded-2xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] group flex items-center justify-center gap-3">
+                      Comprar Consulta
+                      <RiShoppingBag4Line className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </div>
 
@@ -195,9 +200,9 @@ export function ProductDetailClient({
                       Personas consultaron hoy
                     </p>
                   </div>
-                </div>
 
-                <hr className="border-slate-100" />
+                  <hr className="border-slate-100" />
+                </div>
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                   {[
@@ -224,48 +229,107 @@ export function ProductDetailClient({
                 </ul>
 
                 <hr className="border-slate-100" />
-
-                {/* Detalle Completo */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.5, duration: 0.8 }}
-                  className="space-y-6"
-                >
-                  <div>
-                    <h3 className="text-xl font-black text-[#0D4B4D] mb-4 tracking-tight">
-                      Detalles del Servicio
-                    </h3>
-                    <p className="text-slate-600 font-medium leading-relaxed text-justify">
-                      {product.detalle}
-                    </p>
-                  </div>
-
-                  {/* Tags */}
-                  {product.tags && product.tags.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-black text-[#0D4B4D]/60 uppercase tracking-widest mb-3">
-                        Categorías
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {product.tags.map((tag: string, i: number) => (
-                          <motion.span
-                            key={i}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 1.6 + i * 0.05 }}
-                            className="inline-flex items-center px-4 py-2 rounded-full bg-teal-50/80 text-[#0D4B4D] font-bold text-xs border border-teal-100/50 hover:bg-teal-100/80 transition-colors cursor-default"
-                          >
-                            {tag}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
               </motion.div>
             </div>
           </div>
+
+          {/* Bottom Tabs Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 1 }}
+            className="mt-16 sm:mt-8 border-t border-slate-100 "
+          >
+            <Tabs defaultValue="description" className="w-full">
+              <TabsList className="bg-slate-100/50 p-1.5 rounded-[2rem] h-auto gap-1 mb-12 flex flex-wrap justify-center md:justify-start w-fit mx-auto md:mx-0 border border-slate-200/50">
+                <TabsTrigger
+                  value="description"
+                  className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                >
+                  <RiInformationLine className="w-4 h-4" />
+                  Descripción
+                </TabsTrigger>
+                <TabsTrigger
+                  value="details"
+                  className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                >
+                  <RiListCheck className="w-4 h-4" />
+                  Ficha Técnica
+                </TabsTrigger>
+                {product.tags && product.tags.length > 0 && (
+                  <TabsTrigger
+                    value="tags"
+                    className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                  >
+                    <RiPriceTag3Line className="w-4 h-4" />
+                    Categorías
+                  </TabsTrigger>
+                )}
+              </TabsList>
+
+              <div className="bg-[#FDFDFD] rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
+                <TabsContent value="description" className="mt-0">
+                  <div className="prose prose-slate max-w-none">
+                    <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
+                      Descripción Detallada
+                    </h3>
+                    <p className="text-slate-600 text-lg font-medium leading-relaxed text-justify whitespace-pre-line">
+                      {product.detalle || product.resumen}
+                    </p>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="details" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                      <h3 className="text-2xl font-black text-[#0D4B4D] mb-2 tracking-tight">
+                        Especificaciones
+                      </h3>
+                      <div className="space-y-3">
+                        {[
+                          { label: "Servicio", value: product.titulo },
+                          {
+                            label: "Categoría",
+                            value: product.category || "General",
+                          },
+                          { label: "Disponibilidad", value: "24/7 Online" },
+                          { label: "Tiempo de respuesta", value: "Inmediato" },
+                        ].map((item, i) => (
+                          <div
+                            key={i}
+                            className="flex justify-between py-3 border-b border-slate-50"
+                          >
+                            <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                              {item.label}
+                            </span>
+                            <span className="text-[#0D4B4D] font-black text-sm">
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="tags" className="mt-0">
+                  <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
+                    Relacionado con
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {product.tags?.map((tag: string, i: number) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center px-6 py-3 rounded-full bg-teal-50/80 text-[#0D4B4D] font-bold text-sm border border-teal-100/50 hover:bg-teal-100/80 transition-colors cursor-default"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </TabsContent>
+              </div>
+            </Tabs>
+          </motion.div>
         </div>
       </div>
     </PageWrapper>

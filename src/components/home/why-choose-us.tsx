@@ -57,7 +57,7 @@ function WhyChooseUsContent() {
           fourthColor="40, 240, 180"
           fifthColor="200, 255, 240"
           pointerColor="60, 130, 255"
-          size="80%"
+          size="60%"
           blendingValue="hard-light"
         />
       </div>
