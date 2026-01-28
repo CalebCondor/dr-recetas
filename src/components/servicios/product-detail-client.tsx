@@ -49,9 +49,15 @@ export function ProductDetailClient({
 }: ProductDetailClientProps) {
   return (
     <PageWrapper>
-      <div className="min-h-auto bg-[#FDFDFD] pt-30 pb-20 relative overflow-visible">
+      <div className="min-h-auto bg-[#FAFAFA] pt-30 pb-20 relative overflow-visible">
+        {/* Background Decorations */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-teal-50/60 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[10%] left-[-5%] w-[40%] h-[40%] bg-blue-50/60 rounded-full blur-[120px]" />
+        </div>
+
         {/* Navigation */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8 mb-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8 mb-12 relative z-20">
           <Breadcrumb>
             <BreadcrumbList className="font-bold uppercase tracking-widest text-[10px] text-[#0D4B4D]/60 sm:gap-4">
               <BreadcrumbItem>
@@ -91,7 +97,7 @@ export function ProductDetailClient({
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left Column: Visuals */}
-            <div className="relative flex flex-col lg:flex-row gap-4 lg:sticky lg:top-32 w-full max-w-[580px]">
+            <div className="relative flex flex-col-reverse lg:flex-row gap-4 lg:sticky lg:top-32 w-full max-w-[580px]">
               {/* Thumbnail Column (Left) */}
               <div className="flex lg:flex-col gap-3 lg:w-24 shrink-0">
                 {[1, 2, 3].map((i) => (
@@ -288,7 +294,7 @@ export function ProductDetailClient({
                   )}
                 </TabsList>
 
-                <div className="bg-[#FDFDFD] rounded-[2.5rem] p-12 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
+                <div className="bg-white/80 backdrop-blur-sm rounded-[2.5rem] p-12 border border-slate-200/50 shadow-[0_20px_50px_rgba(0,0,0,0.03)]">
                   <TabsContent
                     value="description"
                     className="mt-0 outline-none"
@@ -376,82 +382,112 @@ export function ProductDetailClient({
 
             {/* Mobile Accordion */}
             <div className="md:hidden space-y-4">
-              <Accordion type="single" collapsible className="w-full space-y-4">
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue="description"
+                className="w-full space-y-3"
+              >
                 <AccordionItem
                   value="description"
-                  className="border rounded-2xl bg-[#FDFDFD] px-4 shadow-sm border-slate-100"
+                  className="group border border-slate-200/60 rounded-3xl bg-white overflow-hidden transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-teal-500/20"
                 >
-                  <AccordionTrigger className="text-[#0D4B4D] font-black py-5 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600">
-                        <RiInformationLine className="w-4 h-4" />
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-600 transition-all duration-300 group-data-[state=open]:bg-teal-500 group-data-[state=open]:text-white group-data-[state=open]:rotate-[360deg] group-data-[state=open]:rounded-full shadow-sm">
+                        <RiInformationLine className="w-6 h-6" />
                       </div>
-                      Descripción
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-teal-600">
+                          Descripción
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                          ¿De qué trata este servicio?
+                        </span>
+                      </div>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 font-medium leading-relaxed pt-2 pb-6">
-                    {product.detalle || product.resumen}
+                  <AccordionContent className="px-6 pb-6 pt-0">
+                    <p className="text-slate-600 font-medium leading-relaxed text-base">
+                      {product.detalle || product.resumen}
+                    </p>
                   </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem
                   value="details"
-                  className="border rounded-2xl bg-[#FDFDFD] px-4 shadow-sm border-slate-100"
+                  className="group border border-slate-200/60 rounded-3xl bg-white overflow-hidden transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-blue-500/20"
                 >
-                  <AccordionTrigger className="text-[#0D4B4D] font-black py-5 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                        <RiListCheck className="w-4 h-4" />
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 transition-all duration-300 group-data-[state=open]:bg-blue-600 group-data-[state=open]:text-white group-data-[state=open]:rotate-[360deg] group-data-[state=open]:rounded-full shadow-sm">
+                        <RiListCheck className="w-6 h-6" />
                       </div>
-                      Ficha Técnica
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-blue-600">
+                          Ficha Técnica
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                          Especificaciones clave
+                        </span>
+                      </div>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="space-y-4 pt-2 pb-6">
-                    {[
-                      { label: "Servicio", value: product.titulo },
-                      {
-                        label: "Categoría",
-                        value: product.category || "General",
-                      },
-                      { label: "Disponibilidad", value: "24/7 Online" },
-                      { label: "Tiempo de respuesta", value: "Inmediato" },
-                    ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between py-3 border-b border-slate-50 last:border-0"
-                      >
-                        <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
-                          {item.label}
-                        </span>
-                        <span className="text-[#0D4B4D] font-black text-xs">
-                          {item.value}
-                        </span>
-                      </div>
-                    ))}
+                  <AccordionContent className="px-6 pb-6 pt-0">
+                    <div className="space-y-4">
+                      {[
+                        { label: "Servicio", value: product.titulo },
+                        {
+                          label: "Categoría",
+                          value: product.category || "General",
+                        },
+                        { label: "Disponibilidad", value: "24/7 Online" },
+                        { label: "Respuesta", value: "Inmediato" },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex flex-col gap-0.5 py-2 border-b border-slate-50 last:border-0"
+                        >
+                          <span className="text-slate-400 font-bold uppercase text-[9px] tracking-widest">
+                            {item.label}
+                          </span>
+                          <span className="text-[#0D4B4D] font-black text-sm">
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
 
                 {product.tags && product.tags.length > 0 && (
                   <AccordionItem
                     value="tags"
-                    className="border rounded-2xl bg-[#FDFDFD] px-4 shadow-sm border-slate-100"
+                    className="group border border-slate-200/60 rounded-3xl bg-white overflow-hidden transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-orange-500/20"
                   >
-                    <AccordionTrigger className="text-[#0D4B4D] font-black py-5 hover:no-underline">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
-                          <RiPriceTag3Line className="w-4 h-4" />
+                    <AccordionTrigger className="px-6 py-5 hover:no-underline">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 transition-all duration-300 group-data-[state=open]:bg-orange-600 group-data-[state=open]:text-white group-data-[state=open]:rotate-[360deg] group-data-[state=open]:rounded-full shadow-sm">
+                          <RiPriceTag3Line className="w-6 h-6" />
                         </div>
-                        Categorías
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-orange-600">
+                            Categorías
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                            Etiquetas de interés
+                          </span>
+                        </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-6">
+                    <AccordionContent className="px-6 pb-6 pt-0">
                       <div className="flex flex-wrap gap-2">
                         {product.tags?.map((tag: string, i: number) => (
                           <span
                             key={i}
-                            className="inline-flex items-center px-4 py-2 rounded-full bg-teal-50/80 text-[#0D4B4D] font-bold text-xs border border-teal-100/50"
+                            className="inline-flex items-center px-4 py-2 rounded-xl bg-slate-50 text-[#0D4B4D] font-black text-[11px] border border-slate-200/50 hover:bg-slate-100 transition-colors"
                           >
-                            {tag}
+                            #{tag}
                           </span>
                         ))}
                       </div>
