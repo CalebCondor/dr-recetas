@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { ApiServiceItem, ApiResponse } from "./use-service-details";
 
 export function useProductDetail(categorySlug: string, productSlug: string) {
@@ -23,17 +22,21 @@ export function useProductDetail(categorySlug: string, productSlug: string) {
         console.log("🚀 Starting fetch for product slug:", productSlug);
         setLoading(true);
 
-        const res = await axios.get<ApiResponse>(
+        const res = await fetch(
           "https://doctorrecetas.com/v3/api.php?action=getServices",
         );
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
 
         if (!isMounted) {
           console.log("Component unmounted, ignoring response");
           return;
         }
 
-        console.log("✅ API Response received:", res.data);
-        const allData = res.data;
+        const allData: ApiResponse = await res.json();
+        console.log("✅ API Response received:", allData);
 
         let foundProduct: ApiServiceItem | null = null;
 
