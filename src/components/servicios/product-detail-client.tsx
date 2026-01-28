@@ -4,13 +4,17 @@ import { PageWrapper } from "@/components/page-wrapper";
 import { motion } from "motion/react";
 import {
   RiShoppingBag4Line,
-  RiCheckLine,
   RiHome5Line,
   RiStethoscopeLine,
   RiInformationLine,
   RiListCheck,
   RiZoomInLine,
   RiPriceTag3Line,
+  RiShareLine,
+  RiFacebookFill,
+  RiTwitterXFill,
+  RiPinterestLine,
+  RiLinkedinFill,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 
@@ -183,59 +187,66 @@ export function ProductDetailClient({
                     </Button>
                   </div>
 
-                  {/* Social Proof */}
-                  <div className="flex items-center gap-4 pt-2">
-                    <div className="flex -space-x-3">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="w-8 h-8 rounded-full border-2 border-white bg-teal-50 overflow-hidden ring-1 ring-slate-100"
-                        >
-                          <Image
-                            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`}
-                            alt="user"
-                            width={32}
-                            height={32}
-                            unoptimized
-                          />
-                        </div>
-                      ))}
-                      <div className="w-8 h-8 rounded-full border-2 border-white bg-[#0D4B4D] flex items-center justify-center text-[10px] text-white font-bold ring-1 ring-slate-100">
-                        +12
-                      </div>
-                    </div>
-                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
-                      Personas consultaron hoy
-                    </p>
-                  </div>
+                  {/* Share Section */}
 
                   <hr className="border-slate-100" />
                 </div>
 
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                {/* Compact Technical Sheet */}
+                <div className="grid grid-cols-2 gap-y-6 gap-x-8">
                   {[
-                    "Consulta médica inmediata",
-                    "Chat con nuestros especialistas",
-                    "Recetas digitales válidas",
-                    "Protección de datos 100%",
-                    "Atención 24/7 online",
-                    "Revisiones periódicas",
-                  ].map((text, i) => (
-                    <motion.li
+                    {
+                      label: "SKU",
+                      value: `${(product.pq_codigo || "").toUpperCase()} - ${product.id.toString().slice(-3)}`,
+                    },
+                    {
+                      label: "Categoría",
+                      value: product.category || "General",
+                    },
+                    { label: "Servicio", value: "24/7 Digital" },
+                    { label: "Tiempo", value: "Inmediato" },
+                  ].map((item, i) => (
+                    <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1.2 + i * 0.1 }}
-                      className="flex items-center gap-3 text-sm font-bold text-[#0D4B4D]/80"
+                      className="flex flex-col gap-1.5"
                     >
-                      <div className="w-6 h-6 rounded-full bg-[#E8F5EE] flex items-center justify-center text-[#10A37F] shrink-0">
-                        <RiCheckLine className="w-4 h-4" />
-                      </div>
-                      {text}
-                    </motion.li>
+                      <span className="text-[10px] text-slate-400 font-black uppercase tracking-[0.15em]">
+                        {item.label}
+                      </span>
+                      <span className="text-sm text-[#0D4B4D] font-black">
+                        {item.value}
+                      </span>
+                    </motion.div>
                   ))}
-                </ul>
+                </div>
+                <hr className="border-slate-100 " />
 
+                <div className="flex items-center gap-4 pt-2">
+                  <div className="w-10 h-10 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#0D4B4D] shadow-sm shrink-0">
+                    <RiShareLine className="w-5 h-5" />
+                  </div>
+                  <span className="text-sm font-black text-[#0D4B4D]">
+                    Share:
+                  </span>
+                  <div className="flex gap-2">
+                    {[
+                      { icon: RiFacebookFill, hover: "hover:bg-[#3b5998]" },
+                      { icon: RiTwitterXFill, hover: "hover:bg-black" },
+                      { icon: RiPinterestLine, hover: "hover:bg-[#bd081c]" },
+                      { icon: RiLinkedinFill, hover: "hover:bg-[#0077b5]" },
+                    ].map((social, i) => (
+                      <button
+                        key={i}
+                        className={`w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 transition-all duration-300 hover:text-white hover:border-transparent ${social.hover}`}
+                      >
+                        <social.icon className="w-4 h-4" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <hr className="border-slate-100" />
               </motion.div>
             </div>

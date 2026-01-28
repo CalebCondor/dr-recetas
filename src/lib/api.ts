@@ -11,6 +11,7 @@ export interface ApiServiceItem {
   tags: string[];
   pq_tag: string | null;
   url: string;
+  pq_codigo: string | null;
   category?: string;
 }
 
