@@ -238,20 +238,20 @@ export function ProductDetailClient({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="mt-16 sm:mt-8 border-t border-slate-100 "
+            className=" mt-2 lg:mt-16 border-t border-slate-100 "
           >
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="bg-slate-100/50 p-1.5 rounded-[2rem] h-auto gap-1 mb-12 flex flex-wrap justify-center md:justify-start w-fit mx-auto md:mx-0 border border-slate-200/50">
+              <TabsList className="bg-slate-100/50 p-1 rounded-2xl md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-wrap justify-center md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
                 <TabsTrigger
                   value="description"
-                  className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                 >
                   <RiInformationLine className="w-4 h-4" />
                   Descripción
                 </TabsTrigger>
                 <TabsTrigger
                   value="details"
-                  className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                 >
                   <RiListCheck className="w-4 h-4" />
                   Ficha Técnica
@@ -259,7 +259,7 @@ export function ProductDetailClient({
                 {product.tags && product.tags.length > 0 && (
                   <TabsTrigger
                     value="tags"
-                    className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
                   >
                     <RiPriceTag3Line className="w-4 h-4" />
                     Categorías
@@ -267,13 +267,13 @@ export function ProductDetailClient({
                 )}
               </TabsList>
 
-              <div className="bg-[#FDFDFD] rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
+              <div className="bg-[#FDFDFD] rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
                 <TabsContent value="description" className="mt-0">
                   <div className="prose prose-slate max-w-none">
                     <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
                       Descripción Detallada
                     </h3>
-                    <p className="text-slate-600 text-lg font-medium leading-relaxed text-justify whitespace-pre-line">
+                    <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed whitespace-pre-line text-left">
                       {product.detalle || product.resumen}
                     </p>
                   </div>
