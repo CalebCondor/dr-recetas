@@ -140,7 +140,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
             return (
               <CarouselItem
                 key={index}
-                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3"
+                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3 "
               >
                 <motion.div
                   initial={false}
@@ -167,7 +167,7 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
 
         {/* Navigation Dots */}
         {count > 1 && (
-          <div className="flex justify-center gap-3 mt-10">
+          <div className="flex justify-center gap-3 mt-16">
             {Array.from({ length: count }).map((_, i) => (
               <button
                 key={i}

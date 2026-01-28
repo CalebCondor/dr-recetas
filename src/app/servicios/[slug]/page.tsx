@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { servicesData } from "@/lib/services-data";
 import { useParams } from "next/navigation";
 import Link from "next/link";
@@ -11,7 +11,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 
 import { useServiceDetails } from "@/hooks/use-service-details";
-import { useRef } from "react";
 import { useInView } from "motion/react";
 
 // Helper component for the Bento card
@@ -35,12 +34,20 @@ function ServiceBentoCard({
   categorySlug: string;
 }) {
   const cardRef = useRef(null);
-  // amount: 0.5 means the effect triggers when 50% of the card is visible
-  // once: false allows it to trigger every time you scroll up/down
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const isFocused = useInView(cardRef, {
     amount: 0.6,
     margin: "-10% 0px -10% 0px",
   });
+
+  const shouldAnimateFocus = isMobile && isFocused;
 
   const defaultImages = [
     "/citas-medicas/1.png",
@@ -67,9 +74,9 @@ function ServiceBentoCard({
       ref={cardRef}
       initial={{ opacity: 0.85, y: 10, scale: 0.97 }}
       animate={{
-        opacity: isFocused ? 1 : 0.85,
-        y: isFocused ? -8 : 0,
-        scale: isFocused ? 1.03 : 0.97,
+        opacity: isMobile ? (shouldAnimateFocus ? 1 : 0.85) : 1,
+        y: shouldAnimateFocus ? -8 : 0,
+        scale: isMobile ? (shouldAnimateFocus ? 1.03 : 0.97) : 1,
       }}
       whileHover={{
         y: -15,
@@ -91,17 +98,17 @@ function ServiceBentoCard({
         <div
           className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${isFocused ? "opacity-40" : "opacity-0"} group-hover:opacity-100`}
         >
-          <div className="absolute inset-x-0 -top-full bottom-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:animate-[shine_1.5s_ease-in-out_infinite] transition-transform duration-1000" />
+          <div className="absolute inset-x-0 -top-full bottom-0 bg-linear-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:animate-[shine_1.5s_ease-in-out_infinite] transition-transform duration-1000" />
         </div>
 
         {/* Background Image with focus-driven motion */}
         <motion.div
           className="absolute right-4 top-4 w-[60%] h-[70%] z-0"
           animate={{
-            opacity: isFocused ? 0.7 : 0.4,
-            scale: isFocused ? 1.1 : 1,
-            x: isFocused ? 10 : 0,
-            y: isFocused ? -10 : 0,
+            opacity: shouldAnimateFocus ? 0.7 : isMobile ? 0.4 : 0.7,
+            scale: shouldAnimateFocus ? 1.1 : 1,
+            x: shouldAnimateFocus ? 10 : 0,
+            y: shouldAnimateFocus ? -10 : 0,
           }}
           transition={{ type: "spring", stiffness: 100 }}
         >
@@ -132,7 +139,13 @@ function ServiceBentoCard({
 
         {/* Category Tag on the top right */}
         {category && (
-          <div className="absolute top-8 right-8 z-10 opacity-30 uppercase font-black text-[10px] tracking-widest pointer-events-none transition-opacity">
+          <div
+            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 ${
+              isDark
+                ? "bg-white/10 text-white/90 border-white/10"
+                : "bg-black/5 text-slate-900/60 border-black/10"
+            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+          >
             {category}
           </div>
         )}
