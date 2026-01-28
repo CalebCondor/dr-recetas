@@ -238,7 +238,7 @@ export function ProductDetailClient({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="mt-16 sm:mt-8 border-t border-slate-100 "
+            className=" mt-2 lg:mt-16 border-t border-slate-100 "
           >
             <Tabs defaultValue="description" className="w-full">
               <TabsList className="bg-slate-100/50 p-1 rounded-2xl md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-wrap justify-center md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
