@@ -11,6 +11,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 
 import { useServiceDetails } from "@/hooks/use-service-details";
+import { useRef } from "react";
+import { useInView } from "motion/react";
 
 // Helper component for the Bento card
 function ServiceBentoCard({
@@ -32,6 +34,14 @@ function ServiceBentoCard({
   slug: string;
   categorySlug: string;
 }) {
+  const cardRef = useRef(null);
+  // amount: 0.5 means the effect triggers when 50% of the card is visible
+  // once: false allows it to trigger every time you scroll up/down
+  const isFocused = useInView(cardRef, {
+    amount: 0.6,
+    margin: "-10% 0px -10% 0px",
+  });
+
   const defaultImages = [
     "/citas-medicas/1.png",
     "/citas-medicas/2.png",
@@ -54,50 +64,62 @@ function ServiceBentoCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0.8, y: 20, scale: 0.98 }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.6, ease: "easeOut" },
+      ref={cardRef}
+      initial={{ opacity: 0.85, y: 10, scale: 0.97 }}
+      animate={{
+        opacity: isFocused ? 1 : 0.85,
+        y: isFocused ? -8 : 0,
+        scale: isFocused ? 1.03 : 0.97,
       }}
       whileHover={{
-        y: -12,
-        scale: 1.02,
-        transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] },
+        y: -15,
+        scale: 1.05,
+        transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
-      viewport={{ once: false, amount: 0.4, margin: "-10%" }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
       className="h-full"
     >
       <Link
         href={`/servicios/${categorySlug}/${slug}`}
-        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_rgba(13,75,77,0.12)] border block`}
+        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_90px_rgba(13,75,77,0.15)] border block`}
       >
-        {/* Shine/Glare Effect Overlay - Activates on hover OR when in view in mobile */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none">
-          <div className="absolute inset-x-0 -top-full bottom-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:-translate-x-full transition-transform duration-1000 ease-in-out" />
+        {/* Shine/Glare Effect Overlay - Tied to focus state or hover */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${isFocused ? "opacity-40" : "opacity-0"} group-hover:opacity-100`}
+        >
+          <div className="absolute inset-x-0 -top-full bottom-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rotate-45 translate-x-full group-hover:animate-[shine_1.5s_ease-in-out_infinite] transition-transform duration-1000" />
         </div>
 
-        {/* Background Image with slight parallax motion */}
+        {/* Background Image with focus-driven motion */}
         <motion.div
-          className="absolute right-4 top-4 w-[60%] h-[70%] z-0 opacity-40 group-hover:opacity-70 transition-all duration-700"
-          initial={false}
+          className="absolute right-4 top-4 w-[60%] h-[70%] z-0"
+          animate={{
+            opacity: isFocused ? 0.7 : 0.4,
+            scale: isFocused ? 1.1 : 1,
+            x: isFocused ? 10 : 0,
+            y: isFocused ? -10 : 0,
+          }}
+          transition={{ type: "spring", stiffness: 100 }}
         >
           <div
-            className="w-full h-full bg-contain bg-bottom-right bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-110 group-hover:translate-x-2 group-hover:-translate-y-2"
+            className="w-full h-full bg-contain bg-bottom-right bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-115"
             style={{ backgroundImage: `url("${bgImage}")` }}
           />
         </motion.div>
 
         {/* Header: Price */}
-        <div className="relative z-10 mb-8 transition-transform duration-500 group-hover:-translate-y-1">
+        <div className="relative z-10 mb-8 transition-transform duration-500">
           {price && (
             <div className="text-3xl font-black tracking-tight">${price}</div>
           )}
         </div>
 
         {/* Central Content */}
-        <div className="relative z-10 space-y-4 max-w-[75%] transition-transform duration-500 group-hover:-translate-y-2">
+        <div className="relative z-10 space-y-4 max-w-[75%] transition-transform duration-500">
           <h3 className="text-2xl md:text-3xl font-black leading-tight tracking-tight">
             {title}
           </h3>
@@ -110,7 +132,7 @@ function ServiceBentoCard({
 
         {/* Category Tag on the top right */}
         {category && (
-          <div className="absolute top-8 right-8 z-10 opacity-30 uppercase font-black text-[10px] tracking-widest pointer-events-none transition-opacity group-hover:opacity-50">
+          <div className="absolute top-8 right-8 z-10 opacity-30 uppercase font-black text-[10px] tracking-widest pointer-events-none transition-opacity">
             {category}
           </div>
         )}
@@ -118,7 +140,7 @@ function ServiceBentoCard({
         {/* Action Button: Circular Arrow */}
         <div className="absolute bottom-8 right-8 z-20">
           <div
-            className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-[#0D4B4D] text-white"}`}
+            className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-[#0D4B4D] text-white"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}
           >
             <RiArrowRightUpLine className="w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
