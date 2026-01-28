@@ -241,17 +241,17 @@ export function ProductDetailClient({
             className=" mt-2 lg:mt-16 border-t border-slate-100 "
           >
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="bg-slate-100/50 p-1 rounded-2xl md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-wrap justify-center md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
+              <TabsList className="bg-slate-100/50 p-1 rounded-[1.25rem] md:rounded-[2rem] h-auto gap-1 mb-8 md:mb-12 flex flex-nowrap overflow-x-auto pb-1 sm:pb-0 scrollbar-hide justify-start md:justify-start w-full md:w-fit mx-auto md:mx-0 border border-slate-200/50">
                 <TabsTrigger
                   value="description"
-                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                  className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
                 >
                   <RiInformationLine className="w-4 h-4" />
                   Descripción
                 </TabsTrigger>
                 <TabsTrigger
                   value="details"
-                  className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                  className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
                 >
                   <RiListCheck className="w-4 h-4" />
                   Ficha Técnica
@@ -259,7 +259,7 @@ export function ProductDetailClient({
                 {product.tags && product.tags.length > 0 && (
                   <TabsTrigger
                     value="tags"
-                    className="px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
+                    className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full text-[#0D4B4D]/60 font-bold text-xs sm:text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0"
                   >
                     <RiPriceTag3Line className="w-4 h-4" />
                     Categorías
