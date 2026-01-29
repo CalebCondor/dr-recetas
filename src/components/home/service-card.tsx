@@ -90,7 +90,7 @@ export function ServiceCard({
       initial="initial"
       whileHover="hover"
       animate={shouldShowContent ? "hover" : "initial"}
-      className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 h-[520px] lg:h-[620px] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-sm"
+      className="group relative overflow-hidden rounded-[2.5rem] h-[520px] lg:h-[620px] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -114,7 +114,7 @@ export function ServiceCard({
 
         {/* Aqua Glass Shine Effect (iPhone Style) */}
         <div
-          className="absolute inset-0 z-15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none border border-white/20 rounded-[2.5rem]"
+          className="absolute inset-0 z-15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem]"
           style={{
             boxShadow:
               "inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -1px 20px rgba(0,0,0,0.1)",

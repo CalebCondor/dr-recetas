@@ -1,8 +1,9 @@
-import { getProductBySlug } from "@/lib/api";
+import { getProductBySlug, getRelatedProducts } from "@/lib/api";
 import { ProductDetailClient } from "@/components/servicios/product-detail-client";
 import { PageWrapper } from "@/components/page-wrapper";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { RelatedBentoCard } from "@/app/servicios/[slug]/page";
 
 // Disable static generation for this dynamic route to ensure fresh data
 export const dynamic = "force-dynamic";
@@ -40,5 +41,45 @@ export default async function ProductDetailPage({
     );
   }
 
-  return <ProductDetailClient product={product} categorySlug={slug} />;
+  // Fetch related products from the same category
+  const relatedProducts = await getRelatedProducts(slug, product.slug);
+
+  return (
+    <>
+      <ProductDetailClient product={product} categorySlug={slug} />
+
+      {relatedProducts.length > 0 && (
+        <div className="bg-[#FAFAFA] pb-24">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
+            <div className="mb-12">
+              <h2 className="text-center text-3xl md:text-4xl font-black text-[#0D4B4D] tracking-tighter">
+                Servicios Relacionados
+              </h2>
+              <p className="text-center text-slate-500 font-medium mt-2">
+                Otros servicios en la categoría {product.category} que podrían
+                interesarte.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {relatedProducts.slice(0, 3).map((item, idx) => (
+                <div key={item.id} className="h-[420px]">
+                  <RelatedBentoCard
+                    title={item.titulo}
+                    content={item.resumen}
+                    price={item.precio}
+                    image={item.imagen}
+                    category={item.category}
+                    index={idx}
+                    slug={item.slug}
+                    categorySlug={slug}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
