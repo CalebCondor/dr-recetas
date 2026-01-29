@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import Hero from "@/components/hero-section";
+import Hero from "@/components/home/hero-section";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 import { PageWrapper } from "@/components/page-wrapper";
 
