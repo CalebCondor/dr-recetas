@@ -105,10 +105,10 @@ export function RelatedBentoCard({
           />
         </motion.div>
         {/* Central Content (Top Area) */}
-        <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full">
+        <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
           {category && (
             <div
-              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 ${
+              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
                 isDark
                   ? "bg-white/10 text-white/90 border-white/10"
                   : "bg-black/5 text-slate-900/60 border-black/10"
@@ -118,18 +118,17 @@ export function RelatedBentoCard({
             </div>
           )}
 
-          <div className="space-y-3 max-w-[85%] lg:max-w-[70%]">
+          <div className="space-y-3">
             <h3 className="text-xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
               {title}
             </h3>
             <p
-              className={`text-sm md:text-base leading-relaxed line-clamp-3 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
+              className={`text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-4 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
             >
               {content}
             </p>
           </div>
         </div>
-
         {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
         <div className="mt-auto relative z-20">
           {price && (
@@ -145,6 +144,18 @@ export function RelatedBentoCard({
             </div>
           )}
         </div>
+        {/* Category Tag (Absolute - Desktop only) */}
+        {category && (
+          <div
+            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
+              isDark
+                ? "bg-white/10 text-white/90 border-white/10"
+                : "bg-black/5 text-slate-900/60 border-black/10"
+            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+          >
+            {category}
+          </div>
+        )}
         {/* Action Button (Absolute) */}
         <div className="absolute bottom-8 right-8 z-20">
           <div
