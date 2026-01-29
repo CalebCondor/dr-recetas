@@ -1,5 +1,4 @@
 
-
 export interface ApiServiceItem {
   id: number;
   slug: string;
@@ -28,7 +27,6 @@ export async function getProductBySlug(slug: string): Promise<ApiServiceItem | n
         'Pragma': 'no-cache',
         'Expires': '0',
       },
-      // In Next.js, we can also use tags for revalidation
       next: { revalidate: 0 } 
     });
 
@@ -39,7 +37,6 @@ export async function getProductBySlug(slug: string): Promise<ApiServiceItem | n
     const allData: ApiResponse = await res.json();
     let foundProduct: ApiServiceItem | null = null;
 
-    // Search logic
     Object.entries(allData).forEach(([categoryName, items]) => {
       const match = items.find((item) => {
         const itemSlug = item.slug?.trim().toLowerCase();
@@ -61,5 +58,26 @@ export async function getProductBySlug(slug: string): Promise<ApiServiceItem | n
   } catch (error) {
     console.error("❌ [Server] Error fetching product:", error);
     return null;
+  }
+}
+
+export async function getRelatedProducts(categoryName: string, currentSlug: string): Promise<ApiServiceItem[]> {
+  try {
+    const res = await fetch("https://doctorrecetas.com/v3/api.php?action=getServices", {
+      next: { revalidate: 3600 } 
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch services");
+
+    const allData: ApiResponse = await res.json();
+    const categoryItems = allData[categoryName] || [];
+    
+    return categoryItems
+      .filter(item => item.slug !== currentSlug)
+      .slice(0, 4)
+      .map(item => ({ ...item, category: categoryName }));
+  } catch (error) {
+    console.error("Error fetching related products:", error);
+    return [];
   }
 }
