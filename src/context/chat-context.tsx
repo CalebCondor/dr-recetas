@@ -21,6 +21,8 @@ interface ChatContextType {
   isLoading: boolean;
   sendMessage: (text: string) => Promise<void>;
   clearChat: () => void;
+  isBottomBarVisible: boolean;
+  setIsBottomBarVisible: (visible: boolean) => void;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -37,6 +39,7 @@ const INITIAL_MESSAGE: Message = {
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [isBottomBarVisible, setIsBottomBarVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Load messages from localStorage on mount
@@ -138,7 +141,14 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ChatContext.Provider
-      value={{ messages, isLoading, sendMessage, clearChat }}
+      value={{
+        messages,
+        isLoading,
+        sendMessage,
+        clearChat,
+        isBottomBarVisible,
+        setIsBottomBarVisible,
+      }}
     >
       {children}
     </ChatContext.Provider>

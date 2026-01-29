@@ -6,8 +6,10 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChatbotPanel } from "./chatbot-panel";
 import Image from "next/image";
+import { useChat } from "@/context/chat-context";
 
 export function ChatbotFloating() {
+  const { isBottomBarVisible } = useChat();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -52,8 +54,12 @@ export function ChatbotFloating() {
         {isVisible && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{
+              opacity: 1,
+              y: isBottomBarVisible ? -70 : 0,
+            }}
             exit={{ opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 20, stiffness: 200 }}
             className="fixed bottom-6 right-6 z-100 flex flex-col items-end"
           >
             {/* Modal */}

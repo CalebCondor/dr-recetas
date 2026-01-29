@@ -38,6 +38,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ApiServiceItem } from "@/lib/api";
+import { useChat } from "@/context/chat-context";
+import { useEffect } from "react";
 
 interface ProductDetailClientProps {
   product: ApiServiceItem;
@@ -48,11 +50,22 @@ export function ProductDetailClient({
   product,
   categorySlug,
 }: ProductDetailClientProps) {
+  const { setIsBottomBarVisible } = useChat();
   const mainButtonRef = useRef(null);
   const isMainButtonVisible = useInView(mainButtonRef, {
     margin: "0px 0px -100px 0px", // Adds a bit of buffer
     once: false,
   });
+
+  // Update global chatbot visibility offset
+  useEffect(() => {
+    // The bar is visible when the main button is NOT visible
+    setIsBottomBarVisible(!isMainButtonVisible);
+
+    // Cleanup on unmount
+    return () => setIsBottomBarVisible(false);
+  }, [isMainButtonVisible, setIsBottomBarVisible]);
+
   return (
     <PageWrapper>
       <div className="min-h-auto bg-[#F0F9F5] pt-30 pb-40 md:pb-20 relative overflow-visible">
@@ -102,7 +115,7 @@ export function ProductDetailClient({
                     className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-[#0D4B4D]/10"
                   >
                     <Button className="w-full sm:flex-1 h-auto py-4 px-8 rounded-2xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] group flex items-center justify-center gap-3">
-                      Comprar Consulta
+                      Comprar
                       <RiShoppingBag4Line className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </div>
@@ -342,9 +355,9 @@ export function ProductDetailClient({
             </div>
 
             {/* Main Action Button */}
-            <Button className="flex-1 max-w-xl h-auto py-3.5 md:py-4 rounded-2xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-lg transition-all shadow-lg hover:shadow-xl active:scale-[0.98] group flex items-center justify-center gap-3">
-              <span>Comprar Consulta</span>
-              <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
+            <Button className="flex-1 max-w-[200px] h-auto py-2.5 md:py-3 rounded-xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg active:scale-[0.98] group flex items-center justify-center gap-2">
+              <span>Comprar</span>
+              <RiShoppingBag4Line className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
             </Button>
           </div>
         </motion.div>

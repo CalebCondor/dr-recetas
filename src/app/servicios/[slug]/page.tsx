@@ -44,16 +44,18 @@ export function RelatedBentoCard({
   const shouldAnimateFocus = isMobile && isFocused;
   const bgImage = image;
   const cardColors = [
-    "bg-white text-slate-900 border-slate-100",
-    "bg-[#FFD54F] text-[#0D4B4D] border-[#FFECB3]",
-    "bg-[#E1F5FE] text-[#01579B] border-[#B3E5FC]",
+    "bg-white text-[#0D4B4D] border-white/40",
     "bg-[#0D4B4D] text-white border-white/10",
-    "bg-[#FCE4EC] text-[#880E4F] border-[#F8BBD0]",
-    "bg-[#E8F5E9] text-[#1B5E20] border-[#C8E6C9]",
+    "bg-[#B0E5CC] text-[#0D4B4D] border-white/40",
+    "bg-[#F8FAFC] text-slate-900 border-white/40",
+    "bg-[#1E293B] text-white border-white/10",
+    "bg-[#E0F2F1] text-teal-900 border-white/40",
   ];
   const currentBg = cardColors[index % cardColors.length];
   const isDark =
-    currentBg.includes("text-white") || currentBg.includes("bg-[#0D4B4D]");
+    currentBg.includes("text-white") ||
+    currentBg.includes("bg-[#0D4B4D]") ||
+    currentBg.includes("bg-[#1E293B]");
   return (
     <motion.div
       ref={cardRef}
@@ -77,7 +79,7 @@ export function RelatedBentoCard({
     >
       <Link
         href={`/servicios/${categorySlug}/${slug}`}
-        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_90px_rgba(13,75,77,0.15)] border block`}
+        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_90px_rgba(13,75,77,0.15)] border backdrop-blur-md block`}
       >
         {/* Shine/Glare Effect Overlay */}
         <div
@@ -94,25 +96,40 @@ export function RelatedBentoCard({
           transition={{ duration: 0.7 }}
         >
           <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-110"
+            className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-110 grayscale-20 group-hover:grayscale-0"
             style={{ backgroundImage: `url("${bgImage}")` }}
           />
-          {/* Overlay for readability - slight gradient */}
+          {/* Overlay for readability - sophisticated gradient */}
           <div
-            className={`absolute inset-0 ${isDark ? "bg-linear-to-t from-black/80 via-black/20 to-transparent" : "bg-linear-to-t from-white/90 via-white/40 to-white/10"}`}
+            className={`absolute inset-0 transition-opacity duration-500 ${isDark ? "bg-linear-to-t from-black/95 via-black/40 to-black/20" : "bg-linear-to-t from-white/95 via-white/40 to-white/20"}`}
           />
         </motion.div>
         {/* Central Content (Top Area) */}
-        <div className="relative z-20 space-y-3 max-w-[65%] transition-transform duration-500 mb-6">
-          <h3 className="text-2xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
-            {title}
-          </h3>
-          <p
-            className={`text-sm md:text-base leading-relaxed line-clamp-3 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
-          >
-            {content}
-          </p>
+        <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full">
+          {category && (
+            <div
+              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 ${
+                isDark
+                  ? "bg-white/10 text-white/90 border-white/10"
+                  : "bg-black/5 text-slate-900/60 border-black/10"
+              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
+            >
+              {category}
+            </div>
+          )}
+
+          <div className="space-y-3 max-w-[85%] lg:max-w-[70%]">
+            <h3 className="text-xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
+              {title}
+            </h3>
+            <p
+              className={`text-sm md:text-base leading-relaxed line-clamp-3 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
+            >
+              {content}
+            </p>
+          </div>
         </div>
+
         {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
         <div className="mt-auto relative z-20">
           {price && (
@@ -128,18 +145,6 @@ export function RelatedBentoCard({
             </div>
           )}
         </div>
-        {/* Category Tag (Absolute) */}
-        {category && (
-          <div
-            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 ${
-              isDark
-                ? "bg-white/10 text-white/90 border-white/10"
-                : "bg-black/5 text-slate-900/60 border-black/10"
-            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
-          >
-            {category}
-          </div>
-        )}
         {/* Action Button (Absolute) */}
         <div className="absolute bottom-8 right-8 z-20">
           <div
