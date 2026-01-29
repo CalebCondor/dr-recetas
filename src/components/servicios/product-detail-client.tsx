@@ -38,6 +38,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ApiServiceItem } from "@/lib/api";
+import { useChat } from "@/context/chat-context";
+import { useEffect } from "react";
 
 interface ProductDetailClientProps {
   product: ApiServiceItem;
@@ -48,16 +50,27 @@ export function ProductDetailClient({
   product,
   categorySlug,
 }: ProductDetailClientProps) {
+  const { setIsBottomBarVisible } = useChat();
   const mainButtonRef = useRef(null);
   const isMainButtonVisible = useInView(mainButtonRef, {
     margin: "0px 0px -100px 0px", // Adds a bit of buffer
     once: false,
   });
+
+  // Update global chatbot visibility offset
+  useEffect(() => {
+    // The bar is visible when the main button is NOT visible
+    setIsBottomBarVisible(!isMainButtonVisible);
+
+    // Cleanup on unmount
+    return () => setIsBottomBarVisible(false);
+  }, [isMainButtonVisible, setIsBottomBarVisible]);
+
   return (
     <PageWrapper>
       <div className="min-h-auto bg-[#F0F9F5] pt-30 pb-40 md:pb-20 relative overflow-visible">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 gap-8 lg:gap-12 items-start">
             {/* Right Column: Info */}
             <div className="w-full">
               <motion.div
@@ -82,28 +95,36 @@ export function ProductDetailClient({
                       </span>
                     ))}
                   </h1>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-black text-[#0D4B4D]">
-                      ${product.precio || "0.00"}
-                    </span>
-                    <span className="text-slate-400 font-bold text-sm">
-                      envío + gestión
-                    </span>
-                  </div>
                 </header>
 
-                <div className="space-y-6">
-                  <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
-                    {product.resumen}
-                  </p>
+                <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
+                  {product.resumen}
+                </p>
 
-                  <div
-                    ref={mainButtonRef}
-                    className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-[#0D4B4D]/10"
-                  >
-                    <Button className="w-full sm:flex-1 h-auto py-4 px-8 rounded-2xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] group flex items-center justify-center gap-3">
-                      Comprar Consulta
-                      <RiShoppingBag4Line className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <div
+                  ref={mainButtonRef}
+                  className="flex flex-col md:flex-row md:items-center justify-between gap-8 pt-8 lg:pt-12 border-t border-[#0D4B4D]/10"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center gap-8 lg:gap-12">
+                    {/* Desktop Price info */}
+                    <div className="hidden md:flex flex-col items-start gap-1">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
+                        Precio Final
+                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
+                          ${product.precio || "0.00"}
+                        </span>
+                        <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                          USD
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Button: controlled size on desktop */}
+                    <Button className="w-full md:w-[280px] lg:w-[320px] h-auto py-4 px-8 md:py-6 md:px-10 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-xl transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3">
+                      <span>comprar</span>
+                      <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </div>
                 </div>
@@ -342,9 +363,9 @@ export function ProductDetailClient({
             </div>
 
             {/* Main Action Button */}
-            <Button className="flex-1 max-w-xl h-auto py-3.5 md:py-4 rounded-2xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-lg transition-all shadow-lg hover:shadow-xl active:scale-[0.98] group flex items-center justify-center gap-3">
-              <span>Comprar Consulta</span>
-              <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
+            <Button className="flex-1 max-w-[200px] h-auto py-2.5 md:py-3 rounded-xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg active:scale-[0.98] group flex items-center justify-center gap-2">
+              <span>Comprar</span>
+              <RiShoppingBag4Line className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
             </Button>
           </div>
         </motion.div>

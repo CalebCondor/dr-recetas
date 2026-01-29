@@ -63,9 +63,6 @@ export default function Header() {
         </nav>
 
         <div className="flex md:hidden items-center gap-1.5">
-          <button className="transition-all active:scale-95 flex items-center justify-center">
-            <Image src="/store.svg" alt="Store" width={62} height={62} />
-          </button>
           <Sheet>
             <SheetTrigger asChild>
               <button className="bg-white rounded-md shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-8 h-8 border border-slate-50">
