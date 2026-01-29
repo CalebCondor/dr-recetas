@@ -61,71 +61,21 @@ export async function getProductBySlug(slug: string): Promise<ApiServiceItem | n
   }
 }
 
-export interface Category {
-  id: number;
-  nombre: string;
-  tipo: number;
-  tag: string;
-  lead: string;
-  imagen: string;
-}
-
-export async function getRelatedProducts(categorySlug: string, currentSlug: string): Promise<ApiServiceItem[]> {
+export async function getRelatedProducts(categoryName: string, currentSlug: string): Promise<ApiServiceItem[]> {
   try {
-    const [servicesRes, catsRes] = await Promise.all([
-      fetch("https://doctorrecetas.com/v3/api.php?action=getServices", { next: { revalidate: 0 } }),
-      fetch("https://doctorrecetas.com/v3/api_categorias.php", { next: { revalidate: 0 } })
-    ]);
-
-    if (!servicesRes.ok || !catsRes.ok) throw new Error("Failed to fetch data");
-
-    const allData: ApiResponse = await servicesRes.json();
-    const categories: Category[] = await catsRes.json();
-
-    // Find the current category's info to get its apiTag
-    const currentCat = categories.find(
-      (c) => (c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros") === categorySlug
-    );
-
-    const targetTag = currentCat?.tag?.toLowerCase();
-
-    const allItems: ApiServiceItem[] = [];
-    Object.entries(allData).forEach(([catName, items]) => {
-      items.forEach(item => allItems.push({ ...item, category: catName }));
+    const res = await fetch("https://doctorrecetas.com/v3/api.php?action=getServices", {
+      next: { revalidate: 3600 } 
     });
 
-    let related = allItems.filter(item => item.slug !== currentSlug);
+    if (!res.ok) throw new Error("Failed to fetch services");
 
-    if (targetTag) {
-      related = related.filter((item) => {
-        const itemTags = item.pq_tag
-          ?.split(",")
-          .map((t) => t.trim().toLowerCase()) || [];
-        
-        const hasTag = itemTags.includes(targetTag);
-        
-        // Also match by category name if it's the same as the current category
-        const isInCategory = currentCat && item.category?.toLowerCase() === currentCat.nombre.toLowerCase();
-
-        return hasTag || isInCategory;
-      });
-      
-      // Strict exclusion: if we are in laboratory, don't show imaging
-      if (targetTag.includes("laboratorio")) {
-        related = related.filter(item => {
-          const itemTags = item.pq_tag?.toLowerCase() || "";
-          return !itemTags.includes("imagen");
-        });
-      }
-    } else {
-      // Fallback to slug match if no category tag found
-      related = related.filter(item => item.slug.includes(categorySlug));
-    }
-
-    // Shuffle and limit to 3 for the UI
-    return related
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
+    const allData: ApiResponse = await res.json();
+    const categoryItems = allData[categoryName] || [];
+    
+    return categoryItems
+      .filter(item => item.slug !== currentSlug)
+      .slice(0, 4)
+      .map(item => ({ ...item, category: categoryName }));
   } catch (error) {
     console.error("Error fetching related products:", error);
     return [];
