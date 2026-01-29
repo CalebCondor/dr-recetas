@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { PageWrapper } from "@/components/page-wrapper";
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import {
   RiShoppingBag4Line,
   RiHome5Line,
@@ -16,12 +15,21 @@ import {
   RiFacebookFill,
   RiTwitterXFill,
   RiPinterestLine,
+  RiLinkedinFill,
 } from "react-icons/ri";
-
 import { FaUserDoctor } from "react-icons/fa6";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-
+import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
@@ -62,158 +70,62 @@ export function ProductDetailClient({
     <PageWrapper>
       <div className="min-h-auto bg-[#F0F9F5] pt-30 pb-40 md:pb-20 relative overflow-visible">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left Column: Visuals */}
-            <div className="lg:col-span-7 w-full order-2 lg:order-1">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="relative aspect-square md:aspect-video lg:aspect-4/5 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden shadow-2xl border-8 border-white group bg-white"
-              >
-                <Image
-                  src={product.imagen || "/placeholder-service.jpg"}
-                  alt={product.titulo}
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/40 to-transparent pointer-events-none" />
-                <div className="absolute top-8 left-8">
-                  <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-lg flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-[#0D4B4D]">
-                      Disponible Ahora
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Quick Highlight Cards (Desktop Only) */}
-              <div className="hidden lg:grid grid-cols-3 gap-6 mt-10">
-                {[
-                  {
-                    icon: RiStethoscopeLine,
-                    label: "Validado Médicamente",
-                    color: "bg-teal-50 text-teal-600",
-                  },
-                  {
-                    icon: RiPriceTag3Line,
-                    label: "Mejor Precio",
-                    color: "bg-emerald-50 text-emerald-600",
-                  },
-                  {
-                    icon: RiShareLine,
-                    label: "Fácil de Compartir",
-                    color: "bg-blue-50 text-blue-600",
-                  },
-                ].map((badge, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white/40 border border-white/60 p-5 rounded-[2rem] flex flex-col items-center text-center gap-3 shadow-sm"
-                  >
-                    <div
-                      className={`w-12 h-12 rounded-2xl ${badge.color} flex items-center justify-center`}
-                    >
-                      <badge.icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-black text-[#0D4B4D]/60 uppercase tracking-widest leading-tight">
-                      {badge.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Info (Sticky on Desktop) */}
-            <div className="lg:col-span-5 w-full order-1 lg:order-2 lg:sticky lg:top-32">
+          <div className="grid grid-cols-1 gap-8 lg:gap-12 items-start">
+            {/* Right Column: Info */}
+            <div className="w-full">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="space-y-8"
+                transition={{ duration: 0.8 }}
+                className="space-y-6 max-h-none overflow-visible"
               >
-                <header className="space-y-6 text-center lg:text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0D4B4D]/5 text-[#0D4B4D]/60 font-black text-[10px] tracking-[0.2em] uppercase border border-[#0D4B4D]/10">
+                <header className="space-y-4">
+                  <div className="flex items-center gap-2 text-[#0D4B4D]/40 font-black text-xs tracking-[0.2em] uppercase">
                     <span>{product.category || "Servicio Digital"}</span>
-                    <span className="w-1 h-1 rounded-full bg-emerald-500/30" />
+                    <span className="w-1 h-1 rounded-full bg-teal-500/30" />
                     <span>Dr. Recetas</span>
                   </div>
-
-                  <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black text-[#0D4B4D] leading-[0.9] tracking-tighter">
-                    {product.titulo}
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] leading-[0.95] tracking-tighter">
+                    {product.titulo.split(" ").map((word, i) => (
+                      <span
+                        key={i}
+                        className={i % 3 === 2 ? "text-teal-600/30" : ""}
+                      >
+                        {word}{" "}
+                      </span>
+                    ))}
                   </h1>
-
-                  <div className="flex flex-col gap-2 items-center lg:items-start">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
-                        ${product.precio || "0.00"}
-                      </span>
-                      <span className="text-[#0D4B4D]/30 font-bold text-sm uppercase tracking-widest">
-                        USD
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-lg">
-                      <RiListCheck className="w-4 h-4" />
-                      Gestión administrativa incluida
-                    </div>
-                  </div>
                 </header>
 
-                <div className="space-y-8">
-                  <p className="text-slate-600 text-lg font-medium leading-relaxed text-center lg:text-left">
-                    {product.resumen}
-                  </p>
+                <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
+                  {product.resumen}
+                </p>
 
-                  <div ref={mainButtonRef} className="space-y-6">
-                    <Button className="w-full h-16 rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-lg transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] group flex items-center justify-center gap-4">
-                      <span>Comprar Ahora</span>
-                      <RiShoppingBag4Line className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                <div
+                  ref={mainButtonRef}
+                  className="flex flex-col md:flex-row md:items-center justify-between gap-8 pt-8 lg:pt-12 border-t border-[#0D4B4D]/10"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center gap-8 lg:gap-12">
+                    {/* Desktop Price info */}
+                    <div className="hidden md:flex flex-col items-start gap-1">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
+                        Precio Final
+                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
+                          ${product.precio || "0.00"}
+                        </span>
+                        <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                          USD
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Button: controlled size on desktop */}
+                    <Button className="w-full md:w-[280px] lg:w-[320px] h-auto py-4 px-8 md:py-6 md:px-10 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-xl transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3">
+                      <span>comprar</span>
+                      <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
                     </Button>
-
-                    {/* Trust Badges */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#0D4B4D]/5 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                          <RiListCheck className="w-5 h-5" />
-                        </div>
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-tight">
-                          Entrega
-                          <br />
-                          Inmediata
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#0D4B4D]/5 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                          <RiInformationLine className="w-5 h-5" />
-                        </div>
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-tight">
-                          Soporte
-                          <br />
-                          24/7
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Share signals */}
-                  <div className="flex items-center justify-center lg:justify-start gap-4 pt-4 border-t border-[#0D4B4D]/5">
-                    <span className="text-[10px] font-black text-[#0D4B4D]/30 uppercase tracking-[0.2em]">
-                      Compartir:
-                    </span>
-                    <div className="flex gap-2">
-                      {[
-                        RiFacebookFill,
-                        RiTwitterXFill,
-                        RiPinterestLine,
-                        RiShareLine,
-                      ].map((Icon, i) => (
-                        <button
-                          key={i}
-                          className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#0D4B4D] hover:border-[#0D4B4D] transition-all"
-                        >
-                          <Icon className="w-4 h-4" />
-                        </button>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </motion.div>
