@@ -26,7 +26,7 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.main
-      initial={{ opacity: 0, y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 1.2, // Slightly faster for better perceived performance
