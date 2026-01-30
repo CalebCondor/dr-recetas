@@ -255,9 +255,8 @@ export function ProductDetailClient({
             {/* Mobile Accordion */}
             <div className="md:hidden space-y-4">
               <Accordion
-                type="single"
-                collapsible
-                defaultValue="description"
+                type="multiple"
+                defaultValue={["description"]}
                 className="w-full space-y-3"
               >
                 <AccordionItem
@@ -297,10 +296,10 @@ export function ProductDetailClient({
                       </div>
                       <div className="flex flex-col gap-0.5">
                         <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-blue-600">
-                          Horarios de Atención
+                          Ficha Técnica
                         </span>
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                          ¿Cuáles son los horarios de atención?
+                          Detalles y especificaciones
                         </span>
                       </div>
                     </div>
