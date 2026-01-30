@@ -7,7 +7,13 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
   // Force scroll to top and clear hash on load
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "auto" });
+      // Disable browser scroll restoration to ensure we always start at top
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      window.scrollTo({ top: 0, behavior: "instant" });
+
       if (window.location.hash) {
         window.history.replaceState(
           null,
@@ -20,11 +26,11 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.main
-      initial={{ opacity: 0, y: 36 }}
+      initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 1.8,
-        delay: 0.2,
+        duration: 1.2, // Slightly faster for better perceived performance
+        delay: 0.1,
         ease: [0.16, 1, 0.3, 1], // Custom premium easeOut
       }}
       className="flex flex-col gap-0 overflow-x-hidden"
