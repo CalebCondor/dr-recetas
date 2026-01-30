@@ -106,13 +106,13 @@ export function ProductDetailClient({
                   className="flex flex-col md:flex-row md:items-center justify-between gap-8 pt-8 lg:pt-12 border-t border-[#0D4B4D]/10"
                 >
                   <div className="flex flex-col md:flex-row md:items-center gap-8 lg:gap-12">
-                    {/* Desktop Price info */}
-                    <div className="hidden md:flex flex-col items-start gap-1">
+                    {/* Price info - Visible on all screens */}
+                    <div className="flex flex-col items-start gap-1">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
-                        Precio Final
+                        Precio
                       </span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
+                        <span className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
                           ${product.precio || "0.00"}
                         </span>
                         <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
