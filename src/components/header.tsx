@@ -20,6 +20,8 @@ import {
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import { LoginSheet } from "@/components/login-sheet";
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -57,9 +59,11 @@ export default function Header() {
               {item}
             </a>
           ))}
-          <Button className="px-8 py-3 rounded-full bg-white text-slate-500 font-semibold border-none shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
-            Iniciar sesión
-          </Button>
+          <LoginSheet>
+            <Button className="px-8 py-3 rounded-full bg-white text-slate-500 font-semibold border-none shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
+              Iniciar sesión
+            </Button>
+          </LoginSheet>
         </nav>
 
         <div className="flex md:hidden items-center gap-1.5">
@@ -140,12 +144,14 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <Button
-                    variant="outline"
-                    className="w-full py-6 rounded-2xl border-2 border-slate-100 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-white hover:bg-slate-50 hover:border-slate-200"
-                  >
-                    Iniciar sesión
-                  </Button>
+                  <LoginSheet>
+                    <Button
+                      variant="outline"
+                      className="w-full py-6 rounded-2xl border-2 border-slate-100 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-white hover:bg-slate-50 hover:border-slate-200"
+                    >
+                      Iniciar sesión
+                    </Button>
+                  </LoginSheet>
                 </div>
               </div>
             </SheetContent>
