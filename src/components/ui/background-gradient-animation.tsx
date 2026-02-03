@@ -113,23 +113,29 @@ export const BackgroundGradientAnimation = ({
     return () => cancelAnimationFrame(animationFrameId);
   }, [interactive]);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (interactiveRef.current) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      tgX.current = event.clientX - rect.left;
-      tgY.current = event.clientY - rect.top;
-      (
-        interactiveRef.current as HTMLDivElement & {
+  useEffect(() => {
+    if (!interactive) return;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (interactiveRef.current && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        tgX.current = event.clientX - rect.left;
+        tgY.current = event.clientY - rect.top;
+
+        const interactiveDiv = interactiveRef.current as HTMLDivElement & {
           __startAnimation?: () => void;
-        }
-      ).__startAnimation?.();
-    }
-  };
+        };
+        interactiveDiv.__startAnimation?.();
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [interactive]);
 
   return (
     <div
       ref={containerRef}
-      onMouseMove={interactive ? handleMouseMove : undefined}
       className={cn(
         "h-full w-full relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
         containerClassName,
