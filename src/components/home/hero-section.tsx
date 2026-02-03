@@ -9,27 +9,27 @@ import { BackgroundGradientAnimation } from "@/components/ui/background-gradient
 const consultations = [
   {
     id: 1,
-    name: 'Receta de medicamentos o "Refill"',
+    name: "Certificado Médico",
   },
   {
     id: 2,
-    name: "Consultas Médicas Generales",
+    name: 'Receta de medicamentos o "Refill"',
   },
   {
     id: 3,
-    name: "Consulta por Covid",
+    name: "Evaluación médica inmediata",
   },
   {
     id: 4,
-    name: "Prueba de sangre ETH",
+    name: "Cita de Seguimiento",
   },
   {
     id: 5,
-    name: "Evaluacion Medica del sueño",
+    name: "Prueba de Influenza A y B",
   },
   {
     id: 6,
-    name: "Receta de medicamentos o 'refill'",
+    name: "CBC + DIFF Lab",
   },
 ];
 
@@ -159,12 +159,12 @@ export default function Hero() {
       <div className="absolute top-0 left-0 w-full h-full lg:h-[180%] pointer-events-none z-0 lg:hidden">
         <BackgroundGradientAnimation
           containerClassName="!h-full !w-full blur-[40px] will-change-transform"
-          firstColor="16, 185, 129"
-          secondColor="20, 184, 166"
-          thirdColor="34, 197, 94"
-          fourthColor="6, 182, 212"
-          fifthColor="37, 99, 235"
-          pointerColor="52, 211, 153"
+          firstColor="167, 243, 208"
+          secondColor="110, 231, 183"
+          thirdColor="52, 211, 153"
+          fourthColor="16, 185, 129"
+          fifthColor="5, 150, 105"
+          pointerColor="34, 197, 94"
           size="120%"
           blendingValue="screen"
           interactive={false}
@@ -266,7 +266,7 @@ export default function Hero() {
             <button
               type="button"
               onClick={() => {
-                const el = document.getElementById("chatbot");
+                const el = document.getElementById("servicios");
                 if (el) {
                   el.scrollIntoView({ behavior: "smooth" });
                 }

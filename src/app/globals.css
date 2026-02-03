@@ -196,3 +196,13 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  :root {
+    --animate-first: moveVertical 4s ease infinite;
+    --animate-second: moveInCircle 4s reverse infinite;
+    --animate-third: moveInCircle 5s linear infinite;
+    --animate-fourth: moveHorizontal 5s ease infinite;
+    --animate-fifth: moveInCircle 4s ease infinite;
+  }
+}

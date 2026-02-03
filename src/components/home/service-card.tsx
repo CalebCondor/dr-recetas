@@ -51,7 +51,6 @@ export function ServiceCard({
     hover: {
       opacity: 1,
       backgroundColor: "rgba(0,0,0,0.35)",
-      backdropFilter: "blur(4px)",
       transition: { duration: 0.5 },
     },
   };
@@ -90,7 +89,7 @@ export function ServiceCard({
       initial="initial"
       whileHover="hover"
       animate={shouldShowContent ? "hover" : "initial"}
-      className="group relative overflow-hidden rounded-[2.5rem] h-[520px] lg:h-[620px] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-sm"
+      className="group relative overflow-hidden rounded-[2.5rem] h-[520px] lg:h-[620px] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
