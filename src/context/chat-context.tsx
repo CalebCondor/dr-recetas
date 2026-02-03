@@ -42,7 +42,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isBottomBarVisible, setIsBottomBarVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Load messages from localStorage on mount
   useEffect(() => {
     const savedMessages = localStorage.getItem(CHAT_STORAGE_KEY);
     const lastActive = localStorage.getItem(CHAT_TIMESTAMP_KEY);
@@ -51,10 +50,12 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       const parsedLastActive = parseInt(lastActive, 10);
       const now = Date.now();
 
-      // If messages exist and inactivity limit hasn't passed
       if (now - parsedLastActive < INACTIVITY_LIMIT) {
         try {
-          setMessages(JSON.parse(savedMessages));
+          const parsed = JSON.parse(savedMessages);
+          queueMicrotask(() => {
+            setMessages(parsed);
+          });
         } catch (e) {
           console.error("Failed to parse saved chat messages", e);
         }
@@ -66,7 +67,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Save messages to localStorage whenever they change
   useEffect(() => {
     if (
       messages.length > 1 ||
