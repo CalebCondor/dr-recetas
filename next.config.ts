@@ -28,13 +28,13 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
   },
   allowedDevOrigins: ["http://192.168.100.221:3000"],
-  
+
   // Enable aggressive caching and performance optimizations
   experimental: {
     // Optimize client-side navigation
     optimisticClientCache: true,
   },
-  
+
   // Configure static generation with ISR (Incremental Static Regeneration)
   // This caches pages and revalidates them periodically
   async headers() {
