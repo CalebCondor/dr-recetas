@@ -12,15 +12,20 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
         window.history.scrollRestoration = "manual";
       }
 
-      window.scrollTo({ top: 0, behavior: "instant" });
+      // Use setTimeout to ensure this runs after browser's native scroll restoration
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
 
-      if (window.location.hash) {
-        window.history.replaceState(
-          null,
-          "",
-          window.location.pathname + window.location.search,
-        );
-      }
+        if (window.location.hash) {
+          window.history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search,
+          );
+        }
+      }, 10);
+
+      return () => clearTimeout(timer);
     }
   }, []);
 
