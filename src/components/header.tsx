@@ -151,23 +151,25 @@ export default function Header() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
                 <DropdownMenuGroup>
-                  <Link href="/perfil">
+                  <Link href="/perfil?tab=info">
                     <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
                       <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
                       Mi Perfil
                     </DropdownMenuItem>
                   </Link>
-                  <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
-                    <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                    Mis Ordenes
-                  </DropdownMenuItem>
+                  <Link href="/perfil?tab=orders">
+                    <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
+                      <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                      Mis Ordenes
+                    </DropdownMenuItem>
+                  </Link>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
                 <DropdownMenuItem
                   onClick={handleLogout}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
                 >
-                  <LogOut className="text-red-500 w-4 h-4" />
+                  <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
                   Cerrar sesión
                 </DropdownMenuItem>
               </DropdownMenuContent>
