@@ -266,7 +266,7 @@ export default function Hero() {
             <button
               type="button"
               onClick={() => {
-                const el = document.getElementById("chatbot");
+                const el = document.getElementById("servicios");
                 if (el) {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
