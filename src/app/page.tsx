@@ -70,7 +70,7 @@ export default async function Home() {
                 Nuestros Servicios
               </h2>
               <p className="text-teal-900/60 font-medium text-lg">
-                Explora nuestras soluciones médicas digitales
+                Explora nuestras soluciones médicas en linea
               </p>
             </div>
           </div>

@@ -33,6 +33,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { label: "Servicios", id: "servicios", href: "/servicios" },
+    { label: "Descuentos", id: "descuentos", href: "/descuentos" },
+    { label: "Nosotros", id: "nosotros", href: "/nosotros" },
+    { label: "Membresías", id: "menbresias", href: "/membresias" },
+  ];
+
   return (
     <header
       className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${
@@ -50,14 +57,14 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-12">
-          {["Servicios", "Descuentos", "Nosotros", "Membresías"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+          {navLinks.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
               className="text-slate-500 hover:text-slate-800 font-medium transition-colors text-sm"
             >
-              {item}
-            </a>
+              {label}
+            </Link>
           ))}
           <LoginSheet>
             <Button className="px-8 py-3 rounded-full bg-white text-slate-500 font-semibold border-none shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
@@ -106,7 +113,7 @@ export default function Header() {
                       {
                         name: "Membresías",
                         icon: CreditCard,
-                        href: "#membresías",
+                        href: "/membresias",
                       },
                     ].map((item) => (
                       <a
