@@ -41,62 +41,83 @@ export const OrderDetails = ({
       <Stepper current={2} />
     </div>
 
-    <div className="bg-white border border-slate-100 rounded-3xl overflow-hidden">
-      <table className="w-full">
-        <thead className="bg-[#0D4B4D]/5 border-b border-slate-100">
-          <tr>
-            <th className="px-8 py-4 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest text-left">
-              Producto / Paciente
-            </th>
-            <th className="px-8 py-4 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest text-right">
-              Precio
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-50">
-          {cart.map((item) => (
-            <tr key={item.id}>
-              <td className="px-8 py-8 space-y-4">
+    <div className="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm">
+      {/* Desktop Header */}
+      <div className="hidden md:grid grid-cols-12 bg-[#0D4B4D]/5 border-b border-slate-100 px-8 py-4">
+        <div className="col-span-8 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest">
+          Producto / Paciente
+        </div>
+        <div className="col-span-4 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest text-right">
+          Precio
+        </div>
+      </div>
+
+      <div className="divide-y divide-slate-100">
+        {cart.map((item) => (
+          <div
+            key={item.id}
+            className="p-6 md:p-8 flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-4 items-start"
+          >
+            <div className="md:col-span-8 space-y-4 w-full">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 md:block">
                 <div>
-                  <h3 className="font-bold text-[#0D4B4D]">{item.titulo}</h3>
-                  <p className="text-xs text-slate-400">
+                  <h3 className="font-bold text-[#0D4B4D] text-lg md:text-base">
+                    {item.titulo}
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1 line-clamp-2">
                     {item.detalle || "Consulta médica inmediata"}
                   </p>
                 </div>
-                <div className="space-y-1.5 max-w-sm">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase">
-                    Nombre para esta orden:
-                  </label>
-                  <Input
-                    value={
-                      formData.order_names[item.id] || formData.nombre_completo
-                    }
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        order_names: {
-                          ...formData.order_names,
-                          [item.id]: e.target.value,
-                        },
-                      })
-                    }
-                    className="h-10 rounded-lg bg-slate-50/50 border-slate-100 font-bold"
-                  />
+                {/* Mobile Price */}
+                <div className="md:hidden mt-1">
+                  <span className="text-xl font-black text-[#0D4B4D]">
+                    ${parseFloat(item.precio).toFixed(2)}
+                  </span>
                 </div>
-              </td>
-              <td className="px-8 py-8 text-right font-black text-[#0D4B4D] text-xl">
+              </div>
+
+              <div className="space-y-2 max-w-sm">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                  Nombre para esta orden:
+                </label>
+                <Input
+                  value={
+                    formData.order_names[item.id] || formData.nombre_completo
+                  }
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      order_names: {
+                        ...formData.order_names,
+                        [item.id]: e.target.value,
+                      },
+                    })
+                  }
+                  className="h-11 rounded-xl bg-slate-50/50 border-slate-100 font-bold focus:bg-white transition-all shadow-sm"
+                />
+              </div>
+            </div>
+
+            {/* Desktop Price */}
+            <div className="hidden md:flex md:col-span-4 justify-end items-start pt-1">
+              <span className="font-black text-[#0D4B4D] text-xl">
                 ${parseFloat(item.precio).toFixed(2)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="bg-slate-50 p-8 flex justify-between items-center border-t border-slate-100">
-        <h4 className="font-bold text-[#0D4B4D]">Total a pagar:</h4>
-        <span className="text-xl font-black text-[#0D4B4D]">
-          ${total.toFixed(2)}{" "}
-          <span className="text-sm font-bold opacity-30">USD</span>
-        </span>
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-slate-50 p-8 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-100">
+        <h4 className="font-bold text-[#0D4B4D] text-lg">Total a pagar:</h4>
+        <div className="flex items-baseline gap-2">
+          <span className="text-3xl md:text-2xl font-black text-[#0D4B4D]">
+            ${total.toFixed(2)}
+          </span>
+          <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+            USD
+          </span>
+        </div>
       </div>
     </div>
 

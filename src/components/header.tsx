@@ -241,9 +241,9 @@ export default function Header() {
               className="w-[85%] sm:w-[400px] bg-white border-l border-slate-100 p-0 flex flex-col overflow-hidden"
             >
               <div className="flex flex-col h-full p-6 sm:p-8">
-                {/* Top Section: Header + Links */}
-                <div className="flex-1">
-                  <SheetHeader className="mt-2 mb-8 text-left p-0 space-y-1">
+                {/* Top Section: Header + User + Links */}
+                <div className="flex-1 overflow-y-auto">
+                  <SheetHeader className="mt-2 mb-6 text-left p-0 space-y-1">
                     <SheetTitle className="text-xl font-extrabold text-[#0D4B4D] tracking-tight">
                       Explorar
                     </SheetTitle>
@@ -252,7 +252,98 @@ export default function Header() {
                     </p>
                   </SheetHeader>
 
+                  {/* Move Auth/User Section here for better visibility */}
+                  <div className="mb-8">
+                    {user ? (
+                      <div className="flex flex-col gap-3">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm active:scale-95 outline-none text-left w-full group hover:border-[#0D4B4D]/20 transition-all">
+                              <div className="w-12 h-12 rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                                {user.us_nombres.charAt(0).toUpperCase()}
+                              </div>
+                              <div className="flex-1 overflow-hidden">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
+                                  Mi Cuenta
+                                </p>
+                                <div className="flex items-center justify-between gap-2">
+                                  <p className="text-base font-extrabold text-[#0D4B4D] truncate">
+                                    {user.us_nombres}
+                                  </p>
+                                  <ChevronDown className="w-4 h-4 text-[#0D4B4D]/50 group-hover:text-[#0D4B4D] transition-colors" />
+                                </div>
+                              </div>
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent
+                            align="center"
+                            className="w-[300px] p-2 rounded-2xl shadow-xl border-slate-100 z-100 bg-slate-50"
+                          >
+                            <DropdownMenuLabel className="p-0 font-normal">
+                              <div className="flex items-center gap-3 px-3 py-3 text-left">
+                                <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
+                                  <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
+                                    {user.us_nombres.charAt(0).toUpperCase()}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                  <span className="truncate font-bold text-[#0D4B4D]">
+                                    {user.us_nombres}
+                                  </span>
+                                  <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
+                                    ID: {user.us_id}
+                                  </span>
+                                </div>
+                              </div>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuGroup>
+                              <Link
+                                href="/perfil?tab=info"
+                                onClick={() => setIsSheetOpen(false)}
+                              >
+                                <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
+                                  <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                                  Mi Perfil
+                                </DropdownMenuItem>
+                              </Link>
+                              <Link
+                                href="/perfil?tab=orders"
+                                onClick={() => setIsSheetOpen(false)}
+                              >
+                                <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
+                                  <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                                  Mis Ordenes
+                                </DropdownMenuItem>
+                              </Link>
+                            </DropdownMenuGroup>
+                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuItem
+                              onClick={handleLogout}
+                              className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
+                            >
+                              <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
+                              Cerrar sesión
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    ) : (
+                      <LoginSheet>
+                        <Button
+                          variant="outline"
+                          className="w-full py-6 rounded-2xl border-2 border-slate-200 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-slate-50 hover:bg-slate-100 hover:border-slate-300"
+                        >
+                          Iniciar sesión
+                        </Button>
+                      </LoginSheet>
+                    )}
+                  </div>
+
                   <div className="flex flex-col gap-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">
+                      Menú Principal
+                    </p>
                     {[
                       {
                         name: "Servicios",
@@ -282,113 +373,6 @@ export default function Header() {
                       </Link>
                     ))}
                   </div>
-                </div>
-
-                {/* Bottom Section: Socials + Auth */}
-                <div className="pt-6 space-y-6">
-                  <div className="pt-6 border-t border-slate-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4 ml-1">
-                      Síguenos
-                    </p>
-                    <div className="flex gap-4">
-                      {[Instagram, Facebook, Twitter].map((Icon, i) => (
-                        <a
-                          key={i}
-                          href="#"
-                          className="flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 text-slate-600 hover:bg-[#0D4B4D] hover:text-white transition-all shadow-sm"
-                        >
-                          <Icon size={20} />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-
-                  {user ? (
-                    <div className="flex flex-col gap-3">
-                      {/* User Section Mobile inside Sheet - Better Reference & Control */}
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <button className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm active:scale-95 outline-none text-left w-full group">
-                            <div className="w-12 h-12 rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform">
-                              {user.us_nombres.charAt(0).toUpperCase()}
-                            </div>
-                            <div className="flex-1 overflow-hidden">
-                              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
-                                Mi Cuenta
-                              </p>
-                              <div className="flex items-center justify-between">
-                                <p className="text-base font-extrabold text-[#0D4B4D] truncate">
-                                  {user.us_nombres}
-                                </p>
-                                <ChevronDown className="w-4 h-4 text-slate-300" />
-                              </div>
-                            </div>
-                          </button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          align="center"
-                          side="top"
-                          className="w-[300px] p-2 rounded-2xl shadow-xl border-slate-100 z-100"
-                        >
-                          <DropdownMenuLabel className="p-0 font-normal">
-                            <div className="flex items-center gap-3 px-3 py-3 text-left">
-                              <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
-                                <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
-                                  {user.us_nombres.charAt(0).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-bold text-[#0D4B4D]">
-                                  {user.us_nombres}
-                                </span>
-                                <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
-                                  ID: {user.us_id}
-                                </span>
-                              </div>
-                            </div>
-                          </DropdownMenuLabel>
-                          <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
-                          <DropdownMenuGroup>
-                            <Link
-                              href="/perfil?tab=info"
-                              onClick={() => setIsSheetOpen(false)}
-                            >
-                              <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
-                                <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                                Mi Perfil
-                              </DropdownMenuItem>
-                            </Link>
-                            <Link
-                              href="/perfil?tab=orders"
-                              onClick={() => setIsSheetOpen(false)}
-                            >
-                              <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
-                                <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                                Mis Ordenes
-                              </DropdownMenuItem>
-                            </Link>
-                          </DropdownMenuGroup>
-                          <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
-                          <DropdownMenuItem
-                            onClick={handleLogout}
-                            className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
-                          >
-                            <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
-                            Cerrar sesión
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  ) : (
-                    <LoginSheet>
-                      <Button
-                        variant="outline"
-                        className="w-full py-6 rounded-2xl border-2 border-slate-200 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-slate-50 hover:bg-slate-100 hover:border-slate-300"
-                      >
-                        Iniciar sesión
-                      </Button>
-                    </LoginSheet>
-                  )}
                 </div>
               </div>
             </SheetContent>

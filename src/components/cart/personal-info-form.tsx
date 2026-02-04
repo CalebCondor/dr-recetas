@@ -204,20 +204,29 @@ export const PersonalInfoForm = ({
         </div>
       </div>
 
-      <div className="p-6 bg-white rounded-2xl border border-slate-100 flex items-center justify-between gap-6">
-        <div className="space-y-1">
-          <h4 className="font-bold text-[#0D4B4D] text-sm">
+      <div className="p-8 bg-white rounded-3xl border-2 border-dashed border-slate-100 flex flex-col items-center text-center gap-4 hover:border-[#0D4B4D]/20 hover:bg-[#0D4B4D]/[0.02] transition-all cursor-pointer group relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[#0D4B4D]/[0.02] rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
+
+        <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-[#0D4B4D] group-hover:bg-white group-hover:shadow-md transition-all duration-300 border border-slate-100">
+          <RiUpload2Line size={28} />
+        </div>
+
+        <div className="space-y-1.5 relative z-10">
+          <h4 className="font-black text-[#0D4B4D] text-base">
             Foto de Identificación
           </h4>
-          <p className="text-[10px] text-slate-400">
-            Escanee o suba una foto de su ID vigente.
+          <p className="text-[11px] text-slate-400 font-medium max-w-[240px] leading-relaxed">
+            Sube una foto clara de tu ID vigente (Licencia o Pasaporte).
+            Formatos: JPG, PNG o PDF.
           </p>
         </div>
+
         <Button
           variant="outline"
-          className="rounded-xl font-bold h-10 border-slate-200 hover:bg-slate-50"
+          className="rounded-xl font-bold h-11 border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 px-8 transition-all active:scale-95 shadow-sm"
         >
-          <RiUpload2Line className="mr-2" /> Seleccionar
+          Seleccionar Archivo
         </Button>
       </div>
 
