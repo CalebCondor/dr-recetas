@@ -53,23 +53,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = useCallback((item: CartItem) => {
-    setCart((prevCart) => {
-      const exists = prevCart.find((i) => i.id === item.id);
+  const addToCart = useCallback(
+    (item: CartItem) => {
+      setCart((prevCart) => {
+        const exists = prevCart.find((i) => i.id === item.id);
+        if (exists) {
+          return prevCart;
+        }
+        return [...prevCart, item];
+      });
+
+      // Check if item already exists before showing success toast
+      const exists = cart.find((i) => i.id === item.id);
       if (exists) {
         toast.error("Producto ya en el carrito", {
           description:
             "No puedes agregar el mismo producto dos veces. Si necesitas otro, por favor finaliza primero esta compra.",
           duration: 4000,
         });
-        return prevCart;
+      } else {
+        toast.success("Agregado al carrito", {
+          description: `${item.titulo} se ha añadido correctamente.`,
+        });
       }
-      toast.success("Agregado al carrito", {
-        description: `${item.titulo} se ha añadido correctamente.`,
-      });
-      return [...prevCart, item];
-    });
-  }, []);
+    },
+    [cart],
+  );
 
   const removeFromCart = useCallback((id: string) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
