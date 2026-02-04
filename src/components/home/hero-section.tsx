@@ -152,7 +152,7 @@ export default function Hero() {
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
 
   return (
-    <main
+    <section
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
@@ -278,6 +278,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
