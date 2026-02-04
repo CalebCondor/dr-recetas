@@ -3,16 +3,15 @@
 import {
   Package,
   Loader2,
-  ChevronDown,
   ChevronRight,
   FileText,
   Download,
   ExternalLink,
+  Calendar,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
 import { Order } from "@/services/types/types";
 
 interface ProfileOrdersListProps {
@@ -58,9 +57,9 @@ export function ProfileOrdersList({
 
   if (isLoadingOrders) {
     return (
-      <div className="bg-white rounded-3xl p-12 flex flex-col items-center justify-center space-y-4 border border-slate-100">
+      <div className="bg-white rounded-3xl p-12 flex flex-col items-center justify-center space-y-4 border border-slate-100 shadow-sm">
         <Loader2 className="w-8 h-8 text-[#0D4B4D] animate-spin" />
-        <p className="text-slate-500 font-medium tracking-tight">
+        <p className="text-slate-400 font-bold tracking-tight">
           Cargando tus pedidos...
         </p>
       </div>
@@ -69,31 +68,31 @@ export function ProfileOrdersList({
 
   if (orders.length === 0) {
     return (
-      <div className="bg-white rounded-3xl p-16 flex flex-col items-center justify-center text-center space-y-6 border border-slate-100 shadow-xl shadow-slate-200/50">
-        <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
-          <Package className="w-10 h-10 text-slate-300" />
+      <div className="bg-white rounded-3xl p-12 md:p-16 flex flex-col items-center justify-center text-center space-y-6 border border-slate-100 shadow-xl shadow-slate-200/50">
+        <div className="w-20 h-20 rounded-3xl bg-slate-50 flex items-center justify-center text-slate-300">
+          <Package className="w-10 h-10" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-xl font-bold text-slate-900">
+          <h3 className="text-xl font-bold text-slate-900 tracking-tight">
             Aún no tienes órdenes
           </h3>
-          <p className="text-slate-500 max-w-sm font-medium">
+          <p className="text-slate-500 max-w-sm font-medium text-sm leading-relaxed">
             Parece que todavía no has realizado ninguna compra. ¡Explora
             nuestros servicios y comienza hoy!
           </p>
         </div>
         <Button
           onClick={onViewServices}
-          className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-8 py-4 rounded-xl font-bold"
+          className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-8 py-6 rounded-2xl font-bold shadow-lg shadow-[#0D4B4D]/20 transition-all active:scale-95 h-auto text-sm"
         >
-          Ver Servicios
+          Explorar Servicios
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 gap-5">
       {orders.map((order, index) => {
         const orderId = getOrderField(order, "id") as string;
         const uniqueId = `${orderId}-${index}`;
@@ -106,156 +105,167 @@ export function ProfileOrdersList({
         return (
           <Card
             key={`order-${uniqueId}`}
-            className={`border-slate-100 transition-all overflow-hidden rounded-2xl shadow-sm hover:shadow-md ${
+            className={`border-none transition-all duration-300 rounded-[2rem] overflow-hidden ${
               isExpanded
-                ? "ring-2 ring-[#0D4B4D]/20 border-[#0D4B4D]/30 shadow-lg"
-                : "hover:border-[#0D4B4D]/30"
+                ? "ring-2 ring-[#0D4B4D] shadow-2xl shadow-[#0D4B4D]/10 translate-y-[-2px]"
+                : "shadow-lg shadow-slate-200/60 hover:shadow-xl hover:shadow-slate-200/80 hover:translate-y-[-2px]"
             }`}
           >
             <CardContent className="p-0">
-              <div
-                className="flex flex-col md:flex-row items-center gap-4 md:gap-8 p-6 cursor-pointer select-none"
+              <button
+                className="w-full text-left flex flex-col p-5 md:p-7 gap-5 transition-colors hover:bg-slate-50/50"
                 onClick={() => setExpandedOrderId(isExpanded ? null : uniqueId)}
               >
-                <div
-                  className={`w-16 h-16 rounded-xl flex items-center justify-center transition-colors shrink-0 ${
-                    isExpanded
-                      ? "bg-[#0D4B4D] text-white"
-                      : "bg-slate-50 text-[#0D4B4D]"
-                  }`}
-                >
-                  <Package className="w-8 h-8" />
-                </div>
-
-                <div className="flex-1 space-y-1 text-center md:text-left">
-                  <div className="flex items-center justify-center md:justify-start gap-2">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                      Orden #{orderId}
-                    </span>
-                    <Badge
-                      variant="outline"
-                      className={`font-bold ${
-                        isPaid
-                          ? "border-emerald-500/20 text-emerald-600 bg-emerald-50"
-                          : "border-[#0D4B4D]/20 text-[#0D4B4D] bg-[#0D4B4D]/5"
+                {/* Header Row - Status & ID */}
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0 ${
+                        isExpanded
+                          ? "bg-[#0D4B4D] text-white"
+                          : "bg-slate-100 text-[#0D4B4D]"
                       }`}
                     >
-                      {status || "Procesando"}
-                    </Badge>
+                      <Package className="w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">
+                        Orden ID
+                      </span>
+                      <span className="text-sm font-bold text-slate-900 leading-none">
+                        #{orderId}
+                      </span>
+                    </div>
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900 line-clamp-1">
+                  <Badge
+                    className={`rounded-full px-3 py-1 font-bold text-[10px] uppercase border-none tracking-wider ${
+                      isPaid
+                        ? "bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100"
+                        : "bg-amber-50 text-amber-600 shadow-sm shadow-amber-100"
+                    }`}
+                  >
+                    {status || "En Proceso"}
+                  </Badge>
+                </div>
+
+                {/* Body - Title & Date */}
+                <div className="space-y-2">
+                  <h4 className="text-lg md:text-xl font-extrabold text-[#0D4B4D] leading-tight tracking-tight">
                     {String(
                       getOrderField(order, "titulo") ||
                         getOrderField(order, "nombre") ||
                         "Pedido Sin Nombre",
                     )}
                   </h4>
-                  <p className="text-sm font-medium text-slate-500">
-                    {(() => {
-                      const rawDate = getOrderField(order, "fecha") as string;
-                      if (!rawDate) return "Fecha no disponible";
-                      if (rawDate.includes("/")) {
-                        return rawDate;
-                      }
-                      const date = new Date(rawDate);
-                      return isNaN(date.getTime())
-                        ? rawDate
-                        : date.toLocaleDateString("es-ES", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          });
-                    })()}
-                  </p>
+                  <div className="flex items-center gap-3 text-slate-400">
+                    <div className="flex items-center gap-1.5 bg-slate-100/50 px-2 py-1 rounded-lg">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold leading-none">
+                        {(() => {
+                          const rawDate = getOrderField(
+                            order,
+                            "fecha",
+                          ) as string;
+                          if (!rawDate) return "N/A";
+                          if (rawDate.includes("/")) return rawDate;
+                          const date = new Date(rawDate);
+                          return isNaN(date.getTime())
+                            ? rawDate
+                            : date.toLocaleDateString("es-ES", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                              });
+                        })()}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-4 md:pt-0">
-                  <div className="text-right">
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                      Estado
-                    </p>
-                    <p
-                      className={`text-lg font-black ${
-                        isPaid ? "text-emerald-600" : "text-[#0D4B4D]"
-                      }`}
-                    >
-                      {isPaid ? "Confirmado" : "Pendiente"}
-                    </p>
+                {/* Footer - Interactions */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">
+                      {isPaid ? "Listo para descargar" : "Pendiente de pago"}
+                    </span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full hover:bg-slate-100"
-                  >
-                    {isExpanded ? (
-                      <ChevronDown className="w-5 h-5 text-[#0D4B4D] rotate-180 transition-transform" />
-                    ) : (
-                      <ChevronRight className="w-5 h-5 text-slate-400" />
-                    )}
-                  </Button>
+                  <div className="flex items-center gap-2 text-[#0D4B4D] group">
+                    <span className="text-xs font-bold transition-transform group-hover:translate-x-1">
+                      {isExpanded ? "Cerrar detalles" : "Ver detalles"}
+                    </span>
+                    <div
+                      className={`transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </button>
 
               {/* Expanded content */}
               {isExpanded && (
-                <div className="border-t border-slate-100 bg-slate-50/50 p-6 space-y-6 animate-in slide-in-from-top-2 duration-300">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-slate-50/80 border-t border-slate-100 p-6 md:p-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-500 ease-out">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Main Order Result */}
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-[#0D4B4D]" />
-                        Orden General (PDF)
+                    <div className="space-y-4">
+                      <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 mb-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D]" />
+                        Documentación Principal
                       </h5>
-                      <Button
-                        asChild
-                        className="w-full bg-white hover:bg-emerald-50 text-[#0D4B4D] border border-slate-200 h-auto py-4 justify-between group shadow-sm"
-                      >
-                        <a
-                          href={order.url_orden}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      <div className="group relative">
+                        <div className="absolute -inset-0.5 bg-linear-to-r from-emerald-500 to-[#0D4B4D] rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                        <Button
+                          asChild
+                          className="relative w-full bg-white hover:bg-emerald-50 text-[#0D4B4D] border border-emerald-100/50 h-auto py-5 px-6 rounded-2xl justify-between shadow-sm transition-all"
                         >
-                          <span className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors group-hover:bg-emerald-200">
-                              <Download className="w-4 h-4" />
-                            </div>
-                            <div className="text-left">
-                              <p className="font-bold text-sm">
-                                Descargar Orden PDF
-                              </p>
-                              <p className="text-[10px] text-slate-400 font-medium">
-                                Documento oficial de laboratorio
-                              </p>
-                            </div>
-                          </span>
-                          <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-emerald-400 transition-colors" />
-                        </a>
-                      </Button>
+                          <a
+                            href={order.url_orden}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span className="flex items-center gap-4">
+                              <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors group-hover:bg-emerald-200">
+                                <Download className="w-5 h-5" />
+                              </div>
+                              <div className="text-left space-y-0.5">
+                                <p className="font-bold text-sm">
+                                  Orden Médica PDF
+                                </p>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+                                  Validación Oficial Dr.Recetas
+                                </p>
+                              </div>
+                            </span>
+                            <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                          </a>
+                        </Button>
+                      </div>
                     </div>
 
-                    {/* Package Specific Items */}
+                    {/* Results per item */}
                     {order.url_paquetes && order.url_paquetes.length > 0 && (
-                      <div className="space-y-3">
-                        <h5 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                          <Package className="w-4 h-4 text-[#0D4B4D]" />
-                          Resultados por Prueba ({order.url_paquetes.length})
+                      <div className="space-y-4">
+                        <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 mb-4">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D]" />
+                          Resultados Específicos ({order.url_paquetes.length})
                         </h5>
-                        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div className="grid grid-cols-1 gap-3 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
                           {order.url_paquetes.map((pkg, pIdx) => (
                             <Button
                               key={`pkg-${pIdx}`}
                               asChild
                               variant="outline"
-                              className="w-full bg-white hover:border-[#0D4B4D]/30 text-slate-700 h-auto py-3 px-4 justify-between group"
+                              className="w-full hover:border-[#0D4B4D]/30 hover:bg-[#0D4B4D]/5 text-slate-700 h-auto py-4 px-5 rounded-xl justify-between group border-slate-100 bg-white shadow-sm transition-all"
                             >
                               <a
                                 href={pkg.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <span className="flex items-center gap-3 truncate max-w-[85%]">
-                                  <div className="w-7 h-7 rounded bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-[#0D4B4D]/10 group-hover:text-[#0D4B4D] transition-colors">
-                                    <FileText className="w-3.5 h-3.5" />
+                                <span className="flex items-center gap-4 truncate max-w-[85%]">
+                                  <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#0D4B4D]/10 group-hover:text-[#0D4B4D] transition-colors">
+                                    <FileText className="w-4 h-4" />
                                   </div>
                                   <span className="text-sm font-bold truncate">
                                     {pkg.titulo}

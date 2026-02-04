@@ -25,15 +25,23 @@ export function ChatbotPanel({
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const isFirstRender = useRef(true);
+
   // Auto-scroll to bottom
   useEffect(() => {
-    if (bottomRef.current && (messages.length > 0 || isLoading)) {
+    // Skip scroll on initial load to prevent jumping the page
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (bottomRef.current && (messages.length > 1 || isLoading)) {
       bottomRef.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
       });
     }
-  }, [messages, isLoading]);
+  }, [messages.length, isLoading]);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;

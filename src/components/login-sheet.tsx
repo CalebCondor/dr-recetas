@@ -68,6 +68,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
       <SheetContent
         side="right"
         className="w-full sm:max-w-none sm:w-[65%] p-0 border-l border-slate-100 overflow-y-auto"
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="flex h-full w-full">
           <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-12 lg:p-24 bg-white relative min-h-full">
