@@ -31,19 +31,28 @@ export const CartReview = ({
     exit={{ opacity: 0, y: -10 }}
     className="space-y-10"
   >
-    <div className="flex flex-col md:flex-row items-center justify-between border-b border-slate-100 pb-8">
-      <div>
-        <h1 className="text-3xl font-black text-[#0D4B4D]">Mi Carrito</h1>
-        <p className="text-slate-400 text-sm">
-          Resumen de los servicios seleccionados
-        </p>
-      </div>
+    <div className="border-b border-slate-100 pb-8 space-y-5">
       <Link
-        href="/servicios"
-        className="text-sm font-bold text-[#0D4B4D] hover:underline flex items-center gap-2 mt-4 md:mt-0"
+        href="/servicios/otros"
+        className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#0D4B4D] transition-all group"
       >
-        <RiArrowLeftLine /> Seguir comprando
+        <RiArrowLeftLine className="group-hover:-translate-x-1 transition-transform" />
+        Volver a Servicios
       </Link>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-black text-[#0D4B4D] tracking-tight">
+            Mi Carrito
+          </h1>
+          <p className="text-slate-400 text-sm md:text-base mt-2 font-medium">
+            Tienes{" "}
+            <span className="text-[#0D4B4D] font-bold">{cart.length}</span>{" "}
+            {cart.length === 1
+              ? "servicio seleccionado"
+              : "servicios seleccionados"}
+          </p>
+        </div>
+      </div>
     </div>
 
     <div className="overflow-hidden border border-slate-100 rounded-2xl">

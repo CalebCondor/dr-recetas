@@ -45,7 +45,7 @@ export function ChatbotFloating() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-90"
+            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-48"
           />
         )}
       </AnimatePresence>
@@ -60,7 +60,7 @@ export function ChatbotFloating() {
             }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 20, stiffness: 200 }}
-            className="fixed bottom-6 right-6 z-100 flex flex-col items-end"
+            className="fixed bottom-6 right-6 z-49 flex flex-col items-end"
           >
             {/* Modal */}
             <AnimatePresence>
