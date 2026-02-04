@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 import { ChatbotFloating } from "@/components/shell/chatbot-floating";
 import { ChatProvider } from "@/context/chat-context";
 import { CartProvider } from "@/context/cart-context";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -54,6 +55,7 @@ export default function RootLayout({
             {children}
             <ChatbotFloating />
             <Footer />
+            <Toaster position="top-right" />
           </CartProvider>
         </ChatProvider>
       </body>

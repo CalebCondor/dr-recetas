@@ -248,22 +248,10 @@ export const PersonalInfoForm = ({
       className="space-y-10"
     >
       <div className="text-center">
-        <h1 className="text-3xl font-black text-[#0D4B4D] mb-2">
+        <h1 className="text-3xl font-black text-[#0D4B4D] mb-6">
           Información Personal
         </h1>
         <Stepper current={1} />
-        {isMobile && (
-          <div className="flex justify-center gap-2 mt-4">
-            {[1, 2, 3].map((s) => (
-              <div
-                key={s}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  subStep === s ? "w-8 bg-[#0D4B4D]" : "w-2 bg-slate-200"
-                }`}
-              />
-            ))}
-          </div>
-        )}
       </div>
 
       <div className="bg-slate-50/50 rounded-3xl p-6 md:p-8 border border-slate-100">

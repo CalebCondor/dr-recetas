@@ -33,7 +33,7 @@ export const PaymentForm = ({
     className="space-y-10"
   >
     <div className="text-center">
-      <h2 className="text-3xl font-black text-[#0D4B4D] mb-2">
+      <h2 className="text-3xl font-black text-[#0D4B4D] mb-6">
         Finalizar Pago
       </h2>
       <Stepper current={3} />

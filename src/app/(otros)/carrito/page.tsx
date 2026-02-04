@@ -7,7 +7,6 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-// Componentes extraídos
 import { EmptyCart } from "@/components/cart/empty-cart";
 import { CartReview } from "@/components/cart/cart-review";
 import { PersonalInfoForm } from "@/components/cart/personal-info-form";
