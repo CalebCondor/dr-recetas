@@ -21,19 +21,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { ProfileFormData } from "@/services/types/types";
+
 interface ProfileInfoFormProps {
-  formData: {
-    us_nombres: string;
-    us_telefono: string;
-    us_email: string;
-    us_direccion: string;
-    us_ciudad: string;
-    us_pais: string;
-    us_fech_nac: string;
-    us_code_postal: string;
-    us_clave: string;
-  };
-  setFormData: (data: any) => void;
+  formData: ProfileFormData;
+  setFormData: (data: ProfileFormData) => void;
   isUpdatingProfile: boolean;
   handleUpdateProfile: (e: React.FormEvent) => Promise<void>;
 }
