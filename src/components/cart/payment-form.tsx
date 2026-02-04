@@ -82,6 +82,7 @@ export const PaymentForm = ({
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <label
+            onClick={() => setFormData({ ...formData, payment_method: "ath" })}
             className={`flex items-center gap-4 p-5 rounded-2xl border-2 cursor-pointer transition-all active:scale-95 ${
               formData.payment_method === "ath"
                 ? "bg-orange-50 border-orange-500 text-orange-700 shadow-md"
@@ -90,6 +91,8 @@ export const PaymentForm = ({
           >
             <input
               type="radio"
+              name="payment_method"
+              checked={formData.payment_method === "ath"}
               className="hidden"
               onChange={() =>
                 setFormData({ ...formData, payment_method: "ath" })
@@ -100,10 +103,15 @@ export const PaymentForm = ({
             >
               <div className="w-1.5 h-1.5 rounded-full bg-white" />
             </div>
-            <span className="font-black text-xl">Ath Movil</span>
+            <span className="font-black text-xl text-orange-600">
+              Ath Movil
+            </span>
           </label>
 
           <label
+            onClick={() =>
+              setFormData({ ...formData, payment_method: "tarjeta" })
+            }
             className={`flex items-center gap-4 p-5 rounded-2xl border-2 cursor-pointer transition-all active:scale-95 ${
               formData.payment_method === "tarjeta"
                 ? "bg-teal-50 border-teal-500 text-teal-700 shadow-md"
@@ -112,6 +120,8 @@ export const PaymentForm = ({
           >
             <input
               type="radio"
+              name="payment_method"
+              checked={formData.payment_method === "tarjeta"}
               className="hidden"
               onChange={() =>
                 setFormData({
@@ -125,7 +135,7 @@ export const PaymentForm = ({
             >
               <div className="w-1.5 h-1.5 rounded-full bg-white" />
             </div>
-            <span className="font-black text-xl">Tarjeta</span>
+            <span className="font-black text-xl text-teal-600">Tarjeta</span>
           </label>
         </div>
 
