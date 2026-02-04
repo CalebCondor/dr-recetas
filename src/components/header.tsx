@@ -20,6 +20,9 @@ import {
 
 import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useCart } from "@/context/cart-context";
+import { ShoppingCart } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +50,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { cart, clearCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,13 +62,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    // Check for user in localStorage only once on client-side mount
     const storedUser = localStorage.getItem("dr_user");
     if (storedUser) {
       try {
         const parsed = JSON.parse(storedUser);
-        // Using queueMicrotask to decouple the state update from the direct effect execution,
-        // which avoids the "cascading renders" warning.
         queueMicrotask(() => {
           setUser(parsed);
         });
@@ -76,7 +78,9 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("dr_token");
     localStorage.removeItem("dr_user");
+    clearCart();
     setUser(null);
+    setIsSheetOpen(false);
     window.location.reload();
   };
 
@@ -120,80 +124,110 @@ export default function Header() {
               {label}
             </Link>
           ))}
-          {user ? (
-            <DropdownMenu onOpenChange={setIsMenuOpen}>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-full bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all active:scale-95 outline-none">
-                  <div className="w-8 h-8 rounded-full bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-xs">
-                    {user.us_nombres.charAt(0).toUpperCase()}
-                  </div>
-                  <span className="text-sm font-semibold text-slate-700 hidden lg:block max-w-[100px] truncate">
-                    {user.us_nombres.split(" ")[0]}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}
+          <div className="flex items-center gap-3">
+            {/* Cart Button Desktop */}
+            <Link href="/carrito">
+              <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all active:scale-95 group">
+                <div className="relative">
+                  <ShoppingCart
+                    size={20}
+                    className="text-[#0D4B4D] group-hover:scale-110 transition-transform"
                   />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-64 p-2 rounded-2xl shadow-xl border-slate-100"
-              >
-                <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="flex items-center gap-3 px-3 py-3 text-left">
-                    <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
-                      <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
-                        {user.us_nombres.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-bold text-[#0D4B4D]">
-                        {user.us_nombres}
-                      </span>
-                      <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
-                        ID: {user.us_id}
-                      </span>
+                  {cart.length > 0 && (
+                    <span className="absolute -top-2.5 -right-2.5 w-4.5 h-4.5 bg-[#0D4B4D] text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white animate-in zoom-in-50 duration-300">
+                      {cart.length}
+                    </span>
+                  )}
+                </div>
+              </button>
+            </Link>
+            {user ? (
+              <DropdownMenu onOpenChange={setIsMenuOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 px-2 h-10 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all active:scale-95 outline-none">
+                    <div className="w-7 h-7 rounded-lg bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-xs">
+                      {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
-                <DropdownMenuGroup>
-                  <Link href="/perfil?tab=info">
-                    <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
-                      <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                      Mi Perfil
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link href="/perfil?tab=orders">
-                    <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
-                      <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                      Mis Ordenes
-                    </DropdownMenuItem>
-                  </Link>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
+                    <span className="text-sm font-semibold text-slate-700 hidden lg:block max-w-[100px] truncate">
+                      {user.us_nombres.split(" ")[0]}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="w-64 p-2 rounded-2xl shadow-xl border-slate-100"
                 >
-                  <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
-                  Cerrar sesión
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <LoginSheet>
-              <Button className="px-8 py-3 rounded-full bg-white text-slate-500 font-semibold border-none shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
-                Iniciar sesión
-              </Button>
-            </LoginSheet>
-          )}
+                  <DropdownMenuLabel className="p-0 font-normal">
+                    <div className="flex items-center gap-3 px-3 py-3 text-left">
+                      <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
+                        <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
+                          {user.us_nombres.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="grid flex-1 text-left text-sm leading-tight">
+                        <span className="truncate font-bold text-[#0D4B4D]">
+                          {user.us_nombres}
+                        </span>
+                        <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
+                          ID: {user.us_id}
+                        </span>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                  <DropdownMenuGroup>
+                    <Link href="/perfil?tab=info">
+                      <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
+                        <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                        Mi Perfil
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link href="/perfil?tab=orders">
+                      <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
+                        <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                        Mis Ordenes
+                      </DropdownMenuItem>
+                    </Link>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
+                  >
+                    <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
+                    Cerrar sesión
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <LoginSheet>
+                <Button className="px-6 py-2.5 rounded-xl bg-white text-slate-500 font-semibold border border-slate-100 shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
+                  Iniciar sesión
+                </Button>
+              </LoginSheet>
+            )}
+          </div>
         </nav>
 
-        <div className="flex md:hidden items-center gap-1.5">
-          <Sheet>
+        <div className="flex md:hidden items-center gap-2">
+          {/* Cart Button Mobile */}
+          <Link href="/carrito">
+            <button className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-slate-200 shadow-sm transition-all active:scale-95">
+              <ShoppingCart size={18} className="text-[#0D4B4D]" />
+              {cart.length > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#0D4B4D] text-white text-[8px] font-bold rounded-full flex items-center justify-center border border-white">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+          </Link>
+
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <button className="bg-white rounded-md shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-8 h-8 border border-slate-50">
+              <button className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-9 h-9 border border-slate-200">
                 <Image
                   src="/hamburguer.svg"
                   alt="Menu"
@@ -207,9 +241,9 @@ export default function Header() {
               className="w-[85%] sm:w-[400px] bg-white border-l border-slate-100 p-0 flex flex-col overflow-hidden"
             >
               <div className="flex flex-col h-full p-6 sm:p-8">
-                {/* Top Section: Header + Links */}
-                <div className="flex-1">
-                  <SheetHeader className="mt-2 mb-8 text-left p-0 space-y-1">
+                {/* Top Section: Header + User + Links */}
+                <div className="flex-1 overflow-y-auto">
+                  <SheetHeader className="mt-2 mb-6 text-left p-0 space-y-1">
                     <SheetTitle className="text-xl font-extrabold text-[#0D4B4D] tracking-tight">
                       Explorar
                     </SheetTitle>
@@ -218,7 +252,98 @@ export default function Header() {
                     </p>
                   </SheetHeader>
 
+                  {/* Move Auth/User Section here for better visibility */}
+                  <div className="mb-8">
+                    {user ? (
+                      <div className="flex flex-col gap-3">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm active:scale-95 outline-none text-left w-full group hover:border-[#0D4B4D]/20 transition-all">
+                              <div className="w-12 h-12 rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                                {user.us_nombres.charAt(0).toUpperCase()}
+                              </div>
+                              <div className="flex-1 overflow-hidden">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
+                                  Mi Cuenta
+                                </p>
+                                <div className="flex items-center justify-between gap-2">
+                                  <p className="text-base font-extrabold text-[#0D4B4D] truncate">
+                                    {user.us_nombres}
+                                  </p>
+                                  <ChevronDown className="w-4 h-4 text-[#0D4B4D]/50 group-hover:text-[#0D4B4D] transition-colors" />
+                                </div>
+                              </div>
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent
+                            align="center"
+                            className="w-[300px] p-2 rounded-2xl shadow-xl border-slate-100 z-100 bg-slate-50"
+                          >
+                            <DropdownMenuLabel className="p-0 font-normal">
+                              <div className="flex items-center gap-3 px-3 py-3 text-left">
+                                <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
+                                  <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
+                                    {user.us_nombres.charAt(0).toUpperCase()}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                  <span className="truncate font-bold text-[#0D4B4D]">
+                                    {user.us_nombres}
+                                  </span>
+                                  <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
+                                    ID: {user.us_id}
+                                  </span>
+                                </div>
+                              </div>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuGroup>
+                              <Link
+                                href="/perfil?tab=info"
+                                onClick={() => setIsSheetOpen(false)}
+                              >
+                                <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
+                                  <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                                  Mi Perfil
+                                </DropdownMenuItem>
+                              </Link>
+                              <Link
+                                href="/perfil?tab=orders"
+                                onClick={() => setIsSheetOpen(false)}
+                              >
+                                <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
+                                  <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                                  Mis Ordenes
+                                </DropdownMenuItem>
+                              </Link>
+                            </DropdownMenuGroup>
+                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuItem
+                              onClick={handleLogout}
+                              className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
+                            >
+                              <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
+                              Cerrar sesión
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    ) : (
+                      <LoginSheet>
+                        <Button
+                          variant="outline"
+                          className="w-full py-6 rounded-2xl border-2 border-slate-200 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-slate-50 hover:bg-slate-100 hover:border-slate-300"
+                        >
+                          Iniciar sesión
+                        </Button>
+                      </LoginSheet>
+                    )}
+                  </div>
+
                   <div className="flex flex-col gap-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">
+                      Menú Principal
+                    </p>
                     {[
                       {
                         name: "Servicios",
@@ -233,9 +358,10 @@ export default function Header() {
                         href: "/membresias",
                       },
                     ].map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
+                        onClick={() => setIsSheetOpen(false)}
                         className="flex items-center gap-4 py-3.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 transition-all group"
                       >
                         <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-slate-50 group-hover:bg-[#0D4B4D]/10 transition-colors shrink-0">
@@ -244,64 +370,9 @@ export default function Header() {
                         <span className="text-base font-bold tracking-tight">
                           {item.name}
                         </span>
-                      </a>
+                      </Link>
                     ))}
                   </div>
-                </div>
-
-                {/* Bottom Section: Socials + Auth */}
-                <div className="pt-6 space-y-6">
-                  <div className="pt-6 border-t border-slate-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4 ml-1">
-                      Síguenos
-                    </p>
-                    <div className="flex gap-4">
-                      {[Instagram, Facebook, Twitter].map((Icon, i) => (
-                        <a
-                          key={i}
-                          href="#"
-                          className="flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 text-slate-600 hover:bg-[#0D4B4D] hover:text-white transition-all shadow-sm"
-                        >
-                          <Icon size={20} />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-
-                  {user ? (
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                        <div className="w-12 h-12 rounded-full bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner">
-                          {user.us_nombres.charAt(0).toUpperCase()}
-                        </div>
-                        <div className="flex-1 overflow-hidden">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                            Conectado como
-                          </p>
-                          <p className="text-base font-extrabold text-[#0D4B4D] truncate">
-                            {user.us_nombres}
-                          </p>
-                        </div>
-                      </div>
-                      <Button
-                        onClick={handleLogout}
-                        variant="outline"
-                        className="w-full py-6 rounded-2xl border-2 border-red-50 text-red-500 font-extrabold active:scale-95 transition-all text-base bg-white hover:bg-red-50 hover:border-red-100 flex items-center justify-center gap-3"
-                      >
-                        <LogOut size={20} />
-                        Cerrar sesión
-                      </Button>
-                    </div>
-                  ) : (
-                    <LoginSheet>
-                      <Button
-                        variant="outline"
-                        className="w-full py-6 rounded-2xl border-2 border-slate-100 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-white hover:bg-slate-50 hover:border-slate-200"
-                      >
-                        Iniciar sesión
-                      </Button>
-                    </LoginSheet>
-                  )}
                 </div>
               </div>
             </SheetContent>

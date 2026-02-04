@@ -227,15 +227,15 @@ export function ProfileInfoForm({
             <Button
               type="submit"
               disabled={isUpdatingProfile}
-              className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 py-6 rounded-2xl font-bold shadow-lg shadow-[#0D4B4D]/20 transition-all active:scale-95 disabled:opacity-70 h-auto"
+              className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-5 py-3 rounded-xl font-semibold shadow-md shadow-[#0D4B4D]/20 transition-all active:scale-95 disabled:opacity-70 h-auto"
             >
               {isUpdatingProfile ? (
                 <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Guardando...
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Actualizando...
                 </>
               ) : (
-                "Guardar Cambios"
+                "Actualizar Información"
               )}
             </Button>
           </div>

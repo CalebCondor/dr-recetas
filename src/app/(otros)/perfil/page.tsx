@@ -10,6 +10,7 @@ import { PageWrapper } from "@/components/page-wrapper";
 import { ProfileInfoForm } from "@/components/profile/profile-info-form";
 import { ProfileOrdersList } from "@/components/profile/profile-orders-list";
 import { Order, UserData } from "@/services/types/types";
+
 function PerfilContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -120,30 +121,50 @@ function PerfilContent() {
     if (!user) return;
 
     setIsUpdatingProfile(true);
-    try {
-      const body: Record<string, string | number | undefined> = { ...formData };
-      if (!body.us_clave) delete body.us_clave;
 
-      const response = await fetch("https://doctorrecetas.com/api/perfil.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(body),
-      });
+    const updatePromise = new Promise(async (resolve, reject) => {
+      try {
+        const body: Record<string, string | number | undefined> = {
+          ...formData,
+        };
+        if (!body.us_clave) delete body.us_clave;
 
-      const data = await response.json();
-      if (data.success) {
-        toast.success("Perfil actualizado correctamente");
-        const updatedUser = { ...user, ...formData };
-        localStorage.setItem("dr_user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-      } else {
-        toast.error(data.message || "Error al actualizar el perfil");
+        const response = await fetch(
+          "https://doctorrecetas.com/api/perfil.php",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+            body: JSON.stringify(body),
+          },
+        );
+
+        const data = await response.json();
+        if (data.success) {
+          const updatedUser = { ...user, ...formData };
+          localStorage.setItem("dr_user", JSON.stringify(updatedUser));
+          setUser(updatedUser);
+          resolve(data);
+        } else {
+          reject(new Error(data.message || "Error al actualizar"));
+        }
+      } catch (error) {
+        reject(error);
       }
-    } catch {
-      toast.error("Error de conexión al actualizar el perfil");
+    });
+
+    toast.promise(updatePromise, {
+      loading: "Actualizando tu información...",
+      success: "¡Perfil actualizado correctamente!",
+      error: (err) => err.message || "No se pudo actualizar el perfil",
+    });
+
+    try {
+      await updatePromise;
+    } catch (error) {
+      console.error("Update error:", error);
     } finally {
       setIsUpdatingProfile(false);
     }

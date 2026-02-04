@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 
 import { ChatbotFloating } from "@/components/shell/chatbot-floating";
 import { ChatProvider } from "@/context/chat-context";
+import { CartProvider } from "@/context/cart-context";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -45,13 +47,16 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
         <ChatProvider>
-          <GlobalBackground />
-          <PagePrefetcher />
+          <CartProvider>
+            <GlobalBackground />
+            <PagePrefetcher />
 
-          <Header />
-          {children}
-          <ChatbotFloating />
-          <Footer />
+            <Header />
+            {children}
+            <ChatbotFloating />
+            <Footer />
+            <Toaster position="top-right" />
+          </CartProvider>
         </ChatProvider>
       </body>
     </html>

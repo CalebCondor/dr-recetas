@@ -8,6 +8,7 @@ import {
   Download,
   ExternalLink,
   Calendar,
+  Pill,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -126,7 +127,7 @@ export function ProfileOrdersList({
                           : "bg-slate-100 text-[#0D4B4D]"
                       }`}
                     >
-                      <Package className="w-5 h-5" />
+                      <Pill className="w-5 h-5" />
                     </div>
                     <div className="flex flex-col">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">

@@ -21,15 +21,9 @@ import { FaUserDoctor } from "react-icons/fa6";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
@@ -39,7 +33,9 @@ import {
 } from "@/components/ui/accordion";
 import { ApiServiceItem } from "@/lib/api";
 import { useChat } from "@/context/chat-context";
+import { useCart } from "@/context/cart-context";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 interface ProductDetailClientProps {
   product: ApiServiceItem;
@@ -50,12 +46,39 @@ export function ProductDetailClient({
   product,
   categorySlug,
 }: ProductDetailClientProps) {
+  const router = useRouter();
   const { setIsBottomBarVisible } = useChat();
+  const { addToCart } = useCart();
   const mainButtonRef = useRef(null);
   const isMainButtonVisible = useInView(mainButtonRef, {
     margin: "0px 0px -100px 0px", // Adds a bit of buffer
     once: false,
   });
+
+  const handleAddToCart = () => {
+    // Check if user is logged in
+    const isUserLoggedIn =
+      typeof window !== "undefined" && localStorage.getItem("dr_user");
+
+    if (!isUserLoggedIn) {
+      toast.error("Acceso restringido", {
+        description:
+          "Por favor, inicia sesión para poder añadir servicios a tu carrito.",
+        duration: 5000,
+      });
+      return;
+    }
+
+    addToCart({
+      id: product.id.toString(),
+      titulo: product.titulo,
+      precio: product.precio,
+      imagen: product.imagen || "/logo.png",
+      categoria: product.category || "Servicio",
+      detalle: product.resumen,
+    });
+    router.push("/carrito");
+  };
 
   // Update global chatbot visibility offset
   useEffect(() => {
@@ -122,7 +145,10 @@ export function ProductDetailClient({
                     </div>
 
                     {/* Action Button: controlled size on desktop */}
-                    <Button className="w-full md:w-[280px] lg:w-[320px] h-auto py-4 px-8 md:py-6 md:px-10 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-xl transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3">
+                    <Button
+                      onClick={handleAddToCart}
+                      className="w-full md:w-[280px] lg:w-[320px] h-auto py-4 px-8 md:py-6 md:px-10 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-xl transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3"
+                    >
                       <span>comprar</span>
                       <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
                     </Button>
@@ -362,7 +388,10 @@ export function ProductDetailClient({
             </div>
 
             {/* Main Action Button */}
-            <Button className="flex-1 max-w-[200px] h-auto py-2.5 md:py-3 rounded-xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg active:scale-[0.98] group flex items-center justify-center gap-2">
+            <Button
+              onClick={handleAddToCart}
+              className="flex-1 max-w-[200px] h-auto py-2.5 md:py-3 rounded-xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg active:scale-[0.98] group flex items-center justify-center gap-2"
+            >
               <span>Comprar</span>
               <RiShoppingBag4Line className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
             </Button>

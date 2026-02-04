@@ -18,6 +18,8 @@ export function PagePrefetcher() {
         // Prefetch most visited pages
         router.prefetch("/politicas-privacidad");
         router.prefetch("/terminos-condiciones");
+        router.prefetch("/carrito");
+        router.prefetch("/perfil");
 
         // Prefetch service pages
         router.prefetch("/servicios");
