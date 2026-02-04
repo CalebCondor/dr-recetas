@@ -7,37 +7,39 @@ import { motion } from "motion/react";
 export function PageWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Force scroll to top and clear hash on load
+  // Ultra-aggressive scroll reset on navigation
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Disable browser scroll restoration to ensure we always start at top
+      // 1. Disable restoration immediately
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
 
-      const resetScroll = () => {
+      const performReset = () => {
+        // 2. Multiple ways to set scroll to 0
         window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
 
-        // Forcefully remove hash from URL without triggering a scroll
+        // 3. Forcefully remove hash WITHOUT triggering scroll
         if (window.location.hash) {
-          window.history.replaceState(
-            null,
-            "",
-            window.location.pathname + window.location.search,
-          );
+          const url = new URL(window.location.href);
+          url.hash = "";
+          window.history.replaceState(null, "", url.toString());
         }
       };
 
-      // Immediate reset
-      resetScroll();
+      // Stage 4: Immediate execution
+      performReset();
 
-      // Multiple deferred attempts to beat browser's native behaviors and other scripts
+      // Stage 5: Chain of deferred executions to beat browser/Next.js native behaviors
       const timers = [
-        setTimeout(resetScroll, 10),
-        setTimeout(resetScroll, 50),
-        setTimeout(resetScroll, 100),
+        setTimeout(performReset, 0),
+        setTimeout(performReset, 50),
+        setTimeout(performReset, 150),
+        setTimeout(performReset, 300),
+        setTimeout(performReset, 500),
       ];
 
       return () => timers.forEach(clearTimeout);

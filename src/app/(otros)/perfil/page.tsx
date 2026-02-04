@@ -198,22 +198,24 @@ function PerfilContent() {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="bg-white p-1 rounded-2xl border border-slate-100 shadow-sm w-full md:w-auto mb-8 h-auto flex-wrap">
-              <TabsTrigger
-                value="info"
-                className="rounded-xl px-6 py-3 font-bold text-slate-500 data-[state=active]:bg-[#0D4B4D] data-[state=active]:text-white transition-all gap-2"
-              >
-                <User className="w-4 h-4" />
-                Información Personal
-              </TabsTrigger>
-              <TabsTrigger
-                value="orders"
-                className="rounded-xl px-6 py-3 font-bold text-slate-500 data-[state=active]:bg-[#0D4B4D] data-[state=active]:text-white transition-all gap-2"
-              >
-                <Package className="w-4 h-4" />
-                Mis Órdenes
-              </TabsTrigger>
-            </TabsList>
+            <div className="flex justify-center md:justify-start mb-10">
+              <TabsList className="bg-slate-100/80 backdrop-blur-sm p-1.5 rounded-2xl border border-slate-200/50 h-auto gap-1">
+                <TabsTrigger
+                  value="info"
+                  className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                >
+                  <User className="w-4 h-4" />
+                  Información
+                </TabsTrigger>
+                <TabsTrigger
+                  value="orders"
+                  className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                >
+                  <Package className="w-4 h-4" />
+                  Mis Órdenes
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="info" className="mt-0 outline-none">
               <ProfileInfoForm
