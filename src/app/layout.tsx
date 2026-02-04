@@ -26,6 +26,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+              }
+              if (window.location.hash) {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+              }
+              window.scrollTo(0, 0);
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >

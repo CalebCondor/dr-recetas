@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 import { useState, useEffect } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -99,7 +99,14 @@ export default function Header() {
         }`}
       >
         <Link href="/" prefetch={true}>
-          <img src="/logo.png" alt="Dr. Recetas" className="h-8 lg:h-10" />
+          <Image
+            src="/logo.png"
+            alt="Dr. Recetas"
+            width={120}
+            height={40}
+            className="h-8 lg:h-10 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}

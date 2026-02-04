@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 
 export function PageWrapper({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   // Force scroll to top and clear hash on load
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -12,10 +15,12 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
         window.history.scrollRestoration = "manual";
       }
 
-      // Use setTimeout to ensure this runs after browser's native scroll restoration
-      const timer = setTimeout(() => {
+      const resetScroll = () => {
         window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
 
+        // Forcefully remove hash from URL without triggering a scroll
         if (window.location.hash) {
           window.history.replaceState(
             null,
@@ -23,20 +28,30 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
             window.location.pathname + window.location.search,
           );
         }
-      }, 10);
+      };
 
-      return () => clearTimeout(timer);
+      // Immediate reset
+      resetScroll();
+
+      // Multiple deferred attempts to beat browser's native behaviors and other scripts
+      const timers = [
+        setTimeout(resetScroll, 10),
+        setTimeout(resetScroll, 50),
+        setTimeout(resetScroll, 100),
+      ];
+
+      return () => timers.forEach(clearTimeout);
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <motion.main
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
-        duration: 1.2, // Slightly faster for better perceived performance
+        duration: 0.8,
         delay: 0.1,
-        ease: [0.16, 1, 0.3, 1], // Custom premium easeOut
+        ease: [0.16, 1, 0.3, 1],
       }}
       className="flex flex-col gap-0 overflow-x-hidden"
     >

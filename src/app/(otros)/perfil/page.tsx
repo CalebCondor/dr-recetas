@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   User,
@@ -58,7 +58,7 @@ interface UserData {
   [key: string]: string | number | undefined;
 }
 
-export default function PerfilPage() {
+function PerfilContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [user, setUser] = useState<UserData | null>(null);
@@ -730,5 +730,24 @@ export default function PerfilPage() {
         </div>
       </div>
     </PageWrapper>
+  );
+}
+
+export default function PerfilPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 text-[#0D4B4D] animate-spin" />
+            <p className="text-slate-400 font-bold animate-pulse">
+              Cargando...
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <PerfilContent />
+    </Suspense>
   );
 }

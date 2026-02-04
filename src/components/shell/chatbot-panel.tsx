@@ -27,7 +27,7 @@ export function ChatbotPanel({
 
   // Auto-scroll to bottom
   useEffect(() => {
-    if (bottomRef.current) {
+    if (bottomRef.current && (messages.length > 0 || isLoading)) {
       bottomRef.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
