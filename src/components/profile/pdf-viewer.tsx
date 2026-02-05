@@ -12,7 +12,6 @@ export function PdfViewer({ url }: PdfViewerProps) {
   const [useGoogleViewer, setUseGoogleViewer] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
-
   // Extraer la URL real si viene envuelta en /pdf/index.php?url=
   const extractRealUrl = (fullUrl: string) => {
     try {
@@ -64,9 +63,9 @@ export function PdfViewer({ url }: PdfViewerProps) {
       </div>
 
       {/* PDF Container */}
-      <div className="flex-1 overflow-hidden bg-slate-100 flex items-center justify-center">
+      <div className="flex-1 overflow-auto bg-slate-100 flex flex-col items-center justify-start p-4">
         {loadError ? (
-          <div className="flex flex-col items-center justify-center space-y-4 p-8 text-center">
+          <div className="flex flex-col items-center justify-center space-y-4 p-8 text-center h-full">
             <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center">
               <AlertCircle className="w-8 h-8 text-amber-500" />
             </div>
@@ -92,9 +91,9 @@ export function PdfViewer({ url }: PdfViewerProps) {
             src={
               useGoogleViewer
                 ? googleViewerUrl
-                : `${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`
+                : `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=75`
             }
-            className="w-full h-full border-0"
+            className="w-full h-full border-0 rounded-lg"
             title="Orden Médica PDF"
             onLoad={() => {
               // El iframe cargó. No mostrar error automáticamente
