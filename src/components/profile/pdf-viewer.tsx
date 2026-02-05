@@ -63,7 +63,7 @@ export function PdfViewer({ url }: PdfViewerProps) {
       </div>
 
       {/* PDF Container */}
-      <div className="flex-1 overflow-auto bg-slate-100 flex flex-col items-center justify-start p-4">
+      <div className="flex-1 overflow-hidden bg-slate-100 flex flex-col items-center justify-center">
         {loadError ? (
           <div className="flex flex-col items-center justify-center space-y-4 p-8 text-center h-full">
             <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center">
@@ -91,7 +91,7 @@ export function PdfViewer({ url }: PdfViewerProps) {
             src={
               useGoogleViewer
                 ? googleViewerUrl
-                : `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=75`
+                : `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=65`
             }
             className="w-full h-full border-0 rounded-lg"
             title="Orden Médica PDF"
