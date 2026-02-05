@@ -19,7 +19,7 @@ function PerfilContent() {
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
-  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "info");
+  const [activeTab, setActiveTab] = useState("info");
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
   // Form states
@@ -95,6 +95,19 @@ function PerfilContent() {
       setIsLoadingOrders(false);
     }
   }, []);
+
+  // Sincronizar tab con query parameters
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    const validTab = tabParam === "orders" || tabParam === "info" ? tabParam : "info";
+    setActiveTab(validTab);
+  }, [searchParams]);
+
+  // Actualizar URL cuando cambia el tab
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab);
+    router.push(`/perfil?tab=${newTab}`);
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("dr_user");
@@ -215,8 +228,8 @@ function PerfilContent() {
 
           {/* Main Content */}
           <Tabs
-            defaultValue={activeTab}
-            onValueChange={setActiveTab}
+            value={activeTab}
+            onValueChange={handleTabChange}
             className="w-full"
           >
             <div className="flex justify-center md:justify-start mb-10">
