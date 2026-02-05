@@ -311,7 +311,7 @@ export function ProfileOrdersList({
         onOpenChange={(open) => !open && setSelectedPdfUrl(null)}
       >
         <DialogContent className="max-w-4xl w-[calc(100%-2rem)] sm:w-full h-[95vh] sm:h-[90vh] p-0 border-0 flex flex-col">
-          <DialogHeader className="px-6 pt-6 pb-0 border-b border-slate-200 shrink-0">
+          <DialogHeader className="px-6 pt-6 pb-0 shrink-0">
             <DialogTitle>Orden Médica PDF</DialogTitle>
           </DialogHeader>
           {selectedPdfUrl ? (
