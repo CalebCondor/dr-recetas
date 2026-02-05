@@ -34,8 +34,13 @@ import {
 import { ApiServiceItem } from "@/lib/api";
 import { useChat } from "@/context/chat-context";
 import { useCart } from "@/context/cart-context";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ProductDetailClientProps {
   product: ApiServiceItem;
@@ -54,6 +59,7 @@ export function ProductDetailClient({
     margin: "0px 0px -100px 0px", // Adds a bit of buffer
     once: false,
   });
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const handleAddToCart = () => {
     // Check if user is logged in
@@ -61,11 +67,7 @@ export function ProductDetailClient({
       typeof window !== "undefined" && localStorage.getItem("dr_user");
 
     if (!isUserLoggedIn) {
-      toast.error("Acceso restringido", {
-        description:
-          "Por favor, inicia sesión para poder añadir servicios a tu carrito.",
-        duration: 5000,
-      });
+      setIsLoginAlertOpen(true);
       return;
     }
 
@@ -399,6 +401,33 @@ export function ProductDetailClient({
             </Button>
           </div>
         </motion.div>
+
+        {/* Login Required Notification Dialog */}
+        <Dialog open={isLoginAlertOpen} onOpenChange={setIsLoginAlertOpen}>
+          <DialogContent
+            showCloseButton={false}
+            className="rounded-[3rem] p-12 md:p-16 border-none shadow-[0_30px_100px_rgba(0,0,0,0.15)] w-[92vw] max-w-lg bg-white cursor-pointer"
+            onClick={() => setIsLoginAlertOpen(false)}
+          >
+            <div className="flex flex-col items-center text-center gap-8 pointer-events-none">
+              <div className="w-24 h-24 rounded-full bg-amber-50/50 flex items-center justify-center text-amber-500 shadow-inner">
+                <RiInformationLine size={48} />
+              </div>
+              <div className="space-y-4">
+                <DialogTitle className="text-4xl font-black text-[#0D4B4D] tracking-tight">
+                  Acceso Restringido
+                </DialogTitle>
+                <DialogDescription className="text-slate-500 font-medium text-xl leading-relaxed max-w-xs mx-auto">
+                  Para añadir servicios al carrito, primero debes{" "}
+                  <span className="font-bold text-[#0D4B4D]">
+                    iniciar sesión
+                  </span>
+                  .
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </PageWrapper>
   );

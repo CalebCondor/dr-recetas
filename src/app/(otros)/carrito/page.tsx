@@ -35,6 +35,8 @@ export default function CarritoPage() {
     telefono: "",
     tipo_documento: "Licencia de Conducir",
     numero_documento: "",
+    email: "",
+    identificacion_archivo: null as File | null,
     order_names: {} as Record<string, string>,
     payment_method: "tarjeta" as "ath" | "tarjeta",
   });
@@ -53,15 +55,78 @@ export default function CarritoPage() {
       setPurchaseId(
         `#DR${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
       );
+
       try {
         const parsed = JSON.parse(storedUser);
-        // Pre-fill
+
+        // Normalize Date Format for <input type="date" /> (expects YYYY-MM-DD)
+        const normalizeDate = (dateStr: string | undefined | null) => {
+          if (!dateStr || typeof dateStr !== "string") return "";
+          // If already YYYY-MM-DD
+          if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+          // If it's DD/MM/YYYY
+          if (dateStr.includes("/")) {
+            const parts = dateStr.split("/");
+            if (parts.length === 3) {
+              const day = parts[0].padStart(2, "0");
+              const month = parts[1].padStart(2, "0");
+              const year = parts[2].length === 4 ? parts[2] : `20${parts[2]}`;
+              return `${year}-${month}-${day}`;
+            }
+          }
+          // If it has time, take only date part
+          if (dateStr.includes(" ")) {
+            const datePart = dateStr.split(" ")[0];
+            if (datePart.includes("-")) return datePart;
+          }
+          return dateStr;
+        };
+
+        // Pre-fill with extreme robust mapping to catch all API variations
         setFormData((prev) => ({
           ...prev,
-          nombre_completo: parsed.us_nombres || "",
-          telefono: parsed.us_telefono || "",
-          municipio: parsed.us_municipio || "",
-          direccion: parsed.us_direccion || "",
+          nombre_completo:
+            parsed.us_nombres ||
+            parsed.us_nombre ||
+            parsed.nombres ||
+            parsed.nombre ||
+            prev.nombre_completo,
+          telefono:
+            parsed.us_telefono ||
+            parsed.telefono ||
+            parsed.us_tel ||
+            prev.telefono,
+          municipio:
+            parsed.us_municipio ||
+            parsed.us_ciudad ||
+            parsed.municipio ||
+            parsed.ciudad ||
+            prev.municipio,
+          direccion:
+            parsed.us_direccion ||
+            parsed.direccion ||
+            parsed.us_dir ||
+            prev.direccion,
+          fecha_nacimiento: normalizeDate(
+            parsed.us_fech_nac ||
+              parsed.fecha_nacimiento ||
+              parsed.us_fecha_nac,
+          ),
+          pais:
+            parsed.us_pais || parsed.pais || parsed.us_country || "Puerto Rico",
+          codigo_postal:
+            parsed.us_code_postal ||
+            parsed.us_cod_postal ||
+            parsed.codigo_postal ||
+            parsed.zip_code ||
+            prev.codigo_postal,
+          email: parsed.us_email || parsed.email || prev.email,
+          tipo_documento:
+            parsed.us_tipo_doc || parsed.tipo_documento || prev.tipo_documento,
+          numero_documento:
+            parsed.us_documento ||
+            parsed.numero_documento ||
+            prev.numero_documento,
         }));
       } catch (e) {
         console.error("Error loading user for checkout", e);
