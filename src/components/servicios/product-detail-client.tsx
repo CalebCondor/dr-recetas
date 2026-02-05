@@ -91,7 +91,7 @@ export function ProductDetailClient({
 
   return (
     <PageWrapper>
-      <div className="min-h-auto bg-[#F0F9F5] pt-30 pb-40 md:pb-20 relative overflow-visible">
+      <div className="min-h-auto pt-30 pb-40 md:pb-20 relative overflow-visible">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:gap-12 items-start">
             {/* Right Column: Info */}
@@ -147,10 +147,10 @@ export function ProductDetailClient({
                     {/* Action Button: controlled size on desktop */}
                     <Button
                       onClick={handleAddToCart}
-                      className="w-full md:w-[280px] lg:w-[320px] h-auto py-4 px-8 md:py-6 md:px-10 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base md:text-xl transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3"
+                      className="w-full md:w-[200px] lg:w-[240px] h-auto py-4 px-8 md:py-3 md:px-6 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3"
                     >
                       <span>comprar</span>
-                      <RiShoppingBag4Line className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
+                      <RiShoppingBag4Line className="w-5 h-5 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </div>
                 </div>
@@ -168,22 +168,24 @@ export function ProductDetailClient({
             {/* Desktop Tabs */}
             <div className="hidden md:block">
               <Tabs defaultValue="description" className="w-full">
-                <TabsList className="bg-[#0D4B4D]/5 p-1 rounded-[2rem] h-auto gap-1 mb-12 flex flex-wrap justify-start w-fit border border-[#0D4B4D]/10">
-                  <TabsTrigger
-                    value="description"
-                    className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
-                  >
-                    <RiInformationLine className="w-4 h-4" />
-                    Descripción
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="details"
-                    className="px-8 py-3.5 rounded-full text-[#0D4B4D]/60 font-bold text-sm data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all duration-300 flex items-center gap-2"
-                  >
-                    <RiListCheck className="w-4 h-4" />
-                    Ficha Técnica
-                  </TabsTrigger>
-                </TabsList>
+                <div className="flex justify-center md:justify-start mb-10">
+                  <TabsList className="bg-slate-100/80 backdrop-blur-sm p-1.5 rounded-2xl border border-slate-200/50 h-auto gap-1">
+                    <TabsTrigger
+                      value="description"
+                      className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                    >
+                      <RiInformationLine className="w-4 h-4" />
+                      Descripción
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="details"
+                      className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                    >
+                      <RiListCheck className="w-4 h-4" />
+                      Ficha Técnica
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
 
                 <div className="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-12 border border-[#0D4B4D]/10 shadow-[0_20px_50px_rgba(13,75,77,0.05)]">
                   <TabsContent
