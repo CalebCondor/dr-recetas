@@ -6,22 +6,19 @@ import { Download, AlertCircle } from "lucide-react";
 
 interface PdfViewerProps {
   url: string;
+  downloadUrl?: string;
 }
 
-export function PdfViewer({ url }: PdfViewerProps) {
-  const [useGoogleViewer, setUseGoogleViewer] = useState(false);
+export function PdfViewer({ url, downloadUrl: propDownloadUrl }: PdfViewerProps) {
   const [loadError, setLoadError] = useState(false);
 
   // Extraer la URL real si viene envuelta en /pdf/index.php?url=
   const extractRealUrl = (fullUrl: string) => {
     try {
-      // Si contiene /pdf/index.php?url=, extraer el parámetro url
       if (fullUrl.includes("/pdf/index.php?url=")) {
         const urlObj = new URL(fullUrl);
         const realUrl = urlObj.searchParams.get("url");
         if (realUrl) {
-          console.log("URL original:", fullUrl);
-          console.log("URL extraída:", realUrl);
           return realUrl;
         }
       }
@@ -31,19 +28,26 @@ export function PdfViewer({ url }: PdfViewerProps) {
     return fullUrl;
   };
 
+  // URL procesada para el iframe
   const pdfUrl = extractRealUrl(url);
+  // URL original para descargar - usar la que se pasa como prop, o la URL original si no se proporciona
+  const downloadUrl = propDownloadUrl || url;
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = "orden-medica.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Descargar usando la URL original sin procesar
+    const downloadLink = document.createElement("a");
+    downloadLink.href = downloadUrl;
+    downloadLink.download = "orden-medica.pdf";
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   };
-
-  // Google Docs Viewer URL (fallback)
-  const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
 
   return (
     <div className="flex flex-col h-full bg-white">
@@ -63,7 +67,7 @@ export function PdfViewer({ url }: PdfViewerProps) {
       </div>
 
       {/* PDF Container */}
-      <div className="flex-1 overflow-hidden bg-slate-100 flex flex-col items-center justify-center">
+      <div className="flex-1 overflow-auto bg-slate-100 flex flex-col items-center justify-start p-4">
         {loadError ? (
           <div className="flex flex-col items-center justify-center space-y-4 p-8 text-center h-full">
             <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center">
@@ -88,26 +92,10 @@ export function PdfViewer({ url }: PdfViewerProps) {
           </div>
         ) : (
           <iframe
-            src={
-              useGoogleViewer
-                ? googleViewerUrl
-                : `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=65`
-            }
+            src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=fit`}
             className="w-full h-full border-0 rounded-lg"
             title="Orden Médica PDF"
-            onLoad={() => {
-              // El iframe cargó. No mostrar error automáticamente
-              // Solo mostrar error si hay un evento onError explícito
-            }}
-            onError={() => {
-              if (useGoogleViewer) {
-                // Si Google Viewer también falla, mostrar error
-                setLoadError(true);
-              } else {
-                // Intentar con Google Viewer como fallback
-                setUseGoogleViewer(true);
-              }
-            }}
+            onError={() => setLoadError(true)}
           />
         )}
       </div>

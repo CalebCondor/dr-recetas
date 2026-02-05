@@ -21,8 +21,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import dynamic from "next/dynamic";
 import { Order } from "@/services/types/types";
-import { PdfViewer } from "./pdf-viewer";
+
+const PdfViewer = dynamic(
+  () => import("./pdf-viewer").then((mod) => ({ default: mod.PdfViewer })),
+  {
+    ssr: false,
+    loading: () => <div>Cargando PDF...</div>,
+  },
+);
 
 interface ProfileOrdersListProps {
   orders: Order[];
@@ -40,22 +48,6 @@ export function ProfileOrdersList({
   setExpandedOrderId,
 }: ProfileOrdersListProps) {
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
-
-  // Helper para extraer URL real si viene envuelta en /pdf/index.php?url=
-  const extractRealPdfUrl = (fullUrl: string): string => {
-    try {
-      if (fullUrl.includes("/pdf/index.php?url=")) {
-        const urlObj = new URL(fullUrl);
-        const realUrl = urlObj.searchParams.get("url");
-        if (realUrl) {
-          return realUrl;
-        }
-      }
-    } catch (error) {
-      console.warn("Error al extraer URL:", error);
-    }
-    return fullUrl;
-  };
 
   // Helper to extract nested or prefixed fields from API responses
   const getOrderField = (
@@ -252,10 +244,7 @@ export function ProfileOrdersList({
                           <div className="absolute -inset-0.5 bg-linear-to-r from-emerald-500 to-[#0D4B4D] rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                           <Button
                             onClick={() => {
-                              const realUrl = extractRealPdfUrl(
-                                order.url_orden,
-                              );
-                              setSelectedPdfUrl(realUrl);
+                              setSelectedPdfUrl(order.url_orden);
                             }}
                             className="relative w-full bg-white hover:bg-emerald-50 text-[#0D4B4D] border border-emerald-100/50 h-auto py-5 px-6 rounded-2xl justify-between shadow-sm transition-all"
                           >
@@ -289,8 +278,7 @@ export function ProfileOrdersList({
                               <Button
                                 key={`pkg-${pIdx}`}
                                 onClick={() => {
-                                  const realUrl = extractRealPdfUrl(pkg.url);
-                                  setSelectedPdfUrl(realUrl);
+                                  setSelectedPdfUrl(pkg.url);
                                 }}
                                 variant="outline"
                                 className="w-full hover:border-[#0D4B4D]/30 hover:bg-[#0D4B4D]/5 text-slate-700 h-auto py-4 px-5 rounded-xl justify-between group border-slate-100 bg-white shadow-sm transition-all"
@@ -322,11 +310,17 @@ export function ProfileOrdersList({
         open={!!selectedPdfUrl}
         onOpenChange={(open) => !open && setSelectedPdfUrl(null)}
       >
-        <DialogContent className="max-w-2xl w-full h-[90vh] p-0 border-0 flex flex-col">
+        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] sm:w-full h-[95vh] sm:h-[90vh] p-0 border-0 flex flex-col">
           <DialogHeader className="px-6 pt-6 pb-0 border-b border-slate-200 shrink-0">
             <DialogTitle>Orden Médica PDF</DialogTitle>
           </DialogHeader>
-          {selectedPdfUrl ? <PdfViewer key={selectedPdfUrl} url={selectedPdfUrl} /> : null}
+          {selectedPdfUrl ? (
+            <PdfViewer
+              key={selectedPdfUrl}
+              url={selectedPdfUrl}
+              downloadUrl={selectedPdfUrl}
+            />
+          ) : null}
         </DialogContent>
       </Dialog>
     </>
