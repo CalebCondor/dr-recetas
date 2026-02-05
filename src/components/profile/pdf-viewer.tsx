@@ -9,7 +9,10 @@ interface PdfViewerProps {
   downloadUrl?: string;
 }
 
-export function PdfViewer({ url, downloadUrl: propDownloadUrl }: PdfViewerProps) {
+export function PdfViewer({
+  url,
+  downloadUrl: propDownloadUrl,
+}: PdfViewerProps) {
   const [loadError, setLoadError] = useState(false);
 
   // Extraer la URL real si viene envuelta en /pdf/index.php?url=
@@ -30,7 +33,7 @@ export function PdfViewer({ url, downloadUrl: propDownloadUrl }: PdfViewerProps)
 
   // URL procesada para el iframe
   const pdfUrl = extractRealUrl(url);
-  // URL original para descargar - usar la que se pasa como prop, o la URL original si no se proporciona
+
   const downloadUrl = propDownloadUrl || url;
 
   const handleDownload = (e?: React.MouseEvent) => {
