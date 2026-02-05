@@ -105,6 +105,7 @@ export const PersonalInfoForm = ({
               municipio: e.target.value,
             })
           }
+          className="h-12 rounded-xl bg-white border-slate-200"
           placeholder="San Juan..."
         />
       </div>

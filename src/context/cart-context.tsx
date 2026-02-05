@@ -8,6 +8,13 @@ import React, {
   useCallback,
 } from "react";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { RiShoppingBag4Line } from "react-icons/ri";
 
 export interface CartItem {
   id: string;
@@ -32,6 +39,7 @@ const CART_STORAGE_KEY = "dr-recetas-cart";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isDuplicateAlertOpen, setIsDuplicateAlertOpen] = useState(false);
 
   // Load cart from localStorage
   useEffect(() => {
@@ -66,11 +74,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       // Check if item already exists before showing success toast
       const exists = cart.find((i) => i.id === item.id);
       if (exists) {
-        toast.error("Producto ya en el carrito", {
-          description:
-            "No puedes agregar el mismo producto dos veces. Si necesitas otro, por favor finaliza primero esta compra.",
-          duration: 4000,
-        });
+        setIsDuplicateAlertOpen(true);
       } else {
         toast.success("Agregado al carrito", {
           description: `${item.titulo} se ha añadido correctamente.`,
@@ -98,6 +102,37 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       value={{ cart, addToCart, removeFromCart, clearCart, total }}
     >
       {children}
+
+      {/* Duplicate Item Dialog */}
+      <Dialog
+        open={isDuplicateAlertOpen}
+        onOpenChange={setIsDuplicateAlertOpen}
+      >
+        <DialogContent
+          showCloseButton={false}
+          className="rounded-[3rem] p-12 md:p-16 border-none shadow-[0_30px_100px_rgba(0,0,0,0.15)] w-[92vw] max-w-lg bg-white cursor-pointer"
+          onClick={() => setIsDuplicateAlertOpen(false)}
+        >
+          <div className="flex flex-col items-center text-center gap-8 pointer-events-none">
+            <div className="w-24 h-24 rounded-full bg-emerald-50/50 flex items-center justify-center text-[#0D4B4D] shadow-inner">
+              <RiShoppingBag4Line size={48} />
+            </div>
+            <div className="space-y-4">
+              <DialogTitle className="text-3xl md:text-4xl font-black text-[#0D4B4D] tracking-tight">
+                Producto en Carrito
+              </DialogTitle>
+              <DialogDescription className="text-slate-500 font-medium text-lg md:text-xl leading-relaxed max-w-xs mx-auto">
+                No puedes agregar el mismo producto dos veces. Si necesitas
+                otro, por favor{" "}
+                <span className="font-bold text-[#0D4B4D]">
+                  finaliza esta compra
+                </span>{" "}
+                primero.
+              </DialogDescription>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </CartContext.Provider>
   );
 }
