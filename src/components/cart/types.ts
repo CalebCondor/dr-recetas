@@ -9,6 +9,8 @@ export interface CartFormData {
   telefono: string;
   tipo_documento: string;
   numero_documento: string;
+  email: string;
+  identificacion_archivo: File | null;
   order_names: Record<string, string>;
   payment_method: "ath" | "tarjeta";
 }

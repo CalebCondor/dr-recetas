@@ -105,8 +105,24 @@ export const PersonalInfoForm = ({
               municipio: e.target.value,
             })
           }
-          className="h-12 rounded-xl bg-white border-slate-200"
           placeholder="San Juan..."
+        />
+      </div>
+      <div className="space-y-2 lg:col-span-1">
+        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+          Correo Electrónico
+        </label>
+        <Input
+          type="email"
+          value={formData.email}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              email: e.target.value,
+            })
+          }
+          className="h-12 rounded-xl bg-white border-slate-200"
+          placeholder="ejemplo@correo.com"
         />
       </div>
     </div>
@@ -214,20 +230,45 @@ export const PersonalInfoForm = ({
 
         <div className="space-y-1.5 relative z-10">
           <h4 className="font-black text-[#0D4B4D] text-base">
-            Foto de Identificación
+            {formData.identificacion_archivo
+              ? "Archivo Seleccionado"
+              : "Foto de Identificación"}
           </h4>
           <p className="text-[11px] text-slate-400 font-medium max-w-[240px] leading-relaxed">
-            Sube una foto clara de tu ID vigente (Licencia o Pasaporte).
-            Formatos: JPG, PNG o PDF.
+            {formData.identificacion_archivo
+              ? formData.identificacion_archivo.name
+              : "Sube una foto clara de tu ID vigente (Licencia o Pasaporte). Formatos: JPG, PNG o PDF."}
           </p>
         </div>
 
-        <Button
-          variant="outline"
-          className="rounded-xl font-bold h-11 border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 px-8 transition-all active:scale-95 shadow-sm"
-        >
-          Seleccionar Archivo
-        </Button>
+        <div className="relative">
+          <input
+            type="file"
+            id="id-upload"
+            className="hidden"
+            accept=".jpg,.jpeg,.png,.pdf"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                setFormData({ ...formData, identificacion_archivo: file });
+              }
+            }}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => document.getElementById("id-upload")?.click()}
+            className={`rounded-xl font-bold h-11 px-8 transition-all active:scale-95 shadow-sm ${
+              formData.identificacion_archivo
+                ? "bg-emerald-50 border-emerald-200 text-emerald-600 hover:bg-emerald-100"
+                : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"
+            }`}
+          >
+            {formData.identificacion_archivo
+              ? "Cambiar Archivo"
+              : "Seleccionar Archivo"}
+          </Button>
+        </div>
       </div>
 
       <div className="bg-orange-50/50 p-4 rounded-xl border border-orange-100 italic">

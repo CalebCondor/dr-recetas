@@ -35,6 +35,8 @@ export default function CarritoPage() {
     telefono: "",
     tipo_documento: "Licencia de Conducir",
     numero_documento: "",
+    email: "",
+    identificacion_archivo: null as File | null,
     order_names: {} as Record<string, string>,
     payment_method: "tarjeta" as "ath" | "tarjeta",
   });
@@ -60,8 +62,12 @@ export default function CarritoPage() {
           ...prev,
           nombre_completo: parsed.us_nombres || "",
           telefono: parsed.us_telefono || "",
-          municipio: parsed.us_municipio || "",
+          municipio: parsed.us_municipio || parsed.us_ciudad || "",
           direccion: parsed.us_direccion || "",
+          fecha_nacimiento: parsed.us_fech_nac || "",
+          pais: parsed.us_pais || "Puerto Rico",
+          codigo_postal: parsed.us_code_postal || "",
+          email: parsed.us_email || "",
         }));
       } catch (e) {
         console.error("Error loading user for checkout", e);
