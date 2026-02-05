@@ -55,7 +55,7 @@ export default function RootLayout({
             {children}
             <ChatbotFloating />
             <Footer />
-            <Toaster position="top-right" />
+            <Toaster position="top-right" theme="light" />
           </CartProvider>
         </ChatProvider>
       </body>

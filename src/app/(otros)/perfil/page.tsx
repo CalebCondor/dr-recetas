@@ -99,7 +99,8 @@ function PerfilContent() {
   // Sincronizar tab con query parameters
   useEffect(() => {
     const tabParam = searchParams.get("tab");
-    const validTab = tabParam === "orders" || tabParam === "info" ? tabParam : "info";
+    const validTab =
+      tabParam === "orders" || tabParam === "info" ? tabParam : "info";
     setActiveTab(validTab);
   }, [searchParams]);
 
