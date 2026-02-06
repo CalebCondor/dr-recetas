@@ -57,7 +57,7 @@ export default async function Home() {
   }));
   return (
     <PageWrapper>
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
         <div className="absolute top-0 left-0 w-full h-[75%] z-0 pointer-events-none select-none overflow-hidden">
           {/* Desktop Version - Consolidated to reduce GPU layers */}
@@ -71,19 +71,19 @@ export default async function Home() {
             }}
           />
 
-          {/* Mobile Version - Lighter and more optimized to avoid lag */}
+          {/* Mobile Version - Highly optimized: No blend modes, less blur */}
           <div
-            className="lg:hidden absolute inset-0 w-full h-full opacity-50 blur-[80px] will-change-transform"
+            className="lg:hidden absolute inset-0 w-full h-full opacity-40 blur-3xl will-change-transform"
             style={{
               background: `
-                radial-gradient(circle at 100% 15%, rgba(34, 197, 94, 0.35) 0%, rgba(20, 184, 166, 0.08) 40%, transparent 70%),
-                radial-gradient(circle at 5% 80%, rgba(132, 204, 22, 0.2) 0%, transparent 60%)
+                radial-gradient(circle at 95% 15%, rgba(34, 197, 94, 0.25) 0%, transparent 60%),
+                radial-gradient(circle at 5% 80%, rgba(132, 204, 22, 0.15) 0%, transparent 60%)
               `,
             }}
           />
 
           {/* Smooth Fade-out to White to end gracefully in the middle of services */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-white via-white/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-white via-white to-transparent" />
         </div>
 
         <Hero />
