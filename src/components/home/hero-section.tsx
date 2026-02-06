@@ -122,31 +122,31 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
-      // On mobile, blocking the native scroll feels like the app is frozen.
-      // We only intercept if the movements are small or within the list area,
-      // but even then, it's safer to not block the native scroll at all for better UX.
+      if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
+        if (e.cancelable) e.preventDefault();
 
-      const THRESHOLD = 40;
-      const MOBILE_COOLDOWN = 100;
+        const THRESHOLD = 25;
+        const MOBILE_COOLDOWN = 80;
 
-      if (
-        now - lastScrollTime.current > MOBILE_COOLDOWN &&
-        absDelta > THRESHOLD
-      ) {
-        if (isMovingDown && !isAtEnd) {
-          setActiveIndex((prev) => prev + 1);
-        } else if (isMovingUp && !isAtStart) {
-          setActiveIndex((prev) => prev - 1);
+        if (
+          now - lastScrollTime.current > MOBILE_COOLDOWN &&
+          absDelta > THRESHOLD
+        ) {
+          if (isMovingDown && !isAtEnd) {
+            setActiveIndex((prev) => prev + 1);
+          } else if (isMovingUp && !isAtStart) {
+            setActiveIndex((prev) => prev - 1);
+          }
+
+          touchStartRef.current = touchEnd;
+          lastScrollTime.current = now;
         }
-
-        touchStartRef.current = touchEnd;
-        lastScrollTime.current = now;
       }
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -163,7 +163,6 @@ export default function Hero() {
 
   const ITEM_HEIGHT = 90;
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
-
   return (
     <section
       ref={containerRef}
