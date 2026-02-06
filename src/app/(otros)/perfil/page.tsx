@@ -44,27 +44,42 @@ function PerfilContent() {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = await response.json();
-      if (data.success && data.data) {
-        const profileData = data.data;
-        setFormData({
-          us_nombres: profileData.us_nombres || "",
-          us_telefono: profileData.us_telefono || "",
-          us_email: profileData.us_email || "",
-          us_direccion: profileData.us_direccion || "",
-          us_ciudad: profileData.us_ciudad || "",
-          us_pais: profileData.us_pais || "",
-          us_fech_nac: profileData.us_fech_nac || "",
-          us_code_postal: profileData.us_code_postal || "",
-          us_clave: "",
-        });
 
-        // Update local storage with latest info
-        const storedUser = localStorage.getItem("dr_user");
-        const currentStored = storedUser ? JSON.parse(storedUser) : {};
-        const updatedUser = { ...currentStored, ...profileData, token };
-        setUser(updatedUser);
-        localStorage.setItem("dr_user", JSON.stringify(updatedUser));
+      if (!response.ok) {
+        throw new Error(`Profile server returned ${response.status}`);
+      }
+
+      const text = await response.text();
+      if (!text) {
+        setIsLoadingProfile(false);
+        return;
+      }
+
+      try {
+        const data = JSON.parse(text);
+        if (data.success && data.data) {
+          const profileData = data.data;
+          setFormData({
+            us_nombres: profileData.us_nombres || "",
+            us_telefono: profileData.us_telefono || "",
+            us_email: profileData.us_email || "",
+            us_direccion: profileData.us_direccion || "",
+            us_ciudad: profileData.us_ciudad || "",
+            us_pais: profileData.us_pais || "",
+            us_fech_nac: profileData.us_fech_nac || "",
+            us_code_postal: profileData.us_code_postal || "",
+            us_clave: "",
+          });
+
+          // Update local storage with latest info
+          const storedUser = localStorage.getItem("dr_user");
+          const currentStored = storedUser ? JSON.parse(storedUser) : {};
+          const updatedUser = { ...currentStored, ...profileData, token };
+          setUser(updatedUser);
+          localStorage.setItem("dr_user", JSON.stringify(updatedUser));
+        }
+      } catch (parseError) {
+        console.error("Failed to parse profile JSON:", text, parseError);
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -74,23 +89,54 @@ function PerfilContent() {
   }, []);
 
   const fetchOrders = useCallback(async (userId: string, token: string) => {
+    console.log(
+      "Fetching orders for userId:",
+      userId,
+      "Token starts with:",
+      token?.substring(0, 10),
+    );
     setIsLoadingOrders(true);
     try {
-      const response = await fetch(
-        `https://doctorrecetas.com/api/mis_ordenes.php?us_id=${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const url = `https://doctorrecetas.com/api/mis_ordenes.php?us_id=${userId}`;
+      console.log("Fetch URL:", url);
+
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
-      const data = await response.json();
-      console.log("Orders Raw Data:", data);
-      if (data.success) {
-        setOrders(data.data || []);
+      });
+
+      console.log("Response status:", response.status, response.statusText);
+
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
+
+      const text = await response.text();
+      console.log("Raw response text:", text);
+
+      if (!text) {
+        console.warn("Empty response received from server");
+        setOrders([]);
+        return;
+      }
+
+      try {
+        const data = JSON.parse(text);
+        console.log("Parsed Orders Data:", data);
+        if (data.success) {
+          setOrders(data.data || []);
+        } else {
+          console.warn("Order fetch success was false:", data.message);
+          setOrders([]);
+        }
+      } catch (parseError) {
+        console.error("Failed to parse orders JSON:", text, parseError);
+        setOrders([]);
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
+      setOrders([]);
     } finally {
       setIsLoadingOrders(false);
     }
@@ -155,7 +201,27 @@ function PerfilContent() {
           },
         );
 
-        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`Update server returned ${response.status}`);
+        }
+
+        const text = await response.text();
+        if (!text) {
+          throw new Error("Respuesta vacía del servidor");
+        }
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (parseError) {
+          console.error(
+            "Failed to parse update profile JSON:",
+            text,
+            parseError,
+          );
+          throw new Error("Respuesta del servidor no válida");
+        }
+
         if (data.success) {
           const updatedUser = { ...user, ...formData };
           localStorage.setItem("dr_user", JSON.stringify(updatedUser));

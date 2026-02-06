@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/home/hero-section";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 import { PageWrapper } from "@/components/page-wrapper";
+import { ServicesSection } from "@/components/home/services-section";
 
 // Dynamically import components below the fold
 const ChatbotSection = dynamic(() =>
@@ -56,31 +57,38 @@ export default async function Home() {
   }));
   return (
     <PageWrapper>
-      <Hero />
+      <div className="relative">
+        {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
+        <div className="absolute top-0 left-0 w-full h-[75%] z-0 pointer-events-none select-none overflow-hidden">
+          {/* Desktop Version - Consolidated to reduce GPU layers */}
+          <div
+            className="hidden lg:block absolute -top-[5%] -right-[10%] w-[110%] h-[110%] opacity-60 mix-blend-multiply blur-[120px] will-change-transform"
+            style={{
+              background: `
+                radial-gradient(circle at 85% 35%, rgba(34, 197, 94, 0.45) 0%, rgba(20, 184, 166, 0.15) 50%, transparent 70%),
+                radial-gradient(circle at 90% 10%, rgba(132, 204, 22, 0.4) 0%, transparent 70%)
+              `,
+            }}
+          />
 
-      {/* Services Section */}
-      <section
-        id="servicios"
-        className="w-full sm:py-12 relative group bg-transparent"
-      >
-        <div className="w-full px-6 md:px-12 lg:px-[8%]">
-          <div className="flex justify-center mb-16 px-2">
-            <div className="space-y-4 text-center">
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#0D4B4D] tracking-tighter leading-none">
-                Nuestros Servicios
-              </h2>
-              <p className="text-teal-900/60 font-medium text-lg">
-                Explora nuestras soluciones médicas en linea
-              </p>
-            </div>
-          </div>
+          {/* Mobile Version - Lighter and more optimized to avoid lag */}
+          <div
+            className="lg:hidden absolute inset-0 w-full h-full opacity-50 blur-[80px] will-change-transform"
+            style={{
+              background: `
+                radial-gradient(circle at 100% 15%, rgba(34, 197, 94, 0.35) 0%, rgba(20, 184, 166, 0.08) 40%, transparent 70%),
+                radial-gradient(circle at 5% 80%, rgba(132, 204, 22, 0.2) 0%, transparent 60%)
+              `,
+            }}
+          />
 
-          {/* Unified Carousel for all screens */}
-          <div className="relative">
-            <ServicesCarousel services={services} />
-          </div>
+          {/* Smooth Fade-out to White to end gracefully in the middle of services */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-white via-white/40 to-transparent" />
         </div>
-      </section>
+
+        <Hero />
+        <ServicesSection services={services} />
+      </div>
 
       <ChatbotSection />
       <WhyChooseUs />

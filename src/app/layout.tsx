@@ -48,7 +48,6 @@ export default function RootLayout({
       >
         <ChatProvider>
           <CartProvider>
-            <GlobalBackground />
             <PagePrefetcher />
 
             <Header />

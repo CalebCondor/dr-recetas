@@ -2,34 +2,47 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus } from "lucide-react";
+import {
+  Plus,
+  FileText,
+  Pill,
+  Stethoscope,
+  Calendar,
+  Microscope,
+  TestTube2,
+} from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const consultations = [
   {
     id: 1,
     name: "Certificado Médico",
+    icon: FileText,
   },
   {
     id: 2,
     name: 'Receta de medicamentos o "Refill"',
+    icon: Pill,
   },
   {
     id: 3,
     name: "Evaluación médica inmediata",
+    icon: Stethoscope,
   },
   {
     id: 4,
     name: "Cita de Seguimiento",
+    icon: Calendar,
   },
   {
     id: 5,
     name: "Prueba de Influenza A y B",
+    icon: Microscope,
   },
   {
     id: 6,
     name: "CBC + DIFF Lab",
+    icon: TestTube2,
   },
 ];
 
@@ -109,31 +122,31 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
-      if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
-        if (e.cancelable) e.preventDefault();
+      // On mobile, blocking the native scroll feels like the app is frozen.
+      // We only intercept if the movements are small or within the list area,
+      // but even then, it's safer to not block the native scroll at all for better UX.
 
-        const THRESHOLD = 25;
-        const MOBILE_COOLDOWN = 80;
+      const THRESHOLD = 40;
+      const MOBILE_COOLDOWN = 100;
 
-        if (
-          now - lastScrollTime.current > MOBILE_COOLDOWN &&
-          absDelta > THRESHOLD
-        ) {
-          if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) => prev + 1);
-          } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => prev - 1);
-          }
-
-          touchStartRef.current = touchEnd;
-          lastScrollTime.current = now;
+      if (
+        now - lastScrollTime.current > MOBILE_COOLDOWN &&
+        absDelta > THRESHOLD
+      ) {
+        if (isMovingDown && !isAtEnd) {
+          setActiveIndex((prev) => prev + 1);
+        } else if (isMovingUp && !isAtStart) {
+          setActiveIndex((prev) => prev - 1);
         }
+
+        touchStartRef.current = touchEnd;
+        lastScrollTime.current = now;
       }
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -156,37 +169,23 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
-      <div className="absolute top-0 left-0 w-full h-full lg:h-[180%] z-0 lg:hidden">
-        <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full blur-[40px] will-change-transform"
-          firstColor="34, 197, 94" // green-500 (Mucho más intenso)
-          secondColor="16, 185, 129" // emerald-500
-          thirdColor="22, 163, 74" // green-600 (Saturado)
-          fourthColor="5, 150, 105" // emerald-600
-          fifthColor="20, 184, 166" // teal-500
-          pointerColor="34, 197, 94"
-          size="150%"
-          blendingValue="multiply"
-          interactive={true}
-        />
-      </div>
-
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
-        <div className="flex-1 w-full max-w-4xl">
-          <h1 className="text-[2.4rem] leading-[1.1] sm:text-3xl md:text-6xl lg:text-[2.5rem] xl:text-[2rem] 2xl:text-[3rem] font-bold text-white mb-8 lg:mb-12 tracking-tight text-balance">
-            ¿Necesitas una
-            <br className="block lg:hidden" />{" "}
-            <span className="text-[#3499EA] md:text-[#00FF8C]">
+        <div className="flex-1 w-full max-w-4xl sm:mt-10">
+          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-slate-900 mb-8 lg:mb-10 tracking-tight text-balance">
+            Consigue una
+            <br />
+            <span className="text-[#3F6146]">
               <TypingAnimation
-                words={["consulta médica", "Excusa Medica", "Prueba Covid"]}
+                words={["Excusa Medica", "Prueba Covid"]}
                 className="inline"
                 loop={false}
-                typeSpeed={100}
-                deleteSpeed={50}
+                typeSpeed={80}
+                deleteSpeed={40}
                 pauseDelay={2000}
               />
             </span>
-            <br className="block lg:hidden" /> lo antes posible?
+            <br />
+            lo antes posible
           </h1>
         </div>
 
@@ -242,10 +241,18 @@ export default function Hero() {
                           ${isActive ? "shadow-2xl ring-1 ring-black/5" : "shadow-sm"}
                         `}
                       >
-                        <div className="relative z-10">
+                        <div className="relative z-10 flex items-center gap-3 md:gap-4">
+                          <div
+                            className={`
+                              shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-colors duration-500
+                              ${isActive ? "bg-teal-50 text-teal-600" : "bg-slate-50 text-slate-400"}
+                            `}
+                          >
+                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                          </div>
                           <p
                             className={`
-                              text-base lg:text-lg font-bold text-left tracking-tight transition-colors duration-500
+                              text-sm md:text-base lg:text-lg font-bold text-left tracking-tight transition-colors duration-500 line-clamp-2
                               ${isActive ? "text-[#0D4B4D]" : "text-slate-600"}
                             `}
                           >
