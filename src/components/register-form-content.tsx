@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -16,6 +16,7 @@ import {
   Lock,
   Eye,
   EyeOff,
+  Loader2,
 } from "lucide-react";
 import {
   Select,
@@ -33,6 +34,67 @@ interface RegisterFormContentProps {
 export function RegisterFormContent({ setView }: RegisterFormContentProps) {
   const [step, setStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
+  const [selectedMunicipio, setSelectedMunicipio] = useState<string>("");
+  const [locations, setLocations] = useState<{ id: string; name: string }[]>(
+    [],
+  );
+  const [isLoadingLocations, setIsLoadingLocations] = useState(false);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      if (!selectedRegion) {
+        setLocations([]);
+        return;
+      }
+
+      setIsLoadingLocations(true);
+      try {
+        const endpoint =
+          selectedRegion === "pr"
+            ? "https://doctorrecetas.com/api/pueblos.php"
+            : "https://doctorrecetas.com/api/estados.php";
+
+        const response = await fetch(endpoint);
+        const result = await response.json();
+
+        if (result.success) {
+          const data = result.data;
+          if (selectedRegion === "pr") {
+            interface APIPueblo {
+              id: number;
+              nombre: string;
+            }
+            setLocations(
+              data.pueblos.map((p: APIPueblo) => ({
+                id: p.id.toString(),
+                name: p.nombre,
+              })),
+            );
+          } else {
+            interface APIEstado {
+              id: number;
+              abreviatura: string;
+              nombre: string;
+            }
+            setLocations(
+              data.estados.map((e: APIEstado) => ({
+                id: e.id.toString(),
+                name: `${e.abreviatura} - ${e.nombre}`,
+              })),
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      } finally {
+        setIsLoadingLocations(false);
+      }
+    };
+
+    fetchLocations();
+    setSelectedMunicipio(""); // Reset municipio when region changes
+  }, [selectedRegion]);
 
   return (
     <div className="w-full max-w-2xl space-y-6 md:space-y-8 fade-in-0 animate-in zoom-in-95 duration-300 py-4 sm:py-0">
@@ -120,14 +182,19 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
               </label>
               <div className="relative">
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 z-10 pointer-events-none" />
-                <Select>
+                <Select
+                  onValueChange={setSelectedRegion}
+                  value={selectedRegion}
+                >
                   <SelectTrigger className="w-full pl-12 h-12 rounded-xl bg-slate-50 border border-slate-200 text-left text-sm hover:bg-slate-100/50 transition-colors">
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent
+                    position="popper"
+                    className="max-h-[300px] w-[var(--radix-select-trigger-width)]"
+                  >
                     <SelectItem value="pr">Puerto Rico</SelectItem>
                     <SelectItem value="usa">USA</SelectItem>
-                    <SelectItem value="rd">República Dominicana</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -140,15 +207,36 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
               </label>
               <div className="relative">
                 <Building className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 z-10 pointer-events-none" />
-                <Select>
+                <Select
+                  onValueChange={setSelectedMunicipio}
+                  value={selectedMunicipio}
+                  disabled={!selectedRegion || isLoadingLocations}
+                >
                   <SelectTrigger className="w-full pl-12 h-12 rounded-xl bg-slate-50 border border-slate-200 text-left text-sm hover:bg-slate-100/50 transition-colors">
-                    <SelectValue placeholder="Seleccionar" />
+                    {isLoadingLocations ? (
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Cargando...</span>
+                      </div>
+                    ) : (
+                      <SelectValue
+                        placeholder={
+                          selectedRegion
+                            ? "Seleccionar"
+                            : "Primero elija región"
+                        }
+                      />
+                    )}
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="carolina">Carolina</SelectItem>
-                    <SelectItem value="sanjuan">San Juan</SelectItem>
-                    <SelectItem value="bayamon">Bayamón</SelectItem>
-                    <SelectItem value="caguas">Caguas</SelectItem>
+                  <SelectContent
+                    position="popper"
+                    className="max-h-[400px] w-[var(--radix-select-trigger-width)]"
+                  >
+                    {locations.map((loc) => (
+                      <SelectItem key={loc.id} value={loc.id}>
+                        {loc.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
