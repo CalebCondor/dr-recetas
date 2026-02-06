@@ -221,9 +221,9 @@ export const PersonalInfoForm = ({
         </div>
       </div>
 
-      <div className="p-8 bg-white rounded-3xl border-2 border-dashed border-slate-100 flex flex-col items-center text-center gap-4 hover:border-[#0D4B4D]/20 hover:bg-[#0D4B4D]/[0.02] transition-all cursor-pointer group relative overflow-hidden">
+      <div className="p-8 bg-white rounded-3xl border-2 border-dashed border-slate-100 flex flex-col items-center text-center gap-4 hover:border-[#0D4B4D]/20 hover:bg-[#0D4B4D]/2 transition-all cursor-pointer group relative overflow-hidden">
         {/* Decorative background element */}
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[#0D4B4D]/[0.02] rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[#0D4B4D]/2 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
 
         <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-[#0D4B4D] group-hover:bg-white group-hover:shadow-md transition-all duration-300 border border-slate-100">
           <RiUpload2Line size={28} />

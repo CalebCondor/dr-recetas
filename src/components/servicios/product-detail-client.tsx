@@ -9,20 +9,11 @@ import {
   RiStethoscopeLine,
   RiInformationLine,
   RiListCheck,
-  RiZoomInLine,
-  RiPriceTag3Line,
-  RiShareLine,
-  RiFacebookFill,
-  RiTwitterXFill,
-  RiPinterestLine,
-  RiLinkedinFill,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
