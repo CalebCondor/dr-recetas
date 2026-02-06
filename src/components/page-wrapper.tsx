@@ -48,14 +48,14 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.main
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, scale: 1 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
-        duration: 0.6,
+        duration: 0.8,
         delay: 0.1,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for a premium feel
       }}
-      className="flex flex-col gap-0 overflow-x-hidden"
+      className="flex flex-col gap-0 overflow-x-hidden origin-top"
     >
       {children}
     </motion.main>
