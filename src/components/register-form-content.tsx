@@ -80,7 +80,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             setLocations(
               data.estados.map((e: APIEstado) => ({
                 id: e.id.toString(),
-                name: `${e.abreviatura} - ${e.nombre}`,
+                name: `${e.nombre}`,
               })),
             );
           }
