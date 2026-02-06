@@ -16,6 +16,7 @@ import { CartItem } from "@/context/cart-context";
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface PaymentFormProps {
   cart: CartItem[];
@@ -39,6 +40,12 @@ export const PaymentForm = ({
   const [showCardModal, setShowCardModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [cardData, setCardData] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: "",
+  });
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -51,20 +58,134 @@ export const PaymentForm = ({
     if (formData.payment_method === "tarjeta") {
       setShowCardModal(true);
     } else {
-      // Logic for ATH Movil or others
+      // Si es ATH u otro método, por ahora simulamos completar
       onComplete();
     }
   };
 
-  const handleCardSubmit = (e: React.FormEvent) => {
+  const formatCardNumber = (value: string) => {
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
+    const matches = v.match(/\d{4,16}/g);
+    const match = (matches && matches[0]) || "";
+    const parts = [];
+
+    for (let i = 0, len = match.length; i < len; i += 4) {
+      parts.push(match.substring(i, i + 4));
+    }
+
+    if (parts.length) {
+      return parts.join(" ");
+    } else {
+      return v;
+    }
+  };
+
+  const formatExpiry = (value: string) => {
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
+    if (v.length >= 2) {
+      return `${v.substring(0, 2)}/${v.substring(2, 4)}`;
+    }
+    return v;
+  };
+
+  const handleCardSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isProcessing) return;
+
+    const storedUser = localStorage.getItem("dr_user");
+    if (!storedUser) {
+      toast.error("Sesión expirada", {
+        description: "Por favor inicie sesión nuevamente.",
+      });
+      return;
+    }
+
+    const { token } = JSON.parse(storedUser);
+
+    // Split expiry MM/YY
+    const [month, yearShort] = cardData.expiry.split("/").map((s) => s.trim());
+    if (!month || !yearShort) {
+      toast.error("Fecha inválida", {
+        description: "Use el formato MM/YY",
+      });
+      return;
+    }
+    const year = yearShort.length === 2 ? `20${yearShort}` : yearShort;
+
+    const payload = {
+      pq_id: cart.map((item) => parseInt(item.id)),
+      anombre_de: cart.map(
+        (item) => formData.order_names[item.id] || formData.nombre_completo,
+      ),
+      pq_precio: total,
+      card_number: cardData.number.replace(/\s/g, ""),
+      card_exp_month: month,
+      card_exp_year: year,
+      card_cvc: cardData.cvc,
+      card_name: cardData.name,
+    };
+
     setIsProcessing(true);
-    // Simulate processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setShowCardModal(false);
-      onComplete();
-    }, 2000);
+
+    const paymentPromise = new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch(
+          "https://doctorrecetas.com/api/pagar.php",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          },
+        );
+
+        const text = await response.text();
+        console.log("Payment raw response:", text);
+
+        if (!response.ok) {
+          throw new Error(
+            `Error del servidor (${response.status}): ${text || "Sin respuesta"}`,
+          );
+        }
+
+        if (!text || text.trim() === "") {
+          throw new Error("El servidor devolvió una respuesta vacía.");
+        }
+
+        try {
+          const data = JSON.parse(text);
+          if (data.success) {
+            resolve(data);
+          } else {
+            reject(new Error(data.message || "Error al procesar el pago"));
+          }
+        } catch (parseErr) {
+          console.error("Payment JSON parse error:", text);
+          reject(
+            new Error("La respuesta del servidor no tiene un formato válido."),
+          );
+        }
+      } catch (error) {
+        console.error("Payment fatal error:", error);
+        reject(error);
+      }
+    });
+
+    toast.promise(paymentPromise, {
+      loading: "Procesando pago con Authorize.Net...",
+      success: () => {
+        setIsProcessing(false);
+        setShowCardModal(false);
+        onComplete();
+        return "¡Pago procesado exitosamente!";
+      },
+      error: (err: Error) => {
+        setIsProcessing(false);
+        return err.message || "Error al procesar el pago";
+      },
+    });
   };
 
   return (
@@ -221,6 +342,14 @@ export const PaymentForm = ({
                       <Input
                         required
                         placeholder="0000 0000 0000 0000"
+                        value={cardData.number}
+                        onChange={(e) =>
+                          setCardData({
+                            ...cardData,
+                            number: formatCardNumber(e.target.value),
+                          })
+                        }
+                        maxLength={19}
                         className="h-12 rounded-xl bg-slate-50 border-slate-100 font-medium text-sm sm:text-base"
                       />
                       <RiBankCardLine className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300" />
@@ -235,6 +364,14 @@ export const PaymentForm = ({
                       <Input
                         required
                         placeholder="MM/YY"
+                        value={cardData.expiry}
+                        onChange={(e) =>
+                          setCardData({
+                            ...cardData,
+                            expiry: formatExpiry(e.target.value),
+                          })
+                        }
+                        maxLength={5}
                         className="h-12 rounded-xl bg-slate-50 border-slate-100 font-medium text-sm sm:text-base"
                       />
                     </div>
@@ -245,6 +382,10 @@ export const PaymentForm = ({
                       <Input
                         required
                         placeholder="***"
+                        value={cardData.cvc}
+                        onChange={(e) =>
+                          setCardData({ ...cardData, cvc: e.target.value })
+                        }
                         maxLength={4}
                         className="h-12 rounded-xl bg-slate-50 border-slate-100 font-medium text-sm sm:text-base"
                       />
@@ -258,6 +399,13 @@ export const PaymentForm = ({
                     <Input
                       required
                       placeholder="TITULAR DE LA TARJETA"
+                      value={cardData.name}
+                      onChange={(e) =>
+                        setCardData({
+                          ...cardData,
+                          name: e.target.value.toUpperCase(),
+                        })
+                      }
                       className="h-12 rounded-xl bg-slate-50 border-slate-100 font-medium uppercase text-sm sm:text-base"
                     />
                   </div>
