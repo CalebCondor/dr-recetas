@@ -48,8 +48,6 @@ export default function RootLayout({
       >
         <ChatProvider>
           <CartProvider>
-            <PagePrefetcher />
-
             <Header />
             {children}
             <ChatbotFloating />
