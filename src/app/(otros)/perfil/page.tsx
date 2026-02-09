@@ -106,14 +106,11 @@ function PerfilContent() {
         },
       });
 
-      console.log("Response status:", response.status, response.statusText);
-
       if (!response.ok) {
         throw new Error(`Server returned ${response.status}`);
       }
 
       const text = await response.text();
-      console.log("Raw response text:", text);
 
       if (!text) {
         console.warn("Empty response received from server");
@@ -123,7 +120,6 @@ function PerfilContent() {
 
       try {
         const data = JSON.parse(text);
-        console.log("Parsed Orders Data:", data);
         if (data.success) {
           setOrders(data.data || []);
         } else {
