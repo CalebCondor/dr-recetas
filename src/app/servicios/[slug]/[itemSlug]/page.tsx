@@ -52,7 +52,7 @@ export default async function ProductDetailPage({
       <ProductDetailClient product={product} categorySlug={slug} />
 
       {relatedProducts.length > 0 && (
-        <div className="bg-[#F0F9F5]  pb-24">
+        <div className="pb-24">
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
             <div className="mb-12">
               <h2 className="text-center text-3xl md:text-4xl font-black text-[#0D4B4D] tracking-tighter">
