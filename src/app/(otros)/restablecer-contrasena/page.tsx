@@ -18,7 +18,7 @@ import Image from "next/image";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams.get("t");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
