@@ -211,31 +211,74 @@ export const PaymentForm = ({
 
       try {
         const data = JSON.parse(text);
+        
+        // Log completo de la respuesta ANTES de procesar
+        console.log("🔵 PAYMENT API RESPONSE (RAW):", JSON.stringify(data, null, 2));
+        console.log("🔵 PAYMENT API RESPONSE (OBJECT):", data);
+        
         if (data.success) {
-          console.log("PAYMENT API RESPONSE:", data);
+          // Intentar múltiples formas de extraer cp_code
+          const cpCode = 
+            data.data?.cp_code || 
+            data.cp_code || 
+            data.data?.cpCode ||
+            data.cpCode ||
+            null;
 
-          // Extract cp_code from nested data object or root
-          const cpCode = data.data?.cp_code || data.cp_code;
+          console.log("🔵 Extracted cp_code:", cpCode);
+          console.log("🔵 Data structure check:", {
+            "data.data?.cp_code": data.data?.cp_code,
+            "data.cp_code": data.cp_code,
+            "data.data exists": !!data.data,
+            "data.data type": typeof data.data,
+          });
 
-          if (!cpCode) {
+          // Validar que cp_code existe y no está vacío
+          if (!cpCode || (typeof cpCode === 'string' && cpCode.trim() === '')) {
+            console.error("❌ ERROR: cp_code no encontrado o vacío");
+            console.error("❌ Full response structure:", data);
             toast.error("Error API: No se recibió código de orden (cp_code)", {
               description: "Por favor contacta a soporte. ID: " + purchaseId,
             });
-            console.error("Missing cp_code in response:", data);
+            setIsProcessing(false);
+            return;
+          }
 
+          // Preparar datos para guardar (solo cp_code, token se lee desde localStorage)
+          const orderData = {
+            cp_code: String(cpCode).trim(),
+          };
+
+          console.log("🔵 Guardando en sessionStorage:", orderData);
+
+          // Guardar en sessionStorage con verificación
+          try {
+            sessionStorage.setItem(
+              "dr_order_data",
+              JSON.stringify(orderData),
+            );
+            
+            // Verificar que se guardó correctamente
+            const verifyStored = sessionStorage.getItem("dr_order_data");
+            const verifyParsed = verifyStored ? JSON.parse(verifyStored) : null;
+            
+            console.log("✅ Verificación sessionStorage guardado:", verifyParsed);
+            
+            if (!verifyParsed || verifyParsed.cp_code !== orderData.cp_code) {
+              throw new Error("Error al guardar datos en sessionStorage");
+            }
+            
+            console.log("✅ cp_code guardado correctamente:", verifyParsed.cp_code);
+          } catch (storageError) {
+            console.error("❌ ERROR al guardar en sessionStorage:", storageError);
+            toast.error("Error al guardar datos de la orden", {
+              description: "Por favor intenta de nuevo o contacta a soporte.",
+            });
             setIsProcessing(false);
             return;
           }
 
           // Success! Redirect to processing page to send order
-          sessionStorage.setItem(
-            "dr_order_data",
-            JSON.stringify({
-              cp_code: cpCode,
-              token: token,
-            }),
-          );
-
           setIsProcessing(false);
           setShowCardModal(false);
           router.push("/procesar-pago");
@@ -246,7 +289,8 @@ export const PaymentForm = ({
           setIsProcessing(false);
         }
       } catch (parseErr) {
-        console.error("Payment JSON parse error:", text);
+        console.error("❌ Payment JSON parse error:", parseErr);
+        console.error("❌ Response text:", text);
         setErrorMessage(
           "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
         );
@@ -392,10 +436,7 @@ export const PaymentForm = ({
           </Button>
 
           <Dialog open={showCardModal} onOpenChange={setShowCardModal}>
-            <DialogContent
-              aria-describedby={undefined}
-              className="max-w-md w-[92vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white"
-            >
+            <DialogContent className="max-w-md w-[92vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white">
               <DialogHeader className="bg-[#0D4B4D] p-6 sm:p-8 text-white relative">
                 <div className="absolute top-0 right-0 p-4 sm:p-8 opacity-10 pointer-events-none">
                   <RiBankCardLine size={isMobile ? 80 : 120} />
@@ -515,10 +556,7 @@ export const PaymentForm = ({
 
           {/* Error Modal */}
           <Dialog open={showErrorModal} onOpenChange={setShowErrorModal}>
-            <DialogContent
-              aria-describedby={undefined}
-              className="max-w-sm w-[90vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white"
-            >
+            <DialogContent className="max-w-sm w-[90vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white">
               <div className="p-8 text-center space-y-6">
                 <div className="mx-auto w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
                   <RiErrorWarningLine className="text-red-500" size={32} />

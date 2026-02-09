@@ -31,7 +31,7 @@ export default function ProcesarPagoPage() {
 
       try {
         const storedData = sessionStorage.getItem("dr_order_data");
-        console.log("PROCESAR PAGO - Stored Data:", storedData);
+        console.log("PROCESAR PAGO - Stored Data raw:", storedData);
 
         if (!storedData) {
           setStatus("error");
@@ -41,7 +41,22 @@ export default function ProcesarPagoPage() {
           return;
         }
 
-        const { cp_code, token } = JSON.parse(storedData);
+        const parsedData = JSON.parse(storedData);
+        console.log("PROCESAR PAGO - Parsed order data:", parsedData);
+
+        const cp_code = parsedData?.cp_code;
+
+        // Obtener el token siempre desde localStorage (como en payment-form)
+        const storedUser = localStorage.getItem("dr_user");
+        const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+        const token = parsedUser?.token;
+
+        console.log(
+          "PROCESAR PAGO - cp_code:",
+          cp_code,
+          "token:",
+          token ? "[PRESENT]" : "[MISSING]",
+        );
 
         if (!cp_code || !token) {
           throw new Error("Datos de orden incompletos.");
