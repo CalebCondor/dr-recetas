@@ -18,6 +18,7 @@ import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface PaymentFormProps {
   cart: CartItem[];
@@ -38,6 +39,7 @@ export const PaymentForm = ({
   onBack,
   onComplete,
 }: PaymentFormProps) => {
+  const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -210,10 +212,18 @@ export const PaymentForm = ({
       try {
         const data = JSON.parse(text);
         if (data.success) {
-          toast.success("¡Pago procesado exitosamente!");
+          // Success! Redirect to processing page to send order
+          sessionStorage.setItem(
+            "dr_order_data",
+            JSON.stringify({
+              cp_code: data.cp_code,
+              token: token,
+            }),
+          );
+
           setIsProcessing(false);
           setShowCardModal(false);
-          onComplete();
+          router.push("/procesar-pago");
         } else {
           const friendlyMessage = getFriendlyErrorMessage(data.message || "");
           setErrorMessage(friendlyMessage);
