@@ -184,7 +184,7 @@ export default function CarritoPage() {
                 onBack={() => setCurrentStep("details")}
                 onComplete={() => {
                   toast.success("Pago exitoso", {
-                    description: "Su orden médica ha sido procesada.",
+                    description: "Su orden ha sido procesada.",
                   });
                 }}
               />
