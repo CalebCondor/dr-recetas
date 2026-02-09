@@ -212,6 +212,16 @@ export const PaymentForm = ({
       try {
         const data = JSON.parse(text);
         if (data.success) {
+          console.log("PAYMENT API RESPONSE:", data);
+
+          if (!data.cp_code) {
+            toast.error("Error API: No se recibió código de orden (cp_code)", {
+              description: "Por favor contacta a soporte. ID: " + purchaseId,
+            });
+            setIsProcessing(false);
+            return;
+          }
+
           // Success! Redirect to processing page to send order
           sessionStorage.setItem(
             "dr_order_data",
