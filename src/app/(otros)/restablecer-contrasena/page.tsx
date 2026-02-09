@@ -46,14 +46,14 @@ function ResetPasswordForm() {
       }
 
       try {
+        const formData = new FormData();
+        formData.append("token", token);
+
         const response = await fetch(
           "https://doctorrecetas.com/api/validar_token_recuperacion.php",
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token: token }),
+            body: formData,
           },
         );
 
@@ -100,17 +100,15 @@ function ResetPasswordForm() {
     setIsLoading(true);
 
     try {
+      const formData = new FormData();
+      formData.append("token", token!);
+      formData.append("nueva_clave", password);
+
       const response = await fetch(
         "https://doctorrecetas.com/api/restablecer_contrasena.php",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: token,
-            nueva_clave: password,
-          }),
+          body: formData,
         },
       );
 
