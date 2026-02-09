@@ -96,15 +96,11 @@ function ResetPasswordForm() {
     setIsLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append("token", token!);
-      formData.append("nueva_clave", password);
-
+      // Use query params for reset as well, matching validation pattern
       const response = await fetch(
-        "https://doctorrecetas.com/api/restablecer_contrasena.php",
+        `https://doctorrecetas.com/api/restablecer_contrasena.php?token=${encodeURIComponent(token!)}&nueva_clave=${encodeURIComponent(password)}`,
         {
           method: "POST",
-          body: formData,
         },
       );
 
