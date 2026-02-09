@@ -211,16 +211,19 @@ export const PaymentForm = ({
 
       try {
         const data = JSON.parse(text);
-        
+
         // Log completo de la respuesta ANTES de procesar
-        console.log("🔵 PAYMENT API RESPONSE (RAW):", JSON.stringify(data, null, 2));
+        console.log(
+          "🔵 PAYMENT API RESPONSE (RAW):",
+          JSON.stringify(data, null, 2),
+        );
         console.log("🔵 PAYMENT API RESPONSE (OBJECT):", data);
-        
+
         if (data.success) {
           // Intentar múltiples formas de extraer cp_code
-          const cpCode = 
-            data.data?.cp_code || 
-            data.cp_code || 
+          const cpCode =
+            data.data?.cp_code ||
+            data.cp_code ||
             data.data?.cpCode ||
             data.cpCode ||
             null;
@@ -234,7 +237,7 @@ export const PaymentForm = ({
           });
 
           // Validar que cp_code existe y no está vacío
-          if (!cpCode || (typeof cpCode === 'string' && cpCode.trim() === '')) {
+          if (!cpCode || (typeof cpCode === "string" && cpCode.trim() === "")) {
             console.error("❌ ERROR: cp_code no encontrado o vacío");
             console.error("❌ Full response structure:", data);
             toast.error("Error API: No se recibió código de orden (cp_code)", {
@@ -253,24 +256,30 @@ export const PaymentForm = ({
 
           // Guardar en sessionStorage con verificación
           try {
-            sessionStorage.setItem(
-              "dr_order_data",
-              JSON.stringify(orderData),
-            );
-            
+            sessionStorage.setItem("dr_order_data", JSON.stringify(orderData));
+
             // Verificar que se guardó correctamente
             const verifyStored = sessionStorage.getItem("dr_order_data");
             const verifyParsed = verifyStored ? JSON.parse(verifyStored) : null;
-            
-            console.log("✅ Verificación sessionStorage guardado:", verifyParsed);
-            
+
+            console.log(
+              "✅ Verificación sessionStorage guardado:",
+              verifyParsed,
+            );
+
             if (!verifyParsed || verifyParsed.cp_code !== orderData.cp_code) {
               throw new Error("Error al guardar datos en sessionStorage");
             }
-            
-            console.log("✅ cp_code guardado correctamente:", verifyParsed.cp_code);
+
+            console.log(
+              "✅ cp_code guardado correctamente:",
+              verifyParsed.cp_code,
+            );
           } catch (storageError) {
-            console.error("❌ ERROR al guardar en sessionStorage:", storageError);
+            console.error(
+              "❌ ERROR al guardar en sessionStorage:",
+              storageError,
+            );
             toast.error("Error al guardar datos de la orden", {
               description: "Por favor intenta de nuevo o contacta a soporte.",
             });
