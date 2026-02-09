@@ -214,10 +214,15 @@ export const PaymentForm = ({
         if (data.success) {
           console.log("PAYMENT API RESPONSE:", data);
 
-          if (!data.cp_code) {
+          // Extract cp_code from nested data object or root
+          const cpCode = data.data?.cp_code || data.cp_code;
+
+          if (!cpCode) {
             toast.error("Error API: No se recibió código de orden (cp_code)", {
               description: "Por favor contacta a soporte. ID: " + purchaseId,
             });
+            console.error("Missing cp_code in response:", data);
+
             setIsProcessing(false);
             return;
           }
@@ -226,7 +231,7 @@ export const PaymentForm = ({
           sessionStorage.setItem(
             "dr_order_data",
             JSON.stringify({
-              cp_code: data.cp_code,
+              cp_code: cpCode,
               token: token,
             }),
           );
@@ -387,7 +392,10 @@ export const PaymentForm = ({
           </Button>
 
           <Dialog open={showCardModal} onOpenChange={setShowCardModal}>
-            <DialogContent className="max-w-md w-[92vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white">
+            <DialogContent
+              aria-describedby={undefined}
+              className="max-w-md w-[92vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white"
+            >
               <DialogHeader className="bg-[#0D4B4D] p-6 sm:p-8 text-white relative">
                 <div className="absolute top-0 right-0 p-4 sm:p-8 opacity-10 pointer-events-none">
                   <RiBankCardLine size={isMobile ? 80 : 120} />
@@ -507,7 +515,10 @@ export const PaymentForm = ({
 
           {/* Error Modal */}
           <Dialog open={showErrorModal} onOpenChange={setShowErrorModal}>
-            <DialogContent className="max-w-sm w-[90vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white">
+            <DialogContent
+              aria-describedby={undefined}
+              className="max-w-sm w-[90vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white"
+            >
               <div className="p-8 text-center space-y-6">
                 <div className="mx-auto w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
                   <RiErrorWarningLine className="text-red-500" size={32} />
