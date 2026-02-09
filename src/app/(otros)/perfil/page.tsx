@@ -10,13 +10,19 @@ import { PageWrapper } from "@/components/page-wrapper";
 import { ProfileInfoForm } from "@/components/profile/profile-info-form";
 import { ProfileOrdersList } from "@/components/profile/profile-orders-list";
 import { Order, UserData } from "@/services/types/types";
+import {
+  ProfileTransactionList,
+  Transaction,
+} from "@/components/profile/profile-transaction-list";
 
 function PerfilContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [user, setUser] = useState<UserData | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
+  const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [activeTab, setActiveTab] = useState("info");
@@ -138,11 +144,41 @@ function PerfilContent() {
     }
   }, []);
 
+  const fetchTransactions = useCallback(async (token: string) => {
+    setIsLoadingTransactions(true);
+    try {
+      const response = await fetch(
+        "https://doctorrecetas.com/api/mis_pagos.php",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok) throw new Error("Error fetching transactions");
+
+      const data = await response.json();
+      if (data.success && data.data?.pagos) {
+        setTransactions(data.data.pagos);
+      } else {
+        setTransactions([]);
+      }
+    } catch (error) {
+      console.error("Error loading transactions:", error);
+      setTransactions([]);
+    } finally {
+      setIsLoadingTransactions(false);
+    }
+  }, []);
+
   // Sincronizar tab con query parameters
   useEffect(() => {
     const tabParam = searchParams.get("tab");
     const validTab =
-      tabParam === "orders" || tabParam === "info" ? tabParam : "info";
+      tabParam === "orders" || tabParam === "info" || tabParam === "history"
+        ? tabParam
+        : "info";
     setActiveTab(validTab);
   }, [searchParams]);
 
@@ -161,16 +197,22 @@ function PerfilContent() {
 
     try {
       const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
+      const token = parsedUser.token;
 
-      // Fetch latest data
-      fetchProfile(parsedUser.token);
-      fetchOrders(parsedUser.us_id, parsedUser.token);
+      if (token) {
+        setUser(parsedUser);
+        fetchProfile(token);
+        fetchOrders(parsedUser.us_id, token);
+        fetchTransactions(token);
+      } else {
+        console.error("User token not found in stored data.");
+        router.push("/");
+      }
     } catch (e) {
       console.error("Error parsing user data", e);
       router.push("/");
     }
-  }, [router, fetchProfile, fetchOrders]);
+  }, [router, fetchProfile, fetchOrders, fetchTransactions]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -295,21 +337,31 @@ function PerfilContent() {
             onValueChange={handleTabChange}
             className="w-full"
           >
-            <div className="flex justify-center md:justify-start mb-10">
-              <TabsList className="bg-slate-100/80 backdrop-blur-sm p-1.5 rounded-2xl border border-slate-200/50 h-auto gap-1">
+            <div className="flex justify-center mb-6 sm:mb-8 w-full">
+              <TabsList className="bg-slate-100/80 backdrop-blur-sm p-1 sm:p-1.5 rounded-xl sm:rounded-2xl border border-slate-200/50 h-auto gap-1 w-full sm:w-auto grid grid-cols-3 sm:flex">
                 <TabsTrigger
                   value="info"
-                  className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                  className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
                 >
-                  <User className="w-4 h-4" />
-                  Información
+                  <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="sm:hidden">Info</span>
+                  <span className="hidden sm:inline">Información</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="orders"
-                  className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
+                  className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
                 >
-                  <Package className="w-4 h-4" />
-                  Mis Órdenes
+                  <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="sm:hidden">Órdenes</span>
+                  <span className="hidden sm:inline">Mis Órdenes</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="history"
+                  className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="sm:hidden">Pagos</span>
+                  <span className="hidden sm:inline">Historial Pagos</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -330,6 +382,13 @@ function PerfilContent() {
                 onViewServices={() => router.push("/servicios")}
                 expandedOrderId={expandedOrderId}
                 setExpandedOrderId={setExpandedOrderId}
+              />
+            </TabsContent>
+
+            <TabsContent value="history" className="mt-0 outline-none">
+              <ProfileTransactionList
+                transactions={transactions}
+                isLoading={isLoadingTransactions}
               />
             </TabsContent>
           </Tabs>

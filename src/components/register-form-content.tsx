@@ -28,7 +28,7 @@ import {
 import { cn } from "@/lib/utils";
 
 interface RegisterFormContentProps {
-  setView: (view: "login" | "register") => void;
+  setView: (view: "login" | "register" | "recovery") => void;
 }
 
 export function RegisterFormContent({ setView }: RegisterFormContentProps) {

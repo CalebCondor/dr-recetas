@@ -190,7 +190,7 @@ export default function Header() {
                       </DropdownMenuItem>
                     </Link>
 
-                    <Link href="/perfil?tab=historial">
+                    <Link href="/perfil?tab=history">
                       <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
                         <Receipt className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
                         Mis Transacciones
@@ -319,6 +319,15 @@ export default function Header() {
                                 <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
                                   <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
                                   Mis Ordenes
+                                </DropdownMenuItem>
+                              </Link>
+                              <Link
+                                href="/perfil?tab=history"
+                                onClick={() => setIsSheetOpen(false)}
+                              >
+                                <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
+                                  <Receipt className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
+                                  Mis Transacciones
                                 </DropdownMenuItem>
                               </Link>
                             </DropdownMenuGroup>
