@@ -31,6 +31,8 @@ export default function ProcesarPagoPage() {
 
       try {
         const storedData = sessionStorage.getItem("dr_order_data");
+        console.log("PROCESAR PAGO - Stored Data:", storedData);
+
         if (!storedData) {
           setStatus("error");
           setMessage(
