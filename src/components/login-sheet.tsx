@@ -14,13 +14,16 @@ import {
 import { Lock, ArrowRight, Eye, EyeOff, User } from "lucide-react";
 import Image from "next/image";
 import { RegisterFormContent } from "./register-form-content";
+import { RecoveryFormContent } from "./recovery-form-content";
 
 interface LoginSheetProps {
   children: React.ReactNode;
 }
 
 export function LoginSheet({ children }: LoginSheetProps) {
-  const [view, setView] = React.useState<"login" | "register">("login");
+  const [view, setView] = React.useState<"login" | "register" | "recovery">(
+    "login",
+  );
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -123,12 +126,13 @@ export function LoginSheet({ children }: LoginSheetProps) {
                         <label className="text-sm font-medium text-slate-700">
                           Contraseña
                         </label>
-                        <a
-                          href="#"
+                        <button
+                          type="button"
+                          onClick={() => setView("recovery")}
                           className="text-xs font-medium text-[#0D4B4D] hover:underline"
                         >
                           ¿Olvidaste tu contraseña?
-                        </a>
+                        </button>
                       </div>
                       <div className="relative">
                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -182,6 +186,9 @@ export function LoginSheet({ children }: LoginSheetProps) {
 
             {/* VIEW: REGISTER */}
             {view === "register" && <RegisterFormContent setView={setView} />}
+
+            {/* VIEW: RECOVERY */}
+            {view === "recovery" && <RecoveryFormContent setView={setView} />}
 
             {/* Background elements */}
             <div className="absolute top-0 right-0 p-8 opacity-5">
