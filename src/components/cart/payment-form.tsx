@@ -2,6 +2,7 @@ import {
   RiArrowLeftLine,
   RiBankCardLine,
   RiShieldCheckLine,
+  RiErrorWarningLine,
 } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,8 @@ export const PaymentForm = ({
   onComplete,
 }: PaymentFormProps) => {
   const [showCardModal, setShowCardModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [cardData, setCardData] = useState({
@@ -46,6 +49,54 @@ export const PaymentForm = ({
     cvc: "",
     name: "",
   });
+
+  // Helper function to convert server errors to friendly messages
+  const getFriendlyErrorMessage = (error: string): string => {
+    const lowerError = error.toLowerCase();
+
+    if (lowerError.includes("declined") || lowerError.includes("rechazada")) {
+      return "Tu tarjeta ha sido rechazada. Por favor verifica los datos o intenta con otra tarjeta.";
+    }
+    if (
+      lowerError.includes("insufficient funds") ||
+      lowerError.includes("fondos insuficientes")
+    ) {
+      return "Fondos insuficientes en la tarjeta. Por favor intenta con otro método de pago.";
+    }
+    if (
+      lowerError.includes("expired") ||
+      lowerError.includes("expirada") ||
+      lowerError.includes("vencida")
+    ) {
+      return "Tu tarjeta ha expirado. Por favor utiliza una tarjeta vigente.";
+    }
+    if (
+      lowerError.includes("invalid card") ||
+      lowerError.includes("tarjeta inválida")
+    ) {
+      return "Número de tarjeta inválido. Por favor verifica los datos ingresados.";
+    }
+    if (
+      lowerError.includes("cvc") ||
+      lowerError.includes("cvv") ||
+      lowerError.includes("security code")
+    ) {
+      return "El código de seguridad (CVC) es incorrecto. Por favor verifica e intenta de nuevo.";
+    }
+    if (
+      lowerError.includes("network") ||
+      lowerError.includes("connection") ||
+      lowerError.includes("timeout")
+    ) {
+      return "Error de conexión. Por favor verifica tu internet e intenta de nuevo.";
+    }
+    if (lowerError.includes("servidor") || lowerError.includes("server")) {
+      return "Hubo un problema al procesar tu pago. Por favor intenta de nuevo en unos minutos.";
+    }
+
+    // Default friendly message
+    return "No se pudo procesar el pago. Por favor verifica los datos de tu tarjeta e intenta de nuevo.";
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -127,65 +178,66 @@ export const PaymentForm = ({
 
     setIsProcessing(true);
 
-    const paymentPromise = new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(
-          "https://doctorrecetas.com/api/pagar.php",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-          },
-        );
+    try {
+      const response = await fetch("https://doctorrecetas.com/api/pagar.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
 
-        const text = await response.text();
-        console.log("Payment raw response:", text);
+      const text = await response.text();
+      console.log("Payment raw response:", text);
 
-        if (!response.ok) {
-          throw new Error(
-            `Error del servidor (${response.status}): ${text || "Sin respuesta"}`,
-          );
-        }
-
-        if (!text || text.trim() === "") {
-          throw new Error("El servidor devolvió una respuesta vacía.");
-        }
-
-        try {
-          const data = JSON.parse(text);
-          if (data.success) {
-            resolve(data);
-          } else {
-            reject(new Error(data.message || "Error al procesar el pago"));
-          }
-        } catch (parseErr) {
-          console.error("Payment JSON parse error:", text);
-          reject(
-            new Error("La respuesta del servidor no tiene un formato válido."),
-          );
-        }
-      } catch (error) {
-        console.error("Payment fatal error:", error);
-        reject(error);
+      if (!response.ok) {
+        const friendlyMessage = getFriendlyErrorMessage(text);
+        setErrorMessage(friendlyMessage);
+        setShowErrorModal(true);
+        setIsProcessing(false);
+        return;
       }
-    });
 
-    toast.promise(paymentPromise, {
-      loading: "Procesando pago con Authorize.Net...",
-      success: () => {
+      if (!text || text.trim() === "") {
+        setErrorMessage(
+          "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
+        );
+        setShowErrorModal(true);
         setIsProcessing(false);
-        setShowCardModal(false);
-        onComplete();
-        return "¡Pago procesado exitosamente!";
-      },
-      error: (err: Error) => {
+        return;
+      }
+
+      try {
+        const data = JSON.parse(text);
+        if (data.success) {
+          toast.success("¡Pago procesado exitosamente!");
+          setIsProcessing(false);
+          setShowCardModal(false);
+          onComplete();
+        } else {
+          const friendlyMessage = getFriendlyErrorMessage(data.message || "");
+          setErrorMessage(friendlyMessage);
+          setShowErrorModal(true);
+          setIsProcessing(false);
+        }
+      } catch (parseErr) {
+        console.error("Payment JSON parse error:", text);
+        setErrorMessage(
+          "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
+        );
+        setShowErrorModal(true);
         setIsProcessing(false);
-        return err.message || "Error al procesar el pago";
-      },
-    });
+      }
+    } catch (error) {
+      console.error("Payment fatal error:", error);
+      const errorMsg =
+        error instanceof Error ? error.message : "Error desconocido";
+      const friendlyMessage = getFriendlyErrorMessage(errorMsg);
+      setErrorMessage(friendlyMessage);
+      setShowErrorModal(true);
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -431,6 +483,31 @@ export const PaymentForm = ({
                     : `PAGAR $${total.toFixed(2)}`}
                 </Button>
               </form>
+            </DialogContent>
+          </Dialog>
+
+          {/* Error Modal */}
+          <Dialog open={showErrorModal} onOpenChange={setShowErrorModal}>
+            <DialogContent className="max-w-sm w-[90vw] sm:w-full rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl bg-white">
+              <div className="p-8 text-center space-y-6">
+                <div className="mx-auto w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                  <RiErrorWarningLine className="text-red-500" size={32} />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-black text-slate-800">
+                    Error en el Pago
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {errorMessage}
+                  </p>
+                </div>
+                <Button
+                  onClick={() => setShowErrorModal(false)}
+                  className="w-full h-12 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold shadow-md"
+                >
+                  Entendido
+                </Button>
+              </div>
             </DialogContent>
           </Dialog>
 

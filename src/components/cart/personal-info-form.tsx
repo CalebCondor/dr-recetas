@@ -14,6 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
 
@@ -32,6 +38,7 @@ export const PersonalInfoForm = ({
 }: PersonalInfoFormProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [subStep, setSubStep] = useState(1);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -42,92 +49,119 @@ export const PersonalInfoForm = ({
 
   const totalSubSteps = 3;
 
-  const renderBasicInfo = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div className="space-y-2 lg:col-span-1">
-        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Paciente
-        </label>
-        <Input
-          value={formData.nombre_completo}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              nombre_completo: e.target.value,
-            })
-          }
-          className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="Nombre completo"
-        />
+  const renderBasicInfo = () => {
+    const date = formData.fecha_nacimiento
+      ? new Date(formData.fecha_nacimiento)
+      : undefined;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="space-y-2 lg:col-span-1">
+          <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+            Paciente
+          </label>
+          <Input
+            value={formData.nombre_completo}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                nombre_completo: e.target.value,
+              })
+            }
+            className="h-12 rounded-xl bg-white border-slate-200"
+            placeholder="Nombre completo"
+          />
+        </div>
+        <div className="space-y-2 lg:col-span-1">
+          <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+            Fecha Nacimiento
+          </label>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                id="date"
+                className="w-full h-12 rounded-xl bg-white border-slate-200 justify-start font-normal"
+              >
+                {date ? date.toLocaleDateString() : "Seleccionar fecha"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              className="w-auto overflow-hidden p-0"
+              align="start"
+            >
+              <Calendar
+                mode="single"
+                selected={date}
+                defaultMonth={date}
+                captionLayout="dropdown"
+                onSelect={(selectedDate) => {
+                  if (selectedDate) {
+                    setFormData({
+                      ...formData,
+                      fecha_nacimiento: selectedDate
+                        .toISOString()
+                        .split("T")[0],
+                    });
+                  }
+                  setOpen(false);
+                }}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div className="space-y-2 lg:col-span-1">
+          <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+            País
+          </label>
+          <Select
+            value={formData.pais}
+            onValueChange={(v) => setFormData({ ...formData, pais: v })}
+          >
+            <SelectTrigger className="h-12 rounded-xl bg-white border-slate-200">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Puerto Rico">Puerto Rico</SelectItem>
+              <SelectItem value="USA">USA</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2 lg:col-span-1">
+          <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+            Municipio
+          </label>
+          <Input
+            value={formData.municipio}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                municipio: e.target.value,
+              })
+            }
+            className="h-12 rounded-xl bg-white border-slate-200"
+            placeholder="San Juan..."
+          />
+        </div>
+        <div className="space-y-2 lg:col-span-1">
+          <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
+            Correo Electrónico
+          </label>
+          <Input
+            type="email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                email: e.target.value,
+              })
+            }
+            className="h-12 rounded-xl bg-white border-slate-200"
+            placeholder="ejemplo@correo.com"
+          />
+        </div>
       </div>
-      <div className="space-y-2 lg:col-span-1">
-        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Fecha Nacimiento
-        </label>
-        <Input
-          type="date"
-          value={formData.fecha_nacimiento}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              fecha_nacimiento: e.target.value,
-            })
-          }
-          className="h-12 rounded-xl bg-white border-slate-200"
-        />
-      </div>
-      <div className="space-y-2 lg:col-span-1">
-        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          País
-        </label>
-        <Select
-          value={formData.pais}
-          onValueChange={(v) => setFormData({ ...formData, pais: v })}
-        >
-          <SelectTrigger className="h-12 rounded-xl bg-white border-slate-200">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Puerto Rico">Puerto Rico</SelectItem>
-            <SelectItem value="USA">USA</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2 lg:col-span-1">
-        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Municipio
-        </label>
-        <Input
-          value={formData.municipio}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              municipio: e.target.value,
-            })
-          }
-          className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="San Juan..."
-        />
-      </div>
-      <div className="space-y-2 lg:col-span-1">
-        <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Correo Electrónico
-        </label>
-        <Input
-          type="email"
-          value={formData.email}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              email: e.target.value,
-            })
-          }
-          className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="ejemplo@correo.com"
-        />
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderAddressInfo = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

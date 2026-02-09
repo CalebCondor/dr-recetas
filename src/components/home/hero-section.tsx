@@ -122,11 +122,10 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
+      // Only block if we are actually navigating the list
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
-        if (e.cancelable) e.preventDefault();
-
-        const THRESHOLD = 25;
-        const MOBILE_COOLDOWN = 80;
+        const THRESHOLD = 30;
+        const MOBILE_COOLDOWN = 100;
 
         if (
           now - lastScrollTime.current > MOBILE_COOLDOWN &&
@@ -146,7 +145,7 @@ export default function Hero() {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -190,10 +189,11 @@ export default function Hero() {
 
         <div className="flex-1 w-full max-w-md lg:max-w-lg">
           <div
-            className="relative w-full px-2"
+            className="relative w-full px-2 touch-action-none"
             style={{
               minHeight: `${CONTAINER_HEIGHT}px`,
               height: `${CONTAINER_HEIGHT}px`,
+              touchAction: "none",
             }}
           >
             <AnimatePresence initial={false} mode="popLayout">
@@ -210,27 +210,23 @@ export default function Hero() {
                       initial={{
                         opacity: 0,
                         y: localIndex * ITEM_HEIGHT + 20,
-                        scale: 0.9,
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.9,
+                        opacity: isActive ? 1 : 0.8,
                         y: localIndex * ITEM_HEIGHT,
-                        scale: isActive ? 1.025 : 1,
+                        scale: isActive ? 1.02 : 1,
                         zIndex: 100 - distance,
                       }}
                       exit={{
                         opacity: 0,
-                        scale: 0.9,
                         y: localIndex * ITEM_HEIGHT - 20,
                       }}
                       transition={{
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 25,
-                        mass: 1,
-                        opacity: { duration: 0.3 },
+                        duration: 0.4,
+                        ease: [0.32, 0.72, 0, 1],
+                        opacity: { duration: 0.2 },
                       }}
-                      className="absolute top-0 left-0 w-full cursor-pointer will-change-transform"
+                      className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity]"
                       onClick={() => setActiveIndex(globalIndex)}
                     >
                       <div
