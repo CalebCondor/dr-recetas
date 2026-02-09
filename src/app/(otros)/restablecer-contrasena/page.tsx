@@ -46,14 +46,10 @@ function ResetPasswordForm() {
       }
 
       try {
-        const formData = new FormData();
-        formData.append("token", token);
-
         const response = await fetch(
-          "https://doctorrecetas.com/api/validar_token_recuperacion.php",
+          `https://doctorrecetas.com/api/validar_token_recuperacion.php?token=${encodeURIComponent(token)}`,
           {
-            method: "POST",
-            body: formData,
+            method: "GET",
           },
         );
 
