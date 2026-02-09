@@ -51,7 +51,7 @@ export default function ProcesarPagoPage() {
 
         // Call enviar_orden.php with token in URL and cp_code in body
         const response = await fetch(
-          `https://doctorrecetas.com/api/enviar_orden.php?token=${token}`,
+          `https://doctorrecetas.com/api/enviar_orden.php`,
           {
             method: "POST",
             headers: {
