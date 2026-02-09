@@ -189,7 +189,6 @@ export const PaymentForm = ({
       });
 
       const text = await response.text();
-      console.log("Payment raw response:", text);
 
       if (!response.ok) {
         const friendlyMessage = getFriendlyErrorMessage(text);

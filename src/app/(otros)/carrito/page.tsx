@@ -186,8 +186,6 @@ export default function CarritoPage() {
                   toast.success("Pago exitoso", {
                     description: "Su orden médica ha sido procesada.",
                   });
-                  clearCart();
-                  router.push("/perfil?tab=orders");
                 }}
               />
             )}
