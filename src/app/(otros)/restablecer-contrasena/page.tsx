@@ -62,12 +62,13 @@ function ResetPasswordForm() {
 
         const data = await response.json();
 
-        if (data.success && data.valid) {
+        // Support both flat and nested 'valid' property structures as the API returns { success: true, data: { valid: true } }
+        if (data.success && (data.valid || data.data?.valid)) {
           setIsTokenValid(true);
         } else {
           setIsTokenValid(false);
         }
-        setValidationMessage(data.message);
+        setValidationMessage(data.message || data.data?.message);
       } catch (error) {
         console.error("Error validating token:", error);
         setIsTokenValid(false);
