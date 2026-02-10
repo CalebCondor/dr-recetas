@@ -18,7 +18,8 @@ import Link from "next/link";
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
   // Handle case where '+' characters in the token might be interpreted as spaces by the browser/URL decoding
-  let token = searchParams.get("t");
+  // Support both 'token' and 't' query parameters for robustness
+  let token = searchParams.get("token") || searchParams.get("t");
   if (token) {
     token = token.replace(/ /g, "+");
   }
