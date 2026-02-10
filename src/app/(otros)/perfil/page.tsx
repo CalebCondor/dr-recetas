@@ -254,25 +254,22 @@ function PerfilContent() {
           },
         );
 
-        if (!response.ok) {
-          throw new Error(`Update server returned ${response.status}`);
-        }
-
         const text = await response.text();
-        if (!text) {
-          throw new Error("Respuesta vacía del servidor");
-        }
-
         let data;
         try {
           data = JSON.parse(text);
-        } catch (parseError) {
-          console.error(
-            "Failed to parse update profile JSON:",
-            text,
-            parseError,
-          );
-          throw new Error("Respuesta del servidor no válida");
+        } catch {
+          console.error("Failed to parse response:", text);
+        }
+
+        if (!response.ok) {
+          const errorMessage =
+            data?.message || `Error del servidor (${response.status})`;
+          throw new Error(errorMessage);
+        }
+
+        if (!data) {
+          throw new Error("Respuesta vacía del servidor");
         }
 
         if (data.success) {
@@ -280,8 +277,6 @@ function PerfilContent() {
           const updatedUser = {
             ...user,
             ...formData,
-            // If API returns updated 'archivo' or 'archivo_url', ideally update it here.
-            // Based on user prompt, API returns { success: true, data: { usuario: { ... } } }
             ...(data.data?.usuario || {}),
           };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   User,
   Mail,
@@ -14,6 +15,7 @@ import {
   X,
   FileText,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +41,46 @@ export function ProfileInfoForm({
   isUpdatingProfile,
   handleUpdateProfile,
 }: ProfileInfoFormProps) {
+  useEffect(() => {
+    const fetchUploads = async () => {
+      try {
+        const storedUser = localStorage.getItem("dr_user");
+        if (!storedUser) return;
+
+        const { token } = JSON.parse(storedUser);
+        const response = await fetch(
+          "https://doctorrecetas.com/api/ver_uploads.php",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data && data.data.archivo_existe) {
+            // Only update if we don't have a new file selected and url is different
+            if (
+              !formData.archivo &&
+              formData.archivo_url !== data.data.archivo.url
+            ) {
+              setFormData({
+                ...formData,
+                archivo_url: data.data.archivo.url,
+              });
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching uploads:", error);
+      }
+    };
+
+    fetchUploads();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Card className="border-slate-100 shadow-xl shadow-slate-200/50 rounded-3xl overflow-hidden border-none">
       <CardHeader className="bg-white border-b border-slate-50 px-8 py-6">
@@ -234,7 +276,7 @@ export function ProfileInfoForm({
 
               <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 transition-all hover:bg-slate-50/50 hover:border-[#0D4B4D]/30 group">
                 {formData.archivo || formData.archivo_url ? (
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
                     <div className="w-16 h-16 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm overflow-hidden shrink-0">
                       {formData.archivo ? (
                         formData.archivo.type.startsWith("image/") ? (
@@ -266,7 +308,7 @@ export function ProfileInfoForm({
                       ) : null}
                     </div>
 
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 w-full sm:w-auto">
                       <p className="font-bold text-slate-700 truncate text-sm">
                         {formData.archivo
                           ? formData.archivo.name
@@ -279,15 +321,29 @@ export function ProfileInfoForm({
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto">
                       <input
                         type="file"
                         id="profile-upload"
                         className="hidden"
-                        accept="image/*,application/pdf"
+                        accept="image/png,image/jpeg"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {
+                            if (
+                              !["image/png", "image/jpeg"].includes(file.type)
+                            ) {
+                              toast.error(
+                                "Solo se permiten archivos PNG o JPEG",
+                              );
+                              e.target.value = "";
+                              return;
+                            }
+                            if (file.size > 5 * 1024 * 1024) {
+                              toast.error("El archivo no debe superar los 5MB");
+                              e.target.value = "";
+                              return;
+                            }
                             setFormData({ ...formData, archivo: file });
                           }
                         }}
@@ -330,17 +386,29 @@ export function ProfileInfoForm({
                         Sube tu identificación
                       </p>
                       <p className="text-xs text-slate-400">
-                        Formatos: JPG, PNG o PDF (Máx 5MB)
+                        Formatos: JPG o PNG (Máx 5MB)
                       </p>
                     </div>
                     <input
                       type="file"
                       id="profile-upload-new"
                       className="hidden"
-                      accept="image/*,application/pdf"
+                      accept="image/png,image/jpeg"
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
+                          if (
+                            !["image/png", "image/jpeg"].includes(file.type)
+                          ) {
+                            toast.error("Solo se permiten archivos PNG o JPEG");
+                            e.target.value = "";
+                            return;
+                          }
+                          if (file.size > 5 * 1024 * 1024) {
+                            toast.error("El archivo no debe superar los 5MB");
+                            e.target.value = "";
+                            return;
+                          }
                           setFormData({ ...formData, archivo: file });
                         }
                       }}

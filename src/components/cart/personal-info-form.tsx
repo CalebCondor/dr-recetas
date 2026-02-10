@@ -8,8 +8,11 @@ import {
   RiFilePdf2Line,
   RiCloseLine,
 } from "react-icons/ri";
+import { FileText, X, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -359,214 +362,148 @@ export const PersonalInfoForm = ({
           </div>
           <p className="text-sm text-slate-400">Cargando información...</p>
         </div>
-      ) : existingUpload && !formData.identificacion_archivo ? (
-        /* Show existing uploaded file */
-        <div className="p-8 bg-emerald-50/50 rounded-3xl border-2 border-emerald-200 flex flex-col items-center text-center gap-4 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-100/50 rounded-bl-full -mr-10 -mt-10" />
-
-          <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 border border-emerald-200">
-            <RiCheckLine size={28} />
-          </div>
-
-          <div className="space-y-1.5 relative z-10">
-            <h4 className="font-black text-emerald-700 text-base">
-              ID Ya Registrada
-            </h4>
-            <p className="text-[11px] text-emerald-600 font-medium max-w-[280px] leading-relaxed">
-              Ya tienes una identificación guardada (
-              {existingUpload.tamano_legible})
-            </p>
-          </div>
-
-          <div className="flex gap-3">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setPreviewMode("remote");
-                setShowPreviewModal(true);
-              }}
-              className="inline-flex items-center gap-2 rounded-xl font-bold h-11 px-6 bg-emerald-100 border border-emerald-200 text-emerald-700 hover:bg-emerald-200 transition-all active:scale-95 shadow-sm text-sm"
-            >
-              <RiFileImageLine size={18} />
-              Ver Archivo
-            </button>
-            <div className="relative">
-              <input
-                type="file"
-                id="id-upload"
-                className="hidden"
-                accept=".jpg,.jpeg,.png,.pdf"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setFormData({ ...formData, identificacion_archivo: file });
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => document.getElementById("id-upload")?.click()}
-                className="rounded-xl font-bold h-11 px-6 bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95 shadow-sm"
-              >
-                Cambiar
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : formData.identificacion_archivo ? (
-        /* File selected - show preview */
-        <div className="p-6 bg-white rounded-3xl border-2 border-emerald-200 flex flex-col items-center text-center gap-4 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-10 -mt-10" />
-
-          {/* Preview - clickable to view full */}
-          <div className="relative">
-            {formData.identificacion_archivo.type === "application/pdf" ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setPreviewMode("local");
-                  setShowPreviewModal(true);
-                }}
-                className="w-24 h-24 rounded-2xl bg-red-50 flex flex-col items-center justify-center border-2 border-red-100 hover:bg-red-100 transition-colors cursor-pointer group"
-              >
-                <RiFilePdf2Line className="text-red-500" size={36} />
-                <span className="text-[9px] font-bold text-red-400 mt-1 group-hover:text-red-600">
-                  Click para ver
-                </span>
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setPreviewMode("local");
-                  setShowPreviewModal(true);
-                }}
-                className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-100 shadow-sm cursor-pointer hover:ring-2 hover:ring-emerald-300 transition-all"
-              >
-                {filePreviewUrl && (
-                  <img
-                    src={filePreviewUrl}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                  />
-                )}
-              </button>
-            )}
-            {/* Remove button */}
-            <button
-              type="button"
-              onClick={() =>
-                setFormData({ ...formData, identificacion_archivo: null })
-              }
-              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
-            >
-              <RiCloseLine size={16} />
-            </button>
-          </div>
-
-          <div className="space-y-1 relative z-10">
-            <h4 className="font-black text-emerald-700 text-base">
-              Archivo Listo
-            </h4>
-            <p className="text-[11px] text-emerald-600 font-medium max-w-[280px] leading-relaxed truncate">
-              {formData.identificacion_archivo.name}
-            </p>
-            <p className="text-[10px] text-slate-400">
-              {(formData.identificacion_archivo.size / 1024).toFixed(1)} KB
-            </p>
-          </div>
-
-          <div className="flex gap-3">
-            {/* View file button */}
-            {/* View file button */}
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setPreviewMode("local");
-                setShowPreviewModal(true);
-              }}
-              className="rounded-xl font-bold h-11 px-6 bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 transition-all active:scale-95 shadow-sm"
-            >
-              <RiFileImageLine className="mr-2" size={18} />
-              Ver Archivo
-            </Button>
-
-            {/* Change file */}
-            <div className="relative">
-              <input
-                type="file"
-                id="id-upload"
-                className="hidden"
-                accept=".jpg,.jpeg,.png,.pdf"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setFormData({ ...formData, identificacion_archivo: file });
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => document.getElementById("id-upload")?.click()}
-                className="rounded-xl font-bold h-11 px-6 bg-emerald-50 border-emerald-200 text-emerald-600 hover:bg-emerald-100 transition-all active:scale-95 shadow-sm"
-              >
-                Cambiar
-              </Button>
-            </div>
-          </div>
-        </div>
       ) : (
-        /* New file upload - no file selected */
-        <div className="p-8 bg-white rounded-3xl border-2 border-dashed border-slate-100 flex flex-col items-center text-center gap-4 hover:border-[#0D4B4D]/20 hover:bg-[#0D4B4D]/2 transition-all cursor-pointer group relative overflow-hidden">
-          {/* Decorative background element */}
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#0D4B4D]/2 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
+        <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 transition-all hover:bg-slate-50/50 hover:border-[#0D4B4D]/30 group">
+          {formData.identificacion_archivo || existingUpload ? (
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div className="w-16 h-16 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm overflow-hidden shrink-0">
+                {formData.identificacion_archivo ? (
+                  formData.identificacion_archivo.type.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(formData.identificacion_archivo)}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                      onLoad={(e) =>
+                        URL.revokeObjectURL((e.target as HTMLImageElement).src)
+                      }
+                    />
+                  ) : (
+                    <FileText className="w-8 h-8 text-slate-400" />
+                  )
+                ) : existingUpload ? (
+                  existingUpload.url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ||
+                  existingUpload.tipo.startsWith("image/") ? (
+                    <img
+                      src={existingUpload.url}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <FileText className="w-8 h-8 text-slate-400" />
+                  )
+                ) : null}
+              </div>
 
-          <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-[#0D4B4D] group-hover:bg-white group-hover:shadow-md transition-all duration-300 border border-slate-100">
-            <RiUpload2Line size={28} />
-          </div>
+              <div className="flex-1 min-w-0 w-full sm:w-auto">
+                <p className="font-bold text-slate-700 truncate text-sm">
+                  {formData.identificacion_archivo
+                    ? formData.identificacion_archivo.name
+                    : existingUpload?.nombre || "Archivo actual"}
+                </p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {formData.identificacion_archivo
+                    ? `${(formData.identificacion_archivo.size / 1024).toFixed(1)} KB`
+                    : existingUpload?.tamano_legible || "Documento guardado"}
+                </p>
+              </div>
 
-          <div className="space-y-1.5 relative z-10">
-            <h4 className="font-black text-[#0D4B4D] text-base">
-              Foto de Identificación
-            </h4>
-            <p className="text-[11px] text-slate-400 font-medium max-w-[240px] leading-relaxed">
-              Sube una foto clara de tu ID vigente (Licencia o Pasaporte).
-              Formatos: JPG, PNG o PDF.
-            </p>
-          </div>
-
-          <div className="relative">
-            <input
-              type="file"
-              id="id-upload"
-              className="hidden"
-              accept=".jpg,.jpeg,.png,.pdf"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  setFormData({ ...formData, identificacion_archivo: file });
+              <div className="flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto">
+                <input
+                  type="file"
+                  id="profile-upload"
+                  className="hidden"
+                  accept="image/png,image/jpeg"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (!["image/png", "image/jpeg"].includes(file.type)) {
+                        toast.error("Solo se permiten archivos PNG o JPEG");
+                        e.target.value = "";
+                        return;
+                      }
+                      setFormData({
+                        ...formData,
+                        identificacion_archivo: file,
+                      });
+                    }
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    document.getElementById("profile-upload")?.click()
+                  }
+                  className="h-9 px-3 rounded-lg text-xs font-bold border-slate-200 text-slate-600 hover:text-[#0D4B4D] hover:bg-white"
+                >
+                  Cambiar
+                </Button>
+                {(formData.identificacion_archivo || existingUpload) && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      setFormData({
+                        ...formData,
+                        identificacion_archivo: null,
+                      });
+                    }}
+                    className="h-9 w-9 p-0 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <Upload className="w-5 h-5 text-[#0D4B4D]" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-slate-700">
+                  Sube tu identificación
+                </p>
+                <p className="text-xs text-slate-400">
+                  Formatos: JPG o PNG (Máx 5MB)
+                </p>
+              </div>
+              <input
+                type="file"
+                id="profile-upload-new"
+                className="hidden"
+                accept="image/png,image/jpeg"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    if (!["image/png", "image/jpeg"].includes(file.type)) {
+                      toast.error("Solo se permiten archivos PNG o JPEG");
+                      e.target.value = "";
+                      return;
+                    }
+                    setFormData({ ...formData, identificacion_archivo: file });
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                onClick={() =>
+                  document.getElementById("profile-upload-new")?.click()
                 }
-              }}
-            />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => document.getElementById("id-upload")?.click()}
-              className="rounded-xl font-bold h-11 px-8 transition-all active:scale-95 shadow-sm bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"
-            >
-              Seleccionar Archivo
-            </Button>
-          </div>
+                variant="outline"
+                className="h-9 rounded-lg border-[#0D4B4D]/20 text-[#0D4B4D] hover:bg-[#0D4B4D] hover:text-white font-bold text-xs"
+              >
+                Seleccionar Archivo
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
       <div className="bg-orange-50/50 p-4 rounded-xl border border-orange-100 italic">
         <p className="text-[11px] text-orange-600 leading-relaxed">
           *Si usted está adquiriendo la orden &quot;Back to School&quot;, se
-          requiere que suba una imagen o PDF del Certificado Médico.
+          requiere que suba una imagen del Certificado Médico.
         </p>
       </div>
     </div>
