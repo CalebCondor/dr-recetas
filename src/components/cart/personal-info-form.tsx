@@ -104,7 +104,6 @@ export const PersonalInfoForm = ({
         }
 
         const data = await response.json();
-        console.log("User uploads data:", data);
 
         if (data.success && data.data) {
           const { usuario, archivo, archivo_existe } = data.data;
