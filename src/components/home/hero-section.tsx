@@ -124,6 +124,10 @@ export default function Hero() {
 
       // Only block if we are actually navigating the list
       if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
+        if (e.cancelable && e.type === "touchmove") {
+          e.preventDefault();
+        }
+
         const THRESHOLD = 30;
         const MOBILE_COOLDOWN = 100;
 
@@ -145,7 +149,7 @@ export default function Hero() {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -189,11 +193,10 @@ export default function Hero() {
 
         <div className="flex-1 w-full max-w-md lg:max-w-lg">
           <div
-            className="relative w-full px-2 touch-action-none"
+            className="relative w-full px-2"
             style={{
               minHeight: `${CONTAINER_HEIGHT}px`,
               height: `${CONTAINER_HEIGHT}px`,
-              touchAction: "none",
             }}
           >
             <AnimatePresence initial={false} mode="popLayout">
