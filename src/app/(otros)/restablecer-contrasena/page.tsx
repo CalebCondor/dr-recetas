@@ -108,6 +108,7 @@ function ResetPasswordForm() {
       const formData = new FormData();
       formData.append("token", token!);
       formData.append("nueva_clave", password);
+      formData.append("confirmar_clave", confirmPassword);
 
       const response = await fetch(
         `https://doctorrecetas.com/api/restablecer_contrasena.php`,
