@@ -99,16 +99,9 @@ function PerfilContent() {
   }, []);
 
   const fetchOrders = useCallback(async (userId: string, token: string) => {
-    console.log(
-      "Fetching orders for userId:",
-      userId,
-      "Token starts with:",
-      token?.substring(0, 10),
-    );
     setIsLoadingOrders(true);
     try {
       const url = `https://doctorrecetas.com/api/mis_ordenes.php?us_id=${userId}`;
-      console.log("Fetch URL:", url);
 
       const response = await fetch(url, {
         headers: {

@@ -204,7 +204,6 @@ export default function ServicePage() {
     })
     .filter((v, i, a) => a.findIndex((t) => t.title === v.title) === i)
     .slice(0, 10);
-  console.log("🔍 [DEBUG] Final otherServices (API only):", otherServices);
   const visibleItems = apiItems.slice(0, visibleCount);
   const hasMore = visibleCount < apiItems.length;
   return (
