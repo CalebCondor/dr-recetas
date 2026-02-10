@@ -53,6 +53,7 @@ export const PersonalInfoForm = ({
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [previewMode, setPreviewMode] = useState<"local" | "remote">("local");
 
   // Create and cleanup file preview URL
   useEffect(() => {
@@ -378,15 +379,17 @@ export const PersonalInfoForm = ({
           </div>
 
           <div className="flex gap-3">
-            <a
-              href={existingUpload.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setPreviewMode("remote");
+                setShowPreviewModal(true);
+              }}
               className="inline-flex items-center gap-2 rounded-xl font-bold h-11 px-6 bg-emerald-100 border border-emerald-200 text-emerald-700 hover:bg-emerald-200 transition-all active:scale-95 shadow-sm text-sm"
             >
               <RiFileImageLine size={18} />
               Ver Archivo
-            </a>
+            </button>
             <div className="relative">
               <input
                 type="file"
@@ -421,7 +424,10 @@ export const PersonalInfoForm = ({
             {formData.identificacion_archivo.type === "application/pdf" ? (
               <button
                 type="button"
-                onClick={() => setShowPreviewModal(true)}
+                onClick={() => {
+                  setPreviewMode("local");
+                  setShowPreviewModal(true);
+                }}
                 className="w-24 h-24 rounded-2xl bg-red-50 flex flex-col items-center justify-center border-2 border-red-100 hover:bg-red-100 transition-colors cursor-pointer group"
               >
                 <RiFilePdf2Line className="text-red-500" size={36} />
@@ -432,7 +438,10 @@ export const PersonalInfoForm = ({
             ) : (
               <button
                 type="button"
-                onClick={() => setShowPreviewModal(true)}
+                onClick={() => {
+                  setPreviewMode("local");
+                  setShowPreviewModal(true);
+                }}
                 className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-100 shadow-sm cursor-pointer hover:ring-2 hover:ring-emerald-300 transition-all"
               >
                 {filePreviewUrl && (
@@ -470,10 +479,14 @@ export const PersonalInfoForm = ({
 
           <div className="flex gap-3">
             {/* View file button */}
+            {/* View file button */}
             <Button
               type="button"
               variant="outline"
-              onClick={() => setShowPreviewModal(true)}
+              onClick={() => {
+                setPreviewMode("local");
+                setShowPreviewModal(true);
+              }}
               className="rounded-xl font-bold h-11 px-6 bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 transition-all active:scale-95 shadow-sm"
             >
               <RiFileImageLine className="mr-2" size={18} />
@@ -664,14 +677,27 @@ export const PersonalInfoForm = ({
 
             {/* File name header */}
             <div className="bg-slate-100 px-6 py-4 border-b">
-              <p className="font-bold text-slate-700 truncate pr-12">
-                {formData.identificacion_archivo?.name}
-              </p>
-              <p className="text-xs text-slate-400">
-                {formData.identificacion_archivo &&
-                  (formData.identificacion_archivo.size / 1024).toFixed(1)}{" "}
-                KB
-              </p>
+              {previewMode === "local" ? (
+                <>
+                  <p className="font-bold text-slate-700 truncate pr-12">
+                    {formData.identificacion_archivo?.name}
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    {formData.identificacion_archivo &&
+                      (formData.identificacion_archivo.size / 1024).toFixed(1)}
+                    KB
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="font-bold text-slate-700 truncate pr-12">
+                    {existingUpload?.nombre}
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    {existingUpload?.tamano_legible}
+                  </p>
+                </>
+              )}
             </div>
 
             {/* Content */}
@@ -679,20 +705,38 @@ export const PersonalInfoForm = ({
               className="bg-slate-900 flex items-center justify-center"
               style={{ height: "calc(90vh - 120px)" }}
             >
-              {formData.identificacion_archivo?.type === "application/pdf" ? (
-                <iframe
-                  src={filePreviewUrl || undefined}
-                  className="w-full h-full"
-                  title="PDF Preview"
-                />
+              {previewMode === "local" ? (
+                formData.identificacion_archivo?.type === "application/pdf" ? (
+                  <iframe
+                    src={filePreviewUrl || undefined}
+                    className="w-full h-full"
+                    title="PDF Preview"
+                  />
+                ) : (
+                  filePreviewUrl && (
+                    <img
+                      src={filePreviewUrl}
+                      alt="Preview"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  )
+                )
               ) : (
-                filePreviewUrl && (
+                // Remote file preview
+                existingUpload &&
+                (existingUpload.tipo.startsWith("image/") ? (
                   <img
-                    src={filePreviewUrl}
-                    alt="Preview"
+                    src={existingUpload.url}
+                    alt={existingUpload.nombre}
                     className="max-w-full max-h-full object-contain"
                   />
-                )
+                ) : (
+                  <iframe
+                    src={existingUpload.url}
+                    className="w-full h-full"
+                    title="Remote File Preview"
+                  />
+                ))
               )}
             </div>
           </div>

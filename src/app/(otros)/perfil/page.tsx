@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { PageWrapper } from "@/components/page-wrapper";
 import { ProfileInfoForm } from "@/components/profile/profile-info-form";
 import { ProfileOrdersList } from "@/components/profile/profile-orders-list";
-import { Order, UserData } from "@/services/types/types";
+import { Order, UserData, ProfileFormData } from "@/services/types/types";
 import {
   ProfileTransactionList,
   Transaction,
@@ -29,7 +29,7 @@ function PerfilContent() {
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
   // Form states
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ProfileFormData>({
     us_nombres: "",
     us_telefono: "",
     us_email: "",
@@ -39,6 +39,8 @@ function PerfilContent() {
     us_fech_nac: "",
     us_code_postal: "",
     us_clave: "",
+    archivo: null,
+    archivo_url: "",
   });
 
   const fetchProfile = useCallback(async (token: string) => {
@@ -75,6 +77,8 @@ function PerfilContent() {
             us_fech_nac: profileData.us_fech_nac || "",
             us_code_postal: profileData.us_code_postal || "",
             us_clave: "",
+            archivo: null,
+            archivo_url: profileData.archivo_url || profileData.archivo || "",
           });
 
           // Update local storage with latest info
@@ -222,20 +226,31 @@ function PerfilContent() {
 
     const updatePromise = new Promise(async (resolve, reject) => {
       try {
-        const body: Record<string, string | number | undefined> = {
-          ...formData,
-        };
-        if (!body.us_clave) delete body.us_clave;
+        const formDataPayload = new FormData();
+
+        // Append all text fields
+        Object.entries(formData).forEach(([key, value]) => {
+          if (key === "archivo" || key === "archivo_url") return;
+          if (key === "us_clave" && !value) return; // Skip empty password
+          if (value !== undefined && value !== null) {
+            formDataPayload.append(key, String(value));
+          }
+        });
+
+        // Append file if exists
+        if (formData.archivo) {
+          formDataPayload.append("archivo", formData.archivo);
+        }
 
         const response = await fetch(
-          "https://doctorrecetas.com/api/perfil.php",
+          "https://doctorrecetas.com/api/actualizar_perfil.php",
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${user.token}`,
+              // Content-Type header is set automatically with FormData
             },
-            body: JSON.stringify(body),
+            body: formDataPayload,
           },
         );
 
@@ -261,9 +276,27 @@ function PerfilContent() {
         }
 
         if (data.success) {
-          const updatedUser = { ...user, ...formData };
+          // Update local state and storage
+          const updatedUser = {
+            ...user,
+            ...formData,
+            // If API returns updated 'archivo' or 'archivo_url', ideally update it here.
+            // Based on user prompt, API returns { success: true, data: { usuario: { ... } } }
+            ...(data.data?.usuario || {}),
+          };
+
           localStorage.setItem("dr_user", JSON.stringify(updatedUser));
           setUser(updatedUser);
+
+          // Also update `archivo_url` in form data if returned
+          if (data.data?.usuario?.archivo_url) {
+            setFormData((prev) => ({
+              ...prev,
+              archivo_url: data.data.usuario.archivo_url,
+              archivo: null,
+            }));
+          }
+
           resolve(data);
         } else {
           reject(new Error(data.message || "Error al actualizar"));
@@ -276,7 +309,7 @@ function PerfilContent() {
     toast.promise(updatePromise, {
       loading: "Actualizando tu información...",
       success: "¡Perfil actualizado correctamente!",
-      error: (err) => err.message || "No se pudo actualizar el perfil",
+      error: (err: Error) => err.message || "No se pudo actualizar el perfil",
     });
 
     try {
