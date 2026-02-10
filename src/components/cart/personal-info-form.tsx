@@ -27,6 +27,7 @@ import {
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
+import { toast } from "sonner";
 
 interface PersonalInfoFormProps {
   formData: CartFormData;
@@ -54,6 +55,7 @@ export const PersonalInfoForm = ({
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [previewMode, setPreviewMode] = useState<"local" | "remote">("local");
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // Create and cleanup file preview URL
   useEffect(() => {
@@ -142,6 +144,89 @@ export const PersonalInfoForm = ({
 
     fetchUserData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const updateProfile = async () => {
+    const promise = new Promise(async (resolve, reject) => {
+      try {
+        const storedUser = localStorage.getItem("dr_user");
+        if (!storedUser) {
+          reject(new Error("No user found"));
+          return;
+        }
+        const { token } = JSON.parse(storedUser);
+
+        const formDataPayload = new FormData();
+        formDataPayload.append("us_nombres", formData.nombre_completo);
+        formDataPayload.append("us_email", formData.email);
+        formDataPayload.append("us_telefono", formData.telefono);
+        formDataPayload.append("us_direccion", formData.direccion);
+        formDataPayload.append("us_code_postal", formData.codigo_postal);
+        formDataPayload.append("us_ciudad", formData.municipio); // Assuming municipio maps to ciudad
+        formDataPayload.append("us_pais", formData.pais);
+        if (formData.fecha_nacimiento) {
+          formDataPayload.append("us_fech_nac", formData.fecha_nacimiento);
+        }
+        formDataPayload.append("num_id", formData.numero_documento);
+        formDataPayload.append("num_id_tipo", formData.tipo_documento);
+
+        if (formData.identificacion_archivo) {
+          formDataPayload.append("archivo", formData.identificacion_archivo);
+        }
+
+        const response = await fetch(
+          "https://doctorrecetas.com/api/actualizar_perfil.php",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formDataPayload,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error("Error updating profile");
+        }
+
+        const data = await response.json();
+        if (!data.success) {
+          throw new Error(data.message || "Error updating profile");
+        }
+
+        // Update local storage if needed
+        console.log("Profile updated successfully", data);
+        resolve(data);
+      } catch (error) {
+        console.error("Failed to update profile:", error);
+        reject(error);
+      }
+    });
+
+    toast.promise(promise, {
+      loading: "Guardando información...",
+      success: "¡Información actualizada!",
+      error: "No se pudo guardar la información",
+    });
+
+    try {
+      await promise;
+    } catch {
+      // handled by toast
+    }
+  };
+
+  const handleContinue = async () => {
+    // If we are on the last step (or not mobile which is one step), update profile
+    if (!isMobile || subStep === totalSubSteps) {
+      setIsUpdating(true);
+      await updateProfile();
+      setIsUpdating(false);
+      onContinue();
+    } else {
+      // Mobile intermediate steps
+      setSubStep((s) => s + 1);
+    }
+  };
 
   const totalSubSteps = 3;
 
@@ -646,14 +731,15 @@ export const PersonalInfoForm = ({
 
             {!isMobile || subStep === totalSubSteps ? (
               <Button
-                onClick={onContinue}
-                className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 h-12 rounded-xl font-bold shadow-md shadow-[#0D4B4D]/10 order-1 sm:order-2"
+                onClick={handleContinue}
+                disabled={isUpdating}
+                className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 h-12 rounded-xl font-bold shadow-md shadow-[#0D4B4D]/10 order-1 sm:order-2 disabled:opacity-70"
               >
-                Continuar
+                {isUpdating ? "Guardando..." : "Continuar"}
               </Button>
             ) : (
               <Button
-                onClick={() => setSubStep((s) => s + 1)}
+                onClick={handleContinue}
                 className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 h-12 rounded-xl font-bold shadow-md shadow-[#0D4B4D]/10 order-1 sm:order-2"
               >
                 Siguiente <RiArrowRightLine className="ml-2" />
