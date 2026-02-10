@@ -10,6 +10,9 @@ import {
   Hash,
   ShieldCheck,
   Loader2,
+  Upload,
+  X,
+  FileText,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -220,6 +223,141 @@ export function ProfileInfoForm({
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
                 placeholder="••••••••"
               />
+            </div>
+
+            {/* Archivo Identificación */}
+            <div className="space-y-4 md:col-span-2 border-t border-slate-100 pt-6 mt-2">
+              <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                <FileText className="w-3.5 h-3.5 text-slate-400" />
+                Documento de Identificación
+              </label>
+
+              <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 transition-all hover:bg-slate-50/50 hover:border-[#0D4B4D]/30 group">
+                {formData.archivo || formData.archivo_url ? (
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm overflow-hidden shrink-0">
+                      {formData.archivo ? (
+                        formData.archivo.type.startsWith("image/") ? (
+                          <img
+                            src={URL.createObjectURL(formData.archivo)}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                            onLoad={(e) =>
+                              URL.revokeObjectURL(
+                                (e.target as HTMLImageElement).src,
+                              )
+                            }
+                          />
+                        ) : (
+                          <FileText className="w-8 h-8 text-slate-400" />
+                        )
+                      ) : formData.archivo_url ? (
+                        formData.archivo_url.match(
+                          /\.(jpg|jpeg|png|gif|webp)$/i,
+                        ) ? (
+                          <img
+                            src={formData.archivo_url}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <FileText className="w-8 h-8 text-slate-400" />
+                        )
+                      ) : null}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-slate-700 truncate text-sm">
+                        {formData.archivo
+                          ? formData.archivo.name
+                          : "Archivo actual"}
+                      </p>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {formData.archivo
+                          ? `${(formData.archivo.size / 1024).toFixed(1)} KB`
+                          : "Documento guardado"}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="file"
+                        id="profile-upload"
+                        className="hidden"
+                        accept="image/*,application/pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setFormData({ ...formData, archivo: file });
+                          }
+                        }}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() =>
+                          document.getElementById("profile-upload")?.click()
+                        }
+                        className="h-9 px-3 rounded-lg text-xs font-bold border-slate-200 text-slate-600 hover:text-[#0D4B4D] hover:bg-white"
+                      >
+                        Cambiar
+                      </Button>
+                      {(formData.archivo || formData.archivo_url) && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={() =>
+                            setFormData({
+                              ...formData,
+                              archivo: null,
+                              archivo_url: "",
+                            })
+                          }
+                          className="h-9 w-9 p-0 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center space-y-4">
+                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto shadow-sm group-hover:scale-110 transition-transform duration-300">
+                      <Upload className="w-5 h-5 text-[#0D4B4D]" />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold text-slate-700">
+                        Sube tu identificación
+                      </p>
+                      <p className="text-xs text-slate-400">
+                        Formatos: JPG, PNG o PDF (Máx 5MB)
+                      </p>
+                    </div>
+                    <input
+                      type="file"
+                      id="profile-upload-new"
+                      className="hidden"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setFormData({ ...formData, archivo: file });
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        document.getElementById("profile-upload-new")?.click()
+                      }
+                      variant="outline"
+                      className="h-9 rounded-lg border-[#0D4B4D]/20 text-[#0D4B4D] hover:bg-[#0D4B4D] hover:text-white font-bold text-xs"
+                    >
+                      Seleccionar Archivo
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

@@ -32,5 +32,7 @@ export interface ProfileFormData {
   us_pais: string;
   us_fech_nac: string;
   us_code_postal: string;
-  us_clave: string;
+  us_clave?: string;
+  archivo?: File | null;
+  archivo_url?: string;
 }
