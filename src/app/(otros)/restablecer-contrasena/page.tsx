@@ -14,7 +14,6 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -49,7 +48,7 @@ function ResetPasswordForm() {
         const response = await fetch(
           `https://doctorrecetas.com/api/validar_token_recuperacion.php?token=${encodeURIComponent(token)}`,
           {
-            method: "GET",
+            method: "POST",
           },
         );
 
