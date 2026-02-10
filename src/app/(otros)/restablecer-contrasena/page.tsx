@@ -17,7 +17,11 @@ import Link from "next/link";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
-  const token = searchParams.get("t");
+  // Handle case where '+' characters in the token might be interpreted as spaces by the browser/URL decoding
+  let token = searchParams.get("t");
+  if (token) {
+    token = token.replace(/ /g, "+");
+  }
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,10 +49,14 @@ function ResetPasswordForm() {
       }
 
       try {
+        const formData = new FormData();
+        formData.append("token", token);
+
         const response = await fetch(
-          `https://doctorrecetas.com/api/validar_token_recuperacion.php?token=${encodeURIComponent(token)}`,
+          `https://doctorrecetas.com/api/validar_token_recuperacion.php`,
           {
             method: "POST",
+            body: formData,
           },
         );
 
@@ -95,11 +103,15 @@ function ResetPasswordForm() {
     setIsLoading(true);
 
     try {
-      // Use query params for reset as well, matching validation pattern
+      const formData = new FormData();
+      formData.append("token", token!);
+      formData.append("nueva_clave", password);
+
       const response = await fetch(
-        `https://doctorrecetas.com/api/restablecer_contrasena.php?token=${encodeURIComponent(token!)}&nueva_clave=${encodeURIComponent(password)}`,
+        `https://doctorrecetas.com/api/restablecer_contrasena.php`,
         {
           method: "POST",
+          body: formData,
         },
       );
 
