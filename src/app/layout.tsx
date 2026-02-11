@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_PR",
-    url: "https://doctorrecetas.com",
+    url: "https://drreceta.com",
     siteName: "Dr. Recetas",
     title: "Dr. Recetas - Servicios Médicos Digitales en Puerto Rico",
     description:
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     description:
       "Consultas médicas en línea, recetas digitales y certificados médicos 24/7",
     images: ["/og-image.png"],
-    creator: "@doctorrecetas",
+    creator: "@drreceta",
   },
   robots: {
     index: true,
@@ -82,9 +82,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   verification: {
-    // Agregar cuando tengas las verificaciones
-    // google: 'tu-codigo-de-verificacion',
-    // yandex: 'tu-codigo-de-verificacion',
+    google: "googlef639e9c60eac2963",
   },
   alternates: {
     canonical: "https://doctorrecetas.com",
@@ -96,6 +94,7 @@ import { ChatbotFloating } from "@/components/shell/chatbot-floating";
 import { ChatProvider } from "@/context/chat-context";
 import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
+import { StructuredData } from "@/components/structured-data";
 
 export default function RootLayout({
   children,
@@ -105,6 +104,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <StructuredData />
         <script
           dangerouslySetInnerHTML={{
             __html: `
