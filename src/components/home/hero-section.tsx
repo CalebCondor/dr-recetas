@@ -197,11 +197,11 @@ export default function Hero() {
                   "Cita Médica",
                   "Receta Médica",
                 ]}
-                className="inlin"
+                className="inline"
                 loop={false}
-                typeSpeed={100}
-                deleteSpeed={40}
-                pauseDelay={2000}
+                typeSpeed={75}
+                deleteSpeed={60}
+                pauseDelay={1000}
               />
             </span>
             <br />
@@ -253,15 +253,36 @@ export default function Hero() {
                       <div
                         className={`
                           relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
-                          transition-all duration-500 bg-white flex flex-col justify-center min-h-[70px]
-                          ${isActive ? "shadow-2xl ring-1 ring-black/5" : "shadow-sm"}
+                          transition-all duration-500 flex flex-col justify-center min-h-[70px]
+                          ${
+                            isActive
+                              ? "bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] ring-1 ring-white/50 border-t border-l border-white/60"
+                              : "bg-white/40 backdrop-blur-md shadow-sm border border-white/20 hover:bg-white/50"
+                          }
                         `}
                       >
+                        {/* Shimmer effect for active card */}
+                        {isActive && (
+                          <motion.div
+                            initial={{ x: "-100%" }}
+                            animate={{ x: "200%" }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 2,
+                              ease: "linear",
+                            }}
+                            className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
+                          />
+                        )}
                         <div className="relative z-10 flex items-center gap-3 md:gap-4">
                           <div
                             className={`
-                              shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-colors duration-500
-                              ${isActive ? "bg-teal-50 text-teal-600" : "bg-slate-50 text-slate-400"}
+                              shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
+                              ${
+                                isActive
+                                  ? "bg-teal-500/20 text-teal-700 shadow-inner"
+                                  : "bg-slate-200/40 text-slate-500"
+                              }
                             `}
                           >
                             <item.icon className="w-4 h-4 md:w-5 md:h-5" />
@@ -281,7 +302,6 @@ export default function Hero() {
                 })}
             </AnimatePresence>
           </div>
-
           <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
             <span className="text-[#1e3434] font-semibold text-lg lg:text-xl">
               Otras consultas
@@ -294,7 +314,7 @@ export default function Hero() {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white text-teal-600 transition-all shadow-lg hover:scale-105 active:scale-95 group"
+              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/40 backdrop-blur-md text-teal-700 transition-all shadow-lg border border-white/40 hover:scale-105 active:scale-95 hover:bg-white/60 group"
             >
               <Plus className="w-6 h-6 lg:w-8 lg:h-8 group-hover:rotate-90 transition-transform duration-300" />
             </button>
