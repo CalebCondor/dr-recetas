@@ -93,7 +93,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
       try {
         const response = await fetch(
-          "https://doctorrecetas.com/v3/chat-api.php",
+          "https://doctorrecetas.com/api/chat-ana.php",
           {
             method: "POST",
             headers: {
