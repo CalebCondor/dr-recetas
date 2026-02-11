@@ -26,7 +26,7 @@ export function useProductDetail(categorySlug: string, productSlug: string) {
         setLoading(true);
 
         const res = await fetch(
-          "https://doctorrecetas.com/v3/api.php?action=getServices",
+          "https://doctorrecetas.com/api/todas_las_ordenes.php",
         );
 
         if (!res.ok) {

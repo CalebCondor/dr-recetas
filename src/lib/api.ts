@@ -22,7 +22,7 @@ export async function getProductBySlug(
 ): Promise<ApiServiceItem | null> {
   try {
     const res = await fetch(
-      "https://doctorrecetas.com/v3/api.php?action=getServices",
+      "https://doctorrecetas.com/api/todas_las_ordenes.php",
       {
         headers: {
           "Cache-Control": "no-cache",
@@ -71,7 +71,7 @@ export async function getRelatedProducts(
 ): Promise<ApiServiceItem[]> {
   try {
     const res = await fetch(
-      "https://doctorrecetas.com/v3/api.php?action=getServices",
+      "https://doctorrecetas.com/api/todas_las_ordenes.php",
       {
         next: { revalidate: 3600 },
       },
