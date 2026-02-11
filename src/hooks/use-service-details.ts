@@ -75,10 +75,12 @@ export function useServiceDetails(slug: string) {
       }
 
       if (!currentServiceInfo) {
-        const catMatch = fetchedCats.find(
-          (c) =>
-            (c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros") === slug,
-        );
+        const catMatch = fetchedCats.find((c) => {
+          const catSlug =
+            c.tag?.toLowerCase().trim().replace(/\s+/g, "-") || "otros";
+          const targetSlug = slug?.toLowerCase().trim() || "";
+          return catSlug === targetSlug;
+        });
         if (catMatch) {
           currentServiceInfo = {
             id: catMatch.id.toString(),

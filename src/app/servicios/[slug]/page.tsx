@@ -122,11 +122,17 @@ export function RelatedBentoCard({
             <h3 className="text-xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
               {title}
             </h3>
-            <p
-              className={`text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-4 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
-            >
-              {content}
-            </p>
+            {(() => {
+              const isEmpty =
+                !content || content.replace(/<[^>]*>?/gm, "").trim() === "";
+              if (isEmpty) return null;
+              return (
+                <div
+                  className={`text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-4 overflow-hidden font-medium ${isDark ? "text-white/70" : "text-slate-600"}`}
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+              );
+            })()}
           </div>
         </div>
         {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
@@ -190,18 +196,18 @@ export default function ServicePage() {
   }
   // ONLY use API categories (tipo: 2), NO local fallback
   const otherServices = (categories || [])
-    .filter((c) => c.tipo === 2) // Only main service categories
-    .map((c) => ({
-      title: c.nombre || "Servicio",
-      description: c.lead || "",
-      imageSrc: c.imagen || "",
-      imageAlt: c.nombre || "Servicio",
-      href: `/servicios/${c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
-    }))
-    .filter((item) => {
-      const itemSlug = item.href.split("/").pop();
-      return itemSlug !== slug;
+    .map((c) => {
+      const categorySlug = c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros";
+      return {
+        title: c.nombre || "Servicio",
+        description: c.lead || "",
+        imageSrc: c.imagen || "",
+        imageAlt: c.nombre || "Servicio",
+        href: `/servicios/${categorySlug}`,
+        slug: categorySlug,
+      };
     })
+    .filter((item) => item.slug !== slug)
     .filter((v, i, a) => a.findIndex((t) => t.title === v.title) === i)
     .slice(0, 10);
   const visibleItems = apiItems.slice(0, visibleCount);
@@ -359,11 +365,18 @@ export default function ServicePage() {
                 salud.
               </p>
             </div>
-            {otherServices.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-center w-full py-12">
+                <RiLoader4Line className="w-10 h-10 text-teal-600 animate-spin" />
+                <span className="ml-3 text-teal-900/40 font-medium">
+                  Cargando recomendaciones...
+                </span>
+              </div>
+            ) : otherServices.length > 0 ? (
               <ServicesCarousel services={otherServices} />
             ) : (
-              <div className="flex items-center justify-center w-full py-12 text-slate-300 font-medium">
-                Cargando recomendaciones adicionales...
+              <div className="flex items-center justify-center w-full py-12 text-slate-400 font-medium border-2 border-dashed border-slate-200 rounded-[2rem]">
+                No se encontraron categorías adicionales.
               </div>
             )}
           </div>
