@@ -194,9 +194,19 @@ export function ProductDetailClient({
                       <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
                         Descripción Detallada
                       </h3>
-                      <p className="text-slate-600 text-lg font-medium leading-relaxed whitespace-pre-line text-left">
-                        {product.detalle || product.resumen}
-                      </p>
+                      {(() => {
+                        const content = product.detalle || product.resumen;
+                        const isEmpty =
+                          !content ||
+                          content.replace(/<[^>]*>?/gm, "").trim() === "";
+                        if (isEmpty) return null;
+                        return (
+                          <div
+                            className="text-slate-600 text-lg font-medium leading-relaxed text-left prose prose-slate max-w-none prose-headings:text-[#0D4B4D] prose-headings:font-black prose-strong:text-[#0D4B4D] prose-strong:font-bold"
+                            dangerouslySetInnerHTML={{ __html: content }}
+                          />
+                        );
+                      })()}
                     </motion.div>
                   </TabsContent>
 
@@ -300,9 +310,19 @@ export function ProductDetailClient({
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-6 pt-0">
-                    <p className="text-slate-600 font-medium leading-relaxed text-base">
-                      {product.detalle || product.resumen}
-                    </p>
+                    {(() => {
+                      const content = product.detalle || product.resumen;
+                      const isEmpty =
+                        !content ||
+                        content.replace(/<[^>]*>?/gm, "").trim() === "";
+                      if (isEmpty) return null;
+                      return (
+                        <div
+                          className="text-slate-600 font-medium leading-relaxed text-base prose prose-slate max-w-none prose-headings:text-[#0D4B4D] prose-headings:font-black prose-strong:text-[#0D4B4D] prose-strong:font-bold"
+                          dangerouslySetInnerHTML={{ __html: content }}
+                        />
+                      );
+                    })()}
                   </AccordionContent>
                 </AccordionItem>
 
