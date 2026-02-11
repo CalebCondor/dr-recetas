@@ -44,8 +44,8 @@ export function useServiceDetails(slug: string) {
       setLoading(true);
 
       const [servicesRes, catsRes] = await Promise.all([
-        fetch("https://doctorrecetas.com/v3/api.php?action=getServices"),
-        fetch("https://doctorrecetas.com/v3/api_categorias.php"),
+        fetch("https://doctorrecetas.com/api/todas_las_ordenes.php"),
+        fetch("https://doctorrecetas.com/api/categorias_principales.php"),
       ]);
 
       if (!servicesRes.ok || !catsRes.ok) {
@@ -63,8 +63,10 @@ export function useServiceDetails(slug: string) {
           id: "otros",
           slug: "otros",
           title: "Otros Servicios",
-          description: "Explora nuestra amplia gama de servicios médicos adicionales.",
-          longDescription: "En Doctor Recetas ofrecemos una variedad de servicios complementarios para cubrir todas tus necesidades de salud.",
+          description:
+            "Explora nuestra amplia gama de servicios médicos adicionales.",
+          longDescription:
+            "En Doctor Recetas ofrecemos una variedad de servicios complementarios para cubrir todas tus necesidades de salud.",
           imageSrc: "/citas-medicas/1.png",
           imageAlt: "Otros Servicios",
           apiTag: "ALL",
@@ -161,6 +163,6 @@ export function useServiceDetails(slug: string) {
     apiItems,
     loading,
     serviceInfo,
-    refresh: fetchData
+    refresh: fetchData,
   };
 }

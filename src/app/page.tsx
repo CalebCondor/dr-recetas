@@ -38,9 +38,12 @@ interface Category {
 }
 
 async function getCategories() {
-  const res = await fetch("https://doctorrecetas.com/v3/api_categorias.php", {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    "https://doctorrecetas.com/api/categorias_principales.php",
+    {
+      next: { revalidate: 3600 },
+    },
+  );
   if (!res.ok) return [];
   return res.json();
 }
