@@ -12,7 +12,6 @@ import {
   TestTube2,
 } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { WavyBackground } from "../ui/wavy-background";
 
 const consultations = [
   {
@@ -170,26 +169,38 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
+      className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
-      <WavyBackground
-        colors={[
-          "#2D6A4F", // verde natural
-          "#40916C", // verde hoja
-          "#52B788", // verde fresco
-          "#74C69D", // verde medio claro
-          "#95D5B2", // verde suave visible
-        ]}
-        blur={10}
-        speed="fast"
-        waveOpacity={0.5}
-      />
+      {/* Video Background Container */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover scale-105" // slight scale to ensure coverage
+          style={{ filter: "brightness(0.7) contrast(1.1)" }}
+        >
+          <source
+            src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/1116105_Woman_Home_1280x720.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Green Tint Overlay Layer */}
+        <div className="absolute inset-0 bg-[#0D4B4D]/45 mix-blend-multiply" />
+
+        {/* Gradient Overlay for depth and text legibility */}
+        <div className="absolute inset-0 bg-linear-to-tr from-[#0D4B4D]/40 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-white/5" />
+      </div>
+
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         <div className="flex-1 w-full max-w-4xl sm:mt-10">
-          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-slate-900 mb-8 lg:mb-10 tracking-tight text-balance">
+          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-8 lg:mb-10 tracking-tight text-balance drop-shadow-sm">
             Consigue una
             <br />
-            <span className="text-[#3F6146]">
+            <span className="text-[#95D5B2]">
               <TypingAnimation
                 words={[
                   "Excusa Médica",
@@ -233,7 +244,7 @@ export default function Hero() {
                         y: localIndex * ITEM_HEIGHT + 20,
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.8,
+                        opacity: isActive ? 1 : 0.6,
                         y: localIndex * ITEM_HEIGHT,
                         scale: isActive ? 1.02 : 1,
                         zIndex: 100 - distance,
@@ -256,8 +267,8 @@ export default function Hero() {
                           transition-all duration-500 flex flex-col justify-center min-h-[70px]
                           ${
                             isActive
-                              ? "bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] ring-1 ring-white/50 border-t border-l border-white/60"
-                              : "bg-white/40 backdrop-blur-md shadow-sm border border-white/20 hover:bg-white/50"
+                              ? "bg-white/20 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] ring-1 ring-white/40 border-t border-l border-white/50"
+                              : "bg-white/10 backdrop-blur-md shadow-sm border border-white/10 hover:bg-white/20"
                           }
                         `}
                       >
@@ -271,7 +282,7 @@ export default function Hero() {
                               duration: 2,
                               ease: "linear",
                             }}
-                            className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
+                            className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
                           />
                         )}
                         <div className="relative z-10 flex items-center gap-3 md:gap-4">
@@ -280,8 +291,8 @@ export default function Hero() {
                               shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
                               ${
                                 isActive
-                                  ? "bg-teal-500/20 text-teal-700 shadow-inner"
-                                  : "bg-slate-200/40 text-slate-500"
+                                  ? "bg-white/20 text-white shadow-inner"
+                                  : "bg-white/5 text-white/70"
                               }
                             `}
                           >
@@ -290,7 +301,7 @@ export default function Hero() {
                           <p
                             className={`
                               text-sm md:text-base lg:text-lg font-bold text-left tracking-tight transition-colors duration-500 line-clamp-2
-                              ${isActive ? "text-[#0D4B4D]" : "text-slate-600"}
+                              ${isActive ? "text-white" : "text-white/80"}
                             `}
                           >
                             {item.name}
@@ -303,7 +314,7 @@ export default function Hero() {
             </AnimatePresence>
           </div>
           <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
-            <span className="text-[#1e3434] font-semibold text-lg lg:text-xl">
+            <span className="text-white/90 font-semibold text-lg lg:text-xl drop-shadow-sm">
               Otras consultas
             </span>
             <button
@@ -314,7 +325,7 @@ export default function Hero() {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/40 backdrop-blur-md text-teal-700 transition-all shadow-lg border border-white/40 hover:scale-105 active:scale-95 hover:bg-white/60 group"
+              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/20 backdrop-blur-md text-white transition-all shadow-lg border border-white/30 hover:scale-105 active:scale-95 hover:bg-white/30 group"
             >
               <Plus className="w-6 h-6 lg:w-8 lg:h-8 group-hover:rotate-90 transition-transform duration-300" />
             </button>
