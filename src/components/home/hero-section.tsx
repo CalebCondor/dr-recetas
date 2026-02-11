@@ -173,7 +173,6 @@ export default function Hero() {
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
       <WavyBackground
-        containerClassName="md:hidden"
         colors={[
           "#2D6A4F", // verde natural
           "#40916C", // verde hoja
@@ -194,13 +193,13 @@ export default function Hero() {
               <TypingAnimation
                 words={[
                   "Excusa Médica",
-                  "Prueba COVID",
+                  "Prueba de Covid",
                   "Cita Médica",
-                  "Test de Sangre",
+                  "Receta Médica",
                 ]}
-                className="inline"
+                className="inlin"
                 loop={false}
-                typeSpeed={80}
+                typeSpeed={100}
                 deleteSpeed={40}
                 pauseDelay={2000}
               />
