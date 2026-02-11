@@ -12,6 +12,7 @@ import {
   TestTube2,
 } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { WavyBackground } from "../ui/wavy-background";
 
 const consultations = [
   {
@@ -171,6 +172,19 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[750px] lg:min-h-[750px] flex items-center justify-center"
     >
+      <WavyBackground
+        containerClassName="md:hidden"
+        colors={[
+          "#2D6A4F", // verde natural
+          "#40916C", // verde hoja
+          "#52B788", // verde fresco
+          "#74C69D", // verde medio claro
+          "#95D5B2", // verde suave visible
+        ]}
+        blur={10}
+        speed="fast"
+        waveOpacity={0.5}
+      />
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         <div className="flex-1 w-full max-w-4xl sm:mt-10">
           <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-slate-900 mb-8 lg:mb-10 tracking-tight text-balance">
@@ -178,7 +192,12 @@ export default function Hero() {
             <br />
             <span className="text-[#3F6146]">
               <TypingAnimation
-                words={["Excusa Medica", "Prueba Covid"]}
+                words={[
+                  "Excusa Médica",
+                  "Prueba COVID",
+                  "Cita Médica",
+                  "Test de Sangre",
+                ]}
                 className="inline"
                 loop={false}
                 typeSpeed={80}
