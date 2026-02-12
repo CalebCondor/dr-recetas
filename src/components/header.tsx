@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { LoginSheet } from "@/components/login-sheet";
@@ -43,6 +43,19 @@ interface UserData {
   us_nombres: string;
   token: string;
 }
+
+const Shimmer = () => (
+  <motion.div
+    initial={{ x: "-100%" }}
+    animate={{ x: "200%" }}
+    transition={{
+      repeat: Infinity,
+      duration: 2,
+      ease: "linear",
+    }}
+    className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
+  />
+);
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -102,11 +115,11 @@ export default function Header() {
       >
         <Link href="/" prefetch={true}>
           <Image
-            src="/logo.png"
+            src={isScrolled ? "/logo.png" : "/logo_white.png"}
             alt="Dr. Recetas"
             width={120}
             height={40}
-            className="h-8 lg:h-10 w-auto"
+            className="h-8 lg:h-10 w-auto transition-all duration-300"
             priority
           />
         </Link>
@@ -117,7 +130,11 @@ export default function Header() {
             <Link
               key={href}
               href={href}
-              className="text-slate-500 hover:text-slate-800 font-medium transition-colors text-sm"
+              className={`font-semibold transition-colors text-sm ${
+                isScrolled
+                  ? "text-slate-500 hover:text-[#0D4B4D]"
+                  : "text-white/80 hover:text-white"
+              }`}
             >
               {label}
             </Link>
@@ -125,14 +142,29 @@ export default function Header() {
           <div className="flex items-center gap-3">
             {/* Cart Button Desktop */}
             <Link href="/carrito">
-              <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all active:scale-95 group">
-                <div className="relative">
+              <button
+                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${
+                  isScrolled
+                    ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
+                    : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30"
+                }`}
+              >
+                <Shimmer />
+                <div className="relative z-10">
                   <ShoppingCart
                     size={20}
-                    className="text-[#0D4B4D] group-hover:scale-110 transition-transform"
+                    className={`${
+                      isScrolled ? "text-[#0D4B4D]" : "text-white"
+                    } group-hover:scale-110 transition-transform`}
                   />
                   {cart.length > 0 && (
-                    <span className="absolute -top-2.5 -right-2.5 w-4.5 h-4.5 bg-[#0D4B4D] text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white animate-in zoom-in-50 duration-300">
+                    <span
+                      className={`absolute -top-2.5 -right-2.5 w-4.5 h-4.5 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 animate-in zoom-in-50 duration-300 ${
+                        isScrolled
+                          ? "bg-[#0D4B4D] border-white"
+                          : "bg-[#0D4B4D] border-white/40"
+                      }`}
+                    >
                       {cart.length}
                     </span>
                   )}
@@ -142,15 +174,32 @@ export default function Header() {
             {user ? (
               <DropdownMenu onOpenChange={setIsMenuOpen}>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-2 px-2 h-10 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all active:scale-95 outline-none">
-                    <div className="w-7 h-7 rounded-lg bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-xs">
+                  <button
+                    className={`relative overflow-hidden flex items-center gap-2 px-2.5 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 outline-none ${
+                      isScrolled
+                        ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
+                        : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30"
+                    }`}
+                  >
+                    <Shimmer />
+                    <div
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-inner relative z-10 ${
+                        isScrolled ? "bg-[#0D4B4D]" : "bg-white/20"
+                      }`}
+                    >
                       {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-sm font-semibold text-slate-700 hidden lg:block max-w-[100px] truncate">
+                    <span
+                      className={`text-xs font-bold hidden lg:block max-w-[100px] truncate relative z-10 ${
+                        isScrolled ? "text-slate-700" : "text-white"
+                      }`}
+                    >
                       {user.us_nombres.split(" ")[0]}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}
+                      className={`w-4 h-4 transition-transform duration-200 relative z-10 ${
+                        isMenuOpen ? "rotate-180" : ""
+                      } ${isScrolled ? "text-slate-400" : "text-white/70"}`}
                     />
                   </button>
                 </DropdownMenuTrigger>
@@ -209,9 +258,16 @@ export default function Header() {
               </DropdownMenu>
             ) : (
               <LoginSheet>
-                <Button className="px-6 py-2.5 rounded-xl bg-white text-slate-500 font-semibold border border-slate-100 shadow-sm hover:bg-slate-50 hover:shadow-md transition-all text-sm h-auto">
-                  Iniciar sesión
-                </Button>
+                <button
+                  className={`relative overflow-hidden px-6 h-10 rounded-xl font-bold transition-all active:scale-95 text-xs backdrop-blur-md flex items-center justify-center ${
+                    isScrolled
+                      ? "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
+                      : "bg-white/20 border border-white/30 text-white shadow-lg hover:bg-white/30"
+                  }`}
+                >
+                  <Shimmer />
+                  <span className="relative z-10">Iniciar sesión</span>
+                </button>
               </LoginSheet>
             )}
           </div>
@@ -220,24 +276,52 @@ export default function Header() {
         <div className="flex md:hidden items-center gap-2">
           {/* Cart Button Mobile */}
           <Link href="/carrito">
-            <button className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-slate-200 shadow-sm transition-all active:scale-95">
-              <ShoppingCart size={18} className="text-[#0D4B4D]" />
-              {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#0D4B4D] text-white text-[8px] font-bold rounded-full flex items-center justify-center border border-white">
-                  {cart.length}
-                </span>
-              )}
+            <button
+              className={`relative overflow-hidden w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all active:scale-95 ${
+                isScrolled
+                  ? "bg-white border border-slate-200 shadow-sm"
+                  : "bg-white/20 border border-white/30 shadow-lg"
+              }`}
+            >
+              <Shimmer />
+              <div className="relative z-10">
+                <ShoppingCart
+                  size={18}
+                  className={isScrolled ? "text-[#0D4B4D]" : "text-white"}
+                />
+                {cart.length > 0 && (
+                  <span
+                    className={`absolute -top-1 -right-1 w-4 h-4 text-white text-[8px] font-bold rounded-full flex items-center justify-center border ${
+                      isScrolled
+                        ? "bg-[#0D4B4D] border-white"
+                        : "bg-[#0D4B4D] border-white/40"
+                    }`}
+                  >
+                    {cart.length}
+                  </span>
+                )}
+              </div>
             </button>
           </Link>
 
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <button className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center justify-center w-9 h-9 border border-slate-200">
+              <button
+                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 border ${
+                  isScrolled
+                    ? "bg-white border-slate-200 shadow-sm"
+                    : "bg-white/20 border-white/30 shadow-lg"
+                }`}
+              >
+                <Shimmer />
                 <Image
                   src="/hamburguer.svg"
                   alt="Menu"
                   width={20}
                   height={20}
+                  className={`relative z-10 transition-all duration-300 ${
+                    isScrolled ? "" : "brightness-0 invert opacity-90"
+                  }`}
                 />
               </button>
             </SheetTrigger>
@@ -344,12 +428,10 @@ export default function Header() {
                       </div>
                     ) : (
                       <LoginSheet>
-                        <Button
-                          variant="outline"
-                          className="w-full py-6 rounded-2xl border-2 border-slate-200 text-[#0D4B4D] font-extrabold active:scale-95 transition-all text-base bg-slate-50 hover:bg-slate-100 hover:border-slate-300"
-                        >
-                          Iniciar sesión
-                        </Button>
+                        <button className="w-full relative overflow-hidden py-4 rounded-2xl font-extrabold active:scale-95 transition-all text-base bg-[#0D4B4D] text-white shadow-xl shadow-[#0D4B4D]/20 flex items-center justify-center">
+                          <Shimmer />
+                          <span className="relative z-10">Iniciar sesión</span>
+                        </button>
                       </LoginSheet>
                     )}
                   </div>
