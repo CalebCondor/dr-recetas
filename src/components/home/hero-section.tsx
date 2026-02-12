@@ -49,24 +49,19 @@ const consultations = [
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const lastScrollTime = useRef(0);
   const COOLDOWN = 80;
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
 
+  // Play video manually to avoid browser autoplay message
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsHeroVisible(entry.isIntersecting);
-      },
-      { threshold: 0.6 },
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.log("Video autoplay prevented:", error);
+      });
     }
-
-    return () => observer.disconnect();
   }, []);
 
   // Auto-scroll effect at the beginning to show it's a carousel
@@ -189,23 +184,16 @@ export default function Hero() {
     >
       {/* Video Background Container */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-        <motion.video
-          autoPlay
-          loop
+        <video
+          ref={videoRef}
           muted
           playsInline
           poster="/image.png"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
-          <source
-            src="https://zdnqljsxqtptpauvowbq.supabase.co/storage/v1/object/public/Video/AZxSN_GS07Kk6cguiugclw-AZxSN_GSUb4LaTUPhiWP_g.mp4"
-            type="video/mp4"
-          />
-        </motion.video>
+          <source src="/video.mp4" type="video/mp4" />
+        </video>
 
         {/* Green Tint Overlay Layer */}
         <div className="absolute inset-0 bg-[#0D4B4D]/35 mix-blend-multiply" />
@@ -260,8 +248,8 @@ export default function Hero() {
                     <motion.div
                       key={item.id}
                       initial={{
-                        opacity: 0,
-                        y: localIndex * ITEM_HEIGHT + 20,
+                        opacity: isActive ? 1 : 0.75,
+                        y: localIndex * ITEM_HEIGHT,
                       }}
                       animate={{
                         opacity: isActive ? 1 : 0.75,

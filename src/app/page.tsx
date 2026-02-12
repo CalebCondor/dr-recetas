@@ -58,7 +58,7 @@ export default async function Home() {
     href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
   }));
   return (
-    <PageWrapper>
+    <>
       <div className="relative overflow-hidden">
         {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
 
@@ -72,6 +72,6 @@ export default async function Home() {
       <FAQSection />
       <TestimonialsSection />
       <BenefitsSection />
-    </PageWrapper>
+    </>
   );
 }
