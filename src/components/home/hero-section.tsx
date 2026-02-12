@@ -198,7 +198,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="w-full h-full object-cover scale-105"
-          style={{ filter: "brightness(0.7) contrast(1.1)" }}
+          style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
           <source
             src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/video.mp4"
@@ -206,8 +206,8 @@ export default function Hero() {
           />
         </motion.video>
 
-        {/* Green Tint Overlay Layer */}
-        <div className="absolute inset-0 bg-[#0D4B4D]/45 mix-blend-multiply" />
+        {/* Green Tint Overlay Layer - Reduced opacity */}
+        <div className="absolute inset-0 bg-[#0D4B4D]/28 mix-blend-multiply" />
 
         {/* Gradient Overlay for depth and text legibility */}
         <div className="absolute inset-0 bg-linear-to-tr from-[#0D4B4D]/40 via-transparent to-black/20" />
@@ -286,10 +286,15 @@ export default function Hero() {
                           transition-all duration-500 flex flex-col justify-center min-h-[70px]
                           ${
                             isActive
-                              ? "bg-white/30 backdrop-blur-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
+                              ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
                               : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
                           }
                         `}
+                        style={{
+                          backdropFilter: isActive
+                            ? "blur(24px) saturate(180%) contrast(120%) hue-rotate(5deg)"
+                            : undefined,
+                        }}
                       >
                         {/* Shimmer effect for active card */}
                         {isActive && (
