@@ -333,7 +333,7 @@ export default function Hero() {
                 })}
             </AnimatePresence>
           </div>
-          <div className="mt-8 flex flex-col items-center lg:items-start gap-4">
+          <div className="mt-8 flex flex-col items-center gap-4">
             <button
               type="button"
               onClick={() => {
