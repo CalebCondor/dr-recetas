@@ -193,7 +193,7 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
-          poster="/hero_landscape.png"
+          poster="/image.png"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
