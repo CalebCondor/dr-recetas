@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCart } from "@/context/cart-context";
 import { ShoppingCart } from "lucide-react";
@@ -58,19 +59,35 @@ const Shimmer = () => (
 );
 
 export default function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { cart, clearCart } = useCart();
 
+  // Nueva lógica para detectar si el fondo es claro u oscuro
+  const [isHeaderDark, setIsHeaderDark] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const scrollPos = window.scrollY;
+      setIsScrolled(scrollPos > 10);
+
+      // Si estamos en el home a menos de 100px, mantenemos el tema "white" para el hero
+      // En cualquier otra página o si bajamos mucho, usamos el tema oscuro (text-slate-700)
+      const isHomePage = pathname === "/";
+      if (!isHomePage) {
+        setIsHeaderDark(true);
+      } else {
+        setIsHeaderDark(scrollPos > 500); // Cambia después de pasar el Hero en Home
+      }
     };
+
+    handleScroll(); // Check inicial
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("dr_user");
@@ -102,10 +119,25 @@ export default function Header() {
     { label: "Membresías", id: "menbresias", href: "/membresias" },
   ];
 
+  // Definimos los colores basados en los estados
+  const textColor =
+    isScrolled || isHeaderDark
+      ? "text-slate-600 hover:text-[#0D4B4D]"
+      : "text-white/80 hover:text-white";
+  const logoSrc = isScrolled || isHeaderDark ? "/logo.png" : "/logo_white.png";
+  const buttonBg =
+    isScrolled || isHeaderDark
+      ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
+      : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30";
+  const iconColor =
+    isScrolled || isHeaderDark ? "text-[#0D4B4D]" : "text-white";
+
   return (
     <header
       className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${
-        isScrolled ? "bg-white/90 backdrop-blur-xl shadow-sm" : "bg-transparent"
+        isScrolled || isHeaderDark
+          ? "bg-white/90 backdrop-blur-xl shadow-sm"
+          : "bg-transparent"
       }`}
     >
       <div
@@ -115,7 +147,7 @@ export default function Header() {
       >
         <Link href="/" prefetch={true}>
           <Image
-            src={isScrolled ? "/logo.png" : "/logo_white.png"}
+            src={logoSrc}
             alt="Dr. Recetas"
             width={120}
             height={40}
@@ -130,11 +162,7 @@ export default function Header() {
             <Link
               key={href}
               href={href}
-              className={`font-semibold transition-colors text-sm ${
-                isScrolled
-                  ? "text-slate-500 hover:text-[#0D4B4D]"
-                  : "text-white/80 hover:text-white"
-              }`}
+              className={`font-semibold transition-colors text-sm ${textColor}`}
             >
               {label}
             </Link>
@@ -143,24 +171,18 @@ export default function Header() {
             {/* Cart Button Desktop */}
             <Link href="/carrito">
               <button
-                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${
-                  isScrolled
-                    ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
-                    : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30"
-                }`}
+                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${buttonBg}`}
               >
                 <Shimmer />
                 <div className="relative z-10">
                   <ShoppingCart
                     size={20}
-                    className={`${
-                      isScrolled ? "text-[#0D4B4D]" : "text-white"
-                    } group-hover:scale-110 transition-transform`}
+                    className={`${iconColor} group-hover:scale-110 transition-transform`}
                   />
                   {cart.length > 0 && (
                     <span
                       className={`absolute -top-2.5 -right-2.5 w-4.5 h-4.5 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 animate-in zoom-in-50 duration-300 ${
-                        isScrolled
+                        isScrolled || isHeaderDark
                           ? "bg-[#0D4B4D] border-white"
                           : "bg-[#0D4B4D] border-white/40"
                       }`}
@@ -175,23 +197,23 @@ export default function Header() {
               <DropdownMenu onOpenChange={setIsMenuOpen}>
                 <DropdownMenuTrigger asChild>
                   <button
-                    className={`relative overflow-hidden flex items-center gap-2 px-2.5 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 outline-none ${
-                      isScrolled
-                        ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
-                        : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30"
-                    }`}
+                    className={`relative overflow-hidden flex items-center gap-2 px-2.5 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 outline-none ${buttonBg}`}
                   >
                     <Shimmer />
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-inner relative z-10 ${
-                        isScrolled ? "bg-[#0D4B4D]" : "bg-white/20"
+                        isScrolled || isHeaderDark
+                          ? "bg-[#0D4B4D]"
+                          : "bg-white/20"
                       }`}
                     >
                       {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
                     <span
                       className={`text-xs font-bold hidden lg:block max-w-[100px] truncate relative z-10 ${
-                        isScrolled ? "text-slate-700" : "text-white"
+                        isScrolled || isHeaderDark
+                          ? "text-slate-700"
+                          : "text-white"
                       }`}
                     >
                       {user.us_nombres.split(" ")[0]}
@@ -199,7 +221,7 @@ export default function Header() {
                     <ChevronDown
                       className={`w-4 h-4 transition-transform duration-200 relative z-10 ${
                         isMenuOpen ? "rotate-180" : ""
-                      } ${isScrolled ? "text-slate-400" : "text-white/70"}`}
+                      } ${isScrolled || isHeaderDark ? "text-slate-400" : "text-white/70"}`}
                     />
                   </button>
                 </DropdownMenuTrigger>
@@ -260,7 +282,7 @@ export default function Header() {
               <LoginSheet>
                 <button
                   className={`relative overflow-hidden px-6 h-10 rounded-xl font-bold transition-all active:scale-95 text-xs backdrop-blur-md flex items-center justify-center ${
-                    isScrolled
+                    isScrolled || isHeaderDark
                       ? "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
                       : "bg-white/20 border border-white/30 text-white shadow-lg hover:bg-white/30"
                   }`}
@@ -277,22 +299,15 @@ export default function Header() {
           {/* Cart Button Mobile */}
           <Link href="/carrito">
             <button
-              className={`relative overflow-hidden w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all active:scale-95 ${
-                isScrolled
-                  ? "bg-white border border-slate-200 shadow-sm"
-                  : "bg-white/20 border border-white/30 shadow-lg"
-              }`}
+              className={`relative overflow-hidden w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all active:scale-95 ${buttonBg}`}
             >
               <Shimmer />
               <div className="relative z-10">
-                <ShoppingCart
-                  size={18}
-                  className={isScrolled ? "text-[#0D4B4D]" : "text-white"}
-                />
+                <ShoppingCart size={18} className={iconColor} />
                 {cart.length > 0 && (
                   <span
                     className={`absolute -top-1 -right-1 w-4 h-4 text-white text-[8px] font-bold rounded-full flex items-center justify-center border ${
-                      isScrolled
+                      isScrolled || isHeaderDark
                         ? "bg-[#0D4B4D] border-white"
                         : "bg-[#0D4B4D] border-white/40"
                     }`}
@@ -307,11 +322,7 @@ export default function Header() {
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <button
-                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 border ${
-                  isScrolled
-                    ? "bg-white border-slate-200 shadow-sm"
-                    : "bg-white/20 border-white/30 shadow-lg"
-                }`}
+                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 border ${buttonBg}`}
               >
                 <Shimmer />
                 <Image
@@ -320,7 +331,9 @@ export default function Header() {
                   width={20}
                   height={20}
                   className={`relative z-10 transition-all duration-300 ${
-                    isScrolled ? "" : "brightness-0 invert opacity-90"
+                    isScrolled || isHeaderDark
+                      ? ""
+                      : "brightness-0 invert opacity-90"
                   }`}
                 />
               </button>

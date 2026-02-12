@@ -96,7 +96,7 @@ export function ProductDetailClient({
                 className="space-y-6 max-h-none overflow-visible"
               >
                 <header className="space-y-4">
-                  <div className="flex items-center gap-2 text-[#0D4B4D]/40 font-black text-xs tracking-[0.2em] uppercase">
+                  <div className="flex items-center gap-2 text-[#0D4B4D]/40 font-black text-xs tracking-[0.2em] uppercase lg:mt-12">
                     <span>{product.category || "Servicio Digital"}</span>
                     <span className="w-1 h-1 rounded-full bg-teal-500/30" />
                     <span>Dr. Recetas</span>
