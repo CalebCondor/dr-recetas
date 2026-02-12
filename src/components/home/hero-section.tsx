@@ -188,20 +188,23 @@ export default function Hero() {
       className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
       {/* Video Background Container */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
+      <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+        <motion.video
           autoPlay
-          loop
           muted
           playsInline
-          className="w-full h-full object-cover scale-105" // slight scale to ensure coverage
+          poster="/hero_landscape.png"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.7) contrast(1.1)" }}
         >
           <source
             src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/video.mp4"
             type="video/mp4"
           />
-        </video>
+        </motion.video>
 
         {/* Green Tint Overlay Layer */}
         <div className="absolute inset-0 bg-[#0D4B4D]/45 mix-blend-multiply" />
@@ -333,7 +336,7 @@ export default function Hero() {
                 })}
             </AnimatePresence>
           </div>
-          <div className="mt-8 flex flex-col items-center lg:items-start gap-4">
+          <div className="mt-8 flex flex-col items-center gap-4">
             <button
               type="button"
               onClick={() => {
