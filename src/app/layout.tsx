@@ -93,6 +93,7 @@ import { ChatProvider } from "@/context/chat-context";
 import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { StructuredData } from "@/components/structured-data";
+import { GlobalPreloader } from "@/components/ui/global-preloader";
 
 export default function RootLayout({
   children,
@@ -120,6 +121,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
+        <GlobalPreloader />
         <ChatProvider>
           <CartProvider>
             <Header />
