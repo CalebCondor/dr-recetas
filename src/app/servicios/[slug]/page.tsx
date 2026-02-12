@@ -219,7 +219,7 @@ export default function ServicePage() {
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#E0F3F1]/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#EEF5F4]/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none" />
         <div className="relative mb-12">
-          <div className="container mx-auto px-6 text-center relative z-10 pt-12">
+          <div className="container mx-auto lg:mt-12 px-6 text-center relative z-10 pt-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
