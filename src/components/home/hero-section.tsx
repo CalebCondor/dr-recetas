@@ -202,7 +202,7 @@ export default function Hero() {
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
           <source
-            src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/video.mp4"
+            src="https://zdnqljsxqtptpauvowbq.supabase.co/storage/v1/object/public/Video/AZxSN_GS07Kk6cguiugclw-AZxSN_GSUb4LaTUPhiWP_g.mp4"
             type="video/mp4"
           />
         </motion.video>
