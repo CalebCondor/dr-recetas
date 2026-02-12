@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
-import { GlobalBackground } from "@/components/global-background";
-import { PagePrefetcher } from "@/components/page-prefetcher";
 
 const inter = Inter({
   variable: "--font-inter",
