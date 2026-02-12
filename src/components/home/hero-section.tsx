@@ -325,7 +325,7 @@ export default function Hero() {
                           </div>
                           <p
                             className={`
-                              text-sm md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
+                              text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
                               ${
                                 isActive
                                   ? "text-white scale-[1.02] translate-x-1"
