@@ -191,6 +191,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
         <motion.video
           autoPlay
+          loop
           muted
           playsInline
           poster="/image.png"
@@ -206,8 +207,8 @@ export default function Hero() {
           />
         </motion.video>
 
-        {/* Green Tint Overlay Layer - Reduced opacity */}
-        <div className="absolute inset-0 bg-[#0D4B4D]/28 mix-blend-multiply" />
+        {/* Green Tint Overlay Layer */}
+        <div className="absolute inset-0 bg-[#0D4B4D]/35 mix-blend-multiply" />
 
         {/* Gradient Overlay for depth and text legibility */}
         <div className="absolute inset-0 bg-linear-to-tr from-[#0D4B4D]/40 via-transparent to-black/20" />
