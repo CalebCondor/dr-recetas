@@ -49,10 +49,20 @@ const consultations = [
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const lastScrollTime = useRef(0);
   const COOLDOWN = 80;
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
+
+  // Play video manually to avoid browser autoplay message
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.log("Video autoplay prevented:", error);
+      });
+    }
+  }, []);
 
   // Auto-scroll effect at the beginning to show it's a carousel
   useEffect(() => {
@@ -175,7 +185,7 @@ export default function Hero() {
       {/* Video Background Container */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
         <video
-          autoPlay
+          ref={videoRef}
           muted
           playsInline
           poster="/image.png"
