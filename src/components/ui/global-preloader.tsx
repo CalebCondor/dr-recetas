@@ -7,11 +7,13 @@ export function GlobalPreloader() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // We wait for the window load event which ensures images and videos (metadata) are processed
-    // plus a small extra delay for a smooth "wow" transition
+    // Lock scroll on mount
+    document.documentElement.classList.add("loading-locked");
+
     const handleLoad = () => {
       setTimeout(() => {
         setIsLoading(false);
+        document.documentElement.classList.remove("loading-locked");
       }, 1200);
     };
 
@@ -19,7 +21,6 @@ export function GlobalPreloader() {
       handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
-      // Fallback if load takes too long
       const fallback = setTimeout(handleLoad, 4000);
       return () => {
         window.removeEventListener("load", handleLoad);
@@ -37,7 +38,8 @@ export function GlobalPreloader() {
             opacity: 0,
             transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] },
           }}
-          className="fixed inset-0 z-10000 flex flex-col items-center justify-center bg-[#0D1117] pointer-events-auto"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#0D1117] pointer-events-auto"
+          id="global-preloader"
         >
           <div className="relative flex flex-col items-center">
             {/* Logo Animation */}

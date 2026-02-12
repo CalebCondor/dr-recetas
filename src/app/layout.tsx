@@ -114,6 +114,26 @@ export default function RootLayout({
                 history.replaceState(null, '', window.location.pathname + window.location.search);
               }
               window.scrollTo(0, 0);
+              document.documentElement.classList.add('loading-locked');
+            `,
+          }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html.loading-locked {
+                overflow: hidden !important;
+                height: 100vh !important;
+              }
+              html.loading-locked body > *:not(#global-preloader) {
+                opacity: 0 !important;
+                pointer-events: none !important;
+                visibility: hidden !important;
+              }
+              #global-preloader {
+                opacity: 1 !important;
+                visibility: visible !important;
+              }
             `,
           }}
         />
