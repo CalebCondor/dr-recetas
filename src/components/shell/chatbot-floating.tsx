@@ -13,25 +13,36 @@ export function ChatbotFloating() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Hide button if ChatbotSection is in view
+  // Hide button if Hero or ChatbotSection is in view
   useEffect(() => {
+    // Keep track of which sections are currently intersecting
+    const intersectingSections = new Set<string>();
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        // If the chatbot section is intersecting, hide the floating button
-        setIsVisible(!entry.isIntersecting);
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            intersectingSections.add(entry.target.id);
+          } else {
+            intersectingSections.delete(entry.target.id);
+          }
+        });
+
+        // Hide if either "hero" or "chatbot" section is visible
+        setIsVisible(intersectingSections.size === 0);
       },
-      { threshold: 0.1 }, // Trigger when at least 10% is visible
+      { threshold: 0.1 },
     );
 
     const chatbotElement = document.getElementById("chatbot");
-    if (chatbotElement) {
-      observer.observe(chatbotElement);
-    }
+    const heroElement = document.getElementById("hero");
+
+    if (chatbotElement) observer.observe(chatbotElement);
+    if (heroElement) observer.observe(heroElement);
 
     return () => {
-      if (chatbotElement) {
-        observer.unobserve(chatbotElement);
-      }
+      if (chatbotElement) observer.unobserve(chatbotElement);
+      if (heroElement) observer.unobserve(heroElement);
     };
   }, []);
 

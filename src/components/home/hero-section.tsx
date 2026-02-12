@@ -3,13 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Plus,
   FileText,
   Pill,
   Stethoscope,
   Calendar,
   Microscope,
   TestTube2,
+  ArrowDown,
 } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 
@@ -67,6 +67,21 @@ export default function Hero() {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  // Auto-scroll effect at the beginning to show it's a carousel
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setActiveIndex((prev) => {
+          if (prev < 3) return prev + 1; // Show first 4 items
+          clearInterval(interval);
+          return prev;
+        });
+      }, 3000);
+      return () => clearInterval(interval);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   const activeIndexRef = useRef(activeIndex);
@@ -168,6 +183,7 @@ export default function Hero() {
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
   return (
     <section
+      id="hero"
       ref={containerRef}
       className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
@@ -182,7 +198,7 @@ export default function Hero() {
           style={{ filter: "brightness(0.7) contrast(1.1)" }}
         >
           <source
-            src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/1116105_Woman_Home_1280x720%20(1).mp4"
+            src="https://uhvepmmlzjoynrldkeje.supabase.co/storage/v1/object/public/DR%20RECETAS/video.mp4"
             type="video/mp4"
           />
         </video>
@@ -197,7 +213,7 @@ export default function Hero() {
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         <div className="flex-1 w-full max-w-4xl sm:mt-10">
-          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-8 lg:mb-10 tracking-tight text-balance drop-shadow-sm">
+          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-4 lg:mb-10 tracking-tight text-balance drop-shadow-sm">
             Consigue una
             <br />
             <span className="text-[#95D5B2]">
@@ -267,8 +283,8 @@ export default function Hero() {
                           transition-all duration-500 flex flex-col justify-center min-h-[70px]
                           ${
                             isActive
-                              ? "bg-white/20 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] ring-1 ring-white/40 border-t border-l border-white/50"
-                              : "bg-white/10 backdrop-blur-md shadow-sm border border-white/10 hover:bg-white/20"
+                              ? "bg-white/30 backdrop-blur-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
+                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
                           }
                         `}
                       >
@@ -279,19 +295,19 @@ export default function Hero() {
                             animate={{ x: "200%" }}
                             transition={{
                               repeat: Infinity,
-                              duration: 2,
+                              duration: 4, // Slower shimmer
                               ease: "linear",
                             }}
                             className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
                           />
                         )}
-                        <div className="relative z-10 flex items-center gap-3 md:gap-4">
+                        <div className="relative z-10 flex items-center gap-4">
                           <div
                             className={`
                               shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
                               ${
                                 isActive
-                                  ? "bg-white/20 text-white shadow-inner"
+                                  ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
                                   : "bg-white/5 text-white/70"
                               }
                             `}
@@ -300,8 +316,12 @@ export default function Hero() {
                           </div>
                           <p
                             className={`
-                              text-sm md:text-base lg:text-lg font-bold text-left tracking-tight transition-colors duration-500 line-clamp-2
-                              ${isActive ? "text-white" : "text-white/80"}
+                              text-sm md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
+                              ${
+                                isActive
+                                  ? "text-white scale-[1.02] translate-x-1"
+                                  : "text-white/90"
+                              }
                             `}
                           >
                             {item.name}
@@ -313,10 +333,7 @@ export default function Hero() {
                 })}
             </AnimatePresence>
           </div>
-          <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
-            <span className="text-white/90 font-semibold text-lg lg:text-xl drop-shadow-sm">
-              Otras consultas
-            </span>
+          <div className="mt-8 flex flex-col items-center lg:items-start gap-4">
             <button
               type="button"
               onClick={() => {
@@ -325,9 +342,22 @@ export default function Hero() {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/20 backdrop-blur-md text-white transition-all shadow-lg border border-white/30 hover:scale-105 active:scale-95 hover:bg-white/30 group"
+              className="group flex flex-col items-center gap-3"
             >
-              <Plus className="w-6 h-6 lg:w-8 lg:h-8 group-hover:rotate-90 transition-transform duration-300" />
+              <span className="text-white/90 font-bold text-sm lg:text-base tracking-[0.2em] uppercase drop-shadow-md group-hover:text-white transition-colors">
+                Explorar Servicios
+              </span>
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/20 backdrop-blur-xl text-white shadow-2xl border border-white/40 group-hover:bg-white/30 group-hover:scale-110 transition-all active:scale-95"
+              >
+                <ArrowDown className="w-6 h-6 lg:w-7 lg:h-7 group-hover:brightness-125 transition-all" />
+              </motion.div>
             </button>
           </div>
         </div>
