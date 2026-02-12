@@ -128,7 +128,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <section
       id="servicios"
-      className="w-full py-12 md:py-24 relative bg-transparent z-10"
+      className="w-full py-12 md:py-24 relative bg-transparent z-10 scroll-mt-20 md:scroll-mt-32"
     >
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         <div className="mb-12 text-left">

@@ -342,7 +342,13 @@ export default function Hero() {
               onClick={() => {
                 const el = document.getElementById("servicios");
                 if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
+                  const headerOffset = window.innerWidth < 768 ? 90 : 120;
+                  const elementPosition =
+                    el.getBoundingClientRect().top + window.pageYOffset;
+                  window.scrollTo({
+                    top: elementPosition - headerOffset,
+                    behavior: "smooth",
+                  });
                 }
               }}
               className="group flex flex-col items-center gap-3"
@@ -357,7 +363,7 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-xl text-white shadow-2xl border border-white/20 group-hover:bg-white/10 group-hover:scale-110 transition-all active:scale-95"
+                className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-white/20 backdrop-blur-xl text-white shadow-lg border border-white/20 group-hover:bg-white/30 group-hover:scale-110 transition-all active:scale-95"
               >
                 <ArrowDown className="w-6 h-6 lg:w-7 lg:h-7 group-hover:brightness-125 transition-all" />
               </motion.div>
