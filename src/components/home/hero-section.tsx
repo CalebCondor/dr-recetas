@@ -78,9 +78,9 @@ export default function Hero() {
           clearInterval(interval);
           return prev;
         });
-      }, 3000);
+      }, 1500);
       return () => clearInterval(interval);
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -260,7 +260,7 @@ export default function Hero() {
                         y: localIndex * ITEM_HEIGHT + 20,
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.6,
+                        opacity: isActive ? 1 : 0.75,
                         y: localIndex * ITEM_HEIGHT,
                         scale: isActive ? 1.02 : 1,
                         zIndex: 100 - distance,
@@ -308,7 +308,7 @@ export default function Hero() {
                               ${
                                 isActive
                                   ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
-                                  : "bg-white/5 text-white/70"
+                                  : "bg-white/10 text-white/90"
                               }
                             `}
                           >
@@ -320,7 +320,7 @@ export default function Hero() {
                               ${
                                 isActive
                                   ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white/90"
+                                  : "text-white"
                               }
                             `}
                           >
@@ -354,7 +354,7 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/20 backdrop-blur-xl text-white shadow-2xl border border-white/40 group-hover:bg-white/30 group-hover:scale-110 transition-all active:scale-95"
+                className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-xl text-white shadow-2xl border border-white/20 group-hover:bg-white/10 group-hover:scale-110 transition-all active:scale-95"
               >
                 <ArrowDown className="w-6 h-6 lg:w-7 lg:h-7 group-hover:brightness-125 transition-all" />
               </motion.div>
