@@ -5,29 +5,40 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function GlobalPreloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Lock scroll on mount
+    // Marcamos como montado para permitir la hidratación del cliente sin renders en cascada síncronos
+    const mountTimeout = setTimeout(() => setIsMounted(true), 0);
+
+    // Al montar (en cada F5), bloqueamos el scroll y activamos la lógica de carga
     document.documentElement.classList.add("loading-locked");
 
     const handleLoad = () => {
       setTimeout(() => {
         setIsLoading(false);
         document.documentElement.classList.remove("loading-locked");
-      }, 1200);
+      }, 1000);
     };
+
+    let fallbackTimeout: ReturnType<typeof setTimeout> | undefined;
 
     if (document.readyState === "complete") {
       handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
-      const fallback = setTimeout(handleLoad, 4000);
-      return () => {
-        window.removeEventListener("load", handleLoad);
-        clearTimeout(fallback);
-      };
+      fallbackTimeout = setTimeout(handleLoad, 4000);
     }
+
+    return () => {
+      clearTimeout(mountTimeout);
+      window.removeEventListener("load", handleLoad);
+      if (fallbackTimeout) clearTimeout(fallbackTimeout);
+    };
   }, []);
+
+  // No renderizar en el servidor para evitar discrepancias de hidratación
+  if (!isMounted) return null;
 
   return (
     <AnimatePresence>

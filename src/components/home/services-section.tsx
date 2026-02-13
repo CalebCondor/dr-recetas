@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
+import Link from "next/link";
 import Image from "next/image";
 
 interface Service {
@@ -73,7 +74,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
     const isTall = index < 3 || forceDescription;
 
     return (
-      <a
+      <Link
         href={service.href}
         className={cn(
           color.bg,
@@ -121,7 +122,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
             className="w-full h-full object-contain object-bottom-right transform transition-transform duration-500 group-hover:scale-105"
           />
         </div>
-      </a>
+      </Link>
     );
   };
 
