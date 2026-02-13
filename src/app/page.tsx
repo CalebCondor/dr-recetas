@@ -59,19 +59,21 @@ export default async function Home() {
   }));
   return (
     <>
-      <div className="relative overflow-hidden">
-        {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
+      <PageWrapper>
+        <div className="relative overflow-hidden">
+          {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
 
-        <Hero />
-        <ServicesSection services={services} />
-      </div>
+          <Hero />
+          <ServicesSection services={services} />
+        </div>
 
-      <ChatbotSection />
-      <WhyChooseUs />
-      <HowItWorks />
-      <FAQSection />
-      <TestimonialsSection />
-      <BenefitsSection />
+        <ChatbotSection />
+        <WhyChooseUs />
+        <HowItWorks />
+        <FAQSection />
+        <TestimonialsSection />
+        <BenefitsSection />
+      </PageWrapper>
     </>
   );
 }
