@@ -53,13 +53,38 @@ export default function Hero() {
   const COOLDOWN = 80;
 
   const [isHeroVisible, setIsHeroVisible] = useState(false);
+  const isHeroVisibleRef = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+        isHeroVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.1 },
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   // Auto-scroll effect at the beginning to show it's a carousel
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
         setActiveIndex((prev) => {
-          if (prev < 3) return prev + 1; // Show first 4 items
+          if (prev < 3) {
+            const next = prev + 1;
+            activeIndexRef.current = next;
+            return next;
+          }
           clearInterval(interval);
           return prev;
         });
@@ -77,10 +102,10 @@ export default function Hero() {
   }, [activeIndex]);
 
   useEffect(() => {
-    if (!isHeroVisible) return;
-
     const handleWheel = (e: WheelEvent) => {
-      const now = Date.now();
+      // Use the ref for visibility to ensure we have the latest state in the listener
+      if (!isHeroVisibleRef.current) return;
+
       const currentActiveIndex = activeIndexRef.current;
       const isScrollDown = e.deltaY > 0;
       const isScrollUp = e.deltaY < 0;
@@ -88,17 +113,28 @@ export default function Hero() {
       const isAtEnd = currentActiveIndex >= consultations.length - 1;
       const isAtStart = currentActiveIndex === 0;
 
-      if ((isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart)) {
+      // Decide if we should block the page scroll
+      const shouldHijack =
+        (isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart);
+
+      if (shouldHijack) {
         if (e.cancelable) e.preventDefault();
 
-        if (
-          now - lastScrollTime.current > COOLDOWN &&
-          Math.abs(e.deltaY) > 15
-        ) {
+        const now = Date.now();
+        // Lower threshold for better sensitivity
+        if (now - lastScrollTime.current > 120 && Math.abs(e.deltaY) > 5) {
           if (isScrollDown && !isAtEnd) {
-            setActiveIndex((prev) => prev + 1);
+            setActiveIndex((prev) => {
+              const next = Math.min(prev + 1, consultations.length - 1);
+              activeIndexRef.current = next;
+              return next;
+            });
           } else if (isScrollUp && !isAtStart) {
-            setActiveIndex((prev) => prev - 1);
+            setActiveIndex((prev) => {
+              const next = Math.max(prev - 1, 0);
+              activeIndexRef.current = next;
+              return next;
+            });
           }
           lastScrollTime.current = now;
         }
@@ -110,6 +146,8 @@ export default function Hero() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (!isHeroVisibleRef.current) return;
+
       const now = Date.now();
       const touchEnd = e.touches[0].clientY;
       const delta = touchStartRef.current - touchEnd;
@@ -122,23 +160,33 @@ export default function Hero() {
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
 
-      // Only block if we are actually navigating the list
-      if ((isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart)) {
-        if (e.cancelable && e.type === "touchmove") {
+      const shouldHijack =
+        (isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart);
+
+      if (shouldHijack) {
+        if (e.cancelable) {
           e.preventDefault();
         }
 
-        const THRESHOLD = 30;
-        const MOBILE_COOLDOWN = 100;
+        const THRESHOLD = 20;
+        const MOBILE_COOLDOWN = 120;
 
         if (
           now - lastScrollTime.current > MOBILE_COOLDOWN &&
           absDelta > THRESHOLD
         ) {
           if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) => prev + 1);
+            setActiveIndex((prev) => {
+              const next = Math.min(prev + 1, consultations.length - 1);
+              activeIndexRef.current = next;
+              return next;
+            });
           } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => prev - 1);
+            setActiveIndex((prev) => {
+              const next = Math.max(prev - 1, 0);
+              activeIndexRef.current = next;
+              return next;
+            });
           }
 
           touchStartRef.current = touchEnd;
@@ -156,7 +204,7 @@ export default function Hero() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [isHeroVisible]);
+  }, []);
 
   const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(
