@@ -48,6 +48,7 @@ const consultations = [
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
 
@@ -192,22 +193,27 @@ export default function Hero() {
       className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
       {/* Video Background Container */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
+        <img
+          src="/image_fondo.png"
+          alt=""
+          className="w-full h-full object-cover scale-105"
+          style={{ filter: "brightness(0.80) contrast(1.15)" }}
+        />
         <video
           autoPlay
           muted
           playsInline
-          poster="/image_fondo.png"
-          className="w-full h-full object-cover scale-105"
+          onPlaying={() => setVideoReady(true)}
+          className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
           <source src="/video_fondo.mp4" type="video/mp4" />
         </video>
-
-        {/* Green Tint Overlay Layer */}
+        {/* Overlays - Se mantienen igual pero ayudan a suavizar la carga */}
         <div className="absolute inset-0 bg-[#0D4B4D]/35 mix-blend-multiply" />
-
-        {/* Gradient Overlay for depth and text legibility */}
         <div className="absolute inset-0 bg-linear-to-tr from-[#0D4B4D]/40 via-transparent to-black/20" />
         <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-white/5" />
       </div>
