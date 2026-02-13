@@ -93,8 +93,6 @@ import { ChatProvider } from "@/context/chat-context";
 import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { StructuredData } from "@/components/structured-data";
-import { GlobalPreloader } from "@/components/ui/global-preloader";
-
 import { AuthProvider } from "@/context/auth-context";
 
 export default function RootLayout({
@@ -106,44 +104,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <StructuredData />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-              }
-              if (window.location.hash) {
-                history.replaceState(null, '', window.location.pathname + window.location.search);
-              }
-              window.scrollTo(0, 0);
-              document.documentElement.classList.add('loading-locked');
-            `,
-          }}
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              html.loading-locked {
-                overflow: hidden !important;
-                height: 100vh !important;
-              }
-              html.loading-locked body > *:not(#global-preloader) {
-                opacity: 0 !important;
-                pointer-events: none !important;
-                visibility: hidden !important;
-              }
-              #global-preloader {
-                opacity: 1 !important;
-                visibility: visible !important;
-              }
-            `,
-          }}
-        />
       </head>
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
-        <GlobalPreloader />
         <AuthProvider>
           <ChatProvider>
             <CartProvider>
