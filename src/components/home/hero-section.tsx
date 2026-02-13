@@ -48,7 +48,6 @@ const consultations = [
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [userInteracted, setUserInteracted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
@@ -74,28 +73,17 @@ export default function Hero() {
     };
   }, []);
 
-  // Auto-scroll effect at the beginning to show it's a carousel
+  // Infinite auto-scroll effect
   useEffect(() => {
-    // If user interacts, stop the auto-scroll
-    if (userInteracted) return;
-
+    // If hero is not visible, don't run the timer to save resources
     const timer = setTimeout(() => {
-      const interval = setInterval(() => {
-        setActiveIndex((prev) => {
-          if (prev < 3) {
-            return prev + 1;
-          }
-          clearInterval(interval);
-          return prev;
-        });
-      }, 1500);
-      return () => clearInterval(interval);
-    }, 1000);
+      setActiveIndex((prev) => (prev + 1) % consultations.length);
+    }, 1500); // 3 seconds per item
+
     return () => clearTimeout(timer);
-  }, [userInteracted]);
+  }, [activeIndex]); // Re-run when index changes (either auto or manual)
 
   const handleInteraction = (index: number) => {
-    setUserInteracted(true);
     setActiveIndex(index);
   };
 
