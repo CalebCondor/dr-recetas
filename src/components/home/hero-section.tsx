@@ -11,6 +11,7 @@ import {
   TestTube2,
   ArrowDown,
 } from "lucide-react";
+import Link from "next/link";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 
 const consultations = [
@@ -18,31 +19,37 @@ const consultations = [
     id: 1,
     name: "Certificado Médico",
     icon: FileText,
+    href: "/servicios/citas-medicas/certificado-mdico-26",
   },
   {
     id: 2,
     name: 'Receta de medicamentos o "Refill"',
     icon: Pill,
+    href: "/servicios/lab/receta-de-medicamentos-o-refill-25",
   },
   {
     id: 3,
     name: "Evaluación médica inmediata",
     icon: Stethoscope,
+    href: "/servicios/citas-medicas/evaluacin-mdica-inmediata-38",
   },
   {
     id: 4,
     name: "Cita de Seguimiento",
     icon: Calendar,
+    href: "/servicios/citas-medicas/cita-de-seguimiento-31",
   },
   {
     id: 5,
     name: "Prueba de Influenza A y B",
     icon: Microscope,
+    href: "/servicios/lab/prueba-de-influenza-a-y-b-14",
   },
   {
     id: 6,
     name: "CBC + DIFF Lab",
     icon: TestTube2,
+    href: "/servicios/otros/cbc-diff-lab-45",
   },
 ];
 
@@ -194,63 +201,65 @@ export default function Hero() {
                       className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity]"
                       onClick={() => handleInteraction(globalIndex)}
                     >
-                      <div
-                        className={`
-                          relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
-                          transition-all duration-500 flex flex-col justify-center min-h-[70px]
-                          font-helvetica
-                          ${
-                            isActive
-                              ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
-                          }
-                        `}
-                        style={{
-                          backdropFilter: isActive
-                            ? "blur(24px) saturate(180%) contrast(120%) hue-rotate(5deg)"
-                            : undefined,
-                        }}
-                      >
-                        {/* Shimmer effect for active card */}
-                        {isActive && (
-                          <motion.div
-                            initial={{ x: "-100%" }}
-                            animate={{ x: "200%" }}
-                            transition={{
-                              repeat: Infinity,
-                              duration: 4, // Slower shimmer
-                              ease: "linear",
-                            }}
-                            className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
-                          />
-                        )}
-                        <div className="relative z-10 flex items-center gap-4">
-                          <div
-                            className={`
-                              shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
-                              ${
-                                isActive
-                                  ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
-                                  : "bg-white/10 text-white/90"
-                              }
-                            `}
-                          >
-                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                      <Link href={item.href} className="block w-full">
+                        <div
+                          className={`
+                            relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
+                            transition-all duration-500 flex flex-col justify-center min-h-[70px]
+                            font-helvetica
+                            ${
+                              isActive
+                                ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
+                                : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
+                            }
+                          `}
+                          style={{
+                            backdropFilter: isActive
+                              ? "blur(24px) saturate(180%) contrast(120%) hue-rotate(5deg)"
+                              : undefined,
+                          }}
+                        >
+                          {/* Shimmer effect for active card */}
+                          {isActive && (
+                            <motion.div
+                              initial={{ x: "-100%" }}
+                              animate={{ x: "200%" }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 4, // Slower shimmer
+                                ease: "linear",
+                              }}
+                              className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
+                            />
+                          )}
+                          <div className="relative z-10 flex items-center gap-4">
+                            <div
+                              className={`
+                                shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
+                                ${
+                                  isActive
+                                    ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
+                                    : "bg-white/10 text-white/90"
+                                }
+                              `}
+                            >
+                              <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                            </div>
+                            <p
+                              className={`
+                                text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
+                                ${
+                                  isActive
+                                    ? "text-white scale-[1.02] translate-x-1"
+                                    : "text-white"
+                                }
+                              `}
+                            >
+                              {item.name}
+                            </p>
                           </div>
-                          <p
-                            className={`
-                              text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
-                              ${
-                                isActive
-                                  ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white"
-                              }
-                            `}
-                          >
-                            {item.name}
-                          </p>
                         </div>
-                      </div>
+                      </Link>
                     </motion.div>
                   );
                 })}
