@@ -195,7 +195,7 @@ export default function Hero() {
       {/* Video Background Container */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
         <img
-          src="/image_fondo.png"
+          src="/image_fondo.jpeg"
           alt=""
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
