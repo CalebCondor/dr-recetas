@@ -8,7 +8,8 @@ export function GlobalPreloader() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // Marcamos como montado para permitir la hidratación del cliente sin renders en cascada síncronos
+    const mountTimeout = setTimeout(() => setIsMounted(true), 0);
 
     // Al montar (en cada F5), bloqueamos el scroll y activamos la lógica de carga
     document.documentElement.classList.add("loading-locked");
@@ -20,16 +21,20 @@ export function GlobalPreloader() {
       }, 1000);
     };
 
+    let fallbackTimeout: ReturnType<typeof setTimeout> | undefined;
+
     if (document.readyState === "complete") {
       handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
-      const fallback = setTimeout(handleLoad, 4000);
-      return () => {
-        window.removeEventListener("load", handleLoad);
-        clearTimeout(fallback);
-      };
+      fallbackTimeout = setTimeout(handleLoad, 4000);
     }
+
+    return () => {
+      clearTimeout(mountTimeout);
+      window.removeEventListener("load", handleLoad);
+      if (fallbackTimeout) clearTimeout(fallbackTimeout);
+    };
   }, []);
 
   // No renderizar en el servidor para evitar discrepancias de hidratación
