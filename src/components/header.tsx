@@ -171,9 +171,11 @@ export default function Header() {
             {/* Cart Button Desktop */}
             <Link href="/carrito">
               <button
-                className={`relative overflow-hidden flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${buttonBg}`}
+                className={`relative flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${buttonBg}`}
               >
-                <Shimmer />
+                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                  <Shimmer />
+                </div>
                 <div className="relative z-10">
                   <ShoppingCart
                     size={20}
@@ -299,9 +301,11 @@ export default function Header() {
           {/* Cart Button Mobile */}
           <Link href="/carrito">
             <button
-              className={`relative overflow-hidden w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all active:scale-95 ${buttonBg}`}
+              className={`relative w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all active:scale-95 ${buttonBg}`}
             >
-              <Shimmer />
+              <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <Shimmer />
+              </div>
               <div className="relative z-10">
                 <ShoppingCart size={18} className={iconColor} />
                 {cart.length > 0 && (
