@@ -197,7 +197,7 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
-          poster="/image.png"
+          poster="/image_fondo.png"
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
