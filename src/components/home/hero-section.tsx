@@ -201,7 +201,7 @@ export default function Hero() {
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
-          <source src="/video.mp4" type="video/mp4" />
+          <source src="/video_fondo.mp4" type="video/mp4" />
         </video>
 
         {/* Green Tint Overlay Layer */}
