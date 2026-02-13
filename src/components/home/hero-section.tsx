@@ -50,28 +50,25 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
-  const COOLDOWN = 80;
 
-  const [isHeroVisible, setIsHeroVisible] = useState(false);
   const isHeroVisibleRef = useRef(false);
+  const touchStartRef = useRef(0);
 
   useEffect(() => {
+    const currentContainer = containerRef.current;
+    if (!currentContainer) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsHeroVisible(entry.isIntersecting);
         isHeroVisibleRef.current = entry.isIntersecting;
       },
       { threshold: 0.1 },
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    observer.observe(currentContainer);
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
+      observer.unobserve(currentContainer);
     };
   }, []);
 
@@ -81,9 +78,7 @@ export default function Hero() {
       const interval = setInterval(() => {
         setActiveIndex((prev) => {
           if (prev < 3) {
-            const next = prev + 1;
-            activeIndexRef.current = next;
-            return next;
+            return prev + 1;
           }
           clearInterval(interval);
           return prev;
@@ -94,26 +89,16 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
-  const activeIndexRef = useRef(activeIndex);
-  const touchStartRef = useRef(0);
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      // Use the ref for visibility to ensure we have the latest state in the listener
       if (!isHeroVisibleRef.current) return;
 
-      const currentActiveIndex = activeIndexRef.current;
       const isScrollDown = e.deltaY > 0;
       const isScrollUp = e.deltaY < 0;
 
-      const isAtEnd = currentActiveIndex >= consultations.length - 1;
-      const isAtStart = currentActiveIndex === 0;
+      const isAtEnd = activeIndex >= consultations.length - 1;
+      const isAtStart = activeIndex === 0;
 
-      // Decide if we should block the page scroll
       const shouldHijack =
         (isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart);
 
@@ -121,20 +106,13 @@ export default function Hero() {
         if (e.cancelable) e.preventDefault();
 
         const now = Date.now();
-        // Lower threshold for better sensitivity
         if (now - lastScrollTime.current > 120 && Math.abs(e.deltaY) > 5) {
           if (isScrollDown && !isAtEnd) {
-            setActiveIndex((prev) => {
-              const next = Math.min(prev + 1, consultations.length - 1);
-              activeIndexRef.current = next;
-              return next;
-            });
+            setActiveIndex((prev) =>
+              Math.min(prev + 1, consultations.length - 1),
+            );
           } else if (isScrollUp && !isAtStart) {
-            setActiveIndex((prev) => {
-              const next = Math.max(prev - 1, 0);
-              activeIndexRef.current = next;
-              return next;
-            });
+            setActiveIndex((prev) => Math.max(prev - 1, 0));
           }
           lastScrollTime.current = now;
         }
@@ -152,10 +130,9 @@ export default function Hero() {
       const touchEnd = e.touches[0].clientY;
       const delta = touchStartRef.current - touchEnd;
       const absDelta = Math.abs(delta);
-      const currentActiveIndex = activeIndexRef.current;
 
-      const isAtEnd = currentActiveIndex >= consultations.length - 1;
-      const isAtStart = currentActiveIndex === 0;
+      const isAtEnd = activeIndex >= consultations.length - 1;
+      const isAtStart = activeIndex === 0;
 
       const isMovingDown = delta > 0;
       const isMovingUp = delta < 0;
@@ -176,17 +153,11 @@ export default function Hero() {
           absDelta > THRESHOLD
         ) {
           if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) => {
-              const next = Math.min(prev + 1, consultations.length - 1);
-              activeIndexRef.current = next;
-              return next;
-            });
+            setActiveIndex((prev) =>
+              Math.min(prev + 1, consultations.length - 1),
+            );
           } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => {
-              const next = Math.max(prev - 1, 0);
-              activeIndexRef.current = next;
-              return next;
-            });
+            setActiveIndex((prev) => Math.max(prev - 1, 0));
           }
 
           touchStartRef.current = touchEnd;
@@ -204,7 +175,7 @@ export default function Hero() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, []);
+  }, [activeIndex]);
 
   const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(

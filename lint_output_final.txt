@@ -1,0 +1,50 @@
+$ eslint
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\app\(otros)\carrito\page.tsx
+  19:40  warning  'clearCart' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\app\(otros)\procesar-pago\page.tsx
+  88:18  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\cart\payment-form.tsx
+  248:16  warning  'parseErr' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\cart\personal-info-form.tsx
+    3:3   warning  'RiUpload2Line' is defined but never used                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+    6:3   warning  'RiCheckLine' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+    7:3   warning  'RiFileImageLine' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+    8:3   warning  'RiFilePdf2Line' is defined but never used                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   59:23  warning  'setPreviewMode' is assigned a value but never used                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  371:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  385:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  653:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  664:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\footer.tsx
+  37:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\login-sheet.tsx
+  61:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\profile\profile-info-form.tsx
+  283:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  300:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\profile\profile-transaction-list.tsx
+   6:3  warning  'RiCalendarLine' is defined but never used       @typescript-eslint/no-unused-vars
+  12:3  warning  'RiSecurePaymentLine' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\servicios\product-detail-client.tsx
+  43:3  warning  'categorySlug' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\ui\background-gradient-animation.tsx
+  3:29  warning  'useState' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\ui\combobox.tsx
+  277:3  warning  'children' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\DR_RECETAS_CLONE\dr-recetas\src\components\ui\select.tsx
+  7:38  warning  'ChevronUpIcon' is defined but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 22 problems (0 errors, 22 warnings)
+

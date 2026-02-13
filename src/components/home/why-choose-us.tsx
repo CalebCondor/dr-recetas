@@ -9,7 +9,6 @@ import {
 import Image from "next/image";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 
 const faqs = [
@@ -28,20 +27,7 @@ const faqs = [
 ];
 
 function WhyChooseUsContent() {
-  const [isInteractive, setIsInteractive] = useState(true);
   const isMounted = useIsMounted();
-
-  useEffect(() => {
-    // Disable interactive mode on mobile for better performance
-    const checkMobile = () => {
-      setIsInteractive(window.innerWidth >= 1024);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
     <section
       className="relative py-20 lg:py-32"

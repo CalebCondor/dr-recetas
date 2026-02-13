@@ -4,16 +4,31 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function GlobalPreloader() {
-  const [isLoading, setIsLoading] = useState(true);
+  // Use a lazy initializer for state – this runs only on the first client-side mount.
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("has-loaded-before");
+    }
+    return true; // Default to true for SSR consistency
+  });
 
   useEffect(() => {
-    // Lock scroll on mount
+    // Check if it has already loaded in this session
+    const hasLoadedBefore = sessionStorage.getItem("has-loaded-before");
+
+    if (hasLoadedBefore) {
+      document.documentElement.classList.remove("loading-locked");
+      return;
+    }
+
+    // Lock scroll if we are loading
     document.documentElement.classList.add("loading-locked");
 
     const handleLoad = () => {
       setTimeout(() => {
         setIsLoading(false);
         document.documentElement.classList.remove("loading-locked");
+        sessionStorage.setItem("has-loaded-before", "true");
       }, 1200);
     };
 
