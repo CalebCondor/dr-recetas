@@ -193,7 +193,7 @@ export default function Hero() {
       className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
       {/* Video Background Container */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
         <img
           src="/image_fondo.jpeg"
           alt=""
@@ -346,7 +346,7 @@ export default function Hero() {
                 })}
             </AnimatePresence>
           </div>
-          <div className="mt-8 flex flex-col items-center gap-4">
+          <div className="pt-10 flex flex-col items-center gap-4">
             <button
               type="button"
               onClick={() => {
@@ -363,7 +363,7 @@ export default function Hero() {
               }}
               className="group flex flex-col items-center gap-3"
             >
-              <span className="text-white/90 font-bold text-sm lg:text-base tracking-[0.2em] uppercase drop-shadow-md group-hover:text-white transition-colors">
+              <span className="text-white/90 font-bold text-sm lg:text-base tracking-[0.2em] drop-shadow-md group-hover:text-white transition-colors">
                 Explorar Servicios
               </span>
               <motion.div
