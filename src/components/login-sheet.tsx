@@ -16,11 +16,14 @@ import Image from "next/image";
 import { RegisterFormContent } from "./register-form-content";
 import { RecoveryFormContent } from "./recovery-form-content";
 
+import { useAuth } from "@/context/auth-context";
+
 interface LoginSheetProps {
   children: React.ReactNode;
 }
 
 export function LoginSheet({ children }: LoginSheetProps) {
+  const { login } = useAuth();
   const [view, setView] = React.useState<"login" | "register" | "recovery">(
     "login",
   );
@@ -49,16 +52,15 @@ export function LoginSheet({ children }: LoginSheetProps) {
       const data = await response.json();
 
       if (data.success) {
-        // Guardar sesión
-        localStorage.setItem("dr_token", data.data.token);
-        localStorage.setItem("dr_user", JSON.stringify(data.data));
+        // Usar la función login del AuthContext para sincronizar el estado global
+        login(data.data, data.data.token);
 
-        // Recargar para aplicar cambios de sesión
+        // Opcional: Recargar si hay lógica pesada en el lado del servidor/layout
         window.location.reload();
       } else {
         setError(data.message || "Error al iniciar sesión");
       }
-    } catch (err) {
+    } catch {
       setError("Ocurrió un error inesperado al intentar iniciar sesión");
     } finally {
       setIsLoading(false);

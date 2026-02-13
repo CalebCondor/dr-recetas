@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export function GlobalPreloader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,10 +16,11 @@ export function GlobalPreloader() {
     document.documentElement.classList.add("loading-locked");
 
     const handleLoad = () => {
+      // Reducimos un poco el tiempo artificial para que se sienta más rápido pero aún elegante
       setTimeout(() => {
         setIsLoading(false);
         document.documentElement.classList.remove("loading-locked");
-      }, 1000);
+      }, 700);
     };
 
     let fallbackTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -37,29 +39,36 @@ export function GlobalPreloader() {
     };
   }, []);
 
-  // No renderizar en el servidor para evitar discrepancias de hidratación
-  if (!isMounted) return null;
-
+  // No usamos el return null para evitar el pantallazo blanco (SSR)
   return (
-    <AnimatePresence>
-      {isLoading && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{
-            opacity: 0,
-            transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] },
-          }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#0D1117] pointer-events-auto"
-          id="global-preloader"
-        >
-          <div className="relative flex flex-col items-center">
+    <div
+      id="global-preloader"
+      className={cn(
+        "fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#0D1117] transition-opacity duration-700",
+        !isLoading && "opacity-0 pointer-events-none",
+      )}
+    >
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{
+              opacity: 0,
+              transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] },
+            }}
+            className="relative flex flex-col items-center"
+          >
             {/* Logo Animation */}
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
-              animate={{
-                scale: [0.8, 1.05, 1],
-                opacity: 1,
-              }}
+              animate={
+                isMounted
+                  ? {
+                      scale: [0.8, 1.05, 1],
+                      opacity: 1,
+                    }
+                  : {}
+              }
               transition={{
                 duration: 1,
                 times: [0, 0.6, 1],
@@ -79,7 +88,7 @@ export function GlobalPreloader() {
             <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
               <motion.div
                 initial={{ x: "-100%" }}
-                animate={{ x: "100%" }}
+                animate={isMounted ? { x: "100%" } : {}}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
@@ -92,7 +101,7 @@ export function GlobalPreloader() {
             {/* Subtle Loading Text */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0] }}
+              animate={isMounted ? { opacity: [0, 1, 0] } : {}}
               transition={{
                 duration: 2,
                 repeat: Infinity,
@@ -103,13 +112,13 @@ export function GlobalPreloader() {
             >
               Cargando Servicios Médicos
             </motion.div>
-          </div>
 
-          {/* Glassmorphic Background Circles */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0D4B4D]/10 blur-[120px] rounded-full -z-10" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-[#95D5B2]/5 blur-[100px] rounded-full -z-10" />
-        </motion.div>
-      )}
-    </AnimatePresence>
+            {/* Glassmorphic Background Circles */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0D4B4D]/10 blur-[120px] rounded-full -z-10" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-[#95D5B2]/5 blur-[100px] rounded-full -z-10" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

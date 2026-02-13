@@ -95,6 +95,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { StructuredData } from "@/components/structured-data";
 import { GlobalPreloader } from "@/components/ui/global-preloader";
 
+import { AuthProvider } from "@/context/auth-context";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -142,15 +144,17 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
         <GlobalPreloader />
-        <ChatProvider>
-          <CartProvider>
-            <Header />
-            {children}
-            <ChatbotFloating />
-            <Footer />
-            <Toaster position="top-right" theme="light" />
-          </CartProvider>
-        </ChatProvider>
+        <AuthProvider>
+          <ChatProvider>
+            <CartProvider>
+              <Header />
+              {children}
+              <ChatbotFloating />
+              <Footer />
+              <Toaster position="top-right" theme="light" />
+            </CartProvider>
+          </ChatProvider>
+        </AuthProvider>
       </body>
     </html>
   );
