@@ -48,6 +48,7 @@ const consultations = [
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [userInteracted, setUserInteracted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
@@ -75,6 +76,9 @@ export default function Hero() {
 
   // Auto-scroll effect at the beginning to show it's a carousel
   useEffect(() => {
+    // If user interacts, stop the auto-scroll
+    if (userInteracted) return;
+
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
         setActiveIndex((prev) => {
@@ -88,95 +92,12 @@ export default function Hero() {
       return () => clearInterval(interval);
     }, 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [userInteracted]);
 
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!isHeroVisibleRef.current) return;
-
-      const isScrollDown = e.deltaY > 0;
-      const isScrollUp = e.deltaY < 0;
-
-      const isAtEnd = activeIndex >= consultations.length - 1;
-      const isAtStart = activeIndex === 0;
-
-      const shouldHijack =
-        (isScrollDown && !isAtEnd) || (isScrollUp && !isAtStart);
-
-      if (shouldHijack) {
-        if (e.cancelable) e.preventDefault();
-
-        const now = Date.now();
-        if (now - lastScrollTime.current > 120 && Math.abs(e.deltaY) > 5) {
-          if (isScrollDown && !isAtEnd) {
-            setActiveIndex((prev) =>
-              Math.min(prev + 1, consultations.length - 1),
-            );
-          } else if (isScrollUp && !isAtStart) {
-            setActiveIndex((prev) => Math.max(prev - 1, 0));
-          }
-          lastScrollTime.current = now;
-        }
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartRef.current = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isHeroVisibleRef.current) return;
-
-      const now = Date.now();
-      const touchEnd = e.touches[0].clientY;
-      const delta = touchStartRef.current - touchEnd;
-      const absDelta = Math.abs(delta);
-
-      const isAtEnd = activeIndex >= consultations.length - 1;
-      const isAtStart = activeIndex === 0;
-
-      const isMovingDown = delta > 0;
-      const isMovingUp = delta < 0;
-
-      const shouldHijack =
-        (isMovingDown && !isAtEnd) || (isMovingUp && !isAtStart);
-
-      if (shouldHijack) {
-        if (e.cancelable) {
-          e.preventDefault();
-        }
-
-        const THRESHOLD = 20;
-        const MOBILE_COOLDOWN = 120;
-
-        if (
-          now - lastScrollTime.current > MOBILE_COOLDOWN &&
-          absDelta > THRESHOLD
-        ) {
-          if (isMovingDown && !isAtEnd) {
-            setActiveIndex((prev) =>
-              Math.min(prev + 1, consultations.length - 1),
-            );
-          } else if (isMovingUp && !isAtStart) {
-            setActiveIndex((prev) => Math.max(prev - 1, 0));
-          }
-
-          touchStartRef.current = touchEnd;
-          lastScrollTime.current = now;
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [activeIndex]);
+  const handleInteraction = (index: number) => {
+    setUserInteracted(true);
+    setActiveIndex(index);
+  };
 
   const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(
@@ -221,7 +142,7 @@ export default function Hero() {
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         <div className="flex-1 w-full max-w-4xl sm:mt-10">
-          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-4 lg:mb-10 tracking-tight text-balance drop-shadow-sm">
+          <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-4 lg:mb-10 tracking-tight text-balance drop-shadow-sm font-helvetica">
             Consigue una
             <br />
             <span className="text-[#95D5B2]">
@@ -283,12 +204,13 @@ export default function Hero() {
                         opacity: { duration: 0.2 },
                       }}
                       className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity]"
-                      onClick={() => setActiveIndex(globalIndex)}
+                      onClick={() => handleInteraction(globalIndex)}
                     >
                       <div
                         className={`
                           relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
                           transition-all duration-500 flex flex-col justify-center min-h-[70px]
+                          font-helvetica
                           ${
                             isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"

@@ -28,6 +28,7 @@ interface PaymentFormProps {
   purchaseId: string;
   total: number;
   onBack: () => void;
+  onComplete?: () => void;
 }
 
 export const PaymentForm = ({
@@ -37,6 +38,7 @@ export const PaymentForm = ({
   purchaseId,
   total,
   onBack,
+  onComplete,
 }: PaymentFormProps) => {
   const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
@@ -128,9 +130,10 @@ export const PaymentForm = ({
       const { token } = JSON.parse(storedUser);
 
       const payload = {
-        pq_id: cart.map((item) => parseInt(item.id)),
+        pq_id: cart.map((item: CartItem) => parseInt(item.id)),
         anombre_de: cart.map(
-          (item) => formData.order_names[item.id] || formData.nombre_completo,
+          (item: CartItem) =>
+            formData.order_names[item.id] || formData.nombre_completo,
         ),
         pq_precio: total,
         metodo_pago: "ath",
@@ -169,6 +172,7 @@ export const PaymentForm = ({
               token: token,
             }),
           );
+          if (onComplete) onComplete();
           router.push("/procesar-pago");
         } else {
           setErrorMessage(
@@ -184,9 +188,10 @@ export const PaymentForm = ({
         setIsProcessing(false);
       }
     },
-    [cart, formData, total, router],
+    [cart, formData, total, router, onComplete],
   );
 
+  // Configure ATHM Globals
   useEffect(() => {
     if (typeof window !== "undefined") {
       const win = window as unknown as {
@@ -194,41 +199,44 @@ export const PaymentForm = ({
         authorizationATHM: () => Promise<void>;
         cancelATHM: () => Promise<void>;
         expiredATHM: () => Promise<void>;
-        authorization: () => Promise<unknown>;
       };
-
-      // Setup ATHM_Checkout
       win.ATHM_Checkout = {
         env: "production",
         publicToken: "a66ce73d04f2087615f6320b724defc5b4eedc55",
         timeout: 600,
-        orderType: "",
+        orderType: "payment",
         theme: "btn",
         lang: "es",
-        total: total,
-        subtotal: total,
-        tax: 0,
+        total: total.toFixed(2),
+        subtotal: total.toFixed(2),
+        tax: "0.00",
         metadata1: purchaseId,
         metadata2: formData.nombre_completo,
-        items: cart.map((item) => ({
+        items: cart.map((item: CartItem) => ({
           name: item.titulo,
           description: item.titulo,
           quantity: "1",
-          price: item.precio,
-          tax: "0",
+          price: parseFloat(item.precio).toFixed(2),
+          tax: "0.00",
           metadata: item.id,
         })),
         phoneNumber: "",
       };
 
-      // Define callbacks
       win.authorizationATHM = async () => {
         try {
           // @ts-expect-error - function provided by ATHM script
-          if (typeof authorization === "function") {
-            // @ts-expect-error - function provided by ATHM script
-            const responseAuth = await authorization();
-            handleATHSuccess(responseAuth);
+          const authFunc = window.authorization;
+          if (typeof authFunc === "function") {
+            const responseAuth = await authFunc();
+            handleATHSuccess(
+              responseAuth as unknown as {
+                status: string;
+                data?: { cp_code?: string; [key: string]: unknown };
+                referenceNumber?: string;
+                [key: string]: unknown;
+              },
+            );
           } else {
             console.error("ATH authorization function not found");
           }
@@ -248,22 +256,23 @@ export const PaymentForm = ({
           description: "El tiempo para completar el pago ha expirado.",
         });
       };
-
-      // Force script injection/re-run when ATH is selected
-      if (isAthSelected) {
-        // Remove existing script if any to force re-scan
-        const oldScript = document.getElementById("ath-script");
-        if (oldScript) oldScript.remove();
-
-        const script = document.createElement("script");
-        script.id = "ath-script";
-        script.src =
-          "https://payments.athmovil.com/api/modal/js/athmovil_base.js";
-        script.async = true;
-        document.body.appendChild(script);
-      }
     }
-  }, [total, cart, purchaseId, formData, handleATHSuccess, isAthSelected]);
+  }, [total, cart, purchaseId, formData.nombre_completo, handleATHSuccess]);
+
+  // Inject Script when selected
+  useEffect(() => {
+    if (typeof window !== "undefined" && isAthSelected) {
+      const id = "ath-script";
+      const oldScript = document.getElementById(id);
+      if (oldScript) oldScript.remove();
+
+      const script = document.createElement("script");
+      script.id = id;
+      script.src = `https://payments.athmovil.com/api/modal/js/athmovil_base.js?t=${Date.now()}`;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [isAthSelected]);
 
   const handlePayment = () => {
     if (formData.payment_method === "tarjeta") {
@@ -321,9 +330,10 @@ export const PaymentForm = ({
     const year = yearShort.length === 2 ? `20${yearShort}` : yearShort;
 
     const payload = {
-      pq_id: cart.map((item) => parseInt(item.id)),
+      pq_id: cart.map((item: CartItem) => parseInt(item.id)),
       anombre_de: cart.map(
-        (item) => formData.order_names[item.id] || formData.nombre_completo,
+        (item: CartItem) =>
+          formData.order_names[item.id] || formData.nombre_completo,
       ),
       pq_precio: total,
       card_number: cardData.number.replace(/\s/g, ""),
@@ -391,6 +401,7 @@ export const PaymentForm = ({
             }),
           );
 
+          if (onComplete) onComplete();
           setIsProcessing(false);
           setShowCardModal(false);
           router.push("/procesar-pago");
@@ -444,7 +455,7 @@ export const PaymentForm = ({
           </div>
           <div className="p-8 space-y-6">
             <div className="divide-y divide-slate-50">
-              {cart.map((item) => (
+              {cart.map((item: CartItem) => (
                 <div
                   key={item.id}
                   className="py-4 flex justify-between items-center text-sm"
