@@ -104,6 +104,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <StructuredData />
+        <link
+          rel="preload"
+          href="/image_fondo.png"
+          as="image"
+          fetchPriority="high"
+        />
       </head>
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}

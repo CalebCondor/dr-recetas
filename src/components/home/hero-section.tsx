@@ -178,6 +178,12 @@ export default function Hero() {
     };
   }, [activeIndex]);
 
+  // Manejador para asegurar que el video esté "bien cocinado" antes de mostrarlo
+  const handleVideoLoad = () => {
+    // 200ms es el tiempo ideal para que el hardware móvil sincronice el primer frame
+    setTimeout(() => setVideoReady(true), 200);
+  };
+
   const WINDOW_SIZE = 3;
   const windowStartIndex = Math.max(
     0,
@@ -190,13 +196,16 @@ export default function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
+      className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden"
     >
       {/* Video Background Container */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           src="/image_fondo.png"
           alt=""
+          fetchPriority="high"
+          loading="eager"
+          decoding="sync"
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         />
@@ -204,9 +213,11 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
+          loop
           preload="auto"
-          onPlaying={() => setVideoReady(true)}
-          className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
+          onPlaying={handleVideoLoad}
+          onLoadedData={handleVideoLoad}
+          className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
