@@ -4,32 +4,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function GlobalPreloader() {
-  // Use a lazy initializer for state – this runs only on the first client-side mount.
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !sessionStorage.getItem("has-loaded-before");
-    }
-    return true; // Default to true for SSR consistency
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Check if it has already loaded in this session
-    const hasLoadedBefore = sessionStorage.getItem("has-loaded-before");
+    setIsMounted(true);
 
-    if (hasLoadedBefore) {
-      document.documentElement.classList.remove("loading-locked");
-      return;
-    }
-
-    // Lock scroll if we are loading
+    // Al montar (en cada F5), bloqueamos el scroll y activamos la lógica de carga
     document.documentElement.classList.add("loading-locked");
 
     const handleLoad = () => {
       setTimeout(() => {
         setIsLoading(false);
         document.documentElement.classList.remove("loading-locked");
-        sessionStorage.setItem("has-loaded-before", "true");
-      }, 1200);
+      }, 1000);
     };
 
     if (document.readyState === "complete") {
@@ -43,6 +31,9 @@ export function GlobalPreloader() {
       };
     }
   }, []);
+
+  // No renderizar en el servidor para evitar discrepancias de hidratación
+  if (!isMounted) return null;
 
   return (
     <AnimatePresence>
