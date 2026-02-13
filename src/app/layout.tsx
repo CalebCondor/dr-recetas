@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://drreceta.com"),
   title: {
-    default: "Dr. Recetas - Servicios Médicos Digitales en Puerto Rico",
+    default: "Dr. Recetas - Servicios Médicos en linea en Puerto Rico",
     template: "%s | Dr. Recetas",
   },
   description:

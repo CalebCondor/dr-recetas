@@ -3,6 +3,7 @@ import {
   RiBankCardLine,
   RiShieldCheckLine,
   RiErrorWarningLine,
+  RiLoader4Line,
 } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import {
 import { CartItem } from "@/context/cart-context";
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -27,7 +28,7 @@ interface PaymentFormProps {
   purchaseId: string;
   total: number;
   onBack: () => void;
-  onComplete: () => void;
+  onComplete?: () => void;
 }
 
 export const PaymentForm = ({
@@ -51,6 +52,9 @@ export const PaymentForm = ({
     cvc: "",
     name: "",
   });
+
+  const isAthSelected = formData.payment_method === "ath";
+  const isTarjetaSelected = formData.payment_method === "tarjeta";
 
   // Helper function to convert server errors to friendly messages
   const getFriendlyErrorMessage = (error: string): string => {
@@ -107,12 +111,172 @@ export const PaymentForm = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  const handleATHSuccess = useCallback(
+    async (athResponse: {
+      status: string;
+      data?: { cp_code?: string; [key: string]: unknown };
+      referenceNumber?: string;
+      [key: string]: unknown;
+    }) => {
+      setIsProcessing(true);
+
+      const storedUser = localStorage.getItem("dr_user");
+      if (!storedUser) {
+        toast.error("Sesión expirada");
+        setIsProcessing(false);
+        return;
+      }
+
+      const { token } = JSON.parse(storedUser);
+
+      const payload = {
+        pq_id: cart.map((item: CartItem) => parseInt(item.id)),
+        anombre_de: cart.map(
+          (item: CartItem) =>
+            formData.order_names[item.id] || formData.nombre_completo,
+        ),
+        pq_precio: total,
+        metodo_pago: "ath",
+        ath_data: athResponse,
+      };
+
+      try {
+        const response = await fetch(
+          "https://doctorrecetas.com/api/pagar.php",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          },
+        );
+
+        const text = await response.text();
+
+        if (!response.ok) {
+          setErrorMessage("Error procesando pago con ATH Móvil: " + text);
+          setShowErrorModal(true);
+          setIsProcessing(false);
+          return;
+        }
+
+        const data = JSON.parse(text);
+        if (data.success) {
+          const cpCode = data.data?.cp_code || data.cp_code;
+          sessionStorage.setItem(
+            "dr_order_data",
+            JSON.stringify({
+              cp_code: cpCode,
+              token: token,
+            }),
+          );
+          if (onComplete) onComplete();
+          router.push("/procesar-pago");
+        } else {
+          setErrorMessage(
+            data.message || "Error al procesar pago con ATH Móvil",
+          );
+          setShowErrorModal(true);
+        }
+      } catch (error) {
+        console.error("ATH Success Backend error:", error);
+        setErrorMessage("Error de conexión al procesar el pago.");
+        setShowErrorModal(true);
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [cart, formData, total, router, onComplete],
+  );
+
+  // Configure ATHM Globals
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const win = window as unknown as {
+        ATHM_Checkout: unknown;
+        authorizationATHM: () => Promise<void>;
+        cancelATHM: () => Promise<void>;
+        expiredATHM: () => Promise<void>;
+      };
+      win.ATHM_Checkout = {
+        env: "production",
+        publicToken: "a66ce73d04f2087615f6320b724defc5b4eedc55",
+        timeout: 600,
+        orderType: "payment",
+        theme: "btn",
+        lang: "es",
+        total: total.toFixed(2),
+        subtotal: total.toFixed(2),
+        tax: "0.00",
+        metadata1: purchaseId,
+        metadata2: formData.nombre_completo,
+        items: cart.map((item: CartItem) => ({
+          name: item.titulo,
+          description: item.titulo,
+          quantity: "1",
+          price: parseFloat(item.precio).toFixed(2),
+          tax: "0.00",
+          metadata: item.id,
+        })),
+        phoneNumber: "",
+      };
+
+      win.authorizationATHM = async () => {
+        try {
+          // @ts-expect-error - function provided by ATHM script
+          const authFunc = window.authorization;
+          if (typeof authFunc === "function") {
+            const responseAuth = await authFunc();
+            handleATHSuccess(
+              responseAuth as unknown as {
+                status: string;
+                data?: { cp_code?: string; [key: string]: unknown };
+                referenceNumber?: string;
+                [key: string]: unknown;
+              },
+            );
+          } else {
+            console.error("ATH authorization function not found");
+          }
+        } catch (error) {
+          console.error("Error in authorizationATHM:", error);
+        }
+      };
+
+      win.cancelATHM = async () => {
+        toast.error("Pago cancelado", {
+          description: "Has cancelado la transacción.",
+        });
+      };
+
+      win.expiredATHM = async () => {
+        toast.error("Transacción expirada", {
+          description: "El tiempo para completar el pago ha expirado.",
+        });
+      };
+    }
+  }, [total, cart, purchaseId, formData.nombre_completo, handleATHSuccess]);
+
+  // Inject Script when selected
+  useEffect(() => {
+    if (typeof window !== "undefined" && isAthSelected) {
+      const id = "ath-script";
+      const oldScript = document.getElementById(id);
+      if (oldScript) oldScript.remove();
+
+      const script = document.createElement("script");
+      script.id = id;
+      script.src = `https://payments.athmovil.com/api/modal/js/athmovil_base.js?t=${Date.now()}`;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [isAthSelected]);
+
   const handlePayment = () => {
     if (formData.payment_method === "tarjeta") {
       setShowCardModal(true);
-    } else {
-      // Si es ATH u otro método, por ahora simulamos completar
-      onComplete();
     }
   };
 
@@ -166,9 +330,10 @@ export const PaymentForm = ({
     const year = yearShort.length === 2 ? `20${yearShort}` : yearShort;
 
     const payload = {
-      pq_id: cart.map((item) => parseInt(item.id)),
+      pq_id: cart.map((item: CartItem) => parseInt(item.id)),
       anombre_de: cart.map(
-        (item) => formData.order_names[item.id] || formData.nombre_completo,
+        (item: CartItem) =>
+          formData.order_names[item.id] || formData.nombre_completo,
       ),
       pq_precio: total,
       card_number: cardData.number.replace(/\s/g, ""),
@@ -236,6 +401,7 @@ export const PaymentForm = ({
             }),
           );
 
+          if (onComplete) onComplete();
           setIsProcessing(false);
           setShowCardModal(false);
           router.push("/procesar-pago");
@@ -245,8 +411,8 @@ export const PaymentForm = ({
           setShowErrorModal(true);
           setIsProcessing(false);
         }
-      } catch (parseErr) {
-        console.error("Payment JSON parse error:", text);
+      } catch {
+        console.error("Payment JSON parse error");
         setErrorMessage(
           "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
         );
@@ -289,7 +455,7 @@ export const PaymentForm = ({
           </div>
           <div className="p-8 space-y-6">
             <div className="divide-y divide-slate-50">
-              {cart.map((item) => (
+              {cart.map((item: CartItem) => (
                 <div
                   key={item.id}
                   className="py-4 flex justify-between items-center text-sm"
@@ -382,14 +548,42 @@ export const PaymentForm = ({
             </label>
           </div>
 
-          <Button
-            onClick={handlePayment}
-            className="w-full h-14 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold text-lg shadow-lg shadow-[#0D4B4D]/20 active:scale-98"
-          >
-            {formData.payment_method === "tarjeta"
-              ? "CONTINUAR CON TARJETA"
-              : "PAGAR AHORA"}
-          </Button>
+          <div className="min-h-[80px] flex items-center justify-center">
+            {/* Div siempre presente para que el script lo encuentre más fácilmente */}
+            <div
+              id="ATHMovil_Checkout_Button_payment"
+              className={`w-full flex flex-col items-center gap-3 ${isAthSelected ? "block" : "hidden"}`}
+            >
+              {/* El script de ATH Móvil reemplazará este contenido */}
+              <div className="flex flex-col items-center gap-2 py-4">
+                <RiLoader4Line
+                  className="text-orange-500 animate-spin"
+                  size={24}
+                />
+                <p className="text-xs text-slate-400 font-medium">
+                  Cargando botón de ATH Móvil...
+                </p>
+              </div>
+            </div>
+
+            {isTarjetaSelected && (
+              <Button
+                onClick={handlePayment}
+                className="w-full h-14 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold text-lg shadow-lg shadow-[#0D4B4D]/20 active:scale-98 transition-all"
+              >
+                CONTINUAR CON TARJETA
+              </Button>
+            )}
+
+            {!isAthSelected && !isTarjetaSelected && (
+              <Button
+                disabled
+                className="w-full h-14 bg-slate-200 text-slate-400 rounded-xl font-bold text-lg cursor-not-allowed"
+              >
+                SELECCIONE MÉTODO DE PAGO
+              </Button>
+            )}
+          </div>
 
           <Dialog open={showCardModal} onOpenChange={setShowCardModal}>
             <DialogContent
