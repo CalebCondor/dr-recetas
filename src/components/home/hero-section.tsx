@@ -204,6 +204,7 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
+          preload="auto"
           onPlaying={() => setVideoReady(true)}
           className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
             videoReady ? "opacity-100" : "opacity-0"
