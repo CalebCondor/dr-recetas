@@ -193,7 +193,7 @@ export default function Hero() {
       className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
     >
       {/* Video Background Container */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           src="/image_fondo.jpeg"
           alt=""
