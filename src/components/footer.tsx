@@ -5,14 +5,18 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaTiktok, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export function Footer() {
+  const pathname = usePathname();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
   });
+
+  if (pathname === "/lock") return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

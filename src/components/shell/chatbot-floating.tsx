@@ -8,7 +8,10 @@ import { ChatbotPanel } from "./chatbot-panel";
 import Image from "next/image";
 import { useChat } from "@/context/chat-context";
 
+import { usePathname } from "next/navigation";
+
 export function ChatbotFloating() {
+  const pathname = usePathname();
   const { isBottomBarVisible } = useChat();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -45,6 +48,8 @@ export function ChatbotFloating() {
       if (heroElement) observer.unobserve(heroElement);
     };
   }, []);
+
+  if (pathname === "/lock") return null;
 
   return (
     <>
