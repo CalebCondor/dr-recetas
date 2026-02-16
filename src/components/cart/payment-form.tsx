@@ -194,17 +194,27 @@ export const PaymentForm = ({
   // Configure ATHM Globals
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const win = window as unknown as {
-        ATHM_Checkout: unknown;
-        authorizationATHM: () => Promise<void>;
+      // Tipos específicos para evitar errores de lint y mejorar la seguridad
+      const win = window as unknown as Window & {
+        ATHM_Checkout: Record<string, unknown>;
+        authorizationATHM: (response: unknown) => Promise<void>;
         cancelATHM: () => Promise<void>;
         expiredATHM: () => Promise<void>;
+        authorization?: () => Promise<unknown>;
       };
+
+      // NOTA: Para el Modal JS se debe usar env: "production" incluso en pruebas,
+      // y controlar el modo con el flag 'sandbox: true' y el token correspondiente.
+      const isSandboxMode = true;
+
       win.ATHM_Checkout = {
         env: "production",
-        publicToken: "a66ce73d04f2087615f6320b724defc5b4eedc55",
-        timeout: 600,
+        publicToken: "54227b700bb036f91a3a7bca06479230f0d92524",
+        sandboxToken: "sandboxtoken01875617264",
         orderType: "payment",
+        sandbox: isSandboxMode,
+        sandboxMode: isSandboxMode, // Mantener ambos por compatibilidad
+        timeout: 600,
         theme: "btn",
         lang: "es",
         total: total.toFixed(2),
@@ -223,22 +233,33 @@ export const PaymentForm = ({
         phoneNumber: "",
       };
 
-      win.authorizationATHM = async () => {
+      // Callback de éxito para ATH Móvil
+      win.authorizationATHM = async (responseJSON: unknown) => {
         try {
-          // @ts-expect-error - function provided by ATHM script
-          const authFunc = window.authorization;
-          if (typeof authFunc === "function") {
-            const responseAuth = await authFunc();
+          // El script de ATH Móvil usualmente pasa la respuesta como argumento.
+          if (responseJSON) {
             handleATHSuccess(
-              responseAuth as unknown as {
+              responseJSON as {
                 status: string;
-                data?: { cp_code?: string; [key: string]: unknown };
+                data?: { cp_code?: string };
                 referenceNumber?: string;
-                [key: string]: unknown;
               },
             );
           } else {
-            console.error("ATH authorization function not found");
+            // Backup por si se usa una versión que no pasa el argumento directamente
+            const authFunc = win.authorization;
+            if (typeof authFunc === "function") {
+              const responseAuth = await authFunc();
+              handleATHSuccess(
+                responseAuth as {
+                  status: string;
+                  data?: { cp_code?: string };
+                  referenceNumber?: string;
+                },
+              );
+            } else {
+              console.error("ATH authorization response not found");
+            }
           }
         } catch (error) {
           console.error("Error in authorizationATHM:", error);
@@ -263,12 +284,24 @@ export const PaymentForm = ({
   useEffect(() => {
     if (typeof window !== "undefined" && isAthSelected) {
       const id = "ath-script";
-      const oldScript = document.getElementById(id);
-      if (oldScript) oldScript.remove();
+      const existingScript = document.getElementById(id);
+
+      if (existingScript) {
+        // Si ya existe, no lo volvemos a inyectar para evitar el error:
+        // "Uncaught SyntaxError: Identifier '_0x1f5570' has already been declared"
+        return;
+      }
 
       const script = document.createElement("script");
       script.id = id;
-      script.src = `https://payments.athmovil.com/api/modal/js/athmovil_base.js?t=${Date.now()}`;
+
+      // NOTA: ATH Móvil no tiene un script de sandbox separado para el Modal JS.
+      // Se debe usar siempre el de producción y controlar el modo con el token y el flag 'sandbox'.
+      const baseUrl =
+        "https://payments.athmovil.com/api/modal/js/athmovil_base.js";
+
+      // Eliminamos el t=Date.now() para evitar re-ejecuciones innecesarias en cada render
+      script.src = baseUrl;
       script.async = true;
       document.body.appendChild(script);
     }

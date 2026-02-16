@@ -2,10 +2,26 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
-  const response = NextResponse.next();
+  const { pathname } = request.nextUrl;
 
-  // Add aggressive caching headers for static assets
-  const pathname = request.nextUrl.pathname;
+  // --- 1. Site Lock Logic ---
+  const isPublicAsset =
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".") ||
+    pathname === "/lock";
+
+  if (!isPublicAsset) {
+    const accessGranted = request.cookies.get("site_access");
+    if (!accessGranted || accessGranted.value !== "granted") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/lock";
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // --- 2. Caching Logic ---
+  const response = NextResponse.next();
 
   // Cache static assets aggressively
   if (
@@ -16,7 +32,7 @@ export function proxy(request: NextRequest) {
   ) {
     response.headers.set(
       "Cache-Control",
-      "public, max-age=31536000, immutable"
+      "public, max-age=31536000, immutable",
     );
   }
 
@@ -29,7 +45,7 @@ export function proxy(request: NextRequest) {
   ) {
     response.headers.set(
       "Cache-Control",
-      "public, max-age=3600, stale-while-revalidate=86400"
+      "public, max-age=3600, stale-while-revalidate=86400",
     );
   }
 
@@ -39,10 +55,11 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
+     * Match all request paths except for:
      * - api (API routes)
      * - _next/webpack-hmr (hot module replacement)
+     * - favicon.ico, etc.
      */
-    "/((?!api|_next/webpack-hmr).*)",
+    "/((?!api|_next/webpack-hmr|favicon.ico).*)",
   ],
 };

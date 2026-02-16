@@ -60,6 +60,7 @@ const Shimmer = () => (
 
 export default function Header() {
   const pathname = usePathname();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -131,6 +132,8 @@ export default function Header() {
       : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30";
   const iconColor =
     isScrolled || isHeaderDark ? "text-[#0D4B4D]" : "text-white";
+
+  if (pathname === "/lock") return null;
 
   return (
     <header
