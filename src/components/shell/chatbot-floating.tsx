@@ -49,7 +49,7 @@ export function ChatbotFloating() {
     };
   }, []);
 
-  if (pathname === "/lock") return null;
+  if (pathname === "/lock" || pathname === "/") return null;
 
   return (
     <>
