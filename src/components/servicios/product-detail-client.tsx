@@ -11,6 +11,7 @@ import {
   RiListCheck,
 } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -51,6 +52,25 @@ export function ProductDetailClient({
     once: false,
   });
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
+  const t = useTranslations("ServicesPage");
+
+  // Helper for dynamic translations
+  const getTranslated = (path: string, fallback: string) => {
+    return t.has(path) ? t(path) : fallback;
+  };
+
+  const productTitle = getTranslated(
+    `Items.${product.slug}.title`,
+    product.titulo,
+  );
+  const productDescription = getTranslated(
+    `Items.${product.slug}.description`,
+    product.resumen,
+  );
+  const productDetail = getTranslated(
+    `Items.${product.slug}.description`,
+    product.detalle || product.resumen,
+  );
 
   const handleAddToCart = () => {
     // Check if user is logged in
@@ -102,7 +122,7 @@ export function ProductDetailClient({
                     <span>Dr. Recetas</span>
                   </div>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] leading-[0.95] tracking-tighter">
-                    {product.titulo.split(" ").map((word, i) => (
+                    {productTitle.split(" ").map((word, i) => (
                       <span
                         key={i}
                         className={i % 3 === 2 ? "text-teal-600/30" : ""}
@@ -114,7 +134,7 @@ export function ProductDetailClient({
                 </header>
 
                 <p className="text-slate-600 text-base md:text-lg font-medium leading-relaxed">
-                  {product.resumen}
+                  {productDescription}
                 </p>
 
                 <div
@@ -125,7 +145,7 @@ export function ProductDetailClient({
                     {/* Price info - Visible on all screens */}
                     <div className="flex flex-col items-start gap-1">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
-                        Precio
+                        {t("Static.price")}
                       </span>
                       <div className="flex items-baseline gap-2">
                         <span className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
@@ -142,7 +162,7 @@ export function ProductDetailClient({
                       onClick={handleAddToCart}
                       className="w-full md:w-[200px] lg:w-[240px] h-auto py-4 px-8 md:py-3 md:px-6 rounded-2xl lg:rounded-[1.5rem] bg-[#0D4B4D] hover:bg-[#126467] text-white font-black text-base transition-all shadow-xl hover:shadow-[0_20px_50px_rgba(13,75,77,0.25)] hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-3"
                     >
-                      <span>comprar</span>
+                      <span>{t("Static.buyButton")}</span>
                       <RiShoppingBag4Line className="w-5 h-5 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </div>
@@ -168,14 +188,14 @@ export function ProductDetailClient({
                       className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
                     >
                       <RiInformationLine className="w-4 h-4" />
-                      Descripción
+                      {t("Static.description")}
                     </TabsTrigger>
                     <TabsTrigger
                       value="details"
                       className="rounded-xl px-5 py-2.5 text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-2"
                     >
                       <RiListCheck className="w-4 h-4" />
-                      Ficha Técnica
+                      {t("Static.technicalSheet")}
                     </TabsTrigger>
                   </TabsList>
                 </div>
@@ -192,10 +212,10 @@ export function ProductDetailClient({
                       className="prose prose-slate max-w-none"
                     >
                       <h3 className="text-2xl font-black text-[#0D4B4D] mb-6 tracking-tight">
-                        Descripción Detallada
+                        {t("Static.detailedDescription")}
                       </h3>
                       {(() => {
-                        const content = product.detalle || product.resumen;
+                        const content = productDetail;
                         const isEmpty =
                           !content ||
                           content.replace(/<[^>]*>?/gm, "").trim() === "";
@@ -219,38 +239,41 @@ export function ProductDetailClient({
                     >
                       <div>
                         <h3 className="text-2xl font-black text-[#0D4B4D] mb-8 tracking-tight">
-                          Especificaciones del Servicio
+                          {t("Static.serviceSpecs")}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
                           {[
                             {
-                              label: "Servicio",
-                              value: product.titulo,
+                              label: t("Static.serviceLabel"),
+                              value: productTitle,
                               icon: RiStethoscopeLine,
                             },
                             {
-                              label: "Categoría",
-                              value: product.category || "General",
+                              label: t("Static.categoryLabel"),
+                              value: getTranslated(
+                                `Categories.${categorySlug}.title`,
+                                product.category || "General",
+                              ),
                               icon: FaUserDoctor,
                             },
                             {
-                              label: "Disponibilidad",
-                              value: "24/7 Online",
+                              label: t("Static.availabilityLabel"),
+                              value: t("Static.availabilityValue"),
                               icon: RiHome5Line,
                             },
                             {
-                              label: "Tiempo de respuesta",
-                              value: "Inmediato",
+                              label: t("Static.responseLabel"),
+                              value: t("Static.responseValue"),
                               icon: RiInformationLine,
                             },
                             {
-                              label: "Código",
+                              label: t("Static.codeLabel"),
                               value: (product.pq_codigo || "N/A").toUpperCase(),
                               icon: RiListCheck,
                             },
                             {
-                              label: "Gestión",
-                              value: "Soporte Prioritario",
+                              label: t("Static.managementLabel"),
+                              value: t("Static.managementValue"),
                               icon: RiListCheck,
                             },
                           ].map((item, i) => (
@@ -301,17 +324,17 @@ export function ProductDetailClient({
                       </div>
                       <div className="flex flex-col gap-0.5">
                         <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-teal-600">
-                          Detalle Ampliado
+                          {t("Static.expandedDetail")}
                         </span>
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                          ¿De qué trata este servicio?
+                          {t("Static.expandedDetailSubtitle")}
                         </span>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-6 pt-0">
                     {(() => {
-                      const content = product.detalle || product.resumen;
+                      const content = productDetail;
                       const isEmpty =
                         !content ||
                         content.replace(/<[^>]*>?/gm, "").trim() === "";
@@ -337,10 +360,10 @@ export function ProductDetailClient({
                       </div>
                       <div className="flex flex-col gap-0.5">
                         <span className="text-[#0D4B4D] font-black text-lg tracking-tight transition-colors group-data-[state=open]:text-blue-600">
-                          Ficha Técnica
+                          {t("Static.technicalSheet")}
                         </span>
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                          Detalles y especificaciones
+                          {t("Static.technicalSheetSubtitle")}
                         </span>
                       </div>
                     </div>
@@ -348,13 +371,25 @@ export function ProductDetailClient({
                   <AccordionContent className="px-6 pb-6 pt-0">
                     <div className="space-y-4">
                       {[
-                        { label: "Servicio", value: product.titulo },
                         {
-                          label: "Categoría",
-                          value: product.category || "General",
+                          label: t("Static.serviceLabel"),
+                          value: productTitle,
                         },
-                        { label: "Disponibilidad", value: "24/7 Online" },
-                        { label: "Respuesta", value: "Inmediato" },
+                        {
+                          label: t("Static.categoryLabel"),
+                          value: getTranslated(
+                            `Categories.${categorySlug}.title`,
+                            product.category || "General",
+                          ),
+                        },
+                        {
+                          label: t("Static.availabilityLabel"),
+                          value: t("Static.availabilityValue"),
+                        },
+                        {
+                          label: t("Static.responseLabel"),
+                          value: t("Static.responseValue"),
+                        },
                       ].map((item, i) => (
                         <div
                           key={i}
@@ -390,7 +425,7 @@ export function ProductDetailClient({
             {/* Price Info (Hidden on very small screens, visible on mobile+) */}
             <div className="flex flex-col items-start min-w-fit">
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-0.5">
-                Total a pagar
+                {t("Static.totalToPay")}
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl md:text-3xl font-black text-[#0D4B4D] tracking-tight">
@@ -407,7 +442,7 @@ export function ProductDetailClient({
               onClick={handleAddToCart}
               className="flex-1 max-w-[200px] h-auto py-2.5 md:py-3 rounded-xl bg-[#0D4B4D] hover:bg-[#126467] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg active:scale-[0.98] group flex items-center justify-center gap-2"
             >
-              <span>Comprar</span>
+              <span>{t("Static.buyButton")}</span>
               <RiShoppingBag4Line className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
             </Button>
           </div>
@@ -426,12 +461,12 @@ export function ProductDetailClient({
               </div>
               <div className="space-y-4">
                 <DialogTitle className="text-4xl font-black text-[#0D4B4D] tracking-tight">
-                  Acceso Restringido
+                  {t("Static.loginRequiredTitle")}
                 </DialogTitle>
                 <DialogDescription className="text-slate-500 font-medium text-xl leading-relaxed max-w-xs mx-auto">
-                  Para añadir servicios al carrito, primero debes{" "}
+                  {t("Static.loginRequiredDescription")}{" "}
                   <span className="font-bold text-[#0D4B4D]">
-                    iniciar sesión
+                    {t("Static.loginAction")}
                   </span>
                   .
                 </DialogDescription>

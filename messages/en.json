@@ -166,5 +166,208 @@
       "terms": "Terms & Conditions",
       "rights": "© 2025 DR. Recetas All rights reserved."
     }
+  },
+  "ServicesPage": {
+    "Static": {
+       "notFound": "Service not found",
+       "loading": "Loading...",
+       "ourServices": "Our Services",
+       "basePrice": "Base Price",
+       "viewMore": "View more options",
+       "exploreMore": "Explore more categories",
+       "keepDiscovering": "Keep discovering everything Doctor Recetas has for your health.",
+       "loadingRecommendations": "Loading recommendations...",
+       "noRecommendations": "No additional categories found.",
+       "price": "Price",
+       "currency": "USD",
+       "buyButton": "Buy",
+       "description": "Description",
+       "technicalSheet": "Technical Sheet",
+       "detailedDescription": "Detailed Description",
+       "serviceSpecs": "Service Specifications",
+       "serviceLabel": "Service",
+       "categoryLabel": "Category",
+       "availabilityLabel": "Availability",
+       "responseLabel": "Response Time",
+       "codeLabel": "Code",
+       "managementLabel": "Management",
+       "availabilityValue": "24/7 Online",
+       "responseValue": "Immediate",
+       "managementValue": "Priority Support",
+       "totalToPay": "Total to pay",
+       "loginRequiredTitle": "Access Restricted",
+       "loginRequiredDescription": "To add services to the cart, you must first",
+       "loginAction": "Log in",
+       "expandedDetail": "Expanded Detail",
+       "expandedDetailSubtitle": "What is this service about?",
+       "technicalSheetSubtitle": "Details and specifications",
+       "productNotFound": "Product not found",
+       "productNotFoundMessage": "Sorry, we couldn't find the service you are looking for.",
+       "backToCategory": "Back to {category}",
+       "relatedServicesTitle": "Related Services",
+       "relatedServicesSubtitle": "Other services in the {category} category that might interest you."
+    },
+    "Categories": {
+      "citas-medicas": {
+        "title": "Medical Appointments",
+        "description": "Book your medical appointment in a few minutes, from anywhere and at any time.",
+        "longDescription": "Book your medical appointment in a few minutes, from anywhere and at any time."
+      },
+      "membresia": {
+        "title": "Memberships",
+        "description": "Get preferential access to medical consultations and special services.",
+        "longDescription": "Get preferential access to medical consultations and special services."
+      },
+      "lab": {
+        "title": "Lab Orders",
+        "description": "Request your laboratory tests quickly and without complications.",
+         "longDescription": "Request your laboratory tests quickly and without complications."
+      },
+      "otros": {
+        "title": "Other Services",
+        "description": "Discover the full variety of medical services we have for you.",
+        "longDescription": "Discover the full variety of medical services we have for you."
+      },
+      "para-el": {
+        "title": "For Him",
+        "description": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being.",
+        "longDescription": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being."
+      },
+      "para-ella": {
+        "title": "For Her",
+        "description": "Prevention, diagnosis, and medical support with professional and safe care.",
+        "longDescription": "Prevention, diagnosis, and medical support with professional and safe care."
+      }
+    },
+    "Items": {
+      "certificado-mdico-26": {
+        "title": "Medical Certificate",
+        "description": "We offer a medical service oriented to provide you with a full clinical evaluation and the necessary certification to justify your work absence."
+      },
+      "examen-licencia-conducir-27": {
+        "title": "Driver's License Exam",
+        "description": "Medical evaluation for driver's license application or renewal."
+      },
+      "programa-de-salud-sexual-para-hombres-37": {
+        "title": "Men's Sexual Health Program",
+        "description": "Medical consultation for erectile dysfunction, focused on diagnosing the cause and offering safe and confidential treatment."
+      },
+      "back-to-school-39": {
+        "title": "Back to School",
+        "description": "Professional pediatric consultation to obtain the medical certificate necessary for returning to classes."
+      },
+      "cita-de-seguimiento-31": {
+        "title": "Follow-up Appointment",
+        "description": "Follow-up medical consultation for existing patients."
+      },
+      "cita-medica-nuevo-paciente-30": {
+        "title": "New Patient Medical Appointment",
+        "description": "Comprehensive medical evaluation for new patients."
+      },
+      "consulta-por-covid-positivo-33": {
+        "title": "COVID Positive Consultation",
+        "description": "Personalized medical consultation from home to evaluate your symptoms and guide you through treatment."
+      },
+      "evaluacin-mdica-del-sueo-36": {
+        "title": "Medical Sleep Evaluation",
+        "description": "Professional evaluation to diagnose and treat your sleep problems. Includes habit review and personalized diagnosis."
+      },
+      "evaluacin-mdica-inmediata-38": {
+        "title": "Immediate Medical Evaluation",
+        "description": "Quick and professional consultation to obtain diagnosis, prescriptions or certificates the same day."
+      },
+      "receta-de-medicamentos-o-refill-25": {
+        "title": "Medication Prescription or Refill",
+        "description": "Get your medication refills or new prescriptions quickly."
+      },
+      "anlisis-de-orina-y-cultivo-de-orina-10": {
+        "title": "Urinalysis and Urine Culture",
+        "description": "Urinalysis checks the appearance and content of your urine. Urine culture looks for bacteria causing infections."
+      },
+      "cbc-diff-lab-45": {
+        "title": "CBC + DIFF Lab",
+        "description": "Measures different types of cells in the blood (red blood cells, white blood cells, platelets) to detect infections or anemia."
+      },
+      "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8": {
+        "title": "Female Blood Test Panel",
+        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+      },
+      "mamografia-29": {
+        "title": "Mammography",
+        "description": "Specialized X-ray of the breasts that allows early detection of abnormalities like tumors or microcalcifications."
+      },
+      "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7": {
+        "title": "Male Blood Test Panel",
+        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+      },
+      "prueba-de-covid-19-ant-geno-2": {
+        "title": "COVID-19 Antigen Test",
+        "description": "Detects parts of the virus in people with an active infection. Results in 15-30 minutes."
+      },
+      "prueba-de-covid-19-molecular-pcr-3": {
+        "title": "COVID-19 Molecular PCR Test",
+        "description": "Precise test to detect if you are infected with the virus. Confirms diagnosis even with few symptoms."
+      },
+      "prueba-de-covid-19-serolgica-rapid-test-4": {
+        "title": "COVID-19 Serological Rapid Test",
+        "description": "Detects antibodies in the blood indicating past exposure to the virus. Results in minutes."
+      },
+      "prueba-de-embarazo-15": {
+        "title": "Pregnancy Test",
+        "description": "Detects the hCG hormone to confirm pregnancy. Can be done with urine or blood sample."
+      },
+      "prueba-de-influenza-a-y-b-14": {
+        "title": "Influenza A & B Test",
+        "description": "Detects if a person has the flu virus type A or B. Useful for quick treatment decisions."
+      },
+      "prueba-de-micoplasma-o-bronchitis-12": {
+        "title": "Mycoplasma or Bronchitis Test",
+        "description": "Blood test to detect Mycoplasma or Bronchitis."
+      },
+      "prueba-de-sangre-pth-13": {
+        "title": "PTH Blood Test",
+        "description": "Measures parathyroid hormone in the blood, which regulates calcium and phosphorus levels."
+      },
+      "prueba-de-sedimento-esr-11": {
+        "title": "Sedimentation Rate (ESR) Test",
+        "description": "Measures how fast red blood cells settle. High value may indicate inflammation."
+      },
+      "prueba-diabetes-hba1c-41": {
+        "title": "Diabetes Test (HbA1c%)",
+        "description": "Measures average blood sugar of the last 2-3 months. Key for diagnosing diabetes."
+      },
+      "quantitative-hcg-test-35": {
+        "title": "Quantitative hCG Test",
+        "description": "Measures the exact amount of pregnancy hormone (hCG) in the blood. More precise than urine test."
+      },
+      "sonomamografia-28": {
+        "title": "Sono-mammography",
+        "description": "Ultrasound of the breast, complements mammography. Ideal for dense breasts."
+      },
+      "strep-throat-garganta-44": {
+        "title": "Strep Throat Test",
+        "description": "Rapid test detects Streptococcus bacteria in the throat in minutes."
+      },
+      "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42": {
+        "title": "Respiratory Panel",
+        "description": "Combined test for COVID-19, Influenza A/B and Mycoplasma. Identifies cause of respiratory symptoms."
+      },
+      "producto-de-prueba-paquete-64": {
+        "title": "Test Product Package",
+        "description": "Test product."
+      },
+      "pruebas-para-licencia-matrimonial-32": {
+        "title": "Marriage License Tests",
+        "description": "Fulfill health requirements for marriage. Includes blood tests, STD tests, and medical certificate."
+      },
+      "test-de-enfermedades-de-transmisin-sexual-ets-34": {
+        "title": "STD Panel",
+        "description": "Detects infections like HIV, syphilis, chlamydia, gonorrhea. Important for sexually active people."
+      },
+      "programa-de-reduccin-de-peso-58": {
+        "title": "Weight Reduction Program",
+        "description": "Includes appointment, lab tests, and prescription."
+      }
+    }
   }
 }
