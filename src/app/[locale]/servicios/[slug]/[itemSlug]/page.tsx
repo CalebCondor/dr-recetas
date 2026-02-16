@@ -15,7 +15,7 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string; itemSlug: string }>;
 }) {
   const { slug, itemSlug } = await params;
-  const t = await getTranslations("ServicesPage");
+  const t = await getTranslations();
 
   // Fetch data on the server side
   const product = await getProductBySlug(itemSlug);
@@ -25,15 +25,17 @@ export default async function ProductDetailPage({
       <PageWrapper>
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#FDFDFD] space-y-4">
           <h1 className="text-2xl font-bold text-[#0D4B4D]">
-            {t("Static.productNotFound")}
+            {t("ServicesPage.Static.productNotFound")}
           </h1>
           <div className="bg-red-50 p-4 rounded text-red-600 font-mono text-xs max-w-lg">
             Debug: Buscando slug {itemSlug} en la API.
           </div>
-          <p className="text-slate-500">{t("Static.productNotFoundMessage")}</p>
+          <p className="text-slate-500">
+            {t("ServicesPage.Static.productNotFoundMessage")}
+          </p>
           <Link href={`/servicios/${slug}`}>
             <Button className="bg-[#0D4B4D] text-white rounded-full">
-              {t("Static.backToCategory", { category: slug })}
+              {t("ServicesPage.Static.backToCategory", { category: slug })}
             </Button>
           </Link>
         </div>
@@ -56,12 +58,12 @@ export default async function ProductDetailPage({
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
             <div className="mb-12">
               <h2 className="text-center text-3xl md:text-4xl font-black text-[#0D4B4D] tracking-tighter">
-                {t("Static.relatedServicesTitle")}
+                {t("ServicesPage.Static.relatedServicesTitle")}
               </h2>
               <p className="text-center text-slate-500 font-medium mt-2">
-                {t("Static.relatedServicesSubtitle", {
-                  category: t.has(`Categories.${slug}.title`)
-                    ? t(`Categories.${slug}.title`)
+                {t("ServicesPage.Static.relatedServicesSubtitle", {
+                  category: t.has(`ServicesPage.Categories.${slug}.title`)
+                    ? t(`ServicesPage.Categories.${slug}.title`)
                     : product.category || "General",
                 })}
               </p>
@@ -69,12 +71,19 @@ export default async function ProductDetailPage({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedProducts.slice(0, 3).map((item, idx) => {
-                const title = t.has(`Items.${item.slug}.title`)
-                  ? t(`Items.${item.slug}.title`)
+                const title = t.has(`ServicesPage.Items.${item.slug}.title`)
+                  ? t(`ServicesPage.Items.${item.slug}.title`)
                   : item.titulo;
-                const content = t.has(`Items.${item.slug}.description`)
-                  ? t(`Items.${item.slug}.description`)
+                const content = t.has(
+                  `ServicesPage.Items.${item.slug}.description`,
+                )
+                  ? t(`ServicesPage.Items.${item.slug}.description`)
                   : item.resumen;
+                const categoryTitle = t.has(
+                  `ServicesPage.Categories.${slug}.title`,
+                )
+                  ? t(`ServicesPage.Categories.${slug}.title`)
+                  : item.category;
 
                 return (
                   <div key={item.id} className="h-[420px]">
@@ -83,7 +92,7 @@ export default async function ProductDetailPage({
                       content={content}
                       price={item.precio}
                       image={item.imagen}
-                      category={item.category}
+                      category={categoryTitle}
                       index={idx}
                       slug={item.slug}
                       categorySlug={slug}

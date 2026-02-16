@@ -166,5 +166,79 @@
       "terms": "Términos y condiciones",
       "rights": "© 2025 DR. Recetas Todos los derechos reservados."
     }
+  },
+  "ServicesPage": {
+    "Static": {
+       "notFound": "Servicio no encontrado",
+       "loading": "Cargando...",
+       "ourServices": "Nuestros Servicios",
+       "basePrice": "Precio Base",
+       "viewMore": "Ver más opciones",
+       "exploreMore": "Explorar más categorías",
+       "keepDiscovering": "Sigue descubriendo todo lo que Doctor Recetas tiene para tu salud.",
+       "loadingRecommendations": "Cargando recomendaciones...",
+       "noRecommendations": "No se encontraron categorías adicionales.",
+       "price": "Precio",
+       "currency": "USD",
+       "buyButton": "Comprar",
+       "description": "Descripción",
+       "technicalSheet": "Ficha Técnica",
+       "detailedDescription": "Descripción Detallada",
+       "serviceSpecs": "Especificaciones del Servicio",
+       "serviceLabel": "Servicio",
+       "categoryLabel": "Categoría",
+       "availabilityLabel": "Disponibilidad",
+       "responseLabel": "Tiempo de Respuesta",
+       "codeLabel": "Código",
+       "managementLabel": "Gestión",
+       "availabilityValue": "Online 24/7",
+       "responseValue": "Inmediato",
+       "managementValue": "Soporte Prioritario",
+       "totalToPay": "Total a pagar",
+       "loginRequiredTitle": "Acceso Restringido",
+       "loginRequiredDescription": "Para agregar servicios al carrito, primero debes",
+       "loginAction": "iniciar sesión",
+       "expandedDetail": "Detalle Ampliado",
+       "expandedDetailSubtitle": "¿De qué trata este servicio?",
+       "technicalSheetSubtitle": "Detalles y especificaciones",
+       "productNotFound": "Producto no encontrado",
+       "productNotFoundMessage": "Lo sentimos, no pudimos encontrar el servicio que buscas.",
+       "backToCategory": "Volver a {category}",
+       "relatedServicesTitle": "Servicios Relacionados",
+       "relatedServicesSubtitle": "Otros servicios en la categoría {category} que podrían interesarte."
+    },
+    "Categories": {
+      "citas-medicas": {
+        "title": "Citas Médicas",
+        "description": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento.",
+        "longDescription": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento."
+      },
+      "membresia": {
+        "title": "Membresías",
+        "description": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
+        "longDescription": "Obtén acceso preferencial a consultas médicas y servicios especiales."
+      },
+      "lab": {
+        "title": "Órdenes de Laboratorio",
+        "description": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones.",
+         "longDescription": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones."
+      },
+      "otros": {
+        "title": "Otros Servicios",
+        "description": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
+        "longDescription": "Descubre la variedad completa de servicios médicos que tenemos para ti."
+      },
+      "para-el": {
+        "title": "Para Él",
+        "description": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral.",
+        "longDescription": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral."
+      },
+      "para-ella": {
+        "title": "Para Ella",
+        "description": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura.",
+        "longDescription": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura."
+      }
+    },
+    "Items": {}
   }
 }
