@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface Service {
   title: string;
@@ -26,6 +27,7 @@ interface ServicesSectionProps {
 }
 
 export function ServicesSection({ services }: ServicesSectionProps) {
+  const t = useTranslations("HomePage.Services");
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -103,8 +105,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 "opacity-90 text-sm md:text-base lg:text-lg leading-snug line-clamp-5 font-medium",
               )}
             >
-              {service.description ||
-                "Explora este servicio médico especializado."}
+              {service.description || t("default_description")}
             </p>
           )}
         </div>
@@ -116,7 +117,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
         >
           <Image
             src="/image_Cort.png"
-            alt="Servicio médico"
+            alt={service.imageAlt || t("image_alt")}
             width={400}
             height={400}
             className="w-full h-full object-contain object-bottom-right transform transition-transform duration-500 group-hover:scale-105"
@@ -134,11 +135,9 @@ export function ServicesSection({ services }: ServicesSectionProps) {
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         <div className="mb-12 text-left">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-            Nuestros Servicios
+            {t("title")}
           </h2>
-          <p className="text-slate-600 text-lg">
-            Explora nuestras soluciones médicas en línea
-          </p>
+          <p className="text-slate-600 text-lg">{t("subtitle")}</p>
         </div>
 
         {/* Mobile Carousel */}

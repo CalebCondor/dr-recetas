@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
 import { useIsMounted } from "@/hooks/use-is-mounted";
+import { useTranslations } from "next-intl";
 
 interface FAQItem {
   id: number;
@@ -50,20 +51,45 @@ const faqItems: FAQItem[] = [
 ];
 
 export function FAQSection() {
-  const leftColumnItems = faqItems.slice(0, 3);
-  const rightColumnItems = faqItems.slice(3);
+  const t = useTranslations("HomePage.FAQ");
+  const translatedFaqItems: FAQItem[] = [
+    {
+      id: 1,
+      question: t("q1"),
+      answer: t("a1"),
+    },
+    {
+      id: 2,
+      question: t("others_q"),
+      answer: t("others_a"),
+    },
+    {
+      id: 3,
+      question: t("others_q"),
+      answer: t("others_a"),
+    },
+    {
+      id: 4,
+      question: t("others_q"),
+      answer: t("others_a"),
+    },
+    {
+      id: 5,
+      question: t("others_q"),
+      answer: t("others_a"),
+    },
+  ];
+  const leftColumnItems = translatedFaqItems.slice(0, 3);
+  const rightColumnItems = translatedFaqItems.slice(3);
   const isMounted = useIsMounted();
 
   return (
     <section className="lg:py-12 px-4 md:px-12 lg:px-[8%]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-teal-600 font-semibold text-sm mb-2 uppercase tracking-wider">
-            ¿Preguntas?
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0D4B4D] text-balance">
-            Nosotras tenemos respuestas
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
+            {t("title")}
           </h2>
         </div>
 

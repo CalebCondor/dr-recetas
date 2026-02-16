@@ -1,0 +1,170 @@
+{
+  "Header": {
+    "nav": {
+      "services": "Servicios",
+      "discounts": "Descuentos",
+      "about": "Nosotros",
+      "memberships": "Membresías"
+    },
+    "user": {
+      "profile": "Mi Perfil",
+      "orders": "Mis Ordenes",
+      "transactions": "Mis Transacciones",
+      "logout": "Cerrar sesión",
+      "login": "Iniciar sesión"
+    },
+    "mobile": {
+      "explore": "Explorar",
+      "subtitle": "Todo lo que necesitas en un solo lugar",
+      "menu_main": "Menú Principal",
+      "language": "Idioma"
+    }
+  },
+  "HomePage": {
+    "Hero": {
+      "title": "Consigue una",
+      "subtitle": "lo antes posible",
+      "typing": {
+        "medical_excuse": "Excusa Médica",
+        "covid_test": "Prueba de Covid",
+        "medical_appointment": "Cita Médica",
+        "medical_prescription": "Receta Médica"
+      },
+      "explore_services": "Explorar Servicios"
+    },
+    "Consultations": {
+      "medical_certificate": "Certificado Médico",
+      "prescription_refill": "Receta de medicamentos o \"Refill\"",
+      "immediate_evaluation": "Evaluación médica inmediata",
+      "follow_up": "Cita de Seguimiento",
+      "influenza_test": "Prueba de Influenza A y B",
+      "cbc_diff": "CBC + DIFF Lab"
+    },
+    "Services": {
+      "title": "Nuestros Servicios",
+      "subtitle": "Explora nuestras soluciones médicas en línea",
+      "default_description": "Explora este servicio médico especializado.",
+      "image_alt": "Servicio médico"
+    },
+    "WhyChooseUs": {
+      "title": "¿Por qué elegirnos?",
+      "p1": "somos una compañía puertorriqueña establecida en 2020 como consecuencia de la pandemia del COVID.",
+      "p2": "Nuestro grupo medico está compuesto por un diverso número de doctores asistentes, enfermeras, doctores internistas y especialistas. Nuestra meta es poder llevar Salud a la mayor cantidad de personas en Puerto Rico desde nuestro centro a la comodidad de su hogar."
+    },
+    "HowItWorks": {
+      "title": "¿Cómo funciona?",
+      "subtitle": "Sigue estos pasos para obtener la receta deseada",
+      "step1": "Complete el registro, escoja el servicio médico o laboratorio deseado.",
+      "step2": "Pague con Tarjeta de Crédito o ATH MOVIL.",
+      "step3": "Si es un laboratorio escogido le llega inmediatamente a su email.",
+      "step4": "Si es una cita médica un doctor se comunicará con usted durante el día. Si necesita una cita más rápida por favor llamarnos a nuestro número (787) 710-7426."
+    },
+    "FAQ": {
+      "badge": "¿Preguntas?",
+      "title": "Nosotras tenemos respuestas",
+      "q1": "¿En qué tiempo recibo mi licencia?",
+      "a1": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
+      "others_q": "¿Contrary to popular belief, Lorem Ipsum is not simply?",
+      "others_a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "Testimonials": {
+      "title": "Clientes satisfechos confían en Dr.Recetas",
+      "t1": {
+        "text": "Excelente servicio, la receta me llegó a mi email en menos de 10 minutos. Muy recomendado.",
+        "author": "María Rodríguez",
+        "role": "Paciente"
+      },
+      "t2": {
+        "text": "La atención del Dr. fue excepcional. Pude resolver mi refill de medicamentos sin salir de casa.",
+        "author": "Carlos Ortiz",
+        "role": "Paciente"
+      },
+      "t3": {
+        "text": "Muy fácil de usar. El proceso de pago con ATH Móvil fue súper rápido. ¡Gracias!",
+        "author": "Elena Rivera",
+        "role": "Paciente"
+      }
+    },
+    "Benefits": {
+      "title": "Disfruta de nuestros beneficios",
+      "benefit1": {
+        "title": "¿Eres paciente de cannabis medicinal?",
+        "description": "Obtenga su licencia con solo un click",
+        "button": "Solicitar ahora"
+      },
+      "benefit2": {
+        "title": "Ahorro hasta 80% en sus medicamentos",
+        "description": "Acceda a medicamentos de calidad a precios accesibles",
+        "button": "Ingresa aquí"
+      },
+      "tap_hint": "Toca una tarjeta para ver más"
+    }
+  },
+  "Chatbot": {
+    "title": "¿Qué necesitas hoy?",
+    "description": "Ya sea un certificado médico, si tu hijo tiene fiebre o necesitas un refill urgente de tu receta, Ana está aquí para ayudarte.",
+    "online": "En línea",
+    "instant_reply": "Respuesta instantánea",
+    "placeholder": "Escribe aquí...",
+    "tooltip": "¿Necesitas ayuda? ¡Habla con Ana! 👋",
+    "welcome": "¡Hola! 👋 ¿En qué puedo ayudarte hoy?",
+    "error_api": "Lo siento, tuve un problema al procesar tu mensaje.",
+    "error_network": "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde."
+  },
+  "DynamicServices": {
+    "service_7": {
+      "title": "Citas Médicas",
+      "description": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento."
+    },
+    "service_8": {
+      "title": "Membresías",
+      "description": "Obtén acceso preferencial a consultas médicas y servicios especiales."
+    },
+    "service_9": {
+      "title": "Órdenes de Laboratorio",
+      "description": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones."
+    },
+    "service_12": {
+      "title": "Otros",
+      "description": "Descubre la variedad completa de servicios médicos que tenemos para ti."
+    },
+    "service_10": {
+      "title": "Para Él",
+      "description": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral."
+    },
+    "service_11": {
+      "title": "Para Ella",
+      "description": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura."
+    }
+  },
+  "Footer": {
+    "About": {
+      "title": "Nosotros",
+      "home": "Inicio",
+      "shop": "Tienda",
+      "about_us": "Quiénes somos",
+      "journal": "Diario",
+      "science": "Ciencia"
+    },
+    "Support": {
+      "title": "Soporte",
+      "faq": "Preguntas Frecuentes",
+      "shipping": "Política de envíos",
+      "refund": "Política de devoluciones",
+      "account": "Mi cuenta",
+      "contact": "Contacto"
+    },
+    "Newsletter": {
+      "title": "Suscríbete a nuestro boletín y reclama tu 15% de descuento hoy",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email": "Correo electrónico",
+      "button": "Reclamar descuento"
+    },
+    "Legal": {
+      "privacy": "Política de privacidad",
+      "terms": "Términos y condiciones",
+      "rights": "© 2025 DR. Recetas Todos los derechos reservados."
+    }
+  }
+}

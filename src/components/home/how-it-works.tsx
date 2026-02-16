@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface TimelineStep {
   number: number;
@@ -44,6 +45,34 @@ const steps: TimelineStep[] = [
 const stepColors = ["#89CBB9", "#63B1A5", "#50A49C", "#3C9792"];
 
 export function HowItWorks() {
+  const t = useTranslations("HomePage.HowItWorks");
+  const translatedSteps: TimelineStep[] = [
+    {
+      number: 1,
+      description: t("step1"),
+      imageSrc: "/pasos/layer_1.svg",
+      position: "left",
+    },
+    {
+      number: 2,
+      description: t("step2"),
+      imageSrc: "/pasos/layer_4.svg",
+      position: "right",
+    },
+    {
+      number: 3,
+      description: t("step3"),
+      imageSrc: "/pasos/layer_2.svg",
+      position: "left",
+    },
+    {
+      number: 4,
+      description: t("step4"),
+      imageSrc: "/pasos/layer_3.svg",
+      position: "right",
+    },
+  ];
+
   const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
@@ -96,10 +125,10 @@ export function HowItWorks() {
         {/* Header */}
         <div className="mb-16 md:mb-20 text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
-            ¿Cómo funciona?
+            {t("title")}
           </h2>
           <p className="text-lg md:text-xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
-            Sigue estos pasos para obtener la receta deseada
+            {t("subtitle")}
           </p>
         </div>
 
@@ -174,7 +203,7 @@ export function HowItWorks() {
           </div>
 
           <div className="space-y-16 lg:space-y-0 text-[#0D4B4D]">
-            {steps.map((step, index) => (
+            {translatedSteps.map((step, index) => (
               <motion.div
                 key={step.number}
                 ref={(el) => {
@@ -253,7 +282,7 @@ export function HowItWorks() {
 
         {/* Mobile Layout - Vertical Stack */}
         <div className="md:hidden space-y-8">
-          {steps.map((step, index) => (
+          {translatedSteps.map((step, index) => (
             <motion.div
               key={step.number}
               initial={{ opacity: 0, y: 40, scale: 0.95 }}

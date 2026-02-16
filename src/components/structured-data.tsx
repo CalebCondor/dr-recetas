@@ -1,5 +1,3 @@
-"use client";
-
 export function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",

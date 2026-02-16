@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface BenefitCard {
   id: number;
@@ -39,6 +40,27 @@ const benefits: BenefitCard[] = [
 ];
 
 export function BenefitsSection() {
+  const t = useTranslations("HomePage.Benefits");
+  const translatedBenefits: BenefitCard[] = [
+    {
+      id: 1,
+      name: "ISLANDMED",
+      imageFond: "/meet.png",
+      title: t("benefit1.title"),
+      description: t("benefit1.description"),
+      buttonText: t("benefit1.button"),
+      bgColor: "bg-teal-900",
+      image: "🏥",
+    },
+    {
+      id: 2,
+      name: "",
+      title: t("benefit2.title"),
+      description: t("benefit2.description"),
+      buttonText: t("benefit2.button"),
+      bgColor: "bg-[#ff6b35]",
+    },
+  ];
   const [order, setOrder] = useState<number[]>([1, 2]);
 
   const handleCardClick = (id: number) => {
@@ -52,13 +74,13 @@ export function BenefitsSection() {
     <section className="w-full  py-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
-          Disfruta de nuestros beneficios
+          {t("title")}
         </h2>
 
         <div className="relative h-[340px] max-w-6xl mx-auto perspective">
           <AnimatePresence>
             {order.map((id, index) => {
-              const benefit = benefits.find((b) => b.id === id);
+              const benefit = translatedBenefits.find((b) => b.id === id);
               if (!benefit) return null;
 
               const isFirst = index === 0;
@@ -137,9 +159,7 @@ export function BenefitsSection() {
 
         <div className="flex items-center justify-center gap-2 mt-48 text-teal-800/40 font-medium">
           <div className="w-8 h-1 bg-teal-800/20 rounded-full" />
-          <p className="text-sm uppercase tracking-widest">
-            Toca una tarjeta para ver más
-          </p>
+          <p className="text-sm uppercase tracking-widest">{t("tap_hint")}</p>
           <div className="w-8 h-1 bg-teal-800/20 rounded-full" />
         </div>
       </div>

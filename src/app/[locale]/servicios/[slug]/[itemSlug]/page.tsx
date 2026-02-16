@@ -3,7 +3,7 @@ import { ProductDetailClient } from "@/components/servicios/product-detail-clien
 import { PageWrapper } from "@/components/page-wrapper";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { RelatedBentoCard } from "@/app/servicios/[slug]/page";
+import { RelatedBentoCard } from "@/app/[locale]/servicios/[slug]/page";
 
 // Disable static generation for this dynamic route to ensure fresh data
 export const dynamic = "force-dynamic";

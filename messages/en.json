@@ -1,0 +1,170 @@
+{
+  "Header": {
+    "nav": {
+      "services": "Services",
+      "discounts": "Discounts",
+      "about": "About Us",
+      "memberships": "Memberships"
+    },
+    "user": {
+      "profile": "My Profile",
+      "orders": "My Orders",
+      "transactions": "My Transactions",
+      "logout": "Logout",
+      "login": "Login"
+    },
+    "mobile": {
+      "explore": "Explore",
+      "subtitle": "Everything you need in one place",
+      "menu_main": "Main Menu",
+      "language": "Language"
+    }
+  },
+  "HomePage": {
+    "Hero": {
+      "title": "Get a",
+      "subtitle": "as soon as possible",
+      "typing": {
+        "medical_excuse": "Medical Excuse",
+        "covid_test": "Covid Test",
+        "medical_appointment": "Medical Appointment",
+        "medical_prescription": "Medical Prescription"
+      },
+      "explore_services": "Explore Services"
+    },
+    "Consultations": {
+      "medical_certificate": "Medical Certificate",
+      "prescription_refill": "Prescription Refill",
+      "immediate_evaluation": "Immediate Medical Evaluation",
+      "follow_up": "Follow-up Appointment",
+      "influenza_test": "Influenza A & B Test",
+      "cbc_diff": "CBC + DIFF Lab"
+    },
+    "Services": {
+      "title": "Our Services",
+      "subtitle": "Explore our online medical solutions",
+      "default_description": "Explore this specialized medical service.",
+      "image_alt": "Medical service"
+    },
+    "WhyChooseUs": {
+      "title": "Why choose us?",
+      "p1": "we are a Puerto Rican company established in 2020 as a result of the COVID pandemic.",
+      "p2": "Our medical group is composed of a diverse number of assistant doctors, nurses, internists, and specialists. Our goal is to bring Health to the greatest number of people in Puerto Rico from our center to the comfort of your home."
+    },
+    "HowItWorks": {
+      "title": "How it works?",
+      "subtitle": "Follow these steps to get the desired prescription",
+      "step1": "Complete the registration, choose the desired medical or laboratory service.",
+      "step2": "Pay with Credit Card or ATH MOVIL.",
+      "step3": "If it is a chosen laboratory, it arrives immediately at your email.",
+      "step4": "If it is a medical appointment, a doctor will contact you during the day. If you need a faster appointment, please call us at our number (787) 710-7426."
+    },
+    "FAQ": {
+      "badge": "Questions?",
+      "title": "We have answers",
+      "q1": "How long until I receive my license?",
+      "a1": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
+      "others_q": "Contrary to popular belief, Lorem Ipsum is not simply?",
+      "others_a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "Testimonials": {
+      "title": "Satisfied customers trust Dr.Recetas",
+      "t1": {
+        "text": "Excellent service, the prescription reached my email in less than 10 minutes. Highly recommended.",
+        "author": "Maria Rodriguez",
+        "role": "Patient"
+      },
+      "t2": {
+        "text": "The Dr.'s attention was exceptional. I was able to handle my medication refill without leaving home.",
+        "author": "Carlos Ortiz",
+        "role": "Patient"
+      },
+      "t3": {
+        "text": "Very easy to use. The payment process with ATH Móvil was super fast. Thanks!",
+        "author": "Elena Rivera",
+        "role": "Patient"
+      }
+    },
+    "Benefits": {
+      "title": "Enjoy our benefits",
+      "benefit1": {
+        "title": "Are you a medical cannabis patient?",
+        "description": "Get your license with just one click",
+        "button": "Request now"
+      },
+      "benefit2": {
+        "title": "Save up to 80% on your medications",
+        "description": "Access quality medications at affordable prices",
+        "button": "Enter here"
+      },
+      "tap_hint": "Tap a card to see more"
+    }
+  },
+  "Chatbot": {
+    "title": "What do you need today?",
+    "description": "Whether it's a medical certificate, if your child has a fever, or you need an urgent refill of your prescription, Ana is here to help you.",
+    "online": "Online",
+    "instant_reply": "Instant response",
+    "placeholder": "Type here...",
+    "tooltip": "Need help? Talk to Ana! 👋",
+    "welcome": "Hello! 👋 How can I help you today?",
+    "error_api": "Sorry, I had a problem processing your message.",
+    "error_network": "Sorry, I couldn't connect to the server. Please try again later."
+  },
+  "DynamicServices": {
+    "service_7": {
+      "title": "Medical Appointments",
+      "description": "Book your medical appointment in a few minutes, from anywhere and at any time."
+    },
+    "service_8": {
+      "title": "Memberships",
+      "description": "Get preferential access to medical consultations and special services."
+    },
+    "service_9": {
+      "title": "Laboratory Orders",
+      "description": "Request your laboratory tests quickly and without complications."
+    },
+    "service_12": {
+      "title": "Others",
+      "description": "Discover the full variety of medical services we have for you."
+    },
+    "service_10": {
+      "title": "For Him",
+      "description": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being."
+    },
+    "service_11": {
+      "title": "For Her",
+      "description": "Prevention, diagnosis, and medical support with professional and safe care."
+    }
+  },
+  "Footer": {
+    "About": {
+      "title": "About",
+      "home": "Home",
+      "shop": "Shop",
+      "about_us": "About Us",
+      "journal": "Journal",
+      "science": "Science"
+    },
+    "Support": {
+      "title": "Support",
+      "faq": "FAQ",
+      "shipping": "Shipping Policy",
+      "refund": "Refund and Returns Policy",
+      "account": "My account",
+      "contact": "Contact"
+    },
+    "Newsletter": {
+      "title": "Subscribe to our newsletter and claim your 15% discount today",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "button": "Claim discount"
+    },
+    "Legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "rights": "© 2025 DR. Recetas All rights reserved."
+    }
+  }
+}

@@ -1,8 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { LoginSheet } from "@/components/login-sheet";
+import { useTranslations, useLocale } from "next-intl";
 
 import {
   Stethoscope,
@@ -14,14 +15,13 @@ import {
   User,
   ClipboardList,
   Receipt,
+  Check,
 } from "lucide-react";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCart } from "@/context/cart-context";
 import { ShoppingCart } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -60,6 +60,9 @@ const Shimmer = () => (
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const locale = useLocale() as "en" | "es";
+  const t = useTranslations("Header");
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
@@ -69,6 +72,11 @@ export default function Header() {
 
   // Nueva lógica para detectar si el fondo es claro u oscuro
   const [isHeaderDark, setIsHeaderDark] = useState(false);
+
+  const handleLanguageChange = (lang: "es" | "en") => {
+    router.replace(pathname, { locale: lang });
+    setIsSheetOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,10 +122,9 @@ export default function Header() {
   };
 
   const navLinks = [
-    { label: "Servicios", id: "servicios", href: "/servicios" },
-    { label: "Descuentos", id: "descuentos", href: "/descuentos" },
-    { label: "Nosotros", id: "nosotros", href: "/nosotros" },
-    { label: "Membresías", id: "menbresias", href: "/membresias" },
+    { label: t("nav.services"), href: "#servicios" },
+    { label: t("nav.discounts"), href: "#descuentos" },
+    { label: t("nav.memberships"), href: "/membresias" },
   ];
 
   // Definimos los colores basados en los estados
@@ -171,6 +178,62 @@ export default function Header() {
             </Link>
           ))}
           <div className="flex items-center gap-3">
+            {/* Language Switcher Desktop */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`relative flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${buttonBg}`}
+                >
+                  <div className="relative w-6 h-4 overflow-hidden rounded-sm">
+                    <img
+                      src={locale === "es" ? "/puerto-rico.svg" : "/usa.svg"}
+                      alt={locale === "es" ? "PR Flag" : "/usa.svg"}
+                      className="object-cover"
+                    />
+                  </div>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[150px] rounded-xl">
+                <DropdownMenuItem
+                  className="flex items-center justify-between font-bold cursor-pointer"
+                  onClick={() => handleLanguageChange("es")}
+                >
+                  <span className="flex items-center gap-2">
+                    <div className="relative w-5 h-3.5 overflow-hidden rounded-sm">
+                      <img
+                        src="/puerto-rico.svg"
+                        alt="Puerto Rico"
+                        className="object-cover"
+                      />
+                    </div>
+                    Español
+                  </span>
+                  {locale === "es" && (
+                    <Check className="w-4 h-4 text-[#0D4B4D]" />
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="flex items-center justify-between font-bold cursor-pointer"
+                  onClick={() => handleLanguageChange("en")}
+                >
+                  <span className="flex items-center gap-2">
+                    <div className="relative w-5 h-3.5 overflow-hidden rounded-sm">
+                      <Image
+                        src="/usa.svg"
+                        alt="English"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    English
+                  </span>
+                  {locale === "en" && (
+                    <Check className="w-4 h-4 text-[#0D4B4D]" />
+                  )}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {/* Cart Button Desktop */}
             <Link href="/carrito">
               <button
@@ -256,20 +319,20 @@ export default function Header() {
                     <Link href="/perfil?tab=info">
                       <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
                         <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                        Mi Perfil
+                        {t("user.profile")}
                       </DropdownMenuItem>
                     </Link>
                     <Link href="/perfil?tab=orders">
                       <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
                         <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                        Mis Ordenes
+                        {t("user.orders")}
                       </DropdownMenuItem>
                     </Link>
 
                     <Link href="/perfil?tab=history">
                       <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
                         <Receipt className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                        Mis Transacciones
+                        {t("user.transactions")}
                       </DropdownMenuItem>
                     </Link>
                   </DropdownMenuGroup>
@@ -279,7 +342,7 @@ export default function Header() {
                     className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
                   >
                     <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
-                    Cerrar sesión
+                    {t("user.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -293,7 +356,7 @@ export default function Header() {
                   }`}
                 >
                   <Shimmer />
-                  <span className="relative z-10">Iniciar sesión</span>
+                  <span className="relative z-10">{t("user.login")}</span>
                 </button>
               </LoginSheet>
             )}
@@ -354,10 +417,10 @@ export default function Header() {
                 <div className="flex-1 overflow-y-auto">
                   <SheetHeader className="mt-2 mb-6 text-left p-0 space-y-1">
                     <SheetTitle className="text-xl font-extrabold text-[#0D4B4D] tracking-tight">
-                      Explorar
+                      {t("mobile.explore")}
                     </SheetTitle>
                     <p className="text-slate-400 text-xs font-medium">
-                      Todo lo que necesitas en un solo lugar
+                      {t("mobile.subtitle")}
                     </p>
                   </SheetHeader>
 
@@ -413,7 +476,7 @@ export default function Header() {
                               >
                                 <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
                                   <User className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                                  Mi Perfil
+                                  {t("user.profile")}
                                 </DropdownMenuItem>
                               </Link>
                               <Link
@@ -422,7 +485,7 @@ export default function Header() {
                               >
                                 <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
                                   <ClipboardList className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                                  Mis Ordenes
+                                  {t("user.orders")}
                                 </DropdownMenuItem>
                               </Link>
                               <Link
@@ -431,7 +494,7 @@ export default function Header() {
                               >
                                 <DropdownMenuItem className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-white hover:text-[#0D4B4D] transition-colors text-sm font-bold cursor-pointer group">
                                   <Receipt className="w-4 h-4 text-slate-400 group-hover:text-[#0D4B4D] transition-colors" />
-                                  Mis Transacciones
+                                  {t("user.transactions")}
                                 </DropdownMenuItem>
                               </Link>
                             </DropdownMenuGroup>
@@ -441,7 +504,7 @@ export default function Header() {
                               className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
                             >
                               <LogOut className="text-red-500 focus:text-red-600 w-4 h-4" />
-                              Cerrar sesión
+                              {t("user.logout")}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -450,7 +513,9 @@ export default function Header() {
                       <LoginSheet>
                         <button className="w-full relative overflow-hidden py-4 rounded-2xl font-extrabold active:scale-95 transition-all text-base bg-[#0D4B4D] text-white shadow-xl shadow-[#0D4B4D]/20 flex items-center justify-center">
                           <Shimmer />
-                          <span className="relative z-10">Iniciar sesión</span>
+                          <span className="relative z-10">
+                            {t("user.login")}
+                          </span>
                         </button>
                       </LoginSheet>
                     )}
@@ -458,18 +523,22 @@ export default function Header() {
 
                   <div className="flex flex-col gap-1.5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">
-                      Menú Principal
+                      {t("mobile.menu_main")}
                     </p>
                     {[
                       {
-                        name: "Servicios",
+                        name: t("nav.services"),
                         icon: Stethoscope,
                         href: "#servicios",
                       },
-                      { name: "Descuentos", icon: Tag, href: "#descuentos" },
-                      { name: "Nosotros", icon: Users, href: "#nosotros" },
                       {
-                        name: "Membresías",
+                        name: t("nav.discounts"),
+                        icon: Tag,
+                        href: "#descuentos",
+                      },
+                      { name: t("nav.about"), icon: Users, href: "#nosotros" },
+                      {
+                        name: t("nav.memberships"),
                         icon: CreditCard,
                         href: "/membresias",
                       },
@@ -488,6 +557,50 @@ export default function Header() {
                         </span>
                       </Link>
                     ))}
+                  </div>
+
+                  <div className="flex flex-col gap-1.5 mt-6 border-t border-slate-100 pt-6">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">
+                      {t("mobile.language")}
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => handleLanguageChange("es")}
+                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${
+                          locale === "es"
+                            ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
+                            : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
+                        }`}
+                      >
+                        <div className="relative w-6 h-4 overflow-hidden rounded-sm">
+                          <Image
+                            src="/puerto-rico.svg"
+                            alt="Puerto Rico"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        Español
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange("en")}
+                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${
+                          locale === "en"
+                            ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
+                            : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
+                        }`}
+                      >
+                        <div className="relative w-6 h-4 overflow-hidden rounded-sm">
+                          <Image
+                            src="/usa.svg"
+                            alt="English"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        English
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

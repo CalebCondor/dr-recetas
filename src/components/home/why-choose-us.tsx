@@ -10,6 +10,7 @@ import Image from "next/image";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { motion } from "framer-motion";
 import { useIsMounted } from "@/hooks/use-is-mounted";
+import { useTranslations } from "next-intl";
 
 const faqs = [
   {
@@ -28,26 +29,12 @@ const faqs = [
 
 function WhyChooseUsContent() {
   const isMounted = useIsMounted();
+  const t = useTranslations("HomePage.WhyChooseUs");
   return (
     <section
       className="relative py-20 lg:py-32"
       aria-labelledby="why-choose-us-title"
     >
-      {/* Centered Background Gradient - Subdued version */}
-      <div className="absolute inset-0 -top-40 opacity-40 pointer-events-none z-0">
-        <BackgroundGradientAnimation
-          containerClassName="!h-full !w-full blur-[100px]"
-          firstColor="30, 210, 150"
-          secondColor="60, 130, 255"
-          thirdColor="100, 220, 255"
-          fourthColor="40, 240, 180"
-          fifthColor="200, 255, 240"
-          pointerColor="60, 130, 255"
-          size="60%"
-          blendingValue="hard-light"
-        />
-      </div>
-
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%]">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Left Content */}
@@ -61,25 +48,15 @@ function WhyChooseUsContent() {
               id="why-choose-us-title"
               className="text-4xl font-bold text-teal-900 mb-6 tracking-tight"
             >
-              ¿Por qué elegirnos?
+              {t("title")}
             </h2>
 
             <div className="prose prose-sm text-teal-800/80 mb-8 space-y-4">
               <p className="text-lg leading-relaxed">
-                <span className="font-bold text-teal-900">Doctor Recetas</span>,
-                somos una compañía puertorriqueña establecida en 2020 como
-                consecuencia de la pandemia del COVID.
+                <span className="font-bold text-teal-900">Doctor Recetas</span>,{" "}
+                {t("p1")}
               </p>
-              <p className="text-lg leading-relaxed">
-                Nuestro grupo medico está compuesto por un diverso número de
-                doctores asistentes, enfermeras, doctores internistas y
-                especialistas. Nuestra meta es poder llevar{" "}
-                <span className="text-teal-600 font-bold uppercase tracking-wider">
-                  Salud
-                </span>{" "}
-                a la mayor cantidad de personas en Puerto Rico desde nuestro
-                centro a la comodidad de su hogar.
-              </p>
+              <p className="text-lg leading-relaxed">{t("p2")}</p>
             </div>
 
             {isMounted && (
