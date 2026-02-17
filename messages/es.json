@@ -442,5 +442,144 @@
       "error": "Error al solicitar recuperación",
       "unexpectedError": "Ocurrió un error inesperado. Intente nuevamente."
     }
+  },
+  "Cart": {
+    "Empty": {
+      "title": "Tu carrito está vacío",
+      "description": "No has añadido ningún servicio a tu carrito todavía.",
+      "button": "Ver Servicios"
+    },
+    "Review": {
+      "title": "Mi Carrito",
+      "back": "Volver a Servicios",
+      "summary": "Tienes {count, plural, one {1 servicio seleccionado} other {{count} servicios seleccionados}}",
+      "table": {
+        "service": "Servicio",
+        "price": "Precio",
+        "total": "Total",
+        "delete": "Eliminar {name}"
+      },
+      "continue": "Confirmar mi información",
+      "deleteDialog": {
+        "title": "¿Eliminar servicio?",
+        "description": "¿Estás seguro de que deseas eliminar {name} de tu carrito? Esta acción no se puede deshacer.",
+        "cancel": "Cancelar",
+        "confirm": "Sí, eliminar"
+      }
+    },
+    "Personal": {
+      "title": "Información Personal",
+      "steps": {
+        "step": "Paso {current} de {total}",
+        "basic": "Datos del Paciente",
+        "contact": "Contacto y Dirección",
+        "id": "Identificación"
+      },
+      "form": {
+        "patient": "Paciente",
+        "patientPlaceholder": "Nombre completo",
+        "birthDate": "Fecha Nacimiento",
+        "birthDatePlaceholder": "Seleccionar fecha",
+        "country": "País",
+        "municipality": "Municipio",
+        "municipalityPlaceholder": "San Juan...",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "ejemplo@correo.com",
+        "address": "Dirección Física",
+        "addressPlaceholder": "Calle, Número, Urbanización",
+        "zipCode": "Código Postal",
+        "zipCodePlaceholder": "00XXX",
+        "phone": "Teléfono",
+        "phonePlaceholder": "787...",
+        "idType": "Tipo de Identificación",
+        "idNumber": "Número de Documento",
+        "idNumberPlaceholder": "XXX-XXX-XXX",
+        "uploadId": "Sube tu identificación",
+        "uploadHint": "Formatos: JPG o PNG (Máx 5MB)",
+        "uploadButton": "Seleccionar Archivo",
+        "uploadChange": "Cambiar",
+        "uploadLoading": "Cargando información...",
+        "backToSchoolHint": "*Si usted está adquiriendo la orden \"Back to School\", se requiere que suba una imagen del Certificado Médico."
+      },
+      "navigation": {
+        "back": "Volver",
+        "previous": "Anterior",
+        "continue": "Continuar",
+        "next": "Siguiente"
+      },
+      "idTypes": {
+        "license": "Licencia de Conducir",
+        "passport": "Pasaporte"
+      }
+    },
+    "Details": {
+      "title": "Detalle de la Orden",
+      "table": {
+        "header": "Producto / Paciente",
+        "price": "Precio",
+        "defaultDetail": "Consulta médica inmediata",
+        "orderNameLabel": "Nombre para esta orden:"
+      },
+      "totalLabel": "Total a pagar:",
+      "advisorCode": "Código de Asesor (Opcional)",
+      "advisorCodePlaceholder": "Ej: DR-9900",
+      "navigation": {
+        "back": "Volver",
+        "continue": "Continuar"
+      }
+    },
+    "Payment": {
+      "title": "Finalizar Pago",
+      "orderSummary": "Orden de Servicio",
+      "patientLabel": "Paciente: {name}",
+      "totalLabel": "Total",
+      "methodTitle": "Seleccione Método de Pago",
+      "athLabel": "Ath Movil",
+      "cardLabel": "Tarjeta",
+      "athLoading": "Cargando botón de ATH Móvil...",
+      "cardButton": "CONTINUAR CON TARJETA",
+      "noMethodSelected": "SELECCIONE MÉTODO DE PAGO",
+      "cardModal": {
+        "title": "Datos de Tarjeta",
+        "subtitle": "Pago Seguro Encriptado",
+        "number": "Número de Tarjeta",
+        "expiry": "Expiración",
+        "cvc": "CVC",
+        "name": "Nombre en Tarjeta",
+        "namePlaceholder": "TITULAR DE LA TARJETA",
+        "shieldHint": "Su información está protegida por encriptación de grado bancario.",
+        "submit": "PAGAR ${total}",
+        "processing": "Procesando..."
+      },
+      "errorModal": {
+        "title": "Error en el Pago",
+        "button": "Entendido"
+      },
+      "back": "Volver a detalles",
+      "errors": {
+        "declined": "Tu tarjeta ha sido rechazada. Por favor verifica los datos o intenta con otra tarjeta.",
+        "insufficient": "Fondos insuficientes en la tarjeta. Por favor intenta con otro método de pago.",
+        "expired": "Tu tarjeta ha expirado. Por favor utiliza una tarjeta vigente.",
+        "invalid": "Número de tarjeta inválido. Por favor verifica los datos ingresados.",
+        "cvc": "El código de seguridad (CVC) es incorrecto. Por favor verifica e intenta de nuevo.",
+        "network": "Error de conexión. Por favor verifica tu internet e intenta de nuevo.",
+        "server": "Hubo un problema al procesar tu pago. Por favor intenta de nuevo en unos minutos.",
+        "default": "No se pudo procesar el pago. Por favor verifica los datos de tu tarjeta e intenta de nuevo.",
+        "sessionExpired": "Sesión expirada. Por favor inicie sesión nuevamente.",
+        "invalidDate": "Fecha inválida. Use el formato MM/YY",
+        "invalidOrderCode": "Error API: No se recibió código de orden (cp_code). Por favor contacta a soporte. ID: {id}",
+        "athCancel": "Pago cancelado. Has cancelado la transacción.",
+        "athExpired": "Transacción expirada. El tiempo para completar el pago ha expirado."
+      }
+    },
+    "Stepper": {
+      "step1": "Información Personal",
+      "step2": "Detalle de la orden",
+      "step3": "Pagar"
+    },
+    "Page": {
+      "sessionRequired": "Sesión requerida. Debes iniciar sesión para ver tu carrito.",
+      "paymentSuccess": "Pago exitoso. Su orden ha sido procesada."
+    }
   }
 }

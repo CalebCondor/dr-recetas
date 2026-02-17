@@ -19,6 +19,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+import { useTranslations } from "next-intl";
+
 import { CartItem } from "@/context/cart-context";
 
 interface CartReviewProps {
@@ -34,6 +36,7 @@ export const CartReview = ({
   removeFromCart,
   onContinue,
 }: CartReviewProps) => {
+  const t = useTranslations("Cart.Review");
   const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
 
   const handleDeleteClick = (item: CartItem) => {
@@ -62,19 +65,18 @@ export const CartReview = ({
             className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#0D4B4D] transition-all group"
           >
             <RiArrowLeftLine className="group-hover:-translate-x-1 transition-transform" />
-            Volver a Servicios
+            {t("back")}
           </Link>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <h1 className="text-4xl md:text-5xl font-black text-[#0D4B4D] tracking-tight">
-                Mi Carrito
+                {t("title")}
               </h1>
               <p className="text-slate-400 text-sm md:text-base mt-2 font-medium">
-                Tienes{" "}
-                <span className="text-[#0D4B4D] font-bold">{cart.length}</span>{" "}
-                {cart.length === 1
-                  ? "servicio seleccionado"
-                  : "servicios seleccionados"}
+                {t.rich("summary", {
+                  count: cart.length,
+                  span: (chunks) => <span className="text-[#0D4B4D] font-bold">{chunks}</span>
+                })}
               </p>
             </div>
           </div>
@@ -85,10 +87,10 @@ export const CartReview = ({
             <thead className="bg-[#0D4B4D]/5 border-b border-slate-100">
               <tr>
                 <th className="px-6 py-4 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest">
-                  Servicio
+                  {t("table.service")}
                 </th>
                 <th className="px-6 py-4 text-[10px] font-black uppercase text-[#0D4B4D] tracking-widest text-right">
-                  Precio
+                  {t("table.price")}
                 </th>
                 <th className="px-6 py-4 w-20"></th>
               </tr>
@@ -125,7 +127,7 @@ export const CartReview = ({
                     <button
                       onClick={() => handleDeleteClick(item)}
                       className="p-2 text-slate-300 hover:text-red-500 transition-colors"
-                      aria-label={`Eliminar ${item.titulo}`}
+                      aria-label={t("table.delete", { name: item.titulo })}
                     >
                       <RiDeleteBin6Line size={18} />
                     </button>
@@ -135,7 +137,7 @@ export const CartReview = ({
             </tbody>
             <tfoot className="bg-slate-50 border-t border-slate-100">
               <tr>
-                <td className="px-6 py-6 font-bold text-[#0D4B4D]">Total</td>
+                <td className="px-6 py-6 font-bold text-[#0D4B4D]">{t("table.total")}</td>
                 <td className="px-6 py-6 text-right font-black text-xl text-[#0D4B4D]">
                   ${total.toFixed(2)}
                 </td>
@@ -150,7 +152,7 @@ export const CartReview = ({
             onClick={onContinue}
             className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-5 py-3 rounded-xl font-semibold shadow-md shadow-[#0D4B4D]/20 transition-all active:scale-95 disabled:opacity-70 h-auto"
           >
-            Confirmar mi información
+            {t("continue")}
             <RiArrowRightLine />
           </Button>
         </div>
@@ -164,25 +166,23 @@ export const CartReview = ({
         <AlertDialogContent className="rounded-3xl border-none shadow-2xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-2xl font-black text-[#0D4B4D]">
-              ¿Eliminar servicio?
+              {t("deleteDialog.title")}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-slate-600 text-base">
-              ¿Estás seguro de que deseas eliminar{" "}
-              <span className="font-bold text-[#0D4B4D]">
-                {itemToDelete?.titulo}
-              </span>{" "}
-              de tu carrito? Esta acción no se puede deshacer.
+              {t.rich("deleteDialog.description", {
+                name: (chunks) => <span className="font-bold text-[#0D4B4D]">{itemToDelete?.titulo}</span>
+              })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="rounded-xl">
-              Cancelar
+              {t("deleteDialog.cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
               className="bg-red-500 hover:bg-red-600 text-white rounded-xl"
             >
-              Sí, eliminar
+              {t("deleteDialog.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
