@@ -34,6 +34,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import { useAuth } from "@/context/auth-context";
+
 interface ProductDetailClientProps {
   product: ApiServiceItem;
   categorySlug: string;
@@ -44,6 +46,7 @@ export function ProductDetailClient({
   categorySlug,
 }: ProductDetailClientProps) {
   const router = useRouter();
+  const { user } = useAuth();
   const { setIsBottomBarVisible } = useChat();
   const { addToCart } = useCart();
   const mainButtonRef = useRef(null);
@@ -53,6 +56,9 @@ export function ProductDetailClient({
   });
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const t = useTranslations("ServicesPage");
+
+  const isVip = user?.es_vip === 1 || user?.es_vip === "1";
+  const displayPrice = isVip && product.precio_vip ? product.precio_vip : product.precio;
 
   // Helper for dynamic translations
   const getTranslated = (path: string, fallback: string) => {
@@ -85,7 +91,7 @@ export function ProductDetailClient({
     addToCart({
       id: product.id.toString(),
       titulo: product.titulo,
-      precio: product.precio,
+      precio: displayPrice,
       imagen: product.imagen || "/logo.png",
       categoria: product.category || "Servicio",
       detalle: product.resumen,
@@ -146,11 +152,11 @@ export function ProductDetailClient({
                       {/* Price info - Visible on all screens */}
                       <div className="flex flex-col items-start gap-1">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
-                          {t("Static.price")}
+                          {isVip && product.precio_vip ? t("Static.vipPrice") : t("Static.price")}
                         </span>
                         <div className="flex items-baseline gap-2">
                           <span className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0D4B4D] tracking-tighter">
-                            ${product.precio || "0.00"}
+                            ${displayPrice || "0.00"}
                           </span>
                           <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
                             USD
@@ -430,11 +436,11 @@ export function ProductDetailClient({
           {/* Price Info (Hidden on very small screens, visible on mobile+) */}
           <div className="flex flex-col items-start min-w-fit">
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-0.5">
-              {t("Static.totalToPay")}
+              {isVip && product.precio_vip ? t("Static.vipPrice") : t("Static.totalToPay")}
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl md:text-3xl font-black text-[#0D4B4D] tracking-tight">
-                ${product.precio || "0.00"}
+                ${displayPrice || "0.00"}
               </span>
               <span className="hidden sm:inline-block text-[10px] font-bold text-slate-400">
                 USD

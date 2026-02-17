@@ -17,6 +17,7 @@ export interface ApiServiceItem {
   resumen: string;
   detalle: string;
   precio: string;
+  precio_vip?: string;
   imagen: string;
   tags: string[];
   pq_tag: string | null;

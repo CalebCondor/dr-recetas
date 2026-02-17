@@ -5,6 +5,7 @@ export interface ApiServiceItem {
   resumen: string;
   detalle: string;
   precio: string;
+  precio_vip?: string;
   imagen: string;
   tags: string[];
   pq_tag: string | null;
@@ -49,7 +50,7 @@ export async function getProductBySlug(
         try {
           if (decodeURIComponent(itemSlug) === decodeURIComponent(targetSlug))
             return true;
-        } catch {}
+        } catch { }
         return false;
       });
 

@@ -95,6 +95,7 @@ export default async function ProductDetailPage({
                       title={title}
                       content={content}
                       price={item.precio}
+                      vipPrice={item.precio_vip}
                       image={item.imagen}
                       category={categoryTitle}
                       index={idx}

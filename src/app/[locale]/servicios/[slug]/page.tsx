@@ -10,11 +10,14 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useServiceDetails } from "@/hooks/use-service-details";
 import { useInView } from "motion/react";
 import { ServicesCarousel } from "@/components/home/services-carousel";
+import { useAuth } from "@/context/auth-context";
+
 // Helper component for the Related card
 export function RelatedBentoCard({
   title,
   content,
   price,
+  vipPrice,
   image,
   category,
   index = 0,
@@ -24,6 +27,8 @@ export function RelatedBentoCard({
   title: string;
   content: string;
   price?: string;
+  vipPrice?: string;
+  priceType?: string;
   image?: string;
   category?: string;
   index?: number;
@@ -31,6 +36,10 @@ export function RelatedBentoCard({
   categorySlug: string;
 }) {
   const t = useTranslations("ServicesPage");
+  const { user } = useAuth();
+  const isVip = user?.es_vip === 1 || user?.es_vip === "1";
+  const displayPrice = isVip && vipPrice ? vipPrice : price;
+
   const cardRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -110,11 +119,10 @@ export function RelatedBentoCard({
         <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
           {category && (
             <div
-              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
-                isDark
-                  ? "bg-white/10 text-white/90 border-white/10"
-                  : "bg-black/5 text-slate-900/60 border-black/10"
-              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
+              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${isDark
+                ? "bg-white/10 text-white/90 border-white/10"
+                : "bg-black/5 text-slate-900/60 border-black/10"
+                } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
             >
               {category}
             </div>
@@ -139,15 +147,15 @@ export function RelatedBentoCard({
         </div>
         {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
         <div className="mt-auto relative z-20">
-          {price && (
+          {displayPrice && (
             <div className="flex flex-col">
               <span
                 className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-40 ${isDark ? "text-white" : "text-[#0D4B4D]"}`}
               >
-                {t("Static.basePrice")}
+                {isVip && vipPrice ? t("Static.vipPrice") : t("Static.basePrice")}
               </span>
               <div className="text-3xl md:text-4xl font-black leading-none tracking-tighter">
-                ${price}
+                ${displayPrice}
               </div>
             </div>
           )}
@@ -155,11 +163,10 @@ export function RelatedBentoCard({
         {/* Category Tag (Absolute - Desktop only) */}
         {category && (
           <div
-            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
-              isDark
-                ? "bg-white/10 text-white/90 border-white/10"
-                : "bg-black/5 text-slate-900/60 border-black/10"
-            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${isDark
+              ? "bg-white/10 text-white/90 border-white/10"
+              : "bg-black/5 text-slate-900/60 border-black/10"
+              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
           >
             {category}
           </div>
@@ -368,6 +375,7 @@ export default function ServicePage() {
                           item.titulo
                         }
                         price={item.precio}
+                        vipPrice={item.precio_vip}
                         image={item.imagen}
                         category={item.category}
                         index={idx}

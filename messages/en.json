@@ -170,6 +170,7 @@
   "ServicesPage": {
     "Static": {
       "notFound": "Service not found",
+      "vipPrice": "VIP Price",
       "loading": "Loading...",
       "ourServices": "Our Services",
       "basePrice": "Base Price",

@@ -169,6 +169,7 @@
   },
   "ServicesPage": {
     "Static": {
+      "vipPrice": "Precio VIP",
       "notFound": "Servicio no encontrado",
       "loading": "Cargando...",
       "ourServices": "Nuestros Servicios",
