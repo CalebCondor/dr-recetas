@@ -95,6 +95,7 @@ export function ProductDetailClient({
       imagen: product.imagen || "/logo.png",
       categoria: product.category || "Servicio",
       detalle: product.resumen,
+      slug: product.slug,
     });
     router.push("/carrito");
   };

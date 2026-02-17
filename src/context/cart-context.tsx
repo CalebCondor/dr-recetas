@@ -23,6 +23,7 @@ export interface CartItem {
   imagen: string;
   categoria: string;
   detalle?: string;
+  slug?: string;
 }
 
 interface CartContextType {
