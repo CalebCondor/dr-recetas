@@ -5,11 +5,12 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaTiktok, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/routing";
 
 export function Footer() {
   const pathname = usePathname();
+  const t = useTranslations("Footer");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -60,31 +61,31 @@ export function Footer() {
       <div className="w-full mx-auto px-6 md:px-12 lg:px-[5%] py-12 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12 md:gap-12">
         {/* About Section */}
         <div className="col-span-1">
-          <h3 className="text-xl font-bold mb-6">About</h3>
+          <h3 className="text-xl font-bold mb-6">{t("About.title")}</h3>
           <ul className="space-y-3">
             <li>
+              <Link href="/" className="hover:opacity-80 transition-opacity">
+                {t("About.home")}
+              </Link>
+            </li>
+            <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Nosu Home
+                {t("About.shop")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Shop
+                {t("About.about_us")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                About
+                {t("About.journal")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Journal
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:opacity-80 transition-opacity">
-                Science
+                {t("About.science")}
               </a>
             </li>
           </ul>
@@ -92,31 +93,31 @@ export function Footer() {
 
         {/* Support Section */}
         <div className="col-span-1">
-          <h3 className="text-xl font-bold mb-6">Support</h3>
+          <h3 className="text-xl font-bold mb-6">{t("Support.title")}</h3>
           <ul className="space-y-3">
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                FAQ
+                {t("Support.faq")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Shipping Policy
+                {t("Support.shipping")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Refund and Returns Policy
+                {t("Support.refund")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                My account
+                {t("Support.account")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:opacity-80 transition-opacity">
-                Contact
+                {t("Support.contact")}
               </a>
             </li>
           </ul>
@@ -124,15 +125,13 @@ export function Footer() {
 
         {/* Newsletter Section */}
         <div className="col-span-2 md:col-span-1 border-t border-white/10 pt-12 md:border-none md:pt-0">
-          <h3 className="text-xl font-bold mb-6">
-            Subscribe to our newsletter and claim your 15% discount today
-          </h3>
+          <h3 className="text-xl font-bold mb-6">{t("Newsletter.title")}</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <input
                 type="text"
                 name="firstName"
-                placeholder="First name"
+                placeholder={t("Newsletter.first_name")}
                 value={formData.firstName}
                 onChange={handleChange}
                 className="px-4 py-3 rounded-full bg-white/30 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -140,7 +139,7 @@ export function Footer() {
               <input
                 type="text"
                 name="lastName"
-                placeholder="Last name"
+                placeholder={t("Newsletter.last_name")}
                 value={formData.lastName}
                 onChange={handleChange}
                 className="px-4 py-3 rounded-full bg-white/30 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -149,7 +148,7 @@ export function Footer() {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t("Newsletter.email")}
               value={formData.email}
               onChange={handleChange}
               required
@@ -159,7 +158,7 @@ export function Footer() {
               type="submit"
               className="w-full bg-white text-[#4ECDC4] font-semibold py-3 rounded-full hover:bg-white/90 transition-colors"
             >
-              Claim discount
+              {t("Newsletter.button")}
             </Button>
           </form>
         </div>
@@ -173,19 +172,17 @@ export function Footer() {
             prefetch={true}
             className="hover:opacity-80 transition-opacity"
           >
-            Privacy Policy
+            {t("Legal.privacy")}
           </Link>
           <Link
             href="/terminos-condiciones"
             prefetch={true}
             className="hover:opacity-80 transition-opacity"
           >
-            Terms & Conditions
+            {t("Legal.terms")}
           </Link>
         </div>
-        <p className="text-white/80 text-center text-sm">
-          © 2025 DR. Recetas All rights reserved.
-        </p>
+        <p className="text-white/80 text-center text-sm">{t("Legal.rights")}</p>
       </div>
     </footer>
   );

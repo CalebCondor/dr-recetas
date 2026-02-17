@@ -1,0 +1,50 @@
+[
+  {
+    "id": "7",
+    "nombre": "Citas Medicas",
+    "tipo": "2",
+    "tag": "Citas Medicas",
+    "lead": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/citas_medicas.jpg"
+  },
+  {
+    "id": "8",
+    "nombre": "Membresias",
+    "tipo": "2",
+    "tag": "Membresia",
+    "lead": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/membresias.jpg"
+  },
+  {
+    "id": "9",
+    "nombre": "Ordenes de laboratorio",
+    "tipo": "2",
+    "tag": "lab",
+    "lead": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/ordenes_laboratorio.jpg"
+  },
+  {
+    "id": "12",
+    "nombre": "Otros",
+    "tipo": "2",
+    "tag": "",
+    "lead": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/otros.jpg"
+  },
+  {
+    "id": "10",
+    "nombre": "Para el",
+    "tipo": "2",
+    "tag": "Para el",
+    "lead": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/para_el.jpg"
+  },
+  {
+    "id": "11",
+    "nombre": "Para ella",
+    "tipo": "2",
+    "tag": "Para ella",
+    "lead": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura.",
+    "imagen": "https://doctorrecetas.com/cat_fotos/para_ella.jpg"
+  }
+]

@@ -1,0 +1,704 @@
+{
+  "Header": {
+    "nav": {
+      "services": "Servicios",
+      "discounts": "Descuentos",
+      "about": "Nosotros",
+      "memberships": "Membresías"
+    },
+    "user": {
+      "profile": "Mi Perfil",
+      "orders": "Mis Ordenes",
+      "transactions": "Mis Transacciones",
+      "logout": "Cerrar sesión",
+      "login": "Iniciar sesión"
+    },
+    "mobile": {
+      "explore": "Explorar",
+      "subtitle": "Todo lo que necesitas en un solo lugar",
+      "menu_main": "Menú Principal",
+      "language": "Idioma"
+    }
+  },
+  "HomePage": {
+    "Hero": {
+      "title": "Consigue una",
+      "subtitle": "lo antes posible",
+      "typing": {
+        "medical_excuse": "Excusa Médica",
+        "covid_test": "Prueba de Covid",
+        "medical_appointment": "Cita Médica",
+        "medical_prescription": "Receta Médica"
+      },
+      "explore_services": "Explorar Servicios"
+    },
+    "Consultations": {
+      "medical_certificate": "Certificado Médico",
+      "prescription_refill": "Receta de medicamentos o \"Refill\"",
+      "immediate_evaluation": "Evaluación médica inmediata",
+      "follow_up": "Cita de Seguimiento",
+      "influenza_test": "Prueba de Influenza A y B",
+      "cbc_diff": "CBC + DIFF Lab"
+    },
+    "Services": {
+      "title": "Nuestros Servicios",
+      "subtitle": "Explora nuestras soluciones médicas en línea",
+      "default_description": "Explora este servicio médico especializado.",
+      "image_alt": "Servicio médico"
+    },
+    "WhyChooseUs": {
+      "title": "¿Por qué elegirnos?",
+      "p1": "somos una compañía puertorriqueña establecida en 2020 como consecuencia de la pandemia del COVID.",
+      "p2": "Nuestro grupo medico está compuesto por un diverso número de doctores asistentes, enfermeras, doctores internistas y especialistas. Nuestra meta es poder llevar Salud a la mayor cantidad de personas en Puerto Rico desde nuestro centro a la comodidad de su hogar."
+    },
+    "HowItWorks": {
+      "title": "¿Cómo funciona?",
+      "subtitle": "Sigue estos pasos para obtener la receta deseada",
+      "step1": "Complete el registro, escoja el servicio médico o laboratorio deseado.",
+      "step2": "Pague con Tarjeta de Crédito o ATH MOVIL.",
+      "step3": "Si es un laboratorio escogido le llega inmediatamente a su email.",
+      "step4": "Si es una cita médica un doctor se comunicará con usted durante el día. Si necesita una cita más rápida por favor llamarnos a nuestro número (787) 710-7426."
+    },
+    "FAQ": {
+      "badge": "¿Preguntas?",
+      "title": "Nosotras tenemos respuestas",
+      "q1": "¿En qué tiempo recibo mi licencia?",
+      "a1": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
+      "others_q": "¿Contrary to popular belief, Lorem Ipsum is not simply?",
+      "others_a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "Testimonials": {
+      "title": "Clientes satisfechos confían en Dr.Recetas",
+      "t1": {
+        "text": "Excelente servicio, la receta me llegó a mi email en menos de 10 minutos. Muy recomendado.",
+        "author": "María Rodríguez",
+        "role": "Paciente"
+      },
+      "t2": {
+        "text": "La atención del Dr. fue excepcional. Pude resolver mi refill de medicamentos sin salir de casa.",
+        "author": "Carlos Ortiz",
+        "role": "Paciente"
+      },
+      "t3": {
+        "text": "Muy fácil de usar. El proceso de pago con ATH Móvil fue súper rápido. ¡Gracias!",
+        "author": "Elena Rivera",
+        "role": "Paciente"
+      }
+    },
+    "Benefits": {
+      "title": "Disfruta de nuestros beneficios",
+      "benefit1": {
+        "title": "¿Eres paciente de cannabis medicinal?",
+        "description": "Obtenga su licencia con solo un click",
+        "button": "Solicitar ahora"
+      },
+      "benefit2": {
+        "title": "Ahorro hasta 80% en sus medicamentos",
+        "description": "Acceda a medicamentos de calidad a precios accesibles",
+        "button": "Ingresa aquí"
+      },
+      "tap_hint": "Toca una tarjeta para ver más"
+    }
+  },
+  "Chatbot": {
+    "title": "¿Qué necesitas hoy?",
+    "description": "Ya sea un certificado médico, si tu hijo tiene fiebre o necesitas un refill urgente de tu receta, Ana está aquí para ayudarte.",
+    "online": "En línea",
+    "instant_reply": "Respuesta instantánea",
+    "placeholder": "Escribe aquí...",
+    "tooltip": "¿Necesitas ayuda? ¡Habla con Ana! 👋",
+    "welcome": "¡Hola! 👋 ¿En qué puedo ayudarte hoy?",
+    "error_api": "Lo siento, tuve un problema al procesar tu mensaje.",
+    "error_network": "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde."
+  },
+  "DynamicServices": {
+    "service_7": {
+      "title": "Citas Médicas",
+      "description": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento."
+    },
+    "service_8": {
+      "title": "Membresías",
+      "description": "Obtén acceso preferencial a consultas médicas y servicios especiales."
+    },
+    "service_9": {
+      "title": "Órdenes de Laboratorio",
+      "description": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones."
+    },
+    "service_12": {
+      "title": "Otros",
+      "description": "Descubre la variedad completa de servicios médicos que tenemos para ti."
+    },
+    "service_10": {
+      "title": "Para Él",
+      "description": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral."
+    },
+    "service_11": {
+      "title": "Para Ella",
+      "description": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura."
+    }
+  },
+  "Footer": {
+    "About": {
+      "title": "Nosotros",
+      "home": "Inicio",
+      "shop": "Tienda",
+      "about_us": "Quiénes somos",
+      "journal": "Diario",
+      "science": "Ciencia"
+    },
+    "Support": {
+      "title": "Soporte",
+      "faq": "Preguntas Frecuentes",
+      "shipping": "Política de envíos",
+      "refund": "Política de devoluciones",
+      "account": "Mi cuenta",
+      "contact": "Contacto"
+    },
+    "Newsletter": {
+      "title": "Suscríbete a nuestro boletín y reclama tu 15% de descuento hoy",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email": "Correo electrónico",
+      "button": "Reclamar descuento"
+    },
+    "Legal": {
+      "privacy": "Política de privacidad",
+      "terms": "Términos y condiciones",
+      "rights": "© 2025 DR. Recetas Todos los derechos reservados."
+    }
+  },
+  "ServicesPage": {
+    "Static": {
+      "vipPrice": "Precio VIP",
+      "notFound": "Servicio no encontrado",
+      "loading": "Cargando...",
+      "ourServices": "Nuestros Servicios",
+      "basePrice": "Precio Base",
+      "viewMore": "Ver más opciones",
+      "exploreMore": "Explorar más categorías",
+      "keepDiscovering": "Sigue descubriendo todo lo que Doctor Recetas tiene para tu salud.",
+      "loadingRecommendations": "Cargando recomendaciones...",
+      "noRecommendations": "No se encontraron categorías adicionales.",
+      "price": "Precio",
+      "currency": "USD",
+      "buyButton": "Comprar",
+      "description": "Descripción",
+      "technicalSheet": "Ficha Técnica",
+      "detailedDescription": "Descripción Detallada",
+      "serviceSpecs": "Especificaciones del Servicio",
+      "serviceLabel": "Servicio",
+      "categoryLabel": "Categoría",
+      "availabilityLabel": "Disponibilidad",
+      "responseLabel": "Tiempo de Respuesta",
+      "codeLabel": "Código",
+      "managementLabel": "Gestión",
+      "availabilityValue": "Online 24/7",
+      "responseValue": "Inmediato",
+      "managementValue": "Soporte Prioritario",
+      "totalToPay": "Total a pagar",
+      "loginRequiredTitle": "Acceso Restringido",
+      "loginRequiredDescription": "Para agregar servicios al carrito, primero debes",
+      "loginAction": "iniciar sesión",
+      "expandedDetail": "Detalle Ampliado",
+      "expandedDetailSubtitle": "¿De qué trata este servicio?",
+      "technicalSheetSubtitle": "Detalles y especificaciones",
+      "productNotFound": "Producto no encontrado",
+      "productNotFoundMessage": "Lo sentimos, no pudimos encontrar el servicio que buscas.",
+      "backToCategory": "Volver a {category}",
+      "relatedServicesTitle": "Servicios Relacionados",
+      "relatedServicesSubtitle": "Otros servicios en la categoría {category} que podrían interesarte.",
+      "debugSearch": "Debug: Buscando slug {slug} en la API."
+    },
+    "Categories": {
+      "citas-medicas": {
+        "title": "Citas Médicas",
+        "description": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento.",
+        "longDescription": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento."
+      },
+      "membresia": {
+        "title": "Membresías",
+        "description": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
+        "longDescription": "Obtén acceso preferencial a consultas médicas y servicios especiales."
+      },
+      "lab": {
+        "title": "Órdenes de Laboratorio",
+        "description": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones.",
+        "longDescription": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones."
+      },
+      "otros": {
+        "title": "Otros Servicios",
+        "description": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
+        "longDescription": "Descubre la variedad completa de servicios médicos que tenemos para ti."
+      },
+      "para-el": {
+        "title": "Para Él",
+        "description": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral.",
+        "longDescription": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral."
+      },
+      "para-ella": {
+        "title": "Para Ella",
+        "description": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura.",
+        "longDescription": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura."
+      }
+    },
+    "Items": {
+      "certificado-mdico-26": {
+        "title": "Certificado Médico",
+        "description": "Ofrecemos un servicio médico orientado a proporcionarle una evaluación clínica completa y la certificación necesaria para justificar su ausencia laboral."
+      },
+      "examen-licencia-conducir-27": {
+        "title": "Examen Licencia de Conducir",
+        "description": "Evaluación médica para la solicitud o renovación de la licencia de conducir."
+      },
+      "programa-de-salud-sexual-para-hombres-37": {
+        "title": "Programa de Salud Sexual para Hombres",
+        "description": "Consulta médica para la disfunción eréctil, enfocada en diagnosticar la causa y ofrecer un tratamiento seguro y confidencial."
+      },
+      "back-to-school-39": {
+        "title": "Regreso a Clases",
+        "description": "Consulta pediátrica profesional para obtener el certificado médico necesario para el regreso a clases."
+      },
+      "cita-de-seguimiento-31": {
+        "title": "Cita de Seguimiento",
+        "description": "Consulta médica de seguimiento para pacientes existentes."
+      },
+      "cita-medica-nuevo-paciente-30": {
+        "title": "Cita Médica Nuevo Paciente",
+        "description": "Evaluación médica integral para nuevos pacientes."
+      },
+      "consulta-por-covid-positivo-33": {
+        "title": "Consulta por COVID Positivo",
+        "description": "Consulta médica personalizada desde casa para evaluar sus síntomas y guiarlo a través del tratamiento."
+      },
+      "evaluacin-mdica-del-sueo-36": {
+        "title": "Evaluación Médica del Sueño",
+        "description": "Evaluación profesional para diagnosticar y tratar sus problemas de sueño. Incluye revisión de hábitos y diagnóstico personalizado."
+      },
+      "evaluacin-mdica-inmediata-38": {
+        "title": "Evaluación Médica Inmediata",
+        "description": "Consulta rápida y profesional para obtener diagnósticos, recetas o certificados el mismo día."
+      },
+      "receta-de-medicamentos-o-refill-25": {
+        "title": "Receta de Medicamentos o Refill",
+        "description": "Obtenga sus renovaciones de medicamentos o nuevas recetas rápidamente."
+      },
+      "anlisis-de-orina-y-cultivo-de-orina-10": {
+        "title": "Análisis de Orina y Cultivo de Orina",
+        "description": "El análisis de orina verifica la apariencia y el contenido de su orina. El cultivo de orina busca bacterias que causan infecciones."
+      },
+      "cbc-diff-lab-45": {
+        "title": "CBC + DIFF Lab",
+        "description": "Mide diferentes tipos de células en la sangre (glóbulos rojos, glóbulos blancos, plaquetas) para detectar infecciones o anemia."
+      },
+      "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8": {
+        "title": "Panel de Prueba de Sangre Femenino",
+        "description": "Conjunto integral de pruebas de sangre y orina para evaluar la salud general (CBC, CMP, Panel de Lípidos, Tiroides, etc)."
+      },
+      "mamografia-29": {
+        "title": "Mamografía",
+        "description": "Radiografía especializada de las mamas que permite la detección temprana de anomalías como tumores o microcalcificaciones."
+      },
+      "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7": {
+        "title": "Panel de Prueba de Sangre Masculino",
+        "description": "Conjunto integral de pruebas de sangre y orina para evaluar la salud general (CBC, CMP, Panel de Lípidos, Tiroides, etc)."
+      },
+      "prueba-de-covid-19-ant-geno-2": {
+        "title": "Prueba de Antígeno COVID-19",
+        "description": "Detecta partes del virus en personas con una infección activa. Resultados en 15-30 minutos."
+      },
+      "prueba-de-covid-19-molecular-pcr-3": {
+        "title": "Prueba de COVID-19 Molecular PCR",
+        "description": "Prueba precisa para detectar si está infectado con el virus. Confirma el diagnóstico incluso con pocos síntomas."
+      },
+      "prueba-de-covid-19-serolgica-rapid-test-4": {
+        "title": "Prueba de COVID-19 Serológica (Prueba Rápida)",
+        "description": "Detecta anticuerpos en la sangre que indican exposición pasada al virus. Resultados en minutos."
+      },
+      "prueba-de-embarazo-15": {
+        "title": "Prueba de Embarazo",
+        "description": "Detecta la hormona hCG para confirmar el embarazo. Se puede realizar con una muestra de orina o sangre."
+      },
+      "prueba-de-influenza-a-y-b-14": {
+        "title": "Prueba de Influenza A y B",
+        "description": "Detecta si una persona tiene el virus de la gripe tipo A o B. Útil para decisiones rápidas de tratamiento."
+      },
+      "prueba-de-micoplasma-o-bronchitis-12": {
+        "title": "Prueba de Micoplasma o Bronquitis",
+        "description": "Prueba de sangre para detectar Micoplasma o Bronquitis."
+      },
+      "prueba-de-sangre-pth-13": {
+        "title": "Prueba de Sangre PTH",
+        "description": "Mide la hormona paratiroidea en la sangre, que regula los niveles de calcio y fósforo."
+      },
+      "prueba-de-sedimento-esr-11": {
+        "title": "Prueba de Velocidad de Sedimentación (ESR)",
+        "description": "Mide qué tan rápido se asientan los glóbulos rojos. Un valor alto puede indicar inflamación."
+      },
+      "prueba-diabetes-hba1c-41": {
+        "title": "Prueba de Diabetes (HbA1c%)",
+        "description": "Mide el promedio de azúcar en la sangre de los últimos 2-3 meses. Clave para diagnosticar la diabetes."
+      },
+      "quantitative-hcg-test-35": {
+        "title": "Prueba de hCG Cuantitativa",
+        "description": "Mide la cantidad exacta de hormona del embarazo (hCG) en la sangre. Más precisa que la prueba de orina."
+      },
+      "sonomamografia-28": {
+        "title": "Sonomamografía",
+        "description": "Ecografía de la mama, complementa la mamografía. Ideal para mamas densas."
+      },
+      "strep-throat-garganta-44": {
+        "title": "Prueba de Estreptococo (Garganta)",
+        "description": "Prueba rápida que detecta la bacteria Streptococcus en la garganta en minutos."
+      },
+      "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42": {
+        "title": "Panel Respiratorio",
+        "description": "Prueba combinada para COVID-19, Influenza A/B y Micoplasma. Identifica la causa de los síntomas respiratorios."
+      },
+      "producto-de-prueba-paquete-64": {
+        "title": "Paquete de Producto de Prueba",
+        "description": "Producto de prueba."
+      },
+      "pruebas-para-licencia-matrimonial-32": {
+        "title": "Pruebas para Licencia Matrimonial",
+        "description": "Cumpla con los requisitos de salud para el matrimonio. Incluye pruebas de sangre, pruebas de ETS y certificado médico."
+      },
+      "test-de-enfermedades-de-transmisin-sexual-ets-34": {
+        "title": "Panel de ETS",
+        "description": "Detecta infecciones como VIH, sífilis, clamidia, gonorrea. Importante para personas sexualmente activas."
+      },
+      "programa-de-reduccin-de-peso-58": {
+        "title": "Programa de Reducción de Peso",
+        "description": "Incluye cita, pruebas de laboratorio y receta."
+      }
+    }
+  },
+  "Auth": {
+    "Login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Ingresa tus datos para acceder a tu cuenta",
+      "username": "Usuario",
+      "usernamePlaceholder": "Ingresa tu usuario",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "loading": "Iniciando sesión...",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerNow": "Regístrate gratis",
+      "error": "Error al iniciar sesión",
+      "unexpectedError": "Ocurrió un error inesperado al intentar iniciar sesión"
+    },
+    "Register": {
+      "title": "Crea tu cuenta gratis",
+      "step1": "Paso 1: Datos Personales",
+      "step2": "Paso 2: Detalles de la Cuenta",
+      "name": "Nombre y Apellido",
+      "namePlaceholder": "Ej. Juan Pérez",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "(000) 000-0000",
+      "continue": "Continuar",
+      "region": "Región",
+      "municipality": "Municipio",
+      "municipalityPlaceholder": "Seleccionar",
+      "municipalityFirst": "Primero elija región",
+      "address": "Dirección",
+      "addressPlaceholder": "Calle, Número, Urbanización",
+      "username": "Usuario",
+      "usernamePlaceholder": "Nombre de usuario",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "terms": "Acepto los",
+      "termsLink": "Términos y Condiciones",
+      "submit": "Crear Cuenta",
+      "loading": "Creando cuenta...",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "loginNow": "Inicia sesión aquí",
+      "success": "Cuenta creada exitosamente",
+      "error": "Error al crear la cuenta",
+      "unexpectedError": "Ocurrió un error al intentar registrarse",
+      "validation": {
+        "nameRequired": "El nombre es obligatorio",
+        "emailInvalid": "Correo electrónico inválido",
+        "usernameRequired": "El usuario es obligatorio",
+        "passwordMin": "La contraseña debe tener al menos 6 caracteres"
+      },
+      "regions": {
+        "pr": "Puerto Rico",
+        "usa": "USA"
+      }
+    },
+    "Recovery": {
+      "title": "Recuperar Contraseña",
+      "subtitle": "Ingresa tu correo electrónico y te enviaremos las instrucciones",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "submit": "Enviar Correo",
+      "loading": "Enviando...",
+      "backToLogin": "Volver a Iniciar Sesión",
+      "successTitle": "¡Correo Enviado!",
+      "successSubtitle": "Hemos enviado las instrucciones de recuperación a:",
+      "error": "Error al solicitar recuperación",
+      "unexpectedError": "Ocurrió un error inesperado. Intente nuevamente."
+    }
+  },
+  "Cart": {
+    "Empty": {
+      "title": "Tu carrito está vacío",
+      "description": "No has añadido ningún servicio a tu carrito todavía.",
+      "button": "Ver Servicios"
+    },
+    "Review": {
+      "title": "Mi Carrito",
+      "back": "Volver a Servicios",
+      "summary": "Tienes {count, plural, one {1 servicio seleccionado} other {{count} servicios seleccionados}}",
+      "table": {
+        "service": "Servicio",
+        "price": "Precio",
+        "total": "Total",
+        "delete": "Eliminar {name}"
+      },
+      "continue": "Confirmar mi información",
+      "deleteDialog": {
+        "title": "¿Eliminar servicio?",
+        "description": "¿Estás seguro de que deseas eliminar {name} de tu carrito? Esta acción no se puede deshacer.",
+        "cancel": "Cancelar",
+        "confirm": "Sí, eliminar"
+      }
+    },
+    "Personal": {
+      "title": "Información Personal",
+      "steps": {
+        "step": "Paso {current} de {total}",
+        "basic": "Datos del Paciente",
+        "contact": "Contacto y Dirección",
+        "id": "Identificación"
+      },
+      "form": {
+        "patient": "Paciente",
+        "patientPlaceholder": "Nombre completo",
+        "birthDate": "Fecha Nacimiento",
+        "birthDatePlaceholder": "Seleccionar fecha",
+        "country": "País",
+        "municipality": "Municipio",
+        "municipalityPlaceholder": "San Juan...",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "ejemplo@correo.com",
+        "address": "Dirección Física",
+        "addressPlaceholder": "Calle, Número, Urbanización",
+        "zipCode": "Código Postal",
+        "zipCodePlaceholder": "00XXX",
+        "phone": "Teléfono",
+        "phonePlaceholder": "787...",
+        "idType": "Tipo de Identificación",
+        "idNumber": "Número de Documento",
+        "idNumberPlaceholder": "XXX-XXX-XXX",
+        "uploadId": "Sube tu identificación",
+        "uploadHint": "Formatos: JPG o PNG (Máx 5MB)",
+        "uploadButton": "Seleccionar Archivo",
+        "uploadChange": "Cambiar",
+        "uploadLoading": "Cargando información...",
+        "backToSchoolHint": "*Si usted está adquiriendo la orden \"Back to School\", se requiere que suba una imagen del Certificado Médico."
+      },
+      "navigation": {
+        "back": "Volver",
+        "previous": "Anterior",
+        "continue": "Continuar",
+        "next": "Siguiente"
+      },
+      "idTypes": {
+        "license": "Licencia de Conducir",
+        "passport": "Pasaporte"
+      }
+    },
+    "Details": {
+      "title": "Detalle de la Orden",
+      "table": {
+        "header": "Producto / Paciente",
+        "price": "Precio",
+        "defaultDetail": "Consulta médica inmediata",
+        "orderNameLabel": "Nombre para esta orden:"
+      },
+      "totalLabel": "Total a pagar:",
+      "advisorCode": "Código de Asesor (Opcional)",
+      "advisorCodePlaceholder": "Ej: DR-9900",
+      "navigation": {
+        "back": "Volver",
+        "continue": "Continuar"
+      }
+    },
+    "Payment": {
+      "title": "Finalizar Pago",
+      "orderSummary": "Orden de Servicio",
+      "patientLabel": "Paciente: {name}",
+      "totalLabel": "Total",
+      "methodTitle": "Seleccione Método de Pago",
+      "athLabel": "Ath Movil",
+      "cardLabel": "Tarjeta",
+      "athLoading": "Cargando botón de ATH Móvil...",
+      "cardButton": "CONTINUAR CON TARJETA",
+      "noMethodSelected": "SELECCIONE MÉTODO DE PAGO",
+      "cardModal": {
+        "title": "Datos de Tarjeta",
+        "subtitle": "Pago Seguro Encriptado",
+        "number": "Número de Tarjeta",
+        "expiry": "Expiración",
+        "cvc": "CVC",
+        "name": "Nombre en Tarjeta",
+        "namePlaceholder": "TITULAR DE LA TARJETA",
+        "shieldHint": "Su información está protegida por encriptación de grado bancario.",
+        "submit": "PAGAR ${total}",
+        "processing": "Procesando..."
+      },
+      "errorModal": {
+        "title": "Error en el Pago",
+        "button": "Entendido"
+      },
+      "back": "Volver a detalles",
+      "errors": {
+        "declined": "Tu tarjeta ha sido rechazada. Por favor verifica los datos o intenta con otra tarjeta.",
+        "insufficient": "Fondos insuficientes en la tarjeta. Por favor intenta con otro método de pago.",
+        "expired": "Tu tarjeta ha expirado. Por favor utiliza una tarjeta vigente.",
+        "invalid": "Número de tarjeta inválido. Por favor verifica los datos ingresados.",
+        "cvc": "El código de seguridad (CVC) es incorrecto. Por favor verifica e intenta de nuevo.",
+        "network": "Error de conexión. Por favor verifica tu internet e intenta de nuevo.",
+        "server": "Hubo un problema al procesar tu pago. Por favor intenta de nuevo en unos minutos.",
+        "default": "No se pudo procesar el pago. Por favor verifica los datos de tu tarjeta e intenta de nuevo.",
+        "sessionExpired": "Sesión expirada. Por favor inicie sesión nuevamente.",
+        "invalidDate": "Fecha inválida. Use el formato MM/YY",
+        "invalidOrderCode": "Error API: No se recibió código de orden (cp_code). Por favor contacta a soporte. ID: {id}",
+        "athCancel": "Pago cancelado. Has cancelado la transacción.",
+        "athExpired": "Transacción expirada. El tiempo para completar el pago ha expirado."
+      }
+    },
+    "Stepper": {
+      "step1": "Información Personal",
+      "step2": "Detalle de la orden",
+      "step3": "Pagar"
+    },
+    "Page": {
+      "sessionRequired": "Sesión requerida. Debes iniciar sesión para ver tu carrito.",
+      "paymentSuccess": "Pago exitoso. Su orden ha sido procesada."
+    }
+  },
+  "Profile": {
+    "Page": {
+      "loading": "Cargando perfil...",
+      "verifiedUser": "Usuario Verificado",
+      "tabs": {
+        "info": "Información",
+        "infoShort": "Info",
+        "orders": "Mis Órdenes",
+        "ordersShort": "Órdenes",
+        "history": "Historial Pagos",
+        "historyShort": "Pagos"
+      },
+      "suspenseLoading": "Cargando...",
+      "toast": {
+        "updating": "Actualizando tu información...",
+        "success": "¡Perfil actualizado correctamente!",
+        "error": "No se pudo actualizar el perfil"
+      },
+      "errors": {
+        "serverError": "Error del servidor ({status})",
+        "emptyResponse": "Respuesta vacía del servidor",
+        "updateError": "Error al actualizar"
+      }
+    },
+    "InfoForm": {
+      "title": "Editar Perfil",
+      "description": "Mantén tu información actualizada para una mejor experiencia.",
+      "fields": {
+        "name": {
+          "label": "Nombre y Apellido",
+          "placeholder": "Tu nombre completo"
+        },
+        "email": {
+          "label": "Correo Electrónico",
+          "placeholder": "ejemplo@correo.com"
+        },
+        "phone": {
+          "label": "Teléfono",
+          "placeholder": "+57 300 000 0000"
+        },
+        "birthdate": {
+          "label": "Fecha de Nacimiento"
+        },
+        "city": {
+          "label": "Ciudad",
+          "placeholder": "Tu ciudad"
+        },
+        "country": {
+          "label": "País",
+          "placeholder": "Tu país"
+        },
+        "address": {
+          "label": "Dirección",
+          "placeholder": "Dirección completa"
+        },
+        "postalCode": {
+          "label": "Código Postal",
+          "placeholder": "000000"
+        },
+        "password": {
+          "label": "Nueva Contraseña (opcional)",
+          "placeholder": "••••••••"
+        },
+        "idDocument": {
+          "label": "Documento de Identificación",
+          "currentFile": "Archivo actual",
+          "savedDocument": "Documento guardado",
+          "change": "Cambiar",
+          "uploadTitle": "Sube tu identificación",
+          "uploadHint": "Formatos: JPG o PNG (Máx 5MB)",
+          "selectFile": "Seleccionar Archivo"
+        }
+      },
+      "errors": {
+        "invalidFileType": "Solo se permiten archivos PNG o JPEG",
+        "fileTooLarge": "El archivo no debe superar los 5MB"
+      },
+      "buttons": {
+        "update": "Actualizar Información",
+        "updating": "Actualizando..."
+      }
+    },
+    "OrdersList": {
+      "loading": "Cargando tus pedidos...",
+      "empty": {
+        "title": "Aún no tienes órdenes",
+        "description": "Parece que todavía no has realizado ninguna compra. ¡Explora nuestros servicios y comienza hoy!",
+        "button": "Explorar Servicios"
+      },
+      "orderId": "Orden ID",
+      "status": {
+        "paid": "Pagado",
+        "pending": "En Proceso",
+        "readyToDownload": "Listo para descargar",
+        "pendingPayment": "Pendiente de pago"
+      },
+      "viewDetails": "Ver detalles",
+      "closeDetails": "Cerrar detalles",
+      "mainDocumentation": "Documentación Principal",
+      "medicalOrder": "Orden Médica PDF",
+      "officialValidation": "Validación Oficial Dr.Recetas",
+      "specificResults": "Resultados Específicos",
+      "pdfLoading": "Cargando PDF...",
+      "pdfTitle": "Orden Médica PDF"
+    },
+    "TransactionsList": {
+      "empty": {
+        "title": "No hay transacciones",
+        "description": "Aún no has realizado ningún pago. Tu historial de transacciones aparecerá aquí."
+      },
+      "transaction": "Transacción",
+      "method": "Tarjeta",
+      "orderDetail": "Detalle de la Orden",
+      "patient": "Paciente",
+      "service": "Servicio",
+      "referenceCode": "Código de Referencia",
+      "items": "artículos"
+    }
+  }
+}

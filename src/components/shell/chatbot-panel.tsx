@@ -6,6 +6,7 @@ import { Send, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "@/context/chat-context";
+import { useTranslations } from "next-intl";
 
 interface ChatbotPanelProps {
   className?: string;
@@ -21,6 +22,7 @@ export function ChatbotPanel({
   isFloating = false,
 }: ChatbotPanelProps) {
   const { messages, isLoading, sendMessage } = useChat();
+  const t = useTranslations("Chatbot");
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -59,12 +61,7 @@ export function ChatbotPanel({
         <div className="bg-[#B0E5CC]/40 px-6 py-4 flex items-center justify-between border-b border-teal-50">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white border-2 border-white shadow-sm">
-              <Image
-                src="/logo_bot.png"
-                alt="ANA"
-                fill
-                className="object-cover"
-              />
+              <img src="/logo_bot.png" alt="ANA" className="object-cover" />
             </div>
             <div>
               <h3 className="font-bold text-[#0D4B4D] text-base tracking-tight">
@@ -73,7 +70,7 @@ export function ChatbotPanel({
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <p className="text-[9px] uppercase tracking-widest text-[#0D4B4D]/60 font-bold">
-                  En línea
+                  {t("online")}
                 </p>
               </div>
             </div>
@@ -81,7 +78,7 @@ export function ChatbotPanel({
           <div className="flex items-center gap-2">
             {!isFloating && (
               <div className="hidden sm:block px-3 py-1 rounded-full bg-white/50 border border-[#0D4B4D]/10 text-[9px] font-bold text-[#0D4B4D]/70 uppercase tracking-wider">
-                Respuesta instantánea
+                {t("instant_reply")}
               </div>
             )}
             {onClose && (
@@ -152,7 +149,7 @@ export function ChatbotPanel({
       >
         <div className="flex items-center gap-2 bg-white p-1.5 pl-4 rounded-xl border border-slate-100 shadow-sm focus-within:border-[#B0E5CC] focus-within:ring-2 focus-within:ring-[#B0E5CC]/20 transition-all duration-200">
           <Input
-            placeholder="Escribe aquí..."
+            placeholder={t("placeholder")}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}

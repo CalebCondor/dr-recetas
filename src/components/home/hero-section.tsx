@@ -11,56 +11,59 @@ import {
   TestTube2,
   ArrowDown,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import Image from "next/image";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { useTranslations } from "next-intl";
 
 const consultations = [
   {
     id: 1,
-    name: "Certificado Médico",
+    nameKey: "medical_certificate",
     icon: FileText,
     href: "/servicios/citas-medicas/certificado-mdico-26",
   },
   {
     id: 2,
-    name: 'Receta de medicamentos o "Refill"',
+    nameKey: "prescription_refill",
     icon: Pill,
     href: "/servicios/lab/receta-de-medicamentos-o-refill-25",
   },
   {
     id: 3,
-    name: "Evaluación médica inmediata",
+    nameKey: "immediate_evaluation",
     icon: Stethoscope,
     href: "/servicios/citas-medicas/evaluacin-mdica-inmediata-38",
   },
   {
     id: 4,
-    name: "Cita de Seguimiento",
+    nameKey: "follow_up",
     icon: Calendar,
     href: "/servicios/citas-medicas/cita-de-seguimiento-31",
   },
   {
     id: 5,
-    name: "Prueba de Influenza A y B",
+    nameKey: "influenza_test",
     icon: Microscope,
     href: "/servicios/lab/prueba-de-influenza-a-y-b-14",
   },
   {
     id: 6,
-    name: "CBC + DIFF Lab",
+    nameKey: "cbc_diff",
     icon: TestTube2,
     href: "/servicios/otros/cbc-diff-lab-45",
   },
 ];
 
 export default function Hero() {
+  const t = useTranslations("HomePage.Hero");
+  const tc = useTranslations("HomePage.Consultations");
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoReady, setVideoReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastScrollTime = useRef(0);
 
   const isHeroVisibleRef = useRef(false);
-  const touchStartRef = useRef(0);
 
   useEffect(() => {
     const currentContainer = containerRef.current;
@@ -110,9 +113,11 @@ export default function Hero() {
     >
       {/* Video Background Container */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
-        <img
+        <Image
           src="/image_fondo.jpeg"
           alt=""
+          fill
+          priority
           className="w-full h-full object-cover scale-105"
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         />
@@ -138,15 +143,15 @@ export default function Hero() {
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
         <div className="flex-1 w-full max-w-4xl sm:mt-10">
           <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-4 lg:mb-10 tracking-tight text-balance drop-shadow-sm font-helvetica">
-            Consigue una
+            {t("title")}
             <br />
             <span className="text-[#95D5B2]">
               <TypingAnimation
                 words={[
-                  "Excusa Médica",
-                  "Prueba de Covid",
-                  "Cita Médica",
-                  "Receta Médica",
+                  t("typing.medical_excuse"),
+                  t("typing.covid_test"),
+                  t("typing.medical_appointment"),
+                  t("typing.medical_prescription"),
                 ]}
                 className="inline"
                 loop={false}
@@ -156,7 +161,7 @@ export default function Hero() {
               />
             </span>
             <br />
-            lo antes posible
+            {t("subtitle")}
           </h1>
         </div>
 
@@ -255,7 +260,7 @@ export default function Hero() {
                                 }
                               `}
                             >
-                              {item.name}
+                              {tc(item.nameKey)}
                             </p>
                           </div>
                         </div>
@@ -283,7 +288,7 @@ export default function Hero() {
               className="group flex flex-col items-center gap-3"
             >
               <span className="text-white/90 font-bold text-sm lg:text-base tracking-[0.2em] drop-shadow-md group-hover:text-white transition-colors">
-                Explorar Servicios
+                {t("explore_services")}
               </span>
               <motion.div
                 animate={{ y: [0, 8, 0] }}

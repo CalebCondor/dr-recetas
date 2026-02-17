@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
 
@@ -94,31 +94,46 @@ import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { StructuredData } from "@/components/structured-data";
 import { AuthProvider } from "@/context/auth-context";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  if (!["en", "es"].includes(locale)) {
+    notFound();
+  }
+
+  const messages = await getMessages({ locale });
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <StructuredData />
       </head>
       <body
         className={`${inter.variable} font-sans antialiased relative min-h-screen`}
       >
-        <AuthProvider>
-          <ChatProvider>
-            <CartProvider>
-              <Header />
-              {children}
-              <ChatbotFloating />
-              <Footer />
-              <Toaster position="top-right" theme="light" />
-            </CartProvider>
-          </ChatProvider>
-        </AuthProvider>
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <AuthProvider>
+            <ChatProvider>
+              <CartProvider>
+                <Header />
+                {children}
+                <ChatbotFloating />
+                <Footer />
+                <Toaster position="top-right" theme="light" />
+              </CartProvider>
+            </ChatProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

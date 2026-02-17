@@ -29,22 +29,25 @@ import { cn } from "@/lib/utils";
 import { z } from "zod";
 import { toast } from "sonner";
 
-const registerSchema = z.object({
-  us_nombres: z.string().min(1, "El nombre es obligatorio"),
-  us_email: z.string().email("Correo electrónico inválido"),
-  us_telefono: z.string().optional(),
-  us_direccion: z.string().optional(),
-  us_usuario: z.string().min(1, "El usuario es obligatorio"),
-  us_clave: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-});
-
-type RegisterFormData = z.infer<typeof registerSchema>;
+import { useTranslations } from "next-intl";
 
 interface RegisterFormContentProps {
   setView: (view: "login" | "register" | "recovery") => void;
 }
 
 export function RegisterFormContent({ setView }: RegisterFormContentProps) {
+  const t = useTranslations("Auth.Register");
+
+  const registerSchema = z.object({
+    us_nombres: z.string().min(1, t("validation.nameRequired")),
+    us_email: z.string().email(t("validation.emailInvalid")),
+    us_telefono: z.string().optional(),
+    us_direccion: z.string().optional(),
+    us_usuario: z.string().min(1, t("validation.usernameRequired")),
+    us_clave: z.string().min(6, t("validation.passwordMin")),
+  });
+
+  type RegisterFormData = z.infer<typeof registerSchema>;
   const [step, setStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string>("");
@@ -191,14 +194,14 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
       const data = await response.json();
 
       if (data.success || data.message === "Usuario registrado exitosamente") {
-        toast.success("Cuenta creada exitosamente");
+        toast.success(t("success"));
         setView("login");
       } else {
-        toast.error(data.message || "Error al crear la cuenta");
+        toast.error(data.message || t("error"));
       }
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("Ocurrió un error al intentar registrarse");
+      toast.error(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -212,13 +215,11 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
         </div>
         <SheetHeader>
           <SheetTitle className="text-3xl font-bold tracking-tight text-slate-900 text-center">
-            Crea tu cuenta gratis
+            {t("title")}
           </SheetTitle>
         </SheetHeader>
         <p className="text-slate-500 text-sm">
-          {step === 1
-            ? "Paso 1: Datos Personales"
-            : "Paso 2: Detalles de la Cuenta"}
+          {step === 1 ? t("step1") : t("step2")}
         </p>
       </div>
 
@@ -229,7 +230,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Nombre y Apellido */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Nombre y Apellido
+                {t("name")}
               </label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -238,11 +239,11 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_nombres", e.target.value)
                   }
-                  placeholder="Ej. Juan Pérez"
+                  placeholder={t("namePlaceholder")}
                   className={cn(
                     "pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all",
                     errors.us_nombres &&
-                      "border-red-500 focus-visible:ring-red-500",
+                    "border-red-500 focus-visible:ring-red-500",
                   )}
                 />
               </div>
@@ -254,7 +255,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Correo */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Correo Electrónico
+                {t("email")}
               </label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -264,11 +265,11 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_email", e.target.value)
                   }
-                  placeholder="tu@ejemplo.com"
+                  placeholder={t("emailPlaceholder")}
                   className={cn(
                     "pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all",
                     errors.us_email &&
-                      "border-red-500 focus-visible:ring-red-500",
+                    "border-red-500 focus-visible:ring-red-500",
                   )}
                 />
               </div>
@@ -280,7 +281,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Teléfono */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Teléfono
+                {t("phone")}
               </label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -290,7 +291,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_telefono", e.target.value)
                   }
-                  placeholder="(000) 000-0000"
+                  placeholder={t("phonePlaceholder")}
                   className="pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all"
                 />
               </div>
@@ -301,7 +302,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             onClick={handleNextStep}
             className="w-full h-12 rounded-xl bg-[#0D4B4D] hover:bg-[#093638] text-white font-bold shadow-lg hover:shadow-xl transition-all text-base mt-2"
           >
-            Continuar
+            {t("continue")}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
@@ -312,7 +313,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Region (Combobox) */}
             <div className="space-y-2 col-span-1">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Región
+                {t("region")}
               </label>
               <div className="relative">
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 z-10 pointer-events-none" />
@@ -321,14 +322,14 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   value={selectedRegion}
                 >
                   <SelectTrigger className="w-full pl-12 h-12 rounded-xl bg-slate-50 border border-slate-200 text-left text-sm hover:bg-slate-100/50 transition-colors">
-                    <SelectValue placeholder="Seleccionar" />
+                    <SelectValue placeholder={t("municipalityPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent
                     position="popper"
                     className="max-h-[300px] w-[var(--radix-select-trigger-width)]"
                   >
-                    <SelectItem value="pr">Puerto Rico</SelectItem>
-                    <SelectItem value="usa">USA</SelectItem>
+                    <SelectItem value="pr">{t("regions.pr")}</SelectItem>
+                    <SelectItem value="usa">{t("regions.usa")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -337,7 +338,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Municipio (Combobox) */}
             <div className="space-y-2 col-span-1">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Municipio
+                {t("municipality")}
               </label>
               <div className="relative">
                 <Building className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 z-10 pointer-events-none" />
@@ -356,8 +357,8 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                       <SelectValue
                         placeholder={
                           selectedRegion
-                            ? "Seleccionar"
-                            : "Primero elija región"
+                            ? t("municipalityPlaceholder")
+                            : t("municipalityFirst")
                         }
                       />
                     )}
@@ -379,7 +380,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Dirección */}
             <div className="space-y-2 col-span-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Dirección
+                {t("address")}
               </label>
               <div className="relative">
                 <Home className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -388,7 +389,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_direccion", e.target.value)
                   }
-                  placeholder="Calle, Número, Urbanización"
+                  placeholder={t("addressPlaceholder")}
                   className="pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all"
                 />
               </div>
@@ -397,7 +398,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Usuario */}
             <div className="space-y-2 col-span-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Usuario
+                {t("username")}
               </label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -406,11 +407,11 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_usuario", e.target.value)
                   }
-                  placeholder="Nombre de usuario"
+                  placeholder={t("usernamePlaceholder")}
                   className={cn(
                     "pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all",
                     errors.us_usuario &&
-                      "border-red-500 focus-visible:ring-red-500",
+                    "border-red-500 focus-visible:ring-red-500",
                   )}
                 />
               </div>
@@ -422,7 +423,7 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
             {/* Contraseña */}
             <div className="space-y-2 col-span-2">
               <label className="text-sm font-medium text-slate-700 ml-1">
-                Contraseña
+                {t("password")}
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -432,11 +433,11 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   onChange={(e) =>
                     handleInputChange("us_clave", e.target.value)
                   }
-                  placeholder="••••••••"
+                  placeholder={t("passwordPlaceholder")}
                   className={cn(
                     "pl-12 pr-10 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all",
                     errors.us_clave &&
-                      "border-red-500 focus-visible:ring-red-500",
+                    "border-red-500 focus-visible:ring-red-500",
                   )}
                 />
                 <button
@@ -473,9 +474,9 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
                   htmlFor="terms"
                   className="font-medium text-slate-700 select-none"
                 >
-                  Acepto los{" "}
+                  {t("terms")}{" "}
                   <a href="#" className="text-[#0D4B4D] underline font-bold">
-                    Términos y Condiciones
+                    {t("termsLink")}
                   </a>
                 </label>
               </div>
@@ -498,10 +499,10 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creando cuenta...
+                  {t("loading")}
                 </>
               ) : (
-                "Crear Cuenta"
+                t("submit")
               )}
             </Button>
           </div>
@@ -509,12 +510,12 @@ export function RegisterFormContent({ setView }: RegisterFormContentProps) {
       </div>
 
       <div className="text-center text-sm text-slate-500">
-        ¿Ya tienes una cuenta?{" "}
+        {t("alreadyHaveAccount")}{" "}
         <button
           onClick={() => setView("login")}
           className="font-bold text-[#0D4B4D] cursor-pointer hover:underline"
         >
-          Inicia sesión aquí
+          {t("loginNow")}
         </button>
       </div>
 

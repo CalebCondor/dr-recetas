@@ -1,0 +1,572 @@
+{
+  "categories": [
+    {
+      "id": "7",
+      "nombre": "Citas Medicas",
+      "tipo": "2",
+      "tag": "Citas Medicas",
+      "lead": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/citas_medicas.jpg"
+    },
+    {
+      "id": "8",
+      "nombre": "Membresias",
+      "tipo": "2",
+      "tag": "Membresia",
+      "lead": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/membresias.jpg"
+    },
+    {
+      "id": "9",
+      "nombre": "Ordenes de laboratorio",
+      "tipo": "2",
+      "tag": "lab",
+      "lead": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/ordenes_laboratorio.jpg"
+    },
+    {
+      "id": "12",
+      "nombre": "Otros",
+      "tipo": "2",
+      "tag": "",
+      "lead": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/otros.jpg"
+    },
+    {
+      "id": "10",
+      "nombre": "Para el",
+      "tipo": "2",
+      "tag": "Para el",
+      "lead": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/para_el.jpg"
+    },
+    {
+      "id": "11",
+      "nombre": "Para ella",
+      "tipo": "2",
+      "tag": "Para ella",
+      "lead": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura.",
+      "imagen": "https://doctorrecetas.com/cat_fotos/para_ella.jpg"
+    }
+  ],
+  "orders": {
+    "Certificado Medico": [
+      {
+        "id": 26,
+        "slug": "certificado-mdico-26",
+        "pq_codigo": "CM",
+        "titulo": "Certificado Médico",
+        "resumen": "Ofrecemos un servicio médico orientado a brindarle una evaluación clínica completa y la certificación necesaria que le permita justificar su ausencia laboral ante su empleador o institución.",
+        "detalle": "<h2 data-start=\"124\" data-end=\"182\"><strong data-start=\"129\" data-end=\"182\">Evaluación Médica y Certificación Laboral Digital</strong></h2><h2 data-start=\"124\" data-end=\"182\"><span style=\"background-color: transparent; color: rgb(140, 147, 150); font-size: 0.8rem; font-weight: 400;\">Nuestro servicio consiste en una </span><strong data-start=\"217\" data-end=\"257\" style=\"background-color: transparent; color: rgb(140, 147, 150); font-size: 0.8rem;\">evaluación médica profesional remota</strong><span style=\"background-color: transparent; color: rgb(140, 147, 150); font-size: 0.8rem; font-weight: 400;\">, realizada por un médico autorizado, con el objetivo de:</span></h2><ul data-start=\"316\" data-end=\"547\">\r\n<li data-start=\"316\" data-end=\"364\">\r\n<p data-start=\"318\" data-end=\"364\">Determinar un diagnóstico clínico confiable.</p>\r\n</li>\r\n<li data-start=\"365\" data-end=\"413\">\r\n<p data-start=\"367\" data-end=\"413\">Definir el curso de tratamiento recomendado.</p>\r\n</li>\r\n<li data-start=\"414\" data-end=\"547\">\r\n<p data-start=\"416\" data-end=\"547\">Estimar la cantidad de días de reposo o incapacidad necesarios para su completa recuperación antes de reincorporarse a sus labores.</p>\r\n</li>\r\n</ul><p data-start=\"549\" data-end=\"636\">Una vez completada la evaluación, usted recibirá un <strong data-start=\"601\" data-end=\"631\">certificado médico digital</strong> que:</p><ul data-start=\"638\" data-end=\"895\">\r\n<li data-start=\"638\" data-end=\"701\">\r\n<p data-start=\"640\" data-end=\"701\">Contendrá toda la información necesaria de respaldo médico.</p>\r\n</li>\r\n<li data-start=\"702\" data-end=\"756\">\r\n<p data-start=\"704\" data-end=\"756\">Será enviado directamente a su correo electrónico.</p>\r\n</li>\r\n<li data-start=\"757\" data-end=\"895\">\r\n<p data-start=\"759\" data-end=\"895\">Podrá ser presentado ante su empleador o institución para justificar ausencias y acceder al pago correspondiente por días de enfermedad.</p>\r\n</li>\r\n</ul><p class=\"MsoNormal\" style=\"margin: 0in;\">\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"897\" data-end=\"1091\">Este certificado cumple con los <strong data-start=\"929\" data-end=\"973\">estándares legales y sanitarios vigentes</strong>, y está diseñado para facilitarle el proceso de justificación laboral, <strong data-start=\"1045\" data-end=\"1090\">sin que tenga que desplazarse físicamente</strong>.</p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_26_1769705027.jpg",
+        "pq_tag": "Citas Medicas",
+        "tags": [
+          "Citas Medicas"
+        ],
+        "url": "/servicios/citas-medicas/certificado-mdico-26"
+      },
+      {
+        "id": 27,
+        "slug": "examen-licencia-conducir-27",
+        "pq_codigo": "CM",
+        "titulo": "Examen Licencia Conducir",
+        "resumen": "",
+        "detalle": "<p><br></p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": null,
+        "pq_tag": null,
+        "tags": [],
+        "url": "/servicios/general/examen-licencia-conducir-27"
+      }
+    ],
+    "Cita de Evaluación": [
+      {
+        "id": 37,
+        "slug": "programa-de-salud-sexual-para-hombres-37",
+        "pq_codigo": "CM",
+        "titulo": " Programa de Salud Sexual para Hombres",
+        "resumen": "Consulta médica para disfunción eréctil, enfocada en diagnosticar la causa y ofrecer un tratamiento seguro y confidencial.\r\nIncluye evaluación completa, receta médica (Viagra o Cialis) y recomendaciones para mejorar tu salud sexual.",
+        "detalle": "<p data-start=\"142\" data-end=\"561\"><strong data-start=\"142\" data-end=\"206\">Si estás enfrentando dificultades para mantener una erección</strong>, has notado una <strong data-start=\"223\" data-end=\"261\">disminución en tu desempeño sexual</strong> o simplemente sientes que algo ha cambiado en tu vida íntima, <strong data-start=\"324\" data-end=\"341\">no estás solo</strong>.<br data-start=\"342\" data-end=\"345\">\r\nLa <strong data-start=\"348\" data-end=\"370\">disfunción eréctil</strong> es más común de lo que parece y afecta a hombres de todas las edades por diversas razones, desde factores <strong data-start=\"477\" data-end=\"501\">físicos y hormonales</strong> hasta <strong data-start=\"508\" data-end=\"560\">emocionales o relacionados con el estilo de vida</strong>.</p><hr data-start=\"563\" data-end=\"566\"><p data-start=\"568\" data-end=\"891\">Este <strong data-start=\"573\" data-end=\"606\">servicio médico especializado</strong> está diseñado para brindarte una atención <strong data-start=\"649\" data-end=\"703\">integral, profesional y completamente confidencial</strong>.<br data-start=\"704\" data-end=\"707\">\r\nA través de una <strong data-start=\"723\" data-end=\"758\">evaluación médica personalizada</strong>, buscamos identificar las posibles causas de la disfunción y ayudarte a <strong data-start=\"831\" data-end=\"890\">recuperar tu bienestar sexual con seguridad y confianza</strong>.</p><hr data-start=\"893\" data-end=\"896\"><h3 data-start=\"898\" data-end=\"929\">¿Qué incluye esta consulta?</h3><ul data-start=\"931\" data-end=\"1422\">\r\n<li data-start=\"931\" data-end=\"1008\">\r\n<p data-start=\"933\" data-end=\"1008\">Evaluación médica completa enfocada en los síntomas de disfunción eréctil</p>\r\n</li>\r\n<li data-start=\"1009\" data-end=\"1089\">\r\n<p data-start=\"1011\" data-end=\"1089\">Revisión detallada de tus antecedentes médicos, hábitos y factores de riesgo</p>\r\n</li>\r\n<li data-start=\"1090\" data-end=\"1161\">\r\n<p data-start=\"1092\" data-end=\"1161\">Diagnóstico clínico claro, basado en criterios médicos actualizados</p>\r\n</li>\r\n<li data-start=\"1162\" data-end=\"1282\">\r\n<p data-start=\"1164\" data-end=\"1282\">Prescripción de tratamiento efectivo: <strong data-start=\"1202\" data-end=\"1225\">Viagra (sildenafil)</strong> o <strong data-start=\"1228\" data-end=\"1250\">Cialis (tadalafil)</strong>, si es apropiado para tu caso</p>\r\n</li>\r\n<li data-start=\"1283\" data-end=\"1368\">\r\n<p data-start=\"1285\" data-end=\"1368\">Recomendaciones personalizadas para mejorar tu salud sexual a corto y largo plazo</p>\r\n</li>\r\n<li data-start=\"1369\" data-end=\"1422\">\r\n<p data-start=\"1371\" data-end=\"1422\">Atención <strong data-start=\"1380\" data-end=\"1422\">confidencial, respetuosa y sin juicios</strong></p>\r\n</li>\r\n</ul><hr data-start=\"1424\" data-end=\"1427\"><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1429\" data-end=\"1660\">Este servicio no solo busca tratar los síntomas, sino también ayudarte a comprender lo que está afectando tu función sexual.<br data-start=\"1553\" data-end=\"1556\">\r\n<strong data-start=\"1556\" data-end=\"1660\">Recuperar tu confianza y calidad de vida íntima es posible con el respaldo de profesionales médicos.</strong></p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_37_1769712759.jpg",
+        "pq_tag": "Para el",
+        "tags": [
+          "Para el"
+        ],
+        "url": "/servicios/para-el/programa-de-salud-sexual-para-hombres-37"
+      },
+      {
+        "id": 39,
+        "slug": "back-to-school-39",
+        "pq_codigo": "CMRC",
+        "titulo": "“Back to School”",
+        "resumen": "Consulta pediátrica profesional para obtener el certificado médico necesario para el regreso a clases.\r\nIncluye revisión de salud, evaluación médica y entrega del certificado el mismo día (impreso o digital).\r\n\r\nIdeal para:\r\n\r\nVolver a clases tras vacaciones o enfermedad\r\n\r\nCumplir requisitos escolares o institucionales",
+        "detalle": "<p data-start=\"138\" data-end=\"454\">¿Tu hijo o hija necesita un certificado médico para reincorporarse a la escuela?<br data-start=\"218\" data-end=\"221\">\r\nSabemos que estos trámites pueden ser urgentes y, a veces, estresantes.<br data-start=\"292\" data-end=\"295\">\r\nPor eso, ofrecemos una consulta pediátrica rápida, profesional y enfocada en brindarte una solución segura, sin complicaciones y con respaldo médico confiable.</p><p data-start=\"456\" data-end=\"645\">Este servicio está diseñado para cumplir con los requisitos escolares e institucionales, garantizando que tu hijo(a) esté en condiciones óptimas de salud para volver a clases o actividades.</p><p data-start=\"647\" data-end=\"674\">¿Qué incluye esta consulta?</p><ul data-start=\"676\" data-end=\"960\">\r\n<li data-start=\"676\" data-end=\"772\">\r\n<p data-start=\"678\" data-end=\"772\">Revisión médica general: evaluación de signos vitales, peso, talla y estado de salud general</p>\r\n</li>\r\n<li data-start=\"773\" data-end=\"869\">\r\n<p data-start=\"775\" data-end=\"869\">Valoración clínica para determinar si está apto(a) para regresar a sus actividades escolares</p>\r\n</li>\r\n<li data-start=\"870\" data-end=\"960\">\r\n<p data-start=\"872\" data-end=\"960\">Emisión de un certificado médico oficial y válido, firmado por un profesional autorizado</p>\r\n</li>\r\n</ul><p data-start=\"962\" data-end=\"984\">¿En qué casos es útil?</p><ul data-start=\"986\" data-end=\"1236\">\r\n<li data-start=\"986\" data-end=\"1069\">\r\n<p data-start=\"988\" data-end=\"1069\">Para el regreso a clases luego de vacaciones, descansos prolongados o ausencias</p>\r\n</li>\r\n<li data-start=\"1070\" data-end=\"1153\">\r\n<p data-start=\"1072\" data-end=\"1153\">Como alta médica tras enfermedades comunes como gripe, COVID-19, varicela, etc.</p>\r\n</li>\r\n<li data-start=\"1154\" data-end=\"1236\">\r\n<p data-start=\"1156\" data-end=\"1236\">Para cumplir requisitos escolares o institucionales que exijan evaluación médica</p>\r\n</li>\r\n</ul><p>\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1238\" data-end=\"1436\">Esta atención está pensada para ser ágil, clara y efectiva, permitiéndote cumplir con tus obligaciones escolares sin demoras y con el respaldo de un equipo médico comprometido con la salud infantil.</p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_39_1769713381.jpg",
+        "pq_tag": "Citas Medicas,Pediatria",
+        "tags": [
+          "Citas Medicas,Pediatria"
+        ],
+        "url": "/servicios/citas-medicaspediatria/back-to-school-39"
+      },
+      {
+        "id": 31,
+        "slug": "cita-de-seguimiento-31",
+        "pq_codigo": "CM",
+        "titulo": "Cita de Seguimiento",
+        "resumen": "",
+        "detalle": "<p><br></p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_31_1769779433.jpg",
+        "pq_tag": "Citas Medicas,Para ella",
+        "tags": [
+          "Citas Medicas,Para ella"
+        ],
+        "url": "/servicios/citas-medicaspara-ella/cita-de-seguimiento-31"
+      },
+      {
+        "id": 30,
+        "slug": "cita-medica-nuevo-paciente-30",
+        "pq_codigo": "CM",
+        "titulo": "Cita Medica Nuevo Paciente",
+        "resumen": "",
+        "detalle": "<p><br></p>",
+        "precio": "34.99",
+        "precio_vip": "17.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_30_1769704767.jpg",
+        "pq_tag": "Citas Medicas",
+        "tags": [
+          "Citas Medicas"
+        ],
+        "url": "/servicios/citas-medicas/cita-medica-nuevo-paciente-30"
+      },
+      {
+        "id": 33,
+        "slug": "consulta-por-covid-positivo-33",
+        "pq_codigo": "CM",
+        "titulo": "Consulta por COVID Positivo",
+        "resumen": "Si diste positivo a COVID-19, no estás solo. Te ofrecemos una consulta médica personalizada, desde\r\n casa, para evaluar tus síntomas, orientarte sobre el tratamiento adecuado y ayudarte a manejar la\r\n enfermedad de forma segura.\r\n ¿Qué incluye esta consulta?\r\n -Evaluación médica completa de tus síntomas\r\n -Revisión de signos de alerta o riesgo\r\n -Plan de cuidados en casa o indicaciones para estudios adicionales\r\n -Receta médica\r\n -Certificado médico por aislamiento, si lo necesitas\r\n -Seguimiento disponible en caso de complicaciones",
+        "detalle": "<p data-start=\"241\" data-end=\"649\">La Consulta por COVID Positivo es una evaluación médica integral dirigida a pacientes que han recibido un diagnóstico confirmado de infección por el virus SARS-CoV-2 (COVID-19). Esta consulta tiene como propósito principal monitorear el estado clínico del paciente, identificar complicaciones agudas o secuelas post-infección, y establecer un plan de seguimiento adecuado según la evolución de la enfermedad.</p><p data-start=\"651\" data-end=\"1160\">Durante la consulta se realiza una anamnesis detallada que incluye la fecha de inicio de los síntomas, su duración, tipo y severidad, así como antecedentes personales relevantes que puedan influir en el curso clínico del COVID-19 (como enfermedades respiratorias crónicas, cardiovasculares, inmunosupresión, entre otras). El examen físico se enfoca en el sistema respiratorio, cardiovascular y neurológico, con atención especial a signos de hipoxia, fatiga persistente, disnea o alteraciones neurosensoriales.</p><p data-start=\"1162\" data-end=\"1554\">En función del estado actual del paciente, se pueden indicar exámenes complementarios como radiografía o tomografía de tórax, pruebas de función pulmonar, laboratorio general o evaluación cardiológica. Además, se entregan recomendaciones específicas de aislamiento, cuidados domiciliarios, señales de alarma y, en caso necesario, criterios para la derivación a un centro de mayor complejidad.</p><p>\r\n\r\n\r\n</p><p data-start=\"1556\" data-end=\"1838\">Esta consulta también contempla el apoyo emocional y psicológico del paciente, dado el impacto social y mental que puede conllevar el diagnóstico de COVID-19, y orienta respecto a medidas de prevención para sus convivientes, así como criterios para el alta médica o retorno laboral.</p>",
+        "precio": "34.99",
+        "precio_vip": "17.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_33_1769712937.jpg",
+        "pq_tag": "Citas Medicas,Pediatria",
+        "tags": [
+          "Citas Medicas,Pediatria"
+        ],
+        "url": "/servicios/citas-medicaspediatria/consulta-por-covid-positivo-33"
+      },
+      {
+        "id": 36,
+        "slug": "evaluacin-mdica-del-sueo-36",
+        "pq_codigo": "CM",
+        "titulo": "Evaluación Médica del Sueño",
+        "resumen": "Evaluación profesional para diagnosticar y tratar tus problemas de sueño.\r\nIncluye revisión de hábitos, diagnóstico personalizado y, si es necesario, receta médica para ayudarte a dormir mejor.\r\nAdemás, recibirás recomendaciones seguras para mejorar tu descanso.\r\n\r\nDuerme mejor, con apoyo médico real.",
+        "detalle": "<p data-start=\"103\" data-end=\"510\"><strong data-start=\"103\" data-end=\"155\">¿Tienes dificultades para dormir por las noches?</strong><br data-start=\"155\" data-end=\"158\">\r\nSi te resulta difícil conciliar el sueño, te despiertas varias veces sin razón aparente o inicias el día con sensación de agotamiento, es posible que estés enfrentando un <strong data-start=\"329\" data-end=\"352\">trastorno del sueño</strong>, como el <strong data-start=\"362\" data-end=\"374\">insomnio</strong>.<br data-start=\"375\" data-end=\"378\">\r\nEsta condición, si no se atiende a tiempo, puede afectar tu rendimiento diario, tu estado de ánimo e incluso tu salud a largo plazo.</p><hr data-start=\"512\" data-end=\"515\"><p data-start=\"517\" data-end=\"890\">Esta <strong data-start=\"522\" data-end=\"541\">consulta médica</strong> está orientada a comprender a fondo tu situación.<br data-start=\"591\" data-end=\"594\">\r\nUn profesional evaluará tu <strong data-start=\"621\" data-end=\"640\">patrón de sueño</strong>, tus síntomas, tus antecedentes personales y tu estilo de vida.<br data-start=\"704\" data-end=\"707\">\r\nA partir de esa evaluación, recibirás un <strong data-start=\"748\" data-end=\"785\">diagnóstico clínico personalizado</strong> que permitirá definir si es necesario iniciar un <strong data-start=\"835\" data-end=\"864\">tratamiento farmacológico</strong> para mejorar tu descanso.</p><p data-start=\"892\" data-end=\"1235\">Además de la evaluación médica, recibirás orientación clara sobre cómo <strong data-start=\"963\" data-end=\"984\">modificar hábitos</strong> que puedan estar interfiriendo con tu sueño, recomendaciones para mejorar tu <strong data-start=\"1062\" data-end=\"1083\">higiene del sueño</strong> y, si se justifica, una <strong data-start=\"1108\" data-end=\"1151\">receta médica con indicaciones precisas</strong> para iniciar un tratamiento que te ayude a dormir de forma más profunda y continua.</p><hr data-start=\"1237\" data-end=\"1240\"><h3 data-start=\"1242\" data-end=\"1268\">Este servicio incluye:</h3><ul data-start=\"1270\" data-end=\"1625\">\r\n<li data-start=\"1270\" data-end=\"1336\">\r\n<p data-start=\"1272\" data-end=\"1336\">Consulta médica centrada en los síntomas y causas del insomnio</p>\r\n</li>\r\n<li data-start=\"1337\" data-end=\"1411\">\r\n<p data-start=\"1339\" data-end=\"1411\">Revisión de tu rutina diaria, historial clínico y factores ambientales</p>\r\n</li>\r\n<li data-start=\"1412\" data-end=\"1482\">\r\n<p data-start=\"1414\" data-end=\"1482\">Diagnóstico claro sobre el tipo y gravedad del trastorno del sueño</p>\r\n</li>\r\n<li data-start=\"1483\" data-end=\"1553\">\r\n<p data-start=\"1485\" data-end=\"1553\">Prescripción de medicación para el insomnio (solo si es necesario)</p>\r\n</li>\r\n<li data-start=\"1554\" data-end=\"1625\">\r\n<p data-start=\"1556\" data-end=\"1625\">Consejos prácticos y personalizados para mejorar tu descanso nocturno</p>\r\n</li>\r\n</ul><hr data-start=\"1627\" data-end=\"1630\"><p data-start=\"140\" data-end=\"531\">\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1632\" data-end=\"1799\"><strong data-start=\"1632\" data-end=\"1680\">Dormir bien no es un lujo, es una necesidad.</strong><br data-start=\"1680\" data-end=\"1683\">\r\nCon esta atención médica podrás dar el primer paso para <strong data-start=\"1739\" data-end=\"1763\">recuperar tus noches</strong> y mejorar tu <strong data-start=\"1777\" data-end=\"1798\">bienestar general</strong>.</p>",
+        "precio": "29.99",
+        "precio_vip": "14.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_36_1769712864.jpg",
+        "pq_tag": "Para el",
+        "tags": [
+          "Para el"
+        ],
+        "url": "/servicios/para-el/evaluacin-mdica-del-sueo-36"
+      },
+      {
+        "id": 38,
+        "slug": "evaluacin-mdica-inmediata-38",
+        "pq_codigo": "CM",
+        "titulo": "Evaluación médica inmediata",
+        "resumen": "Consulta rápida y profesional para obtener diagnóstico, recetas o certificados el mismo día.\r\nIdeal para trámites urgentes, síntomas leves o iniciar tratamientos como sueros e inyecciones.",
+        "detalle": "<ul><li><br><p data-start=\"106\" data-end=\"218\"><strong data-start=\"106\" data-end=\"157\">Atención rápida, confiable y sin complicaciones</strong><br data-start=\"157\" data-end=\"160\">\r\n¿Necesitas atención médica al instante sin largas esperas?</p>\r\n<p data-start=\"220\" data-end=\"388\">Nuestra <strong data-start=\"228\" data-end=\"259\">Evaluación Médica Inmediata</strong> está diseñada para brindarte un diagnóstico profesional en minutos, ideal para trámites, tratamientos o seguimiento de tu salud.</p>\r\n<p data-start=\"390\" data-end=\"407\"><strong data-start=\"390\" data-end=\"407\">¿Qué incluye?</strong></p>\r\n<ul data-start=\"409\" data-end=\"633\">\r\n<li data-start=\"409\" data-end=\"463\">\r\n<p data-start=\"411\" data-end=\"463\">Revisión rápida de signos vitales y estado general</p>\r\n</li>\r\n<li data-start=\"464\" data-end=\"519\">\r\n<p data-start=\"466\" data-end=\"519\">Consulta médica enfocada en tu necesidad específica</p>\r\n</li>\r\n<li data-start=\"520\" data-end=\"569\">\r\n<p data-start=\"522\" data-end=\"569\">Recomendaciones o receta médica según el caso</p>\r\n</li>\r\n<li data-start=\"570\" data-end=\"633\">\r\n<p data-start=\"572\" data-end=\"633\">Resultados y certificados el mismo día (impresos o digitales)</p>\r\n</li>\r\n</ul>\r\n<p data-start=\"635\" data-end=\"654\"><strong data-start=\"635\" data-end=\"654\">¿Cuándo usarla?</strong></p>\r\n<ul data-start=\"656\" data-end=\"890\">\r\n<li data-start=\"656\" data-end=\"699\">\r\n<p data-start=\"658\" data-end=\"699\">Necesitas un certificado médico urgente</p>\r\n</li>\r\n<li data-start=\"700\" data-end=\"757\">\r\n<p data-start=\"702\" data-end=\"757\">Tienes síntomas leves y quieres una valoración rápida</p>\r\n</li>\r\n<li data-start=\"758\" data-end=\"826\">\r\n<p data-start=\"760\" data-end=\"826\">Vas a iniciar un tratamiento con sueros, inyecciones o vitaminas</p>\r\n</li>\r\n<li data-start=\"827\" data-end=\"890\">\r\n<p data-start=\"829\" data-end=\"890\">Requieres respaldo médico para trámites escolares o laborales</p>\r\n</li>\r\n</ul></li></ul><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p>",
+        "precio": "34.99",
+        "precio_vip": "17.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_38_1769712635.jpg",
+        "pq_tag": "Citas Medicas,Pediatria",
+        "tags": [
+          "Citas Medicas,Pediatria"
+        ],
+        "url": "/servicios/citas-medicaspediatria/evaluacin-mdica-inmediata-38"
+      },
+      {
+        "id": 25,
+        "slug": "receta-de-medicamentos-o-refill-25",
+        "pq_codigo": "REFILL01",
+        "titulo": "Receta de medicamentos o “refill”",
+        "resumen": "",
+        "detalle": "<p><br></p>",
+        "precio": "34.99",
+        "precio_vip": "17.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_25_1769705109.jpg",
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/receta-de-medicamentos-o-refill-25"
+      }
+    ],
+    "Orden Médica": [
+      {
+        "id": 10,
+        "slug": "anlisis-de-orina-y-cultivo-de-orina-10",
+        "pq_codigo": "N39.0",
+        "titulo": " Análisis de orina y cultivo de orina",
+        "resumen": "El análisis de orina revisa el aspecto, concentración y contenido de tu orina para detectar\r\n problemas como infecciones, enfermedades del riñón o diabetes. El cultivo de orina busca\r\n bacterias que causan infecciones urinarias y ayuda a saber cuál es el mejor tratamiento. Ambos\r\n se hacen con una muestra de orina y son útiles para diagnosticar molestias como ardor al orinar,\r\n dolor en el abdomen o necesidad frecuente de orinar.",
+        "detalle": "<p><span style=\"font-size: 12.8px;\">El análisis de orina es una prueba sencilla y muy útil que nos ayuda a evaluar el estado general de tu</span></p><p><span style=\"font-size: 12.8px;\"> salud. Permite detectar posibles infecciones urinarias, problemas en los riñones, presencia de sangre,</span></p><p><span style=\"font-size: 12.8px;\"> proteínas o azúcar en la orina, entre otros indicadores importantes.</span></p><p><span style=\"font-size: 12.8px;\"> El cultivo de orina, por su parte, se realiza cuando se sospecha una infección urinaria. Esta prueba</span></p><p><span style=\"font-size: 12.8px;\"> identifica si hay bacterias en la orina y determina cuál es el tipo exacto, lo que nos ayuda a elegir el</span></p><p><span style=\"font-size: 12.8px;\"> tratamiento más efectivo.</span></p><p><span style=\"font-size: 12.8px;\"> ¿Por qué es importante realizarlo?</span></p><ul><li><span style=\"font-size: 12.8px;\"> Detecta infecciones del tracto urinario (ITU)</span></li><li><span style=\"font-size: 12.8px;\"> Evalúa la función renal</span></li><li><span style=\"font-size: 12.8px;\"> Ayuda a diagnosticar enfermedades metabólicas</span></li><li><span style=\"font-size: 12.8px;\"> Permite iniciar un tratamiento oportuno y personalizado</span></li></ul><p><span style=\"font-size: 12.8px;\"> ¿Cómo se realiza?</span></p><p><span style=\"font-size: 12.8px;\"> Solo necesitas proporcionar una muestra de orina. Es una prueba rápida, sin dolor y no invasiva.</span></p><p><span style=\"font-size: 12.8px;\"> ¿Cuándo se recomienda?</span></p><ul><li><span style=\"font-size: 12.8px;\"> Si presentas síntomas como ardor al orinar, necesidad frecuente de ir al baño, dolor abdominal o </span>fiebre</li><li><span style=\"font-size: 12.8px;\"> Durante chequeos médicos de rutina</span></li><li><span style=\"font-size: 12.8px;\"> En el seguimiento de enfermedades crónicas como diabetes o hipertensión</span></li></ul>",
+        "precio": "5.00",
+        "precio_vip": "2.49",
+        "imagen": null,
+        "pq_tag": "Pediatria,Lab",
+        "tags": [
+          "Pediatria,Lab"
+        ],
+        "url": "/servicios/pediatrialab/anlisis-de-orina-y-cultivo-de-orina-10"
+      },
+      {
+        "id": 45,
+        "slug": "cbc-diff-lab-45",
+        "pq_codigo": "R79.9 or 0055009",
+        "titulo": "CBC + DIFF Lab",
+        "resumen": "La prueba CBC + DIFF (Conteo Sanguíneo Completo con Diferencial) mide los diferentes tipos de células en la sangre, como glóbulos rojos, glóbulos blancos y plaquetas.\r\nAyuda a detectar infecciones, anemia, problemas del sistema inmunológico y otras condiciones de salud.\r\n\r\nEs un examen común que se realiza con una muestra de sangre y proporciona información importante sobre tu estado general de salud.",
+        "detalle": "<h2 data-start=\"183\" data-end=\"246\"><strong data-start=\"188\" data-end=\"246\">CBC + DIFF (Conteo Sanguíneo Completo con Diferencial)</strong></h2><p data-start=\"248\" data-end=\"452\">Es una <strong data-start=\"255\" data-end=\"275\">prueba de sangre</strong> que proporciona información detallada sobre tu salud general al medir la <strong data-start=\"349\" data-end=\"406\">cantidad y calidad de los diferentes tipos de células</strong> en tu sangre. Esta prueba incluye dos partes:</p><hr data-start=\"454\" data-end=\"457\"><h3 data-start=\"459\" data-end=\"499\">1. <strong data-start=\"469\" data-end=\"497\">CBC (Hemograma Completo)</strong></h3><p data-start=\"500\" data-end=\"520\">Mide los niveles de:</p><ul data-start=\"521\" data-end=\"590\">\r\n<li data-start=\"521\" data-end=\"539\">\r\n<p data-start=\"523\" data-end=\"539\">Glóbulos rojos</p>\r\n</li>\r\n<li data-start=\"540\" data-end=\"560\">\r\n<p data-start=\"542\" data-end=\"560\">Glóbulos blancos</p>\r\n</li>\r\n<li data-start=\"561\" data-end=\"574\">\r\n<p data-start=\"563\" data-end=\"574\">Plaquetas</p>\r\n</li>\r\n<li data-start=\"575\" data-end=\"590\">\r\n<p data-start=\"577\" data-end=\"590\">Hemoglobina</p>\r\n</li>\r\n</ul><p data-start=\"592\" data-end=\"673\">Ayuda a detectar afecciones como <strong data-start=\"625\" data-end=\"672\">anemia, infecciones o trastornos sanguíneos</strong>.</p><hr data-start=\"675\" data-end=\"678\"><h3 data-start=\"680\" data-end=\"734\">2. <strong data-start=\"690\" data-end=\"732\">DIFF (Diferencial de Glóbulos Blancos)</strong></h3><p data-start=\"735\" data-end=\"808\">Analiza en detalle los diferentes tipos de glóbulos blancos en tu sangre:</p><ul data-start=\"809\" data-end=\"883\">\r\n<li data-start=\"809\" data-end=\"824\">\r\n<p data-start=\"811\" data-end=\"824\">Neutrófilos</p>\r\n</li>\r\n<li data-start=\"825\" data-end=\"839\">\r\n<p data-start=\"827\" data-end=\"839\">Linfocitos</p>\r\n</li>\r\n<li data-start=\"840\" data-end=\"853\">\r\n<p data-start=\"842\" data-end=\"853\">Monocitos</p>\r\n</li>\r\n<li data-start=\"854\" data-end=\"869\">\r\n<p data-start=\"856\" data-end=\"869\">Eosinófilos</p>\r\n</li>\r\n<li data-start=\"870\" data-end=\"883\">\r\n<p data-start=\"872\" data-end=\"883\">Basófilos</p>\r\n</li>\r\n</ul><p data-start=\"885\" data-end=\"962\">Esto permite <strong data-start=\"898\" data-end=\"961\">identificar infecciones, alergias o problemas inmunológicos</strong>.</p><hr data-start=\"964\" data-end=\"967\"><h2 data-start=\"969\" data-end=\"991\">¿Para qué sirve?</h2><ul data-start=\"993\" data-end=\"1335\">\r\n<li data-start=\"993\" data-end=\"1115\">\r\n<p data-start=\"995\" data-end=\"1115\"><strong data-start=\"995\" data-end=\"1024\">Detección de enfermedades</strong>: infecciones, anemia, trastornos sanguíneos, alergias o disfunciones del sistema inmune.</p>\r\n</li>\r\n<li data-start=\"1116\" data-end=\"1231\">\r\n<p data-start=\"1118\" data-end=\"1231\"><strong data-start=\"1118\" data-end=\"1155\">Monitoreo de condiciones crónicas</strong>: como enfermedades autoinmunes, trastornos hematológicos o inflamatorios.</p>\r\n</li>\r\n<li data-start=\"1232\" data-end=\"1335\">\r\n<p data-start=\"1234\" data-end=\"1335\"><strong data-start=\"1234\" data-end=\"1265\">Evaluación general de salud</strong>: es una prueba básica que da una visión integral de tu estado físico.</p>\r\n</li>\r\n</ul><hr data-start=\"1337\" data-end=\"1340\"><h2 data-start=\"1342\" data-end=\"1370\">¿Cuándo se recomienda?</h2><ul data-start=\"1372\" data-end=\"1644\">\r\n<li data-start=\"1372\" data-end=\"1456\">\r\n<p data-start=\"1374\" data-end=\"1456\">Si tienes síntomas como <strong data-start=\"1398\" data-end=\"1453\">fatiga, palidez, fiebre, sangrado fácil o moretones</strong>.</p>\r\n</li>\r\n<li data-start=\"1457\" data-end=\"1549\">\r\n<p data-start=\"1459\" data-end=\"1549\">Si tu médico necesita evaluar tu salud general o dar seguimiento a una condición médica.</p>\r\n</li>\r\n<li data-start=\"1550\" data-end=\"1644\">\r\n<p data-start=\"1552\" data-end=\"1644\">Como parte de un <strong data-start=\"1569\" data-end=\"1590\">chequeo de rutina</strong> o para confirmar infecciones o diagnósticos clínicos.</p>\r\n</li>\r\n</ul><hr data-start=\"1646\" data-end=\"1649\"><h2 data-start=\"1651\" data-end=\"1674\">¿Cómo se realiza?</h2><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1676\" data-end=\"1841\">La prueba requiere una <strong data-start=\"1699\" data-end=\"1720\">muestra de sangre</strong>, generalmente tomada de una vena del brazo.<br data-start=\"1764\" data-end=\"1767\">\r\nEs un procedimiento <strong data-start=\"1787\" data-end=\"1840\">rápido, seguro y no requiere preparación especial</strong>.</p>",
+        "precio": "7.99",
+        "precio_vip": "3.99",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/cbc-diff-lab-45"
+      },
+      {
+        "id": 8,
+        "slug": "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8",
+        "pq_codigo": "N39.0 OR Z00.00 | R73.9, R94.6 ",
+        "titulo": "Femenino- Prueba de Sangre (Blood test (CBC, CMP, Lipid Panel, U Microalbumin, HGB Glicosilada, U / A, T3 T4 TSH, OB in stool)",
+        "resumen": " Este conjunto de pruebas de sangre y orina evalúa tu salud general. Incluye análisis de células\r\n sanguíneas (CBC), función de órganos (CMP), colesterol (Lipid Panel), azúcar en sangre a largo\r\n plazo (HbA1c), función tiroidea (T3, T4, TSH), salud renal (microalbúmina en orina), examen general\r\n de orina (U/A) y detección de sangre oculta en heces. Ayuda a identificar condiciones como\r\n diabetes, problemas hormonales, renales o digestivos, incluso sin síntomas.",
+        "detalle": "<p data-start=\"379\" data-end=\"786\">Este conjunto integral de pruebas de sangre y orina está diseñado para ofrecer una evaluación completa del estado general de salud de la mujer, permitiendo la detección temprana de alteraciones metabólicas, hormonales, renales, hepáticas, cardiovasculares, tiroideas y digestivas. Es especialmente útil en controles médicos rutinarios, evaluación de factores de riesgo y seguimiento de condiciones crónicas.</p><p data-start=\"788\" data-end=\"1061\"><strong data-start=\"788\" data-end=\"843\">1. Hemograma completo (CBC – Complete Blood Count):</strong><br data-start=\"843\" data-end=\"846\">\r\nEvalúa la cantidad y calidad de los principales componentes de la sangre (glóbulos rojos, glóbulos blancos y plaquetas), ayudando a diagnosticar anemia, infecciones, trastornos hematológicos y estados inflamatorios.</p><p data-start=\"1063\" data-end=\"1332\"><strong data-start=\"1063\" data-end=\"1134\">2. Panel metabólico completo (CMP – Comprehensive Metabolic Panel):</strong><br data-start=\"1134\" data-end=\"1137\">\r\nIncluye pruebas que miden electrolitos, glucosa, función hepática y renal, proporcionando información clave sobre el metabolismo general, el equilibrio ácido-base y la función de órganos vitales.</p><p data-start=\"1334\" data-end=\"1531\"><strong data-start=\"1334\" data-end=\"1371\">3. Perfil lipídico (Lipid Panel):</strong><br data-start=\"1371\" data-end=\"1374\">\r\nMide los niveles de colesterol total, HDL, LDL y triglicéridos, siendo fundamental en la evaluación del riesgo cardiovascular y el manejo de la dislipidemia.</p><p data-start=\"1533\" data-end=\"1743\"><strong data-start=\"1533\" data-end=\"1584\">4. Microalbúmina en orina (Urine Microalbumin):</strong><br data-start=\"1584\" data-end=\"1587\">\r\nDetecta pequeñas cantidades de albúmina en la orina, útil para la evaluación temprana de daño renal, especialmente en pacientes con diabetes o hipertensión.</p><p data-start=\"1745\" data-end=\"1963\"><strong data-start=\"1745\" data-end=\"1786\">5. Hemoglobina glicosilada (Hgb A1c):</strong><br data-start=\"1786\" data-end=\"1789\">\r\nRefleja el promedio de los niveles de glucosa en sangre durante los últimos 2-3 meses, siendo un parámetro esencial para el diagnóstico y seguimiento de la diabetes mellitus.</p><p data-start=\"1965\" data-end=\"2173\"><strong data-start=\"1965\" data-end=\"2015\">6. Examen general de orina (U/A – Urinalysis):</strong><br data-start=\"2015\" data-end=\"2018\">\r\nProporciona información sobre el estado renal, infecciones urinarias, deshidratación, y presencia de glucosa o proteínas, entre otros parámetros urinarios.</p><p data-start=\"2175\" data-end=\"2392\"><strong data-start=\"2175\" data-end=\"2214\">7. Pruebas tiroideas (T3, T4, TSH):</strong><br data-start=\"2214\" data-end=\"2217\">\r\nEvalúan la función de la glándula tiroides, permitiendo diagnosticar hipotiroidismo o hipertiroidismo, afecciones comunes en mujeres y asociadas a múltiples síntomas clínicos.</p><p data-start=\"2394\" data-end=\"2618\"><strong data-start=\"2394\" data-end=\"2438\">8. Sangre oculta en heces (OB in Stool):</strong><br data-start=\"2438\" data-end=\"2441\">\r\nDetecta la presencia de sangre microscópica en las deposiciones, lo que puede ser un signo temprano de pólipos, úlceras, enfermedad inflamatoria intestinal o cáncer colorrectal.</p><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"2620\" data-end=\"2935\">Este panel de estudios permite una evaluación preventiva y diagnóstica integral, y puede ser adaptado o ampliado según la edad de la paciente, antecedentes clínicos y síntomas actuales. Su uso es clave en la medicina preventiva femenina, y es recomendable como parte de un chequeo general o programa de salud anual.</p>",
+        "precio": "5.00",
+        "precio_vip": "2.49",
+        "imagen": null,
+        "pq_tag": "Para ella,Lab",
+        "tags": [
+          "Para ella,Lab"
+        ],
+        "url": "/servicios/para-ellalab/femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8"
+      },
+      {
+        "id": 29,
+        "slug": "mamografia-29",
+        "pq_codigo": "Z12.31",
+        "titulo": "Mamografia",
+        "resumen": " La mamografía es una radiografía especializada de las mamas que permite detectar precozmente anomalías como tumores o microcalcificaciones, incluso antes de que sean palpables.",
+        "detalle": "<p><span style=\"font-size: 12.8px;\">¿Qué es una Mamografía?</span></p><p><span style=\"font-size: 12.8px;\">La mamografía es un procedimiento médico de diagnóstico por imágenes que utiliza rayos X de baja dosis para obtener imágenes detalladas del interior de las mamas. Su principal objetivo es la detección temprana de enfermedades mamarias, especialmente el cáncer de mama, incluso antes de que se manifiesten síntomas físicos o signos clínicos.</span></p><p><span style=\"background-color: transparent; font-size: 0.8rem;\">Este examen permite identificar lesiones muy pequeñas, como nódulos, masas o microcalcificaciones, que pueden ser indicios de patologías benignas o malignas. Detectar estos cambios a tiempo mejora notablemente las probabilidades de un tratamiento eficaz y de una recuperación completa.</span></p><p><span style=\"background-color: transparent; font-size: 0.8rem;\"><br></span></p><p><span style=\"background-color: transparent;\"><b>Tipos de Mamografía</b></span></p><p><span style=\"font-size: 12.8px;\">Existen dos tipos principales de mamografías:</span></p><p><span style=\"font-size: 12.8px;\"><br></span></p><p><span style=\"font-size: 12.8px;\">1. Mamografía de cribado o detección</span></p><ul><li><span style=\"font-size: 12.8px;\">Se realiza en mujeres que no presentan síntomas.</span></li><li><span style=\"font-size: 12.8px;\">Se recomienda como estudio rutinario a partir de cierta edad.</span></li><li><span style=\"font-size: 12.8px;\">Su propósito es identificar cambios sospechosos en etapas muy tempranas.</span></li></ul><p><span style=\"font-size: 12.8px;\">2. Mamografía diagnóstica</span></p><ul><li><span style=\"font-size: 12.8px;\">Se realiza cuando hay síntomas como bultos, dolor, secreciones o cambios en la piel del seno.</span></li><li><span style=\"background-color: transparent;\">También se indica para analizar con más detalle hallazgos anormales detectados en una mamografía de rutina.</span></li><li><span style=\"font-size: 12.8px;\">Suele requerir más imágenes y atención más enfocada en una zona específica del tejido mamario.</span></li></ul><p><span style=\"font-size: 12.8px;\"><b>¿Por qué es importante la mamografía?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">Detección temprana del cáncer de mama, el tipo de cáncer más común en mujeres.</span></li><li>Permite intervenciones menos invasivas y tratamientos más efectivos.</li><li>Ha demostrado reducir la tasa de mortalidad por cáncer de mama en mujeres mayores de 40 años.</li><li><span style=\"font-size: 12.8px;\">Es una de las principales herramientas para el tamizaje poblacional, junto con la autoexploración y el examen clínico.</span></li></ul><p><span style=\"font-size: 12.8px;\"><b>¿Quiénes deben realizarse una mamografía?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">Mujeres entre 40 y 74 años, cada 1 o 2 años, según recomendaciones médicas.</span></li><li><span style=\"font-size: 12.8px;\">Mujeres con antecedentes familiares de cáncer de mama pueden necesitar iniciar antes o realizarla con mayor frecuencia.</span></li><li><span style=\"background-color: transparent;\">Mujeres que presentan síntomas mamarios sospechosos, independientemente de la edad.</span></li></ul><p><span style=\"background-color: transparent;\"><b>¿Cómo prepararse para una mamografía?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">No usar desodorante, talco ni cremas el día del examen, ya que pueden aparecer como manchas en la imagen.</span></li><li><span style=\"background-color: transparent;\">Informar al técnico si se tiene implantes mamarios.</span></li><li><span style=\"font-size: 12.8px;\">De ser posible, agendar el estudio una semana después del período menstrual, cuando los senos están menos sensibles.</span></li></ul><p><span style=\"background-color: transparent;\"><b>¿La mamografía duele?</b></span></p><p><span style=\"font-size: 12.8px;\">La mamografía puede causar una leve molestia o presión durante unos segundos, ya que se comprime el seno entre dos placas para obtener una imagen clara. Sin embargo, el procedimiento es rápido, seguro y bien tolerado por la mayoría de las mujeres.</span></p><p><span style=\"background-color: transparent;\"><br></span></p><p><span style=\"background-color: transparent;\"><b>Beneficios clave</b></span></p><ul><li><span style=\"font-size: 12.8px;\">Detecta el cáncer en fases muy iniciales.</span></li><li><span style=\"font-size: 12.8px;\">Mejora las tasas de curación.</span></li><li><span style=\"background-color: transparent;\">Permite preservar el tejido mamario en muchos casos.</span></li><li><span style=\"background-color: transparent;\">Aumenta las opciones terapéuticas y reduce la necesidad de tratamientos agresivos.</span></li></ul>",
+        "precio": "9.99",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Para ella",
+        "tags": [
+          "Para ella"
+        ],
+        "url": "/servicios/para-ella/mamografia-29"
+      },
+      {
+        "id": 7,
+        "slug": "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7",
+        "pq_codigo": "N39.0 OR Z00.00 | R73.9, R94.6 ",
+        "titulo": "Masculino- Prueba de Sangre (Blood test (CBC, CMP, Lipid Panel, U Microalbumin, HGB Glicosilada, U / A, T3 T4 TSH, OB in stool)",
+        "resumen": " Este grupo de pruebas de sangre y orina evalúa tu salud general. Incluye análisis de células\r\n sanguíneas (CBC), función de órganos (CMP), colesterol (Lipid Panel), niveles de azúcar a largo\r\n plazo (HbA1c), función tiroidea (T3, T4, TSH), riñones (microalbúmina en orina), orina general (U/A)\r\n y sangre oculta en heces. Ayuda a detectar problemas como diabetes, enfermedades del\r\n corazón, tiroides, riñones o digestivos, incluso si no tienes síntomas.",
+        "detalle": "<p><span style=\"font-size: 12.8px;\"> Este conjunto de estudios está diseñado para evaluar de forma completa la salud general del</span></p><p><span style=\"font-size: 12.8px;\"> hombre. Incluye análisis clave para detectar a tiempo problemas en órganos vitales, metabolismo,</span></p><p><span style=\"font-size: 12.8px;\"> niveles hormonales y riesgo cardiovascular.</span></p><p><span style=\"font-size: 12.8px;\"> ¿Qué se analiza?</span></p><ul><li><span style=\"font-size: 12.8px;\"> Biometría hemática (CBC): Detecta anemia, infecciones o trastornos en la sangre.</span></li><li><span style=\"font-size: 12.8px;\"> Perfil químico (CMP): Evalúa riñones, hígado, glucosa y electrolitos.</span></li><li><span style=\"font-size: 12.8px;\"> Perfil de lípidos: Revisa colesterol total, HDL, LDL y triglicéridos.</span></li><li><span style=\"font-size: 12.8px;\"> Microalbúmina en orina: Detecta daño temprano en los riñones.</span></li><li><span style=\"font-size: 12.8px;\"> Hemoglobina glicosilada (HbA1c): Mide el promedio de azúcar en sangre en los últimos 2-3</span> meses.</li><li><span style=\"font-size: 12.8px;\"> Examen general de orina (EGO): Indica infecciones, problemas renales o metabólicos.</span></li><li><span style=\"font-size: 12.8px;\"> Hormonas tiroideas (T3, T4, TSH): Evalúan el funcionamiento de la tiroides.</span></li><li><span style=\"font-size: 12.8px;\"> Sangre oculta en heces: Detección temprana de sangrados digestivos.</span></li></ul><p><span style=\"font-size: 12.8px;\"> ¿Para qué sirve?</span></p><p><span style=\"font-size: 12.8px;\"> Es ideal para chequeos de rutina o control de enfermedades crónicas, ayudando a prevenir</span></p><p><span style=\"font-size: 12.8px;\"> complicaciones y a mantener una buena salud integral.</span></p>",
+        "precio": "9.99",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Para el,Lab",
+        "tags": [
+          "Para el,Lab"
+        ],
+        "url": "/servicios/para-ellab/masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7"
+      },
+      {
+        "id": 2,
+        "slug": "prueba-de-covid-19-ant-geno-2",
+        "pq_codigo": "J12.82, J20.8, R05.9, J22",
+        "titulo": "Prueba de Covid-19 Antí­geno",
+        "resumen": " La prueba de antígeno para COVID-19 detecta partes del virus en personas con una infección\r\n activa. Se realiza con una muestra tomada de la nariz y ofrece resultados rápidos, en 15 a 30\r\n minutos. Es útil si tienes síntomas o has estado en contacto con alguien contagiado. Aunque es\r\n menos sensible que la prueba PCR, permite identificar casos positivos rápidamente y tomar\r\n medidas para evitar contagios.",
+        "detalle": "<div><span style=\"font-size: 12.8px;\">La prueba de COVID-19 Antígeno es una prueba rápida que detecta la presencia de proteínas específicas</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;del virus SARS-CoV-2 (el virus que causa COVID-19) en tu cuerpo. A diferencia de la prueba PCR, que</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;busca el material genético del virus, la prueba de antígeno identifica directamente las proteínas del virus,</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;lo que la hace más rápida, aunque menos sensible en algunas ocasiones.</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;¿Para qué sirve?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Detección rápida de COVID-19: La prueba puede detectar infecciones activas de COVID-19,&nbsp;</span>especialmente si tienes síntomas, como fiebre, tos o dificultad para respirar.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Resultados rápidos: Es una prueba que proporciona resultados en minutos, lo que la hace ideal para&nbsp;</span>situaciones que requieren una respuesta inmediata, como en centros de salud o eventos masivos.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Filtrar posibles casos de COVID-19: Se utiliza principalmente para detectar infecciones de COVID-19 en</span>&nbsp;personas con síntomas o en aquellos que han estado expuestos al virus.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cuándo se recomienda?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Si tienes síntomas de COVID-19 y necesitas un diagnóstico rápido.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Si has estado en contacto cercano con alguien diagnosticado con COVID-19 y necesitas saber si estás&nbsp;</span>infectado.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Para pruebas rápidas en lugares como aeropuertos, eventos o centros de salud, donde los resultados i</span>nmediatos son necesarios.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cómo se realiza?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La prueba se realiza mediante un hisopado nasal o faríngeo (tomando una muestra de tu nariz o garganta).</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;Es un procedimiento rápido, generalmente sin dolor, y los resultados estarán disponibles en pocos minutos.</span></div><div><br></div>",
+        "precio": "7.00",
+        "precio_vip": "3.49",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/prueba-de-covid-19-ant-geno-2"
+      },
+      {
+        "id": 3,
+        "slug": "prueba-de-covid-19-molecular-pcr-3",
+        "pq_codigo": "J12.82, J20.8, R05.9, J22",
+        "titulo": "Prueba de Covid-19 Molecular PCR",
+        "resumen": "La prueba molecular PCR para COVID-19 detecta si estás infectado con el virus que causa esta\r\n enfermedad. Se hace con una muestra tomada de la nariz o garganta y busca el material\r\n genético del virus. Es muy precisa, incluso si tienes pocos síntomas o estás en las primeras etapas\r\n de la infección. Sirve para confirmar el diagnóstico, tomar precauciones y evitar contagiar a\r\n otros. Los resultados suelen estar listos en pocas horas o hasta en un día.",
+        "detalle": "<div><span style=\"font-size: 12.8px;\">La prueba molecular PCR de COVID-19 es uno de los métodos más confiables para detectar si estás</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;infectado con el virus SARS-CoV-2, que causa la enfermedad COVID-19. Utiliza una técnica llamada</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;Reacción en Cadena de la Polimerasa (PCR) para identificar la presencia del material genético del virus</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;en tu cuerpo, incluso cuando no tienes síntomas.</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;¿Para qué sirve?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Detección precisa de COVID-19: Esta prueba puede detectar la infección en etapas tempranas,&nbsp;</span>incluso antes de que los síntomas aparezcan, y es muy confiable para confirmar si tienes COVID-19.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Evaluación para aislamiento o tratamiento: Ayuda a confirmar un diagnóstico y tomar decisiones&nbsp;</span>sobre aislamiento, tratamiento o medidas preventivas.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Seguridad para viajes y eventos: Es comúnmente requerida para viajes internacionales, eventos o&nbsp;</span>reingreso a espacios laborales o educativos.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cuándo se recomienda?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Si presentas síntomas de COVID-19, como fiebre, tos, dificultad para respirar, dolor de garganta o</span>&nbsp;pérdida del sentido del gusto o del olfato.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Si has estado en contacto cercano con alguien que ha dado positivo para COVID-19.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Si necesitas un certificado negativo de COVID-19 para viajar, trabajar o asistir a eventos.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Si has estado expuesto a una posible fuente de contagio.</span></li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cómo se realiza?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La prueba se realiza mediante un hisopado nasal o faríngeo, en el que se toma una muestra de tu nariz o</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;garganta. Es un procedimiento rápido y sencillo, y los resultados generalmente estarán disponibles en un</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;corto período de tiempo, dependiendo del laboratorio.</span></div>",
+        "precio": "7.00",
+        "precio_vip": "3.49",
+        "imagen": null,
+        "pq_tag": "Pediatria,Lab",
+        "tags": [
+          "Pediatria,Lab"
+        ],
+        "url": "/servicios/pediatrialab/prueba-de-covid-19-molecular-pcr-3"
+      },
+      {
+        "id": 4,
+        "slug": "prueba-de-covid-19-serolgica-rapid-test-4",
+        "pq_codigo": "J12.82, J20.8, R05.9, J22",
+        "titulo": "Prueba de Covid-19 Serológica - Rapid Test",
+        "resumen": " La prueba serológica rápida para COVID-19 detecta anticuerpos en la sangre, que indican si tu\r\n cuerpo ha estado expuesto al virus. Se realiza con una pequeña muestra de sangre y el resultado\r\n está listo en minutos. No sirve para detectar una infección activa, pero ayuda a saber si tuviste\r\n COVID-19 en el pasado. Es útil para estudios de inmunidad o en combinación con otras pruebas\r\n según los síntomas o el historial.",
+        "detalle": "<div><span style=\"font-size: 12.8px;\">&nbsp;La prueba serológica de COVID-19 (Rapid Test) es una prueba rápida que detecta si tu cuerpo ha</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;desarrollado anticuerpos contra el virus SARS-CoV-2, responsable de la enfermedad COVID-19. Los</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;anticuerpos son proteínas que el sistema inmunológico produce después de haber estado expuesto al virus,</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;ya sea por una infección pasada o por una vacuna.</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;¿Para qué sirve?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Detección de exposición pasada al virus: Esta prueba muestra si has estado infectado con el virus en el&nbsp;</span>pasado, incluso si no presentaste síntomas graves o si ya te recuperaste.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Evaluación de inmunidad: Puede ayudar a determinar si has desarrollado anticuerpos después de la</span>&nbsp;infección o de haber recibido la vacuna contra COVID-19.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Resultados rápidos: La prueba proporciona resultados en solo unos minutos, lo que permite obtener una&nbsp;</span>respuesta rápida sobre tu estado inmunológico.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cuándo se recomienda?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Si crees que podrías haber estado expuesto al COVID-19 y deseas saber si tu cuerpo ha producido&nbsp;</span>anticuerpos.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Si necesitas una evaluación rápida de tu posible inmunidad después de haber sido infectado o vacunado.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Si estás interesado en conocer si has tenido una infección por COVID-19, incluso si no presentaste&nbsp;</span>síntomas.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cómo se realiza?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La prueba consiste en tomar una pequeña muestra de sangre, generalmente mediante un pinchazo en el</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;dedo. Es un procedimiento rápido y sencillo, y los resultados estarán disponibles en cuestión de minutos</span></div>",
+        "precio": "7.00",
+        "precio_vip": "3.49",
+        "imagen": null,
+        "pq_tag": "Pediatria,Lab",
+        "tags": [
+          "Pediatria,Lab"
+        ],
+        "url": "/servicios/pediatrialab/prueba-de-covid-19-serolgica-rapid-test-4"
+      },
+      {
+        "id": 15,
+        "slug": "prueba-de-embarazo-15",
+        "pq_codigo": "Z32.00",
+        "titulo": "Prueba de Embarazo",
+        "resumen": " La prueba de embarazo detecta una hormona llamada hCG, que el cuerpo produce cuando hay\r\n un embarazo. Puede hacerse con una muestra de orina o sangre. Es útil si tienes un retraso en tu\r\n periodo o síntomas como náuseas o sensibilidad en los senos. La prueba en sangre es más precisa\r\n y puede detectar el embarazo más temprano. Ambas ayudan a confirmar si estás embarazada y a\r\n comenzar el cuidado adecuado.",
+        "detalle": "<p data-start=\"197\" data-end=\"581\">La prueba de embarazo es un procedimiento diagnóstico utilizado para determinar la presencia de embarazo mediante la detección de la hormona gonadotropina coriónica humana (hCG), una sustancia que comienza a producirse tras la implantación del óvulo fecundado en el útero. Esta hormona es específica del embarazo y su detección permite confirmar su existencia en etapas muy tempranas.</p><p data-start=\"583\" data-end=\"624\">Existen dos tipos principales de pruebas:</p><ol data-start=\"626\" data-end=\"1250\">\r\n<li data-start=\"626\" data-end=\"950\">\r\n<p data-start=\"629\" data-end=\"950\"><strong data-start=\"629\" data-end=\"660\">Prueba de embarazo en orina</strong>: Es la forma más común y accesible. Puede realizarse en casa o en un centro de salud. Utiliza tiras reactivas que detectan la hCG en la orina, con resultados generalmente disponibles en pocos minutos. Se recomienda realizarla con la primera orina de la mañana para obtener mayor precisión.</p>\r\n</li>\r\n<li data-start=\"952\" data-end=\"1250\">\r\n<p data-start=\"955\" data-end=\"1250\"><strong data-start=\"955\" data-end=\"987\">Prueba de embarazo en sangre</strong>: Se realiza en un laboratorio clínico y puede ser cualitativa (confirma si hay o no embarazo) o cuantitativa (mide la concentración exacta de hCG en sangre). Es más sensible que la prueba en orina y puede detectar el embarazo incluso antes del retraso menstrual.</p>\r\n</li>\r\n</ol><p data-start=\"1252\" data-end=\"1499\">La prueba de embarazo es útil no solo para confirmar la gestación, sino también para monitorear su evolución en etapas iniciales o descartar embarazos ectópicos o no viables cuando se realiza en combinación con evaluaciones clínicas y ecográficas.</p><p data-start=\"33\" data-end=\"117\">\r\n\r\n\r\n\r\n</p><p data-start=\"1501\" data-end=\"1712\">Este examen debe interpretarse dentro del contexto clínico de cada paciente, especialmente cuando existen irregularidades menstruales, síntomas ginecológicos, uso de anticonceptivos o antecedentes de fertilidad.</p>\r\n<p data-start=\"119\" data-end=\"277\" data-is-last-node=\"\" data-is-only-node=\"\"></p>",
+        "precio": "5.00",
+        "precio_vip": "2.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_15_1769780153.jpg",
+        "pq_tag": "Para ella,Lab",
+        "tags": [
+          "Para ella,Lab"
+        ],
+        "url": "/servicios/para-ellalab/prueba-de-embarazo-15"
+      },
+      {
+        "id": 14,
+        "slug": "prueba-de-influenza-a-y-b-14",
+        "pq_codigo": "J11.00, J12.9, J11.1, J11.2, J11.89, J09.X1, J09.X2",
+        "titulo": "Prueba de Influenza A y B",
+        "resumen": " La prueba de Influenza A y B detecta si una persona tiene el virus de la gripe tipo A o B,\r\n que causan enfermedades respiratorias. Se realiza con una muestra de la nariz o garganta\r\n y ayuda a saber si los síntomas como fiebre, tos o dolor de cuerpo son por influenza. Es útil\r\n para iniciar el tratamiento adecuado rápidamente y evitar contagios a otros. El resultado\r\n puede estar disponible en pocos minutos u horas, según el tipo de prueba.. Es una\r\n prueba rápida y segura, cuyos resultados suelen estar listos en poco tiempo.",
+        "detalle": "<div><span style=\"font-size: 12.8px;\">La prueba de Influenza A y B es un análisis rápido que detecta la presencia de los virus de la gripe</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;tipo A y tipo B, los cuales son responsables de la mayoría de los casos de influenza estacional.</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;Esta prueba es útil para confirmar si tus síntomas están relacionados con la gripe o con otra</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;infección respiratoria.</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;¿Para qué sirve?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Diagnóstico rápido: Ayuda a confirmar si los síntomas (como fiebre, tos, dolor muscular y</span>&nbsp;fatiga) son causados por la gripe.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Tratamiento adecuado: Identificar si tienes influenza permite que los médicos te den el</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Tratamiento adecuado, especialmente si se detecta temprano.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Control de brotes: Ayuda a identificar la circulación de los virus en la comunidad y tomar&nbsp;</span>medidas para evitar su propagación.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cuándo se recomienda?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Si presentas síntomas de gripe como fiebre, tos, dolor de garganta, dolores musculares o&nbsp;</span>fatiga.</li><li><span style=\"font-size: 12.8px;\">&nbsp;Si has estado en contacto con alguien diagnosticado con influenza.</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Para personas en riesgo de complicaciones por la gripe, como niños, adultos mayores o</span>&nbsp;personas con enfermedades crónicas.</li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Cómo se realiza?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La prueba se realiza con una muestra tomada de tu nariz o garganta, mediante un hisopado. Es</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;una prueba rápida y segura, cuyos resultados suelen estar listos en poco tiempo.</span></div>",
+        "precio": "9.99",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Pediatria,Lab",
+        "tags": [
+          "Pediatria,Lab"
+        ],
+        "url": "/servicios/pediatrialab/prueba-de-influenza-a-y-b-14"
+      },
+      {
+        "id": 12,
+        "slug": "prueba-de-micoplasma-o-bronchitis-12",
+        "pq_codigo": "J45.909, J20.0 | IgG, IgM or IgG ,IgA",
+        "titulo": "Prueba de Micoplasma o Bronchitis",
+        "resumen": "",
+        "detalle": "Prueba tomada por la sangre, tiempo a recibir los resultados dependiendo el Laboratorio.",
+        "precio": "9.99",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Pediatria,Lab",
+        "tags": [
+          "Pediatria,Lab"
+        ],
+        "url": "/servicios/pediatrialab/prueba-de-micoplasma-o-bronchitis-12"
+      },
+      {
+        "id": 13,
+        "slug": "prueba-de-sangre-pth-13",
+        "pq_codigo": "N2581, N18.6",
+        "titulo": "Prueba de Sangre PTH",
+        "resumen": " La prueba de PTH mide la cantidad de hormona paratiroidea en la sangre, la cual regula los\r\n niveles de calcio y fósforo en el cuerpo. Se usa para detectar problemas en las glándulas\r\n paratiroides, como hiperparatiroidismo o deficiencia de calcio. Es útil si tienes síntomas como\r\n debilidad, calambres, piedras en los riñones o cambios en los huesos. Se realiza con una muestra\r\n de sangre y ayuda a guiar el tratamiento adecuado",
+        "detalle": "<div><span style=\"font-size: 12.8px;\">La prueba de sangre PTH (hormona paratiroidea) mide los niveles de esta hormona en la sangre. La PTH, producida</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;por las glándulas paratiroideas, ayuda a regular el calcio en el cuerpo, promoviendo su liberación de los huesos, su</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;absorción en los intestinos y su reabsorción en los riñones. Esta prueba se utiliza para evaluar la función de las</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;glándulas paratiroideas y diagnosticar problemas relacionados con el metabolismo del calcio, como el</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;hiperparatiroidismo y el hipoparatiroidismo.&nbsp;</span></div><div><span style=\"font-size: 12.8px;\">¿Qué es la PTH?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La PTH (hormona paratiroidea) es una hormona producida por las glándulas paratiroideas, pequeñas glándulas</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;ubicadas en el cuello.&nbsp;</span></div><div><span style=\"font-size: 12.8px;\">¿Qué hace la PTH?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;La PTH juega un papel crucial en el metabolismo del calcio en el cuerpo. Ayuda a:&nbsp;</span></div><ul><li><span style=\"font-size: 12.8px;\">Liberar calcio de los huesos cuando los niveles de calcio en la sangre son bajos.&nbsp;</span></li><li><span style=\"font-size: 12.8px;\">Facilitar la absorción de calcio de los alimentos en los intestinos.&nbsp;</span></li><li><span style=\"font-size: 12.8px;\">Reabsorber calcio en los riñones, evitando que se elimine por la orina.</span></li></ul><div><span style=\"font-size: 12.8px;\">&nbsp;¿Por qué se realiza la prueba de PTH?</span></div><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Para evaluar la función de las glándulas paratiroideas.&nbsp;</span></li><li><span style=\"font-size: 12.8px;\">Para diagnosticar y monitorizar trastornos como el hiperparatiroidismo (niveles altos de PTH) y el&nbsp;</span>hipoparatiroidismo (niveles bajos de PTH).&nbsp;</li><li><span style=\"font-size: 12.8px;\">Para identificar y evaluar problemas de metabolismo del calcio.&nbsp;</span></li></ul><div><span style=\"font-size: 12.8px;\">¿Qué significan los resultados de la prueba de PTH?</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;Niveles altos de PTH pueden indicar hiperparatiroidismo, lo que a su vez puede llevar a niveles elevados de</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;calcio en la sangre y afectar la salud ósea y renal.&nbsp;</span></div><div><span style=\"font-size: 12.8px;\">Niveles bajos de PTH pueden indicar hipoparatiroidismo, lo que puede causar bajos niveles de calcio en la</span></div><div><span style=\"font-size: 12.8px;\">&nbsp;sangre y síntomas como calambres musculares.</span></div>",
+        "precio": "5.00",
+        "precio_vip": "2.49",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/prueba-de-sangre-pth-13"
+      },
+      {
+        "id": 11,
+        "slug": "prueba-de-sedimento-esr-11",
+        "pq_codigo": "R65.10, M25.5",
+        "titulo": "Prueba de Sedimento ESR ",
+        "resumen": " La prueba de sedimentación (ESR) mide qué tan rápido se asientan los glóbulos rojos en una\r\n muestra de sangre. Un valor alto puede indicar inflamación en el cuerpo por infecciones,\r\n enfermedades autoinmunes o crónicas. No señala una enfermedad específica, pero ayuda a los\r\n médicos a detectar si hay un proceso inflamatorio y a seguir su evolución. Se realiza con una\r\n muestra de sangre y es una prueba sencilla",
+        "detalle": "<p data-start=\"291\" data-end=\"778\">La prueba de sedimentación, también conocida como velocidad de sedimentación globular (VSG o ESR por sus siglas en inglés, <em data-start=\"414\" data-end=\"446\">Erythrocyte Sedimentation Rate</em>), es un examen de laboratorio que mide la velocidad a la que los glóbulos rojos (eritrocitos) se depositan en el fondo de un tubo vertical de ensayo con sangre anticoagulada en un periodo de una hora. Esta prueba no es específica de una enfermedad en particular, pero es un marcador sensible de inflamación general en el organismo.</p><p data-start=\"780\" data-end=\"1162\">El principio del examen se basa en que, en condiciones normales, los glóbulos rojos sedimentan lentamente. Sin embargo, en presencia de procesos inflamatorios, infecciosos, autoinmunes o neoplásicos, se incrementa la concentración de ciertas proteínas plasmáticas, como el fibrinógeno y las globulinas, lo que provoca que los eritrocitos se aglutinen y sedimenten con mayor rapidez.</p><p data-start=\"1164\" data-end=\"1565\">Una ESR elevada puede indicar la presencia de inflamación activa, pero no proporciona información sobre su localización o causa específica. Por ello, se utiliza principalmente como prueba complementaria para el diagnóstico o seguimiento de enfermedades como artritis reumatoide, lupus eritematoso sistémico, infecciones crónicas, vasculitis, ciertos tipos de cáncer y procesos infecciosos prolongados.</p><p>\r\n\r\n\r\n</p><p data-start=\"1567\" data-end=\"1967\">También se emplea para monitorear la respuesta al tratamiento en enfermedades inflamatorias o autoinmunes, observando si los niveles de sedimentación disminuyen con el tiempo. Factores como la edad, el sexo, el embarazo o la anemia pueden influir en los valores normales de la ESR, por lo que su interpretación debe realizarse considerando el contexto clínico del paciente y junto con otros exámenes.</p>",
+        "precio": "5.00",
+        "precio_vip": "2.49",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/prueba-de-sedimento-esr-11"
+      },
+      {
+        "id": 41,
+        "slug": "prueba-diabetes-hba1c-41",
+        "pq_codigo": "Z13.1",
+        "titulo": "Prueba DIABETES (HbA1c%)",
+        "resumen": "La prueba de HbA1c mide el promedio de azúcar en sangre de los últimos 2 a 3 meses.\r\nEs clave para diagnosticar diabetes o evaluar si el tratamiento está funcionando.\r\nNo requiere ayuno y ayuda a prevenir complicaciones a largo plazo.",
+        "detalle": "<p data-start=\"132\" data-end=\"589\"><strong data-start=\"132\" data-end=\"154\">La prueba de HbA1c</strong>, también conocida como <strong data-start=\"178\" data-end=\"205\">hemoglobina glucosilada</strong>, es una herramienta clave en el <strong data-start=\"238\" data-end=\"282\">diagnóstico y seguimiento de la diabetes</strong>.<br data-start=\"283\" data-end=\"286\">\r\nA diferencia de una glucosa en ayunas que ofrece una imagen puntual, la HbA1c proporciona una <strong data-start=\"380\" data-end=\"476\">visión del promedio de los niveles de glucosa en sangre durante los últimos dos a tres meses</strong>.<br data-start=\"477\" data-end=\"480\">\r\nEsta característica la convierte en una prueba confiable para evaluar el <strong data-start=\"553\" data-end=\"588\">control glucémico a largo plazo</strong>.</p><hr data-start=\"591\" data-end=\"594\"><h3 data-start=\"596\" data-end=\"628\">¿Para qué sirve esta prueba?</h3><p data-start=\"630\" data-end=\"689\">La <strong data-start=\"633\" data-end=\"642\">HbA1c</strong> cumple varios propósitos clínicos importantes:</p><ul data-start=\"691\" data-end=\"1251\">\r\n<li data-start=\"691\" data-end=\"834\">\r\n<p data-start=\"693\" data-end=\"834\">Permite <strong data-start=\"701\" data-end=\"753\">diagnosticar la diabetes tipo 2 y la prediabetes</strong>, especialmente en personas con factores de riesgo pero sin síntomas evidentes.</p>\r\n</li>\r\n<li data-start=\"835\" data-end=\"1049\">\r\n<p data-start=\"837\" data-end=\"1049\">Es esencial para el <strong data-start=\"857\" data-end=\"911\">monitoreo de pacientes diagnosticados con diabetes</strong>, ya que permite evaluar la <strong data-start=\"939\" data-end=\"970\">efectividad del tratamiento</strong>, detectar <strong data-start=\"981\" data-end=\"1002\">descompensaciones</strong> y ajustar medicamentos cuando sea necesario.</p>\r\n</li>\r\n<li data-start=\"1050\" data-end=\"1251\">\r\n<p data-start=\"1052\" data-end=\"1251\">Funciona también como <strong data-start=\"1074\" data-end=\"1103\">herramienta de prevención</strong>, detectando elevaciones leves de glucosa que podrían indicar un riesgo futuro de desarrollar diabetes, lo que permite <strong data-start=\"1222\" data-end=\"1250\">intervenciones tempranas</strong>.</p>\r\n</li>\r\n</ul><hr data-start=\"1253\" data-end=\"1256\"><h3 data-start=\"1258\" data-end=\"1284\">¿Cuándo está indicada?</h3><p data-start=\"1286\" data-end=\"1348\">Se recomienda realizar esta prueba si presentas síntomas como:</p><ul data-start=\"1350\" data-end=\"1446\">\r\n<li data-start=\"1350\" data-end=\"1366\">\r\n<p data-start=\"1352\" data-end=\"1366\">Sed excesiva</p>\r\n</li>\r\n<li data-start=\"1367\" data-end=\"1385\">\r\n<p data-start=\"1369\" data-end=\"1385\">Visión borrosa</p>\r\n</li>\r\n<li data-start=\"1386\" data-end=\"1408\">\r\n<p data-start=\"1388\" data-end=\"1408\">Fatiga inexplicada</p>\r\n</li>\r\n<li data-start=\"1409\" data-end=\"1446\">\r\n<p data-start=\"1411\" data-end=\"1446\">Aumento en la frecuencia urinaria</p>\r\n</li>\r\n</ul><p data-start=\"1448\" data-end=\"1761\">También es indicada si tienes <strong data-start=\"1478\" data-end=\"1517\">antecedentes familiares de diabetes</strong>, <strong data-start=\"1519\" data-end=\"1532\">sobrepeso</strong>, <strong data-start=\"1534\" data-end=\"1559\">presión arterial alta</strong> o <strong data-start=\"1562\" data-end=\"1584\">colesterol elevado</strong>.<br data-start=\"1585\" data-end=\"1588\">\r\nEn <strong data-start=\"1591\" data-end=\"1621\">adultos mayores de 45 años</strong>, se aconseja incluirla como parte de los <strong data-start=\"1663\" data-end=\"1693\">chequeos médicos regulares</strong>, aunque no haya síntomas, debido al aumento del riesgo con la edad.</p><hr data-start=\"1763\" data-end=\"1766\"><h3 data-start=\"1768\" data-end=\"1789\">¿Cómo se realiza?</h3><p data-start=\"1791\" data-end=\"2036\">La prueba es <strong data-start=\"1804\" data-end=\"1844\">sencilla, rápida y no requiere ayuno</strong>.<br data-start=\"1845\" data-end=\"1848\">\r\nSolo se necesita una <strong data-start=\"1869\" data-end=\"1921\">muestra de sangre extraída de una vena del brazo</strong>.<br data-start=\"1922\" data-end=\"1925\">\r\nLos resultados suelen estar disponibles en <strong data-start=\"1968\" data-end=\"2002\">pocas horas o al día siguiente</strong>, y se expresan en <strong data-start=\"2021\" data-end=\"2035\">porcentaje</strong>:</p><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><ul data-start=\"2038\" data-end=\"2133\">\r\n<li data-start=\"2038\" data-end=\"2067\">\r\n<p data-start=\"2040\" data-end=\"2067\"><strong data-start=\"2040\" data-end=\"2057\">Menos de 5.7%</strong>: Normal</p>\r\n</li>\r\n<li data-start=\"2068\" data-end=\"2106\">\r\n<p data-start=\"2070\" data-end=\"2106\"><strong data-start=\"2070\" data-end=\"2091\">Entre 5.7% y 6.4%</strong>: Prediabetes</p>\r\n</li>\r\n<li data-start=\"2107\" data-end=\"2133\">\r\n<p data-start=\"2109\" data-end=\"2133\"><strong data-start=\"2109\" data-end=\"2123\">6.5% o más</strong>: Diabetes</p></li></ul>",
+        "precio": "5.99",
+        "precio_vip": "2.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_41_1769779884.jpg",
+        "pq_tag": "Para el,Para ella,Lab",
+        "tags": [
+          "Para el,Para ella,Lab"
+        ],
+        "url": "/servicios/para-elpara-ellalab/prueba-diabetes-hba1c-41"
+      },
+      {
+        "id": 35,
+        "slug": "quantitative-hcg-test-35",
+        "pq_codigo": "Z32.01, O0Z.8",
+        "titulo": "Quantitative hCG test",
+        "resumen": "La prueba cuantitativa de hCG mide la cantidad exacta de la hormona del embarazo (hCG) en la sangre.\r\nEs más precisa que una prueba de orina y puede detectar el embarazo en etapas muy tempranas.\r\n\r\nTambién se utiliza para seguir el desarrollo del embarazo o detectar problemas como embarazos ectópicos o abortos espontáneos.\r\nSe realiza con una muestra de sangre, y los resultados ayudan al médico a evaluar tu salud reproductiva.",
+        "detalle": "<h2 data-start=\"132\" data-end=\"161\">Prueba Cuantitativa de hCG</h2><p data-start=\"163\" data-end=\"488\">La <strong data-start=\"166\" data-end=\"196\">prueba cuantitativa de hCG</strong> mide la <strong data-start=\"205\" data-end=\"275\">cantidad exacta de la hormona gonadotropina coriónica humana (hCG)</strong> en tu sangre.<br data-start=\"289\" data-end=\"292\">\r\nA diferencia de la prueba estándar de embarazo, que solo detecta la presencia de esta hormona, esta prueba <strong data-start=\"399\" data-end=\"440\">mide con precisión los niveles de hCG</strong> para ofrecer más información sobre el embarazo.</p><hr data-start=\"490\" data-end=\"493\"><h3 data-start=\"495\" data-end=\"515\">¿Para qué sirve?</h3><ul data-start=\"517\" data-end=\"975\">\r\n<li data-start=\"517\" data-end=\"639\">\r\n<p data-start=\"519\" data-end=\"639\"><strong data-start=\"519\" data-end=\"544\">Confirmar un embarazo</strong>: Detecta de manera temprana la presencia de embarazo y puede indicar <strong data-start=\"614\" data-end=\"636\">cuán avanzado está</strong>.</p>\r\n</li>\r\n<li data-start=\"640\" data-end=\"800\">\r\n<p data-start=\"642\" data-end=\"800\"><strong data-start=\"642\" data-end=\"668\">Monitorear el embarazo</strong>: Ayuda a los médicos a evaluar el <strong data-start=\"703\" data-end=\"739\">desarrollo temprano del embarazo</strong> y verificar que los niveles de hCG aumenten adecuadamente.</p>\r\n</li>\r\n<li data-start=\"801\" data-end=\"975\">\r\n<p data-start=\"803\" data-end=\"975\"><strong data-start=\"803\" data-end=\"825\">Detectar problemas</strong>: Un aumento anormal o niveles bajos de hCG pueden ayudar a detectar posibles complicaciones como un <strong data-start=\"926\" data-end=\"947\">embarazo ectópico</strong> o un <strong data-start=\"953\" data-end=\"974\">aborto espontáneo</strong>.</p>\r\n</li>\r\n</ul><hr data-start=\"977\" data-end=\"980\"><h3 data-start=\"982\" data-end=\"1008\">¿Cuándo se recomienda?</h3><ul data-start=\"1010\" data-end=\"1295\">\r\n<li data-start=\"1010\" data-end=\"1108\">\r\n<p data-start=\"1012\" data-end=\"1108\">Si has tenido una prueba de embarazo positiva y deseas <strong data-start=\"1067\" data-end=\"1105\">confirmar o monitorear el progreso</strong>.</p>\r\n</li>\r\n<li data-start=\"1109\" data-end=\"1204\">\r\n<p data-start=\"1111\" data-end=\"1204\">Si se sospecha de un <strong data-start=\"1132\" data-end=\"1153\">embarazo ectópico</strong> o problemas en las primeras etapas del embarazo.</p>\r\n</li>\r\n<li data-start=\"1205\" data-end=\"1295\">\r\n<p data-start=\"1207\" data-end=\"1295\">Para verificar el estado del embarazo en mujeres con <strong data-start=\"1260\" data-end=\"1294\">antecedentes de complicaciones</strong>.</p>\r\n</li>\r\n</ul><hr data-start=\"1297\" data-end=\"1300\"><h3 data-start=\"1302\" data-end=\"1323\">¿Cómo se realiza?</h3><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1325\" data-end=\"1510\">Es una <strong data-start=\"1332\" data-end=\"1359\">prueba de sangre simple</strong> que se realiza en el consultorio o laboratorio.<br data-start=\"1407\" data-end=\"1410\">\r\nNo necesitas preparación previa, y los resultados generalmente están disponibles en <strong data-start=\"1494\" data-end=\"1509\">pocas horas</strong>.</p>",
+        "precio": "5.99",
+        "precio_vip": "2.99",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/quantitative-hcg-test-35"
+      },
+      {
+        "id": 28,
+        "slug": "sonomamografia-28",
+        "pq_codigo": "R92.0",
+        "titulo": "Sonomamografia",
+        "resumen": " Complementa tu cuidado mamario con un estudio sin dolor\r\n La sonomamografía (o ultrasonido mamario) es un estudio que usa ondas de sonido para observar los\r\n tejidos del seno. Es ideal para complementar la mamografía o evaluar senos densos, especialmente en\r\n mujeres jóvenes.\r\n ¿Para qué sirve?\r\n Detectar quistes, nódulos o cambios en los senos\r\n Evaluar resultados anormales de una mamografía\r\n Revisar senos densos o con prótesis\r\n ¿Por qué hacerla?\r\n -Es rápida, segura y no usa radiación\r\n -No duele y no requiere preparación especial\r\n -Ayuda a prevenir y detectar problemas a tiempo",
+        "detalle": "<p data-start=\"195\" data-end=\"730\">La Sonomamografía, también conocida como ecografía mamaria, es un examen de diagnóstico por imágenes que utiliza ondas de ultrasonido de alta frecuencia para evaluar la estructura interna del tejido mamario. Este procedimiento no invasivo y libre de radiación permite visualizar en tiempo real las características de los senos, siendo especialmente útil como complemento de la mamografía convencional, o como estudio principal en mujeres jóvenes, con mamas densas o embarazadas, en quienes la mamografía puede tener menor sensibilidad.</p><p data-start=\"732\" data-end=\"1148\">El objetivo principal de la sonomamografía es detectar, caracterizar y diferenciar masas o alteraciones palpables o no palpables en la mama, como quistes, fibroadenomas, nódulos sólidos, o lesiones sospechosas de malignidad. También se emplea para guiar procedimientos intervencionistas como biopsias con aguja fina o gruesa, y para evaluar ganglios linfáticos axilares, drenaje de abscesos o control postquirúrgico.</p><p data-start=\"1150\" data-end=\"1457\">Durante el examen, el especialista aplica un gel conductor sobre la piel de la mama y desliza un transductor que emite ondas sonoras, las cuales rebotan contra los tejidos y generan imágenes detalladas en un monitor. El procedimiento es indoloro, rápido (15-30 minutos) y seguro para todo tipo de pacientes.</p><p>\r\n\r\n\r\n</p><p data-start=\"1459\" data-end=\"1713\">La sonomamografía es fundamental en el tamizaje y seguimiento de enfermedades mamarias benignas y malignas, y juega un papel clave en la detección precoz del cáncer de mama, permitiendo un diagnóstico más preciso y una planificación terapéutica oportuna.</p>",
+        "precio": "10.00",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Para ella",
+        "tags": [
+          "Para ella"
+        ],
+        "url": "/servicios/para-ella/sonomamografia-28"
+      },
+      {
+        "id": 44,
+        "slug": "strep-throat-garganta-44",
+        "pq_codigo": "J02.0, Z11.2, B95.0",
+        "titulo": "Strep Throat (Garganta)",
+        "resumen": "La prueba rápida de Strep Throat detecta en minutos la presencia de la bacteria estreptococo en la garganta mediante un hisopo.\r\nEs útil para diferenciar infecciones bacterianas de virales y guiar el uso adecuado de antibióticos.",
+        "detalle": "<h2 data-start=\"127\" data-end=\"171\">¿Qué es la prueba rápida de Strep Throat?</h2>\r\n<p data-start=\"173\" data-end=\"463\">La <strong data-start=\"176\" data-end=\"256\">prueba rápida de detección del estreptococo (RADT, por sus siglas en inglés)</strong> es un examen diagnóstico diseñado para detectar la presencia del <strong data-start=\"322\" data-end=\"348\">Streptococcus pyogenes</strong> (estreptococo del grupo A), una bacteria que causa <strong data-start=\"400\" data-end=\"429\">faringitis estreptocócica</strong>, una infección común de garganta.</p>\r\n<hr data-start=\"465\" data-end=\"468\">\r\n<h2 data-start=\"470\" data-end=\"494\">¿Para qué se utiliza?</h2>\r\n<p data-start=\"496\" data-end=\"512\">Se utiliza para:</p>\r\n<ul data-start=\"514\" data-end=\"766\">\r\n<li data-start=\"514\" data-end=\"629\">\r\n<p data-start=\"516\" data-end=\"629\">Confirmar si el dolor de garganta es causado por una <strong data-start=\"569\" data-end=\"593\">infección bacteriana</strong> (estreptococo) y no por un virus.</p>\r\n</li>\r\n<li data-start=\"630\" data-end=\"693\">\r\n<p data-start=\"632\" data-end=\"693\">Determinar si se requiere <strong data-start=\"658\" data-end=\"690\">tratamiento con antibióticos</strong>.</p>\r\n</li>\r\n<li data-start=\"694\" data-end=\"766\">\r\n<p data-start=\"696\" data-end=\"766\">Reducir el <strong data-start=\"707\" data-end=\"742\">uso innecesario de antibióticos</strong> en infecciones virales.</p>\r\n</li>\r\n</ul>\r\n<hr data-start=\"768\" data-end=\"771\">\r\n<h2 data-start=\"773\" data-end=\"793\">¿Cómo se realiza?</h2>\r\n<ul data-start=\"795\" data-end=\"1105\">\r\n<li data-start=\"795\" data-end=\"915\">\r\n<p data-start=\"797\" data-end=\"915\">Un profesional de salud utiliza un <strong data-start=\"832\" data-end=\"850\">hisopo estéril</strong> para frotar la parte posterior de la garganta y las amígdalas.</p>\r\n</li>\r\n<li data-start=\"916\" data-end=\"1051\">\r\n<p data-start=\"918\" data-end=\"1051\">El hisopo se introduce en un <strong data-start=\"947\" data-end=\"967\">reactivo químico</strong> o cartucho que identifica proteínas (<strong data-start=\"1005\" data-end=\"1018\">antígenos</strong>) del estreptococo del grupo A.</p>\r\n</li>\r\n<li data-start=\"1052\" data-end=\"1105\">\r\n<p data-start=\"1054\" data-end=\"1105\">El resultado está disponible en <strong data-start=\"1086\" data-end=\"1104\">5 a 10 minutos</strong>.</p>\r\n</li>\r\n</ul>\r\n<hr data-start=\"1107\" data-end=\"1110\">\r\n<h2 data-start=\"1112\" data-end=\"1137\">Precisión de la prueba</h2>\r\n<ul data-start=\"1139\" data-end=\"1404\">\r\n<li data-start=\"1139\" data-end=\"1199\">\r\n<p data-start=\"1141\" data-end=\"1199\"><strong data-start=\"1141\" data-end=\"1157\">Sensibilidad</strong>: 70–90% (puede haber falsos negativos).</p>\r\n</li>\r\n<li data-start=\"1200\" data-end=\"1253\">\r\n<p data-start=\"1202\" data-end=\"1253\"><strong data-start=\"1202\" data-end=\"1219\">Especificidad</strong>: >95% (raros falsos positivos).</p>\r\n</li>\r\n<li data-start=\"1254\" data-end=\"1404\">\r\n<p data-start=\"1256\" data-end=\"1404\">Si el resultado es negativo pero hay <strong data-start=\"1293\" data-end=\"1318\">alta sospecha clínica</strong>, se recomienda un <strong data-start=\"1337\" data-end=\"1360\">cultivo de garganta</strong>, que es más preciso pero tarda 24–48 horas.</p>\r\n</li>\r\n</ul>\r\n<hr data-start=\"1406\" data-end=\"1409\">\r\n<h2 data-start=\"1411\" data-end=\"1442\">Interpretación de resultados</h2>\r\n<ul data-start=\"1444\" data-end=\"1714\">\r\n<li data-start=\"1444\" data-end=\"1576\">\r\n<p data-start=\"1446\" data-end=\"1576\"><strong data-start=\"1446\" data-end=\"1458\">Positivo</strong>: Infección por estreptococo confirmada. Generalmente se prescribe un antibiótico como <strong data-start=\"1545\" data-end=\"1573\">penicilina o amoxicilina</strong>.</p>\r\n</li>\r\n<li data-start=\"1577\" data-end=\"1714\">\r\n<p data-start=\"1579\" data-end=\"1714\"><strong data-start=\"1579\" data-end=\"1591\">Negativo</strong>: Es probable que la causa sea <strong data-start=\"1622\" data-end=\"1631\">viral</strong>. En algunos casos, se solicita un cultivo de garganta si hay síntomas importantes.</p>\r\n</li>\r\n</ul>\r\n<hr data-start=\"1716\" data-end=\"1719\">\r\n<h2 data-start=\"1721\" data-end=\"1757\">Síntomas típicos del Strep Throat</h2>\r\n<ul data-start=\"1759\" data-end=\"1948\">\r\n<li data-start=\"1759\" data-end=\"1790\">\r\n<p data-start=\"1761\" data-end=\"1790\">Dolor de garganta repentino</p>\r\n</li>\r\n<li data-start=\"1791\" data-end=\"1801\">\r\n<p data-start=\"1793\" data-end=\"1801\">Fiebre</p>\r\n</li>\r\n<li data-start=\"1802\" data-end=\"1836\">\r\n<p data-start=\"1804\" data-end=\"1836\">Amígdalas inflamadas o con pus</p>\r\n</li>\r\n<li data-start=\"1837\" data-end=\"1856\">\r\n<p data-start=\"1839\" data-end=\"1856\">Dolor al tragar</p>\r\n</li>\r\n<li data-start=\"1857\" data-end=\"1902\">\r\n<p data-start=\"1859\" data-end=\"1902\">Ganglios linfáticos del cuello inflamados</p>\r\n</li>\r\n<li data-start=\"1903\" data-end=\"1948\">\r\n<p data-start=\"1905\" data-end=\"1948\">Ausencia de tos (sugiere origen bacteriano)</p></li></ul>",
+        "precio": "7.99",
+        "precio_vip": "3.99",
+        "imagen": null,
+        "pq_tag": null,
+        "tags": [],
+        "url": "/servicios/general/strep-throat-garganta-44"
+      }
+    ],
+    "Paquete": [
+      {
+        "id": 42,
+        "slug": "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42",
+        "pq_codigo": "PRCVINMI",
+        "titulo": "Panel Respiratorio: COVID-19 - Molecular, Influenza A/B y Micoplasma",
+        "resumen": "Esta prueba detecta si tienes infección por COVID-19, Influenza A o B y Micoplasma, que son causas comunes de síntomas respiratorios como tos, fiebre y dolor de garganta.\r\nSe realiza con una muestra tomada de la nariz o la garganta.\r\n\r\nEs útil para identificar rápidamente la causa de tus síntomas, comenzar el tratamiento adecuado y evitar el contagio a otras personas.\r\nLos resultados suelen estar disponibles en pocas horas.",
+        "detalle": "<h2 data-start=\"138\" data-end=\"186\">Prueba Combinada de Infecciones Respiratorias</h2><p data-start=\"188\" data-end=\"355\">Esta <strong data-start=\"193\" data-end=\"213\">prueba combinada</strong> permite detectar <strong data-start=\"231\" data-end=\"275\">varias infecciones respiratorias comunes</strong> de manera <strong data-start=\"286\" data-end=\"306\">rápida y precisa</strong>, todo en un solo análisis. Incluye pruebas para:</p><hr data-start=\"357\" data-end=\"360\"><h3 data-start=\"362\" data-end=\"399\">1. <strong data-start=\"369\" data-end=\"397\">COVID-19 Molecular (PCR)</strong></h3><p data-start=\"400\" data-end=\"655\">Detecta la presencia del virus <strong data-start=\"431\" data-end=\"445\">SARS-CoV-2</strong>, causante del COVID-19, mediante una <strong data-start=\"483\" data-end=\"509\">prueba molecular (PCR)</strong>.<br data-start=\"510\" data-end=\"513\">\r\nEs el método más confiable para identificar el virus, incluso en las <strong data-start=\"582\" data-end=\"617\">primeras etapas de la infección</strong>, antes de que aparezcan los síntomas.</p><h3 data-start=\"657\" data-end=\"685\">2. <strong data-start=\"664\" data-end=\"683\">Influenza A y B</strong></h3><p data-start=\"686\" data-end=\"849\">Identifica los virus responsables de la <strong data-start=\"726\" data-end=\"746\">gripe estacional</strong>, tipos A y B, que pueden causar síntomas similares al COVID-19, como <strong data-start=\"816\" data-end=\"848\">fiebre, tos y dolor muscular</strong>.</p><h3 data-start=\"851\" data-end=\"874\">3. <strong data-start=\"858\" data-end=\"872\">Micoplasma</strong></h3><p data-start=\"875\" data-end=\"1016\">Detecta la bacteria <strong data-start=\"895\" data-end=\"920\">Mycoplasma pneumoniae</strong>, una causa común de infecciones respiratorias como la <strong data-start=\"975\" data-end=\"989\">bronquitis</strong> y la <strong data-start=\"995\" data-end=\"1015\">neumonía atípica</strong>.</p><hr data-start=\"1018\" data-end=\"1021\"><h2 data-start=\"1023\" data-end=\"1042\">¿Para qué sirve?</h2><ul data-start=\"1044\" data-end=\"1503\">\r\n<li data-start=\"1044\" data-end=\"1188\">\r\n<p data-start=\"1046\" data-end=\"1188\"><strong data-start=\"1046\" data-end=\"1078\">Diagnóstico rápido y preciso</strong>: Permite saber si estás infectado por alguno de estos agentes patógenos y comenzar el tratamiento adecuado.</p>\r\n</li>\r\n<li data-start=\"1189\" data-end=\"1362\">\r\n<p data-start=\"1191\" data-end=\"1362\"><strong data-start=\"1191\" data-end=\"1239\">Diferenciación de enfermedades respiratorias</strong>: Distingue entre COVID-19, influenza y micoplasma, que comparten síntomas similares, evitando tratamientos innecesarios.</p>\r\n</li>\r\n<li data-start=\"1363\" data-end=\"1503\">\r\n<p data-start=\"1365\" data-end=\"1503\"><strong data-start=\"1365\" data-end=\"1393\">Control de salud pública</strong>: Ayuda a prevenir contagios y a tomar decisiones informadas sobre aislamiento, cuidados y seguimiento médico.</p>\r\n</li>\r\n</ul><hr data-start=\"1505\" data-end=\"1508\"><h2 data-start=\"1510\" data-end=\"1535\">¿Cuándo se recomienda?</h2><ul data-start=\"1537\" data-end=\"1832\">\r\n<li data-start=\"1537\" data-end=\"1652\">\r\n<p data-start=\"1539\" data-end=\"1652\">Si presentas <strong data-start=\"1552\" data-end=\"1578\">síntomas respiratorios</strong> como fiebre, tos, dificultad para respirar, dolor de garganta o fatiga.</p>\r\n</li>\r\n<li data-start=\"1653\" data-end=\"1735\">\r\n<p data-start=\"1655\" data-end=\"1735\">Si has tenido contacto con una persona diagnosticada con COVID-19 o influenza.</p>\r\n</li>\r\n<li data-start=\"1736\" data-end=\"1832\">\r\n<p data-start=\"1738\" data-end=\"1832\">Si tienes antecedentes de <strong data-start=\"1764\" data-end=\"1805\">infecciones respiratorias recurrentes</strong> o sospechas de micoplasma.</p>\r\n</li>\r\n</ul><hr data-start=\"1834\" data-end=\"1837\"><h2 data-start=\"1839\" data-end=\"1859\">¿Cómo se realiza?</h2><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1861\" data-end=\"2125\">La prueba se realiza con una <strong data-start=\"1890\" data-end=\"1934\">muestra tomada de la nariz o la garganta</strong> mediante un hisopado.<br data-start=\"1956\" data-end=\"1959\">\r\nEs un procedimiento <strong data-start=\"1979\" data-end=\"2013\">rápido, seguro y poco invasivo</strong>.<br data-start=\"2014\" data-end=\"2017\">\r\nLos resultados suelen estar disponibles en <strong data-start=\"2060\" data-end=\"2075\">pocas horas</strong>, permitiéndote actuar con rapidez sobre tu salud.</p>",
+        "precio": "13.99",
+        "precio_vip": "6.99",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42"
+      },
+      {
+        "id": 64,
+        "slug": "producto-de-prueba-paquete-64",
+        "pq_codigo": "abc",
+        "titulo": "Producto de prueba paquete",
+        "resumen": "",
+        "detalle": "<p><br></p>",
+        "precio": "1.00",
+        "precio_vip": "0.49",
+        "imagen": null,
+        "pq_tag": "Para el",
+        "tags": [
+          "Para el"
+        ],
+        "url": "/servicios/para-el/producto-de-prueba-paquete-64"
+      },
+      {
+        "id": 32,
+        "slug": "pruebas-para-licencia-matrimonial-32",
+        "pq_codigo": "LICMAT",
+        "titulo": "Pruebas para Licencia Matrimonial",
+        "resumen": "Cumple con los requisitos de salud para casarte sin complicaciones.\r\n¿Qué incluye?\r\n-Análisis de sangre, ITS, grupo sanguíneo, y más según tu país\r\n-Evaluación médica profesional\r\n-Certificado médico firmado y válido para el registro civil\r\n-Entrega digital o impresa\r\n¿Por qué es necesario?\r\n-Para conocer el estado de salud de ambos\r\n-Prevenir enfermedades y proteger a la futura familia\r\n-Requisito obligatorio en muchos países\r\n¿Por qué elegirnos?\r\n-Servicio rápido, seguro y confidencial\r\n-Certificados con validez legal\r\n-Atención profesional y resultados express\r\n",
+        "detalle": "<p>Cumple con los requisitos de salud para casarte sin complicaciones<span style=\"font-size: 12.8px;\"><b></b></span></p><p><span style=\"font-size: 12.8px;\">&nbsp;Si vas a casarte, es posible que las autoridades o el registro civil te soliciten exámenes médicos como</span></p><p><span style=\"font-size: 12.8px;\">&nbsp;parte del trámite. Te ofrecemos un servicio completo y confiable de pruebas para licencia matrimonial,</span></p><p><span style=\"font-size: 12.8px;\">&nbsp;con resultados rápidos y certificados válidos para presentar.</span></p><p><span style=\"font-size: 12.8px;\"><b>&nbsp;¿Qué incluye el servicio?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">Exámenes médicos requeridos según las normas de tu país o región (como análisis de sangre,</span>&nbsp;pruebas de ITS, grupo sanguíneo, entre otros)</li><li><span style=\"font-size: 12.8px;\">Evaluación por parte de un profesional de salud</span></li><li><span style=\"font-size: 12.8px;\">Certificado médico firmado y sellado, listo para entregar en el registro civil</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Entrega digital o impresa según se necesite</span></li></ul><p><span style=\"font-size: 12.8px;\"><b>&nbsp;¿Por qué se solicitan estas pruebas?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Para garantizar que ambas personas conozcan su estado de salud</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Para prevenir enfermedades y proteger a la pareja y futura familia</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Es un requisito en muchos países para contraer matrimonio civil</span></li></ul><p><span style=\"font-size: 12.8px;\"><b>&nbsp;¿Por qué hacerlo con nosotros?</b></span></p><ul><li><span style=\"font-size: 12.8px;\">&nbsp;Atención rápida, segura y confidencial</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Certificados con validez legal</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Personal médico capacitado y profesional</span></li><li><span style=\"font-size: 12.8px;\">&nbsp;Resultados en el menor tiempo posible</span></li></ul>",
+        "precio": "49.99",
+        "precio_vip": "24.99",
+        "imagen": "https://doctorrecetas.com/upload/paquete_32_1769713028.jpg",
+        "pq_tag": "Para el,Para ella",
+        "tags": [
+          "Para el,Para ella"
+        ],
+        "url": "/servicios/para-elpara-ella/pruebas-para-licencia-matrimonial-32"
+      },
+      {
+        "id": 34,
+        "slug": "test-de-enfermedades-de-transmisin-sexual-ets-34",
+        "pq_codigo": "Z11.3",
+        "titulo": "Test de enfermedades de transmisión sexual (ETS)",
+        "resumen": "La prueba de enfermedades sexuales (STD Panel) detecta infecciones como VIH, sífilis, clamidia, gonorrea, entre otras.\r\nSe realiza con una muestra de sangre, orina o hisopado, según el tipo de infección.\r\n\r\nEs especialmente importante para personas sexualmente activas, con nuevos o múltiples compañeros.\r\nEsta prueba permite detectar infecciones a tiempo, iniciar tratamiento adecuado y prevenir complicaciones o contagios a otras personas.",
+        "detalle": "<p data-start=\"92\" data-end=\"458\"><strong data-start=\"92\" data-end=\"201\">Es un conjunto de pruebas que se realizan para detectar diversas enfermedades de transmisión sexual (ETS)</strong>, como la <strong data-start=\"211\" data-end=\"272\">gonorrea, clamidia, sífilis, herpes, VIH, hepatitis B y C</strong>, entre otras.<br data-start=\"286\" data-end=\"289\">\r\nEstas pruebas son esenciales para mantener tu <strong data-start=\"335\" data-end=\"371\">salud sexual y la de tus parejas</strong>, y son una forma eficaz de detectar infecciones que <strong data-start=\"424\" data-end=\"457\">no siempre presentan síntomas</strong>.</p><hr data-start=\"460\" data-end=\"463\"><h3 data-start=\"465\" data-end=\"485\">¿Para qué sirve?</h3><ul data-start=\"487\" data-end=\"867\">\r\n<li data-start=\"487\" data-end=\"631\">\r\n<p data-start=\"489\" data-end=\"631\"><strong data-start=\"489\" data-end=\"512\">Detección temprana:</strong> Ayuda a identificar infecciones de transmisión sexual (ITS) antes de que se conviertan en problemas de salud graves.</p>\r\n</li>\r\n<li data-start=\"632\" data-end=\"732\">\r\n<p data-start=\"634\" data-end=\"732\"><strong data-start=\"634\" data-end=\"649\">Prevención:</strong> Detectar y tratar infecciones a tiempo previene complicaciones y su propagación.</p>\r\n</li>\r\n<li data-start=\"733\" data-end=\"867\">\r\n<p data-start=\"735\" data-end=\"867\"><strong data-start=\"735\" data-end=\"761\">Control y seguimiento:</strong> Si ya has sido diagnosticado con una ITS, este panel te ayuda a monitorear el progreso de tu tratamiento.</p>\r\n</li>\r\n</ul><hr data-start=\"869\" data-end=\"872\"><h3 data-start=\"874\" data-end=\"900\">¿Cuándo se recomienda?</h3><ul data-start=\"902\" data-end=\"1270\">\r\n<li data-start=\"902\" data-end=\"979\">\r\n<p data-start=\"904\" data-end=\"979\">Si has tenido relaciones sexuales sin protección o con múltiples parejas.</p>\r\n</li>\r\n<li data-start=\"980\" data-end=\"1072\">\r\n<p data-start=\"982\" data-end=\"1072\">Si presentas síntomas como flujo anormal, dolor al orinar, úlceras o lesiones genitales.</p>\r\n</li>\r\n<li data-start=\"1073\" data-end=\"1159\">\r\n<p data-start=\"1075\" data-end=\"1159\">Como parte de un chequeo rutinario de salud sexual, incluso si no tienes síntomas.</p>\r\n</li>\r\n<li data-start=\"1160\" data-end=\"1270\">\r\n<p data-start=\"1162\" data-end=\"1270\">Si estás planeando un embarazo o estás en una relación estable y deseas confirmar que no tienes infecciones.</p>\r\n</li>\r\n</ul><hr data-start=\"1272\" data-end=\"1275\"><h3 data-start=\"1277\" data-end=\"1298\">¿Cómo se realiza?</h3><p>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</p><p data-start=\"1300\" data-end=\"1512\">Este panel incluye varias pruebas que pueden requerir <strong data-start=\"1354\" data-end=\"1394\">muestras de sangre, orina o hisopado</strong>.<br data-start=\"1395\" data-end=\"1398\">\r\nEs un procedimiento <strong data-start=\"1418\" data-end=\"1453\">sencillo, rápido y confidencial</strong>.<br data-start=\"1454\" data-end=\"1457\">\r\nLos resultados generalmente se entregan en poco tiempo.</p>",
+        "precio": "9.99",
+        "precio_vip": "4.99",
+        "imagen": null,
+        "pq_tag": "Lab",
+        "tags": [
+          "Lab"
+        ],
+        "url": "/servicios/lab/test-de-enfermedades-de-transmisin-sexual-ets-34"
+      }
+    ],
+    "Programas (Labs+Consulta)": [
+      {
+        "id": 58,
+        "slug": "programa-de-reduccin-de-peso-58",
+        "pq_codigo": "N39.0 OR Z00.00",
+        "titulo": "Programa de Reducción de Peso",
+        "resumen": "",
+        "detalle": "<p><span style=\"font-size: 12.8px;\">Cita, Labs y Receta a Farmacia</span><br></p>",
+        "precio": "99.00",
+        "precio_vip": "49.49",
+        "imagen": "https://doctorrecetas.com/upload/paquete_58_1769712541.jpg",
+        "pq_tag": "Para el,Para ella",
+        "tags": [
+          "Para el,Para ella"
+        ],
+        "url": "/servicios/para-elpara-ella/programa-de-reduccin-de-peso-58"
+      }
+    ]
+  }
+}

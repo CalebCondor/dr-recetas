@@ -6,6 +6,7 @@ import { useCart } from "@/context/cart-context";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { EmptyCart } from "@/components/cart/empty-cart";
 import { CartReview } from "@/components/cart/cart-review";
@@ -16,6 +17,7 @@ import { PaymentForm } from "@/components/cart/payment-form";
 type Step = "review" | "personal" | "details" | "payment";
 
 export default function CarritoPage() {
+  const t = useTranslations("Cart.Page");
   const { cart, removeFromCart, total, clearCart } = useCart();
   const router = useRouter();
 
@@ -44,9 +46,7 @@ export default function CarritoPage() {
   useEffect(() => {
     const storedUser = localStorage.getItem("dr_user");
     if (!storedUser) {
-      toast.error("Sesión requerida", {
-        description: "Debes iniciar sesión para ver tu carrito.",
-      });
+      toast.error(t("sessionRequired"));
       router.push("/");
       return;
     }
@@ -109,8 +109,8 @@ export default function CarritoPage() {
             prev.direccion,
           fecha_nacimiento: normalizeDate(
             parsed.us_fech_nac ||
-              parsed.fecha_nacimiento ||
-              parsed.us_fecha_nac,
+            parsed.fecha_nacimiento ||
+            parsed.us_fecha_nac,
           ),
           pais:
             parsed.us_pais || parsed.pais || parsed.us_country || "Puerto Rico",
@@ -132,7 +132,7 @@ export default function CarritoPage() {
         console.error("Error loading user for checkout", e);
       }
     });
-  }, [router]);
+  }, [router, t]);
 
   if (cart.length === 0 && currentStep === "review") {
     return <EmptyCart />;
@@ -183,9 +183,7 @@ export default function CarritoPage() {
                 total={total}
                 onBack={() => setCurrentStep("details")}
                 onComplete={() => {
-                  toast.success("Pago exitoso", {
-                    description: "Su orden ha sido procesada.",
-                  });
+                  toast.success(t("paymentSuccess"));
                 }}
               />
             )}

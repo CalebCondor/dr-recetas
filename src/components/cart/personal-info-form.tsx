@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -44,6 +45,7 @@ export const PersonalInfoForm = ({
   onBack,
   onContinue,
 }: PersonalInfoFormProps) => {
+  const t = useTranslations("Cart.Personal");
   const [isMobile, setIsMobile] = useState(false);
   const [subStep, setSubStep] = useState(1);
   const [open, setOpen] = useState(false);
@@ -155,7 +157,7 @@ export const PersonalInfoForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="space-y-2 lg:col-span-1">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Paciente
+            {t("form.patient")}
           </label>
           <Input
             value={formData.nombre_completo}
@@ -166,12 +168,12 @@ export const PersonalInfoForm = ({
               })
             }
             className="h-12 rounded-xl bg-white border-slate-200"
-            placeholder="Nombre completo"
+            placeholder={t("form.patientPlaceholder")}
           />
         </div>
         <div className="space-y-2 lg:col-span-1">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Fecha Nacimiento
+            {t("form.birthDate")}
           </label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -180,7 +182,7 @@ export const PersonalInfoForm = ({
                 id="date"
                 className="w-full h-12 rounded-xl bg-white border-slate-200 justify-start font-normal"
               >
-                {date ? date.toLocaleDateString() : "Seleccionar fecha"}
+                {date ? date.toLocaleDateString() : t("form.birthDatePlaceholder")}
               </Button>
             </PopoverTrigger>
             <PopoverContent
@@ -209,7 +211,7 @@ export const PersonalInfoForm = ({
         </div>
         <div className="space-y-2 lg:col-span-1">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            País
+            {t("form.country")}
           </label>
           <Select
             value={formData.pais}
@@ -226,7 +228,7 @@ export const PersonalInfoForm = ({
         </div>
         <div className="space-y-2 lg:col-span-1">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Municipio
+            {t("form.municipality")}
           </label>
           <Input
             value={formData.municipio}
@@ -237,12 +239,12 @@ export const PersonalInfoForm = ({
               })
             }
             className="h-12 rounded-xl bg-white border-slate-200"
-            placeholder="San Juan..."
+            placeholder={t("form.municipalityPlaceholder")}
           />
         </div>
         <div className="space-y-2 lg:col-span-1">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Correo Electrónico
+            {t("form.email")}
           </label>
           <Input
             type="email"
@@ -254,7 +256,7 @@ export const PersonalInfoForm = ({
               })
             }
             className="h-12 rounded-xl bg-white border-slate-200"
-            placeholder="ejemplo@correo.com"
+            placeholder={t("form.emailPlaceholder")}
           />
         </div>
       </div>
@@ -265,7 +267,7 @@ export const PersonalInfoForm = ({
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div className="space-y-2 lg:col-span-2">
         <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Dirección Física
+          {t("form.address")}
         </label>
         <Input
           value={formData.direccion}
@@ -276,12 +278,12 @@ export const PersonalInfoForm = ({
             })
           }
           className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="Calle, Número, Urbanización"
+          placeholder={t("form.addressPlaceholder")}
         />
       </div>
       <div className="space-y-2">
         <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Código Postal
+          {t("form.zipCode")}
         </label>
         <Input
           value={formData.codigo_postal}
@@ -292,12 +294,12 @@ export const PersonalInfoForm = ({
             })
           }
           className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="00XXX"
+          placeholder={t("form.zipCodePlaceholder")}
         />
       </div>
       <div className="space-y-2">
         <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-          Teléfono
+          {t("form.phone")}
         </label>
         <Input
           value={formData.telefono}
@@ -305,7 +307,7 @@ export const PersonalInfoForm = ({
             setFormData({ ...formData, telefono: e.target.value })
           }
           className="h-12 rounded-xl bg-white border-slate-200"
-          placeholder="787..."
+          placeholder={t("form.phonePlaceholder")}
         />
       </div>
     </div>
@@ -316,7 +318,7 @@ export const PersonalInfoForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-200">
         <div className="space-y-2">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Tipo de Identificación
+            {t("form.idType")}
           </label>
           <Select
             value={formData.tipo_documento}
@@ -329,15 +331,15 @@ export const PersonalInfoForm = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Licencia de Conducir">
-                Licencia de Conducir
+                {t("idTypes.license")}
               </SelectItem>
-              <SelectItem value="Pasaporte">Pasaporte</SelectItem>
+              <SelectItem value="Pasaporte">{t("idTypes.passport")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
           <label className="text-[11px] font-bold text-slate-500 uppercase ml-1">
-            Número de Documento
+            {t("form.idNumber")}
           </label>
           <Input
             value={formData.numero_documento}
@@ -348,7 +350,7 @@ export const PersonalInfoForm = ({
               })
             }
             className="h-12 rounded-xl bg-white border-slate-200"
-            placeholder="XXX-XXX-XXX"
+            placeholder={t("form.idNumberPlaceholder")}
           />
         </div>
       </div>
@@ -359,7 +361,7 @@ export const PersonalInfoForm = ({
           <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center animate-pulse">
             <div className="w-8 h-8 rounded-full border-2 border-slate-300 border-t-[#0D4B4D] animate-spin" />
           </div>
-          <p className="text-sm text-slate-400">Cargando información...</p>
+          <p className="text-sm text-slate-400">{t("form.uploadLoading")}</p>
         </div>
       ) : (
         <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 transition-all hover:bg-slate-50/50 hover:border-[#0D4B4D]/30 group">
@@ -381,7 +383,7 @@ export const PersonalInfoForm = ({
                   )
                 ) : existingUpload ? (
                   existingUpload.url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ||
-                  existingUpload.tipo.startsWith("image/") ? (
+                    existingUpload.tipo.startsWith("image/") ? (
                     <img
                       src={existingUpload.url}
                       alt="Preview"
@@ -435,7 +437,7 @@ export const PersonalInfoForm = ({
                   }
                   className="h-9 px-3 rounded-lg text-xs font-bold border-slate-200 text-slate-600 hover:text-[#0D4B4D] hover:bg-white"
                 >
-                  Cambiar
+                  {t("form.uploadChange")}
                 </Button>
                 {(formData.identificacion_archivo || existingUpload) && (
                   <Button
@@ -461,10 +463,10 @@ export const PersonalInfoForm = ({
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-bold text-slate-700">
-                  Sube tu identificación
+                  {t("form.uploadId")}
                 </p>
                 <p className="text-xs text-slate-400">
-                  Formatos: JPG o PNG (Máx 5MB)
+                  {t("form.uploadHint")}
                 </p>
               </div>
               <input
@@ -492,7 +494,7 @@ export const PersonalInfoForm = ({
                 variant="outline"
                 className="h-9 rounded-lg border-[#0D4B4D]/20 text-[#0D4B4D] hover:bg-[#0D4B4D] hover:text-white font-bold text-xs"
               >
-                Seleccionar Archivo
+                {t("form.uploadButton")}
               </Button>
             </div>
           )}
@@ -501,8 +503,7 @@ export const PersonalInfoForm = ({
 
       <div className="bg-orange-50/50 p-4 rounded-xl border border-orange-100 italic">
         <p className="text-[11px] text-orange-600 leading-relaxed">
-          *Si usted está adquiriendo la orden &quot;Back to School&quot;, se
-          requiere que suba una imagen del Certificado Médico.
+          {t("form.backToSchoolHint")}
         </p>
       </div>
     </div>
@@ -519,7 +520,7 @@ export const PersonalInfoForm = ({
       >
         <div className="text-center">
           <h1 className="text-3xl font-black text-[#0D4B4D] mb-6">
-            Información Personal
+            {t("title")}
           </h1>
           <Stepper current={1} />
         </div>
@@ -546,12 +547,12 @@ export const PersonalInfoForm = ({
               >
                 <div className="mb-4">
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0D4B4D]/40">
-                    Paso {subStep} de {totalSubSteps}
+                    {t("steps.step", { current: subStep, total: totalSubSteps })}
                   </span>
                   <h3 className="text-xl font-bold text-[#0D4B4D]">
-                    {subStep === 1 && "Datos del Paciente"}
-                    {subStep === 2 && "Contacto y Dirección"}
-                    {subStep === 3 && "Identificación"}
+                    {subStep === 1 && t("steps.basic")}
+                    {subStep === 2 && t("steps.contact")}
+                    {subStep === 3 && t("steps.id")}
                   </h3>
                 </div>
                 {subStep === 1 && renderBasicInfo()}
@@ -568,7 +569,7 @@ export const PersonalInfoForm = ({
                 onClick={onBack}
                 className="font-bold text-slate-500 bg-white border-slate-200 hover:bg-slate-50 rounded-xl px-8 h-12 order-2 sm:order-1"
               >
-                Volver
+                {t("navigation.back")}
               </Button>
             ) : (
               <Button
@@ -576,7 +577,7 @@ export const PersonalInfoForm = ({
                 onClick={() => setSubStep((s) => s - 1)}
                 className="font-bold text-slate-500 bg-white border-slate-200 hover:bg-slate-50 rounded-xl px-8 h-12 order-2 sm:order-1"
               >
-                <RiArrowLeftLine className="mr-2" /> Anterior
+                <RiArrowLeftLine className="mr-2" /> {t("navigation.previous")}
               </Button>
             )}
 
@@ -585,14 +586,14 @@ export const PersonalInfoForm = ({
                 onClick={onContinue}
                 className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 h-12 rounded-xl font-bold shadow-md shadow-[#0D4B4D]/10 order-1 sm:order-2"
               >
-                Continuar
+                {t("navigation.continue")}
               </Button>
             ) : (
               <Button
                 onClick={() => setSubStep((s) => s + 1)}
                 className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-10 h-12 rounded-xl font-bold shadow-md shadow-[#0D4B4D]/10 order-1 sm:order-2"
               >
-                Siguiente <RiArrowRightLine className="ml-2" />
+                {t("navigation.next")} <RiArrowRightLine className="ml-2" />
               </Button>
             )}
           </div>

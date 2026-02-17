@@ -4,16 +4,20 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { PageWrapper } from "@/components/page-wrapper";
 import { motion, AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 import { RiArrowRightUpLine, RiLoader4Line } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { useServiceDetails } from "@/hooks/use-service-details";
 import { useInView } from "motion/react";
 import { ServicesCarousel } from "@/components/home/services-carousel";
+import { useAuth } from "@/context/auth-context";
+
 // Helper component for the Related card
 export function RelatedBentoCard({
   title,
   content,
   price,
+  vipPrice,
   image,
   category,
   index = 0,
@@ -23,12 +27,19 @@ export function RelatedBentoCard({
   title: string;
   content: string;
   price?: string;
+  vipPrice?: string;
+  priceType?: string;
   image?: string;
   category?: string;
   index?: number;
   slug: string;
   categorySlug: string;
 }) {
+  const t = useTranslations("ServicesPage");
+  const { user } = useAuth();
+  const isVip = user?.es_vip === 1 || user?.es_vip === "1";
+  const displayPrice = isVip && vipPrice ? vipPrice : price;
+
   const cardRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -108,11 +119,10 @@ export function RelatedBentoCard({
         <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
           {category && (
             <div
-              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
-                isDark
-                  ? "bg-white/10 text-white/90 border-white/10"
-                  : "bg-black/5 text-slate-900/60 border-black/10"
-              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
+              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${isDark
+                ? "bg-white/10 text-white/90 border-white/10"
+                : "bg-black/5 text-slate-900/60 border-black/10"
+                } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
             >
               {category}
             </div>
@@ -137,15 +147,15 @@ export function RelatedBentoCard({
         </div>
         {/* Bottom Section: Price Area (Pushed to bottom by mt-auto) */}
         <div className="mt-auto relative z-20">
-          {price && (
+          {displayPrice && (
             <div className="flex flex-col">
               <span
                 className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-40 ${isDark ? "text-white" : "text-[#0D4B4D]"}`}
               >
-                Precio base
+                {isVip && vipPrice ? t("Static.vipPrice") : t("Static.basePrice")}
               </span>
               <div className="text-3xl md:text-4xl font-black leading-none tracking-tighter">
-                ${price}
+                ${displayPrice}
               </div>
             </div>
           )}
@@ -153,11 +163,10 @@ export function RelatedBentoCard({
         {/* Category Tag (Absolute - Desktop only) */}
         {category && (
           <div
-            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
-              isDark
-                ? "bg-white/10 text-white/90 border-white/10"
-                : "bg-black/5 text-slate-900/60 border-black/10"
-            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${isDark
+              ? "bg-white/10 text-white/90 border-white/10"
+              : "bg-black/5 text-slate-900/60 border-black/10"
+              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
           >
             {category}
           </div>
@@ -180,6 +189,21 @@ export default function ServicePage() {
   const slug = params?.slug as string;
   const { categories, apiItems, loading, serviceInfo } =
     useServiceDetails(slug);
+  const t = useTranslations("ServicesPage");
+  const tDynamic = useTranslations("DynamicServices");
+
+  // Helper to translate dynamic content
+  const getTranslated = (
+    section: "Categories" | "Items",
+    key: string | undefined,
+    field: string,
+    fallback: string | undefined,
+  ) => {
+    if (!key) return fallback;
+    const path = `${section}.${key}.${field}`;
+    return t.has(path) ? t(path) : fallback;
+  };
+
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   if (!serviceInfo) {
     return (
@@ -188,7 +212,7 @@ export default function ServicePage() {
           <RiLoader4Line className="w-12 h-12 text-teal-600 animate-spin" />
         ) : (
           <h1 className="text-2xl font-bold text-gray-400">
-            Servicio no encontrado
+            {t("Static.notFound")}
           </h1>
         )}
       </div>
@@ -198,9 +222,15 @@ export default function ServicePage() {
   const otherServices = (categories || [])
     .map((c) => {
       const categorySlug = c.tag?.toLowerCase().replace(/\s+/g, "-") || "otros";
+      const serviceId = `service_${c.id}`;
+
       return {
-        title: c.nombre || "Servicio",
-        description: c.lead || "",
+        title: tDynamic.has(`${serviceId}.title`)
+          ? tDynamic(`${serviceId}.title`)
+          : c.nombre || "Servicio",
+        description: tDynamic.has(`${serviceId}.description`)
+          ? tDynamic(`${serviceId}.description`)
+          : c.lead || "",
         imageSrc: c.imagen || "",
         imageAlt: c.nombre || "Servicio",
         href: `/servicios/${categorySlug}`,
@@ -216,8 +246,6 @@ export default function ServicePage() {
     <PageWrapper>
       <div className="min-h-screen bg-[#F5F7F6] pt-16 pb-24 overflow-hidden relative">
         {/* Background Accents */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#E0F3F1]/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#EEF5F4]/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none" />
         <div className="relative mb-12">
           <div className="container mx-auto lg:mt-12 px-6 text-center relative z-10 pt-12">
             <motion.div
@@ -225,21 +253,31 @@ export default function ServicePage() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
             >
-              Nuestros Servicios
+              {t("Static.ourServices")}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-5xl md:text-6xl lg:text-8xl font-black text-[#0D4B4D] mb-8 tracking-tighter leading-[0.9]"
             >
-              {serviceInfo?.title}
+              {getTranslated(
+                "Categories",
+                serviceInfo?.slug,
+                "title",
+                serviceInfo?.title,
+              )}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-teal-900/60 text-lg md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto"
             >
-              {serviceInfo?.longDescription || serviceInfo?.description}
+              {getTranslated(
+                "Categories",
+                serviceInfo?.slug,
+                "longDescription",
+                serviceInfo?.longDescription || serviceInfo?.description,
+              )}
             </motion.p>
           </div>
         </div>
@@ -247,7 +285,9 @@ export default function ServicePage() {
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 space-y-4">
               <RiLoader4Line className="w-12 h-12 text-teal-600 animate-spin" />
-              <p className="text-teal-900/40 font-medium">Cargando...</p>
+              <p className="text-teal-900/40 font-medium">
+                {t("Static.loading")}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[340px] grid-flow-dense">
@@ -315,9 +355,27 @@ export default function ServicePage() {
                       transition={{ delay: idx * 0.05 }}
                     >
                       <RelatedBentoCard
-                        title={item.titulo}
-                        content={item.resumen || item.detalle || item.titulo}
+                        title={
+                          getTranslated(
+                            "Items",
+                            item.slug,
+                            "title",
+                            item.titulo,
+                          ) || item.titulo
+                        }
+                        content={
+                          getTranslated(
+                            "Items",
+                            item.slug,
+                            "description",
+                            item.resumen || item.detalle || item.titulo,
+                          ) ||
+                          item.resumen ||
+                          item.detalle ||
+                          item.titulo
+                        }
                         price={item.precio}
+                        vipPrice={item.precio_vip}
                         image={item.imagen}
                         category={item.category}
                         index={idx}
@@ -337,7 +395,7 @@ export default function ServicePage() {
               onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
               className="px-10 py-4 bg-[#0D4B4D] text-white rounded-full font-bold text-lg shadow-xl hover:bg-[#0E6063] hover:scale-105 transition-all"
             >
-              Ver más opciones
+              {t("Static.viewMore")}
             </button>
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -357,26 +415,24 @@ export default function ServicePage() {
           <div className="container mx-auto px-4 md:px-6">
             <div className="mb-12">
               <h3 className="text-4xl md:text-6xl font-black text-[#0D4B4D] tracking-tight leading-none mb-4">
-                Explora más <br className="md:hidden" />
-                categorías
+                {t("Static.exploreMore")}
               </h3>
               <p className="text-[#0D4B4D]/60 text-lg font-medium">
-                Sigue descubriendo todo lo que Doctor Recetas tiene para tu
-                salud.
+                {t("Static.keepDiscovering")}
               </p>
             </div>
             {loading ? (
               <div className="flex items-center justify-center w-full py-12">
                 <RiLoader4Line className="w-10 h-10 text-teal-600 animate-spin" />
                 <span className="ml-3 text-teal-900/40 font-medium">
-                  Cargando recomendaciones...
+                  {t("Static.loadingRecommendations")}
                 </span>
               </div>
             ) : otherServices.length > 0 ? (
               <ServicesCarousel services={otherServices} />
             ) : (
               <div className="flex items-center justify-center w-full py-12 text-slate-400 font-medium border-2 border-dashed border-slate-200 rounded-[2rem]">
-                No se encontraron categorías adicionales.
+                {t("Static.noRecommendations")}
               </div>
             )}
           </div>

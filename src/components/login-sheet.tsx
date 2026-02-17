@@ -17,12 +17,14 @@ import { RegisterFormContent } from "./register-form-content";
 import { RecoveryFormContent } from "./recovery-form-content";
 
 import { useAuth } from "@/context/auth-context";
+import { useTranslations } from "next-intl";
 
 interface LoginSheetProps {
   children: React.ReactNode;
 }
 
 export function LoginSheet({ children }: LoginSheetProps) {
+  const t = useTranslations("Auth.Login");
   const { login } = useAuth();
   const [view, setView] = React.useState<"login" | "register" | "recovery">(
     "login",
@@ -52,16 +54,16 @@ export function LoginSheet({ children }: LoginSheetProps) {
       const data = await response.json();
 
       if (data.success) {
-        // Usar la función login del AuthContext para sincronizar el estado global
+        // Enviar el objeto data.data que contiene us_id, us_nombres, es_vip, token, expires_in
         login(data.data, data.data.token);
 
-        // Opcional: Recargar si hay lógica pesada en el lado del servidor/layout
+        // Recargar para actualizar el estado global
         window.location.reload();
       } else {
-        setError(data.message || "Error al iniciar sesión");
+        setError(data.message || t("error"));
       }
     } catch {
-      setError("Ocurrió un error inesperado al intentar iniciar sesión");
+      setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -86,11 +88,11 @@ export function LoginSheet({ children }: LoginSheetProps) {
                   </div>
                   <SheetHeader>
                     <SheetTitle className="text-3xl font-bold tracking-tight text-slate-900 text-center">
-                      Bienvenido de nuevo
+                      {t("title")}
                     </SheetTitle>
                   </SheetHeader>
                   <p className="text-slate-500 text-sm">
-                    Ingresa tus datos para acceder a tu cuenta
+                    {t("subtitle")}
                   </p>
                 </div>
 
@@ -104,7 +106,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-slate-700 ml-1">
-                        Usuario
+                        {t("username")}
                       </label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -118,7 +120,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
                               usuario: e.target.value,
                             })
                           }
-                          placeholder="Ingresa tu usuario"
+                          placeholder={t("usernamePlaceholder")}
                           className="pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all"
                         />
                       </div>
@@ -126,14 +128,14 @@ export function LoginSheet({ children }: LoginSheetProps) {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between ml-1">
                         <label className="text-sm font-medium text-slate-700">
-                          Contraseña
+                          {t("password")}
                         </label>
                         <button
                           type="button"
                           onClick={() => setView("recovery")}
                           className="text-xs font-medium text-[#0D4B4D] hover:underline"
                         >
-                          ¿Olvidaste tu contraseña?
+                          {t("forgotPassword")}
                         </button>
                       </div>
                       <div className="relative">
@@ -144,7 +146,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
                           onChange={(e) =>
                             setFormData({ ...formData, clave: e.target.value })
                           }
-                          placeholder="••••••••"
+                          placeholder={t("passwordPlaceholder")}
                           className="pl-12 pr-10 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all"
                         />
                         <button
@@ -167,7 +169,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
                     disabled={isLoading}
                     className="w-full h-12 rounded-xl bg-[#0D4B4D] hover:bg-[#093638] text-white font-bold shadow-lg hover:shadow-xl transition-all group"
                   >
-                    {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                    {isLoading ? t("loading") : t("submit")}
                     {!isLoading && (
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     )}
@@ -175,12 +177,12 @@ export function LoginSheet({ children }: LoginSheetProps) {
                 </form>
 
                 <div className="text-center text-sm text-slate-500">
-                  ¿No tienes una cuenta?{" "}
+                  {t("noAccount")}{" "}
                   <button
                     onClick={() => setView("register")}
                     className="font-bold text-[#0D4B4D] hover:underline"
                   >
-                    Regístrate gratis
+                    {t("registerNow")}
                   </button>
                 </div>
               </div>

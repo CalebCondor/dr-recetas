@@ -47,22 +47,43 @@ async function getCategories() {
   return res.json();
 }
 
-export default async function Home() {
-  const categories = await getCategories();
+import { getTranslations } from "next-intl/server";
 
-  const services = categories.map((cat: Category) => ({
-    title: cat.nombre,
-    description: cat.lead,
-    imageSrc: cat.imagen,
-    imageAlt: cat.nombre,
-    href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
-  }));
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const categories = await getCategories();
+  const t = await getTranslations({ locale, namespace: "DynamicServices" });
+
+  const services = categories.map((cat: Category) => {
+    // Usamos el ID de la API como llave para la traducción (ej: service_7)
+    const key = `service_${cat.id}`;
+
+    // Intentamos obtener la traducción del JSON
+    // t(`service_${id}.title`)
+    const translatedTitle = t.has(`${key}.title`)
+      ? t(`${key}.title`)
+      : cat.nombre;
+    const translatedDescription = t.has(`${key}.description`)
+      ? t(`${key}.description`)
+      : cat.lead;
+
+    return {
+      title: translatedTitle,
+      description: translatedDescription,
+      imageSrc: cat.imagen,
+      imageAlt: translatedTitle,
+      href: `/${locale}/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
+    };
+  });
+
   return (
     <>
       <PageWrapper>
         <div className="relative overflow-hidden">
-          {/* Optimized Background Gradients - Limit to Hero + Half of Services */}
-
           <Hero />
           <ServicesSection services={services} />
         </div>

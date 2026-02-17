@@ -21,6 +21,8 @@ import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+import { useTranslations } from "next-intl";
+
 interface PaymentFormProps {
   cart: CartItem[];
   formData: CartFormData;
@@ -40,6 +42,7 @@ export const PaymentForm = ({
   onBack,
   onComplete,
 }: PaymentFormProps) => {
+  const t = useTranslations("Cart.Payment");
   const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -61,47 +64,47 @@ export const PaymentForm = ({
     const lowerError = error.toLowerCase();
 
     if (lowerError.includes("declined") || lowerError.includes("rechazada")) {
-      return "Tu tarjeta ha sido rechazada. Por favor verifica los datos o intenta con otra tarjeta.";
+      return t("errors.declined");
     }
     if (
       lowerError.includes("insufficient funds") ||
       lowerError.includes("fondos insuficientes")
     ) {
-      return "Fondos insuficientes en la tarjeta. Por favor intenta con otro método de pago.";
+      return t("errors.insufficient");
     }
     if (
       lowerError.includes("expired") ||
       lowerError.includes("expirada") ||
       lowerError.includes("vencida")
     ) {
-      return "Tu tarjeta ha expirado. Por favor utiliza una tarjeta vigente.";
+      return t("errors.expired");
     }
     if (
       lowerError.includes("invalid card") ||
       lowerError.includes("tarjeta inválida")
     ) {
-      return "Número de tarjeta inválido. Por favor verifica los datos ingresados.";
+      return t("errors.invalid");
     }
     if (
       lowerError.includes("cvc") ||
       lowerError.includes("cvv") ||
       lowerError.includes("security code")
     ) {
-      return "El código de seguridad (CVC) es incorrecto. Por favor verifica e intenta de nuevo.";
+      return t("errors.cvc");
     }
     if (
       lowerError.includes("network") ||
       lowerError.includes("connection") ||
       lowerError.includes("timeout")
     ) {
-      return "Error de conexión. Por favor verifica tu internet e intenta de nuevo.";
+      return t("errors.network");
     }
     if (lowerError.includes("servidor") || lowerError.includes("server")) {
-      return "Hubo un problema al procesar tu pago. Por favor intenta de nuevo en unos minutos.";
+      return t("errors.server");
     }
 
     // Default friendly message
-    return "No se pudo procesar el pago. Por favor verifica los datos de tu tarjeta e intenta de nuevo.";
+    return t("errors.default");
   };
 
   useEffect(() => {
@@ -114,7 +117,7 @@ export const PaymentForm = ({
   const handleATHSuccess = useCallback(
     async (athResponse: {
       status: string;
-      data?: { cp_code?: string; [key: string]: unknown };
+      data?: { cp_code?: string;[key: string]: unknown };
       referenceNumber?: string;
       [key: string]: unknown;
     }) => {
@@ -122,7 +125,7 @@ export const PaymentForm = ({
 
       const storedUser = localStorage.getItem("dr_user");
       if (!storedUser) {
-        toast.error("Sesión expirada");
+        toast.error(t("errors.sessionExpired"));
         setIsProcessing(false);
         return;
       }
@@ -182,13 +185,13 @@ export const PaymentForm = ({
         }
       } catch (error) {
         console.error("ATH Success Backend error:", error);
-        setErrorMessage("Error de conexión al procesar el pago.");
+        setErrorMessage(t("errors.network"));
         setShowErrorModal(true);
       } finally {
         setIsProcessing(false);
       }
     },
-    [cart, formData, total, router, onComplete],
+    [cart, formData, total, router, onComplete, t],
   );
 
   // Configure ATHM Globals
@@ -267,18 +270,14 @@ export const PaymentForm = ({
       };
 
       win.cancelATHM = async () => {
-        toast.error("Pago cancelado", {
-          description: "Has cancelado la transacción.",
-        });
+        toast.error(t("errors.athCancel"));
       };
 
       win.expiredATHM = async () => {
-        toast.error("Transacción expirada", {
-          description: "El tiempo para completar el pago ha expirado.",
-        });
+        toast.error(t("errors.athExpired"));
       };
     }
-  }, [total, cart, purchaseId, formData.nombre_completo, handleATHSuccess]);
+  }, [total, cart, purchaseId, formData.nombre_completo, handleATHSuccess, t]);
 
   // Inject Script when selected
   useEffect(() => {
@@ -344,9 +343,7 @@ export const PaymentForm = ({
 
     const storedUser = localStorage.getItem("dr_user");
     if (!storedUser) {
-      toast.error("Sesión expirada", {
-        description: "Por favor inicie sesión nuevamente.",
-      });
+      toast.error(t("errors.sessionExpired"));
       return;
     }
 
@@ -355,9 +352,7 @@ export const PaymentForm = ({
     // Split expiry MM/YY
     const [month, yearShort] = cardData.expiry.split("/").map((s) => s.trim());
     if (!month || !yearShort) {
-      toast.error("Fecha inválida", {
-        description: "Use el formato MM/YY",
-      });
+      toast.error(t("errors.invalidDate"));
       return;
     }
     const year = yearShort.length === 2 ? `20${yearShort}` : yearShort;
@@ -399,9 +394,7 @@ export const PaymentForm = ({
       }
 
       if (!text || text.trim() === "") {
-        setErrorMessage(
-          "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
-        );
+        setErrorMessage(t("errors.default"));
         setShowErrorModal(true);
         setIsProcessing(false);
         return;
@@ -416,9 +409,7 @@ export const PaymentForm = ({
           const cpCode = data.data?.cp_code || data.cp_code;
 
           if (!cpCode) {
-            toast.error("Error API: No se recibió código de orden (cp_code)", {
-              description: "Por favor contacta a soporte. ID: " + purchaseId,
-            });
+            toast.error(t("errors.invalidOrderCode", { id: purchaseId }));
             console.error("Missing cp_code in response:", data);
 
             setIsProcessing(false);
@@ -446,9 +437,7 @@ export const PaymentForm = ({
         }
       } catch {
         console.error("Payment JSON parse error");
-        setErrorMessage(
-          "Hubo un problema al procesar tu pago. Por favor intenta de nuevo.",
-        );
+        setErrorMessage(t("errors.default"));
         setShowErrorModal(true);
         setIsProcessing(false);
       }
@@ -473,7 +462,7 @@ export const PaymentForm = ({
     >
       <div className="text-center">
         <h2 className="text-3xl font-black text-[#0D4B4D] mb-6">
-          Finalizar Pago
+          {t("title")}
         </h2>
         <Stepper current={3} />
       </div>
@@ -482,7 +471,7 @@ export const PaymentForm = ({
         <div className="border border-slate-100 rounded-3xl overflow-hidden bg-white shadow-sm">
           <div className="bg-[#0D4B4D] p-6 text-center text-white">
             <span className="text-[10px] uppercase font-bold tracking-widest opacity-60 block mb-1">
-              Orden de Servicio
+              {t("orderSummary")}
             </span>
             <p className="text-2xl font-black">{purchaseId}</p>
           </div>
@@ -496,9 +485,11 @@ export const PaymentForm = ({
                   <div>
                     <p className="font-bold text-[#0D4B4D]">{item.titulo}</p>
                     <span className="text-[10px] text-slate-400">
-                      Paciente:{" "}
-                      {formData.order_names[item.id] ||
-                        formData.nombre_completo}
+                      {t("patientLabel", {
+                        name:
+                          formData.order_names[item.id] ||
+                          formData.nombre_completo,
+                      })}
                     </span>
                   </div>
                   <span className="font-black text-[#0D4B4D] text-xl">
@@ -508,7 +499,7 @@ export const PaymentForm = ({
               ))}
             </div>
             <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
-              <span className="text-xl font-black text-[#0D4B4D]">Total</span>
+              <span className="text-xl font-black text-[#0D4B4D]">{t("totalLabel")}</span>
               <span className="text-xl font-black text-[#0D4B4D]">
                 ${total.toFixed(2)} USD
               </span>
@@ -518,18 +509,17 @@ export const PaymentForm = ({
 
         <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 space-y-8">
           <h4 className="text-center font-bold text-[#0D4B4D] text-lg">
-            Seleccione Método de Pago
+            {t("methodTitle")}
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label
               onClick={() =>
                 setFormData({ ...formData, payment_method: "ath" })
               }
-              className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all active:scale-95 ${
-                formData.payment_method === "ath"
-                  ? "bg-orange-50 border-orange-500 text-orange-700 shadow-sm"
-                  : "bg-white border-slate-100 text-slate-400 hover:border-slate-300"
-              }`}
+              className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all active:scale-95 ${formData.payment_method === "ath"
+                ? "bg-orange-50 border-orange-500 text-orange-700 shadow-sm"
+                : "bg-white border-slate-100 text-slate-400 hover:border-slate-300"
+                }`}
             >
               <input
                 type="radio"
@@ -546,7 +536,7 @@ export const PaymentForm = ({
                 <div className="w-1.5 h-1.5 rounded-full bg-white" />
               </div>
               <span className="font-bold text-base text-orange-600">
-                Ath Movil
+                {t("athLabel")}
               </span>
             </label>
 
@@ -554,11 +544,10 @@ export const PaymentForm = ({
               onClick={() =>
                 setFormData({ ...formData, payment_method: "tarjeta" })
               }
-              className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all active:scale-95 ${
-                formData.payment_method === "tarjeta"
-                  ? "bg-teal-50 border-teal-500 text-teal-700 shadow-sm"
-                  : "bg-white border-slate-100 text-slate-400 hover:border-slate-300"
-              }`}
+              className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all active:scale-95 ${formData.payment_method === "tarjeta"
+                ? "bg-teal-50 border-teal-500 text-teal-700 shadow-sm"
+                : "bg-white border-slate-100 text-slate-400 hover:border-slate-300"
+                }`}
             >
               <input
                 type="radio"
@@ -577,7 +566,7 @@ export const PaymentForm = ({
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-white" />
               </div>
-              <span className="font-bold text-base text-teal-600">Tarjeta</span>
+              <span className="font-bold text-base text-teal-600">{t("cardLabel")}</span>
             </label>
           </div>
 
@@ -594,7 +583,7 @@ export const PaymentForm = ({
                   size={24}
                 />
                 <p className="text-xs text-slate-400 font-medium">
-                  Cargando botón de ATH Móvil...
+                  {t("athLoading")}
                 </p>
               </div>
             </div>
@@ -604,7 +593,7 @@ export const PaymentForm = ({
                 onClick={handlePayment}
                 className="w-full h-14 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold text-lg shadow-lg shadow-[#0D4B4D]/20 active:scale-98 transition-all"
               >
-                CONTINUAR CON TARJETA
+                {t("cardButton")}
               </Button>
             )}
 
@@ -613,7 +602,7 @@ export const PaymentForm = ({
                 disabled
                 className="w-full h-14 bg-slate-200 text-slate-400 rounded-xl font-bold text-lg cursor-not-allowed"
               >
-                SELECCIONE MÉTODO DE PAGO
+                {t("noMethodSelected")}
               </Button>
             )}
           </div>
@@ -628,10 +617,10 @@ export const PaymentForm = ({
                   <RiBankCardLine size={isMobile ? 80 : 120} />
                 </div>
                 <DialogTitle className="text-xl sm:text-2xl font-black text-white mb-1">
-                  Datos de Tarjeta
+                  {t("cardModal.title")}
                 </DialogTitle>
                 <p className="text-emerald-100/60 text-[10px] sm:text-xs font-medium uppercase tracking-widest">
-                  Pago Seguro Encriptado
+                  {t("cardModal.subtitle")}
                 </p>
               </DialogHeader>
 
@@ -642,7 +631,7 @@ export const PaymentForm = ({
                 <div className="space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">
-                      Número de Tarjeta
+                      {t("cardModal.number")}
                     </label>
                     <div className="relative">
                       <Input
@@ -665,7 +654,7 @@ export const PaymentForm = ({
                   <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">
-                        Expiración
+                        {t("cardModal.expiry")}
                       </label>
                       <Input
                         required
@@ -683,7 +672,7 @@ export const PaymentForm = ({
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">
-                        CVC
+                        {t("cardModal.cvc")}
                       </label>
                       <Input
                         required
@@ -700,11 +689,11 @@ export const PaymentForm = ({
 
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">
-                      Nombre en Tarjeta
+                      {t("cardModal.name")}
                     </label>
                     <Input
                       required
-                      placeholder="TITULAR DE LA TARJETA"
+                      placeholder={t("cardModal.namePlaceholder")}
                       value={cardData.name}
                       onChange={(e) =>
                         setCardData({
@@ -722,8 +711,7 @@ export const PaymentForm = ({
                     <RiShieldCheckLine size={18} />
                   </div>
                   <p className="text-[10px] text-emerald-700 font-bold leading-tight">
-                    Su información está protegida por encriptación de grado
-                    bancario.
+                    {t("cardModal.shieldHint")}
                   </p>
                 </div>
 
@@ -733,8 +721,8 @@ export const PaymentForm = ({
                   className="w-full h-14 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
                 >
                   {isProcessing
-                    ? "Procesando..."
-                    : `PAGAR $${total.toFixed(2)}`}
+                    ? t("cardModal.processing")
+                    : t("cardModal.submit", { total: total.toFixed(2) })}
                 </Button>
               </form>
             </DialogContent>
@@ -752,7 +740,7 @@ export const PaymentForm = ({
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-black text-slate-800">
-                    Error en el Pago
+                    {t("errorModal.title")}
                   </h3>
                   <p className="text-sm text-slate-500 leading-relaxed">
                     {errorMessage}
@@ -762,7 +750,7 @@ export const PaymentForm = ({
                   onClick={() => setShowErrorModal(false)}
                   className="w-full h-12 bg-[#0D4B4D] hover:bg-[#093638] text-white rounded-xl font-bold shadow-md"
                 >
-                  Entendido
+                  {t("errorModal.button")}
                 </Button>
               </div>
             </DialogContent>
@@ -772,7 +760,7 @@ export const PaymentForm = ({
             onClick={onBack}
             className="w-full text-slate-400 text-sm font-bold hover:text-[#0D4B4D] transition-colors flex items-center justify-center gap-2"
           >
-            <RiArrowLeftLine /> Volver a detalles
+            <RiArrowLeftLine /> {t("back")}
           </button>
         </div>
       </div>

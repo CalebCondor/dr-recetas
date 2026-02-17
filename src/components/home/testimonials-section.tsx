@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import NextImage from "next/image";
+import { useTranslations } from "next-intl";
 import {
   Carousel,
   CarouselContent,
@@ -37,34 +38,34 @@ const testimonialItem: Variants = {
   },
 };
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    text: "Excelente servicio, la receta me llegó a mi email en menos de 10 minutos. Muy recomendado.",
-    author: "María Rodríguez",
-    role: "Paciente",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-  },
-  {
-    id: 2,
-    text: "La atención del Dr. fue excepcional. Pude resolver mi refill de medicamentos sin salir de casa.",
-    author: "Carlos Ortiz",
-    role: "Paciente",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-  },
-  {
-    id: 3,
-    text: "Muy fácil de usar. El proceso de pago con ATH Móvil fue súper rápido. ¡Gracias!",
-    author: "Elena Rivera",
-    role: "Paciente",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-  },
-];
-
 export function TestimonialsSection() {
+  const t = useTranslations("HomePage.Testimonials");
+  const translatedTestimonials: Testimonial[] = [
+    {
+      id: 1,
+      text: t("t1.text"),
+      author: t("t1.author"),
+      role: t("t1.role"),
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+    },
+    {
+      id: 2,
+      text: t("t2.text"),
+      author: t("t2.author"),
+      role: t("t2.role"),
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    },
+    {
+      id: 3,
+      text: t("t3.text"),
+      author: t("t3.author"),
+      role: t("t3.role"),
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+    },
+  ];
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 
@@ -145,7 +146,7 @@ export function TestimonialsSection() {
         <div className="mb-16 md:mb-20 text-center">
           {/* Header */}
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight leading-snug">
-            Clientes satisfechos confían con Dr.Recetas
+            {t("title")}
           </h2>
         </div>
 
@@ -157,7 +158,7 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {testimonials.map((testimonial) => (
+          {translatedTestimonials.map((testimonial) => (
             <motion.div
               variants={testimonialItem}
               key={testimonial.id}
@@ -179,7 +180,7 @@ export function TestimonialsSection() {
             className="w-full"
           >
             <CarouselContent className="ml-0">
-              {testimonials.map((testimonial, index) => (
+              {translatedTestimonials.map((testimonial, index) => (
                 <CarouselItem
                   key={testimonial.id}
                   className="pl-4 basis-[85%] transition-opacity duration-300"
@@ -199,7 +200,7 @@ export function TestimonialsSection() {
 
             {/* Carousel Pagination */}
             <div className="flex justify-center gap-3 mt-8">
-              {testimonials.map((_, i) => (
+              {translatedTestimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => api?.scrollTo(i)}
@@ -208,7 +209,6 @@ export function TestimonialsSection() {
                       ? "bg-[#0D4B4D] w-8"
                       : "bg-[#0D4B4D]/20 w-2 hover:bg-[#0D4B4D]/40"
                   }`}
-                  aria-label={`Ir a testimonio ${i + 1}`}
                 />
               ))}
             </div>

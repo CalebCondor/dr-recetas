@@ -20,6 +20,7 @@ export interface UserData {
   us_fech_nac?: string;
   us_code_postal?: string;
   token: string;
+  es_vip?: number | string;
   [key: string]: string | number | undefined;
 }
 

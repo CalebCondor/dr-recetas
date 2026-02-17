@@ -8,6 +8,9 @@ import React, {
   useCallback,
 } from "react";
 
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+
 export type MessageType = "user" | "bot";
 
 export interface Message {
@@ -31,51 +34,54 @@ const CHAT_STORAGE_KEY = "dr-recetas-chat-messages";
 const CHAT_TIMESTAMP_KEY = "dr-recetas-chat-last-active";
 const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minutes in milliseconds
 
-const INITIAL_MESSAGE: Message = {
-  id: 1,
-  type: "bot",
-  text: "¡Hola! 👋 ¿En qué puedo ayudarte hoy?",
-};
-
 export function ChatProvider({ children }: { children: React.ReactNode }) {
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const params = useParams();
+  const locale = (params?.locale as string) || "es";
+  const t = useTranslations("Chatbot");
+
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isBottomBarVisible, setIsBottomBarVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Storage keys include locale to prevent mixing languages
+  const localeStorageKey = `${CHAT_STORAGE_KEY}-${locale}`;
+  const localeTimestampKey = `${CHAT_TIMESTAMP_KEY}-${locale}`;
+
+  // Initialize messages on client side
   useEffect(() => {
-    const savedMessages = localStorage.getItem(CHAT_STORAGE_KEY);
-    const lastActive = localStorage.getItem(CHAT_TIMESTAMP_KEY);
+    const savedMessages = localStorage.getItem(localeStorageKey);
+    const lastActive = localStorage.getItem(localeTimestampKey);
+    const now = Date.now();
 
     if (savedMessages && lastActive) {
       const parsedLastActive = parseInt(lastActive, 10);
-      const now = Date.now();
-
       if (now - parsedLastActive < INACTIVITY_LIMIT) {
         try {
           const parsed = JSON.parse(savedMessages);
-          queueMicrotask(() => {
-            setMessages(parsed);
-          });
+          setMessages(parsed);
+          return;
         } catch (e) {
           console.error("Failed to parse saved chat messages", e);
         }
-      } else {
-        // Inactivity limit reached, clear chat
-        localStorage.removeItem(CHAT_STORAGE_KEY);
-        localStorage.removeItem(CHAT_TIMESTAMP_KEY);
       }
     }
-  }, []);
+
+    // Default welcome message if no saved session or expired
+    setMessages([
+      {
+        id: 1,
+        type: "bot",
+        text: t("welcome"),
+      },
+    ]);
+  }, [t, localeStorageKey, localeTimestampKey]);
 
   useEffect(() => {
-    if (
-      messages.length > 1 ||
-      (messages.length === 1 && messages[0].id !== 1)
-    ) {
-      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
-      localStorage.setItem(CHAT_TIMESTAMP_KEY, Date.now().toString());
+    if (messages.length > 0) {
+      localStorage.setItem(localeStorageKey, JSON.stringify(messages));
+      localStorage.setItem(localeTimestampKey, Date.now().toString());
     }
-  }, [messages]);
+  }, [messages, localeStorageKey, localeTimestampKey]);
 
   const sendMessage = useCallback(
     async (text: string) => {
@@ -89,7 +95,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
       setMessages((prev) => [...prev, userMessage]);
       setIsLoading(true);
-      localStorage.setItem(CHAT_TIMESTAMP_KEY, Date.now().toString());
+      localStorage.setItem(localeTimestampKey, Date.now().toString());
 
       try {
         const response = await fetch(
@@ -99,16 +105,16 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ message: text.trim() }),
+            body: JSON.stringify({
+              message: text.trim(),
+              lang: locale, // Enviamos el idioma a la IA
+            }),
           },
         );
 
         const data = await response.json();
         const botResponse =
-          data.response ||
-          data.message ||
-          data.text ||
-          "Lo siento, tuve un problema al procesar tu mensaje.";
+          data.response || data.message || data.text || t("error_api");
 
         const botMessage: Message = {
           id: Date.now() + 1,
@@ -122,22 +128,28 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         const errorMessage: Message = {
           id: Date.now() + 1,
           type: "bot",
-          text: "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde.",
+          text: t("error_network"),
         };
         setMessages((prev) => [...prev, errorMessage]);
       } finally {
         setIsLoading(false);
-        localStorage.setItem(CHAT_TIMESTAMP_KEY, Date.now().toString());
+        localStorage.setItem(localeTimestampKey, Date.now().toString());
       }
     },
-    [isLoading],
+    [isLoading, locale, t, localeTimestampKey],
   );
 
   const clearChat = useCallback(() => {
-    setMessages([INITIAL_MESSAGE]);
-    localStorage.removeItem(CHAT_STORAGE_KEY);
-    localStorage.removeItem(CHAT_TIMESTAMP_KEY);
-  }, []);
+    setMessages([
+      {
+        id: 1,
+        type: "bot",
+        text: t("welcome"),
+      },
+    ]);
+    localStorage.removeItem(localeStorageKey);
+    localStorage.removeItem(localeTimestampKey);
+  }, [t, localeStorageKey, localeTimestampKey]);
 
   return (
     <ChatContext.Provider

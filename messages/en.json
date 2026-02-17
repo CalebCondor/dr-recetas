@@ -1,0 +1,704 @@
+{
+  "Header": {
+    "nav": {
+      "services": "Services",
+      "discounts": "Discounts",
+      "about": "About Us",
+      "memberships": "Memberships"
+    },
+    "user": {
+      "profile": "My Profile",
+      "orders": "My Orders",
+      "transactions": "My Transactions",
+      "logout": "Logout",
+      "login": "Login"
+    },
+    "mobile": {
+      "explore": "Explore",
+      "subtitle": "Everything you need in one place",
+      "menu_main": "Main Menu",
+      "language": "Language"
+    }
+  },
+  "HomePage": {
+    "Hero": {
+      "title": "Get a",
+      "subtitle": "as soon as possible",
+      "typing": {
+        "medical_excuse": "Medical Excuse",
+        "covid_test": "Covid Test",
+        "medical_appointment": "Medical Appointment",
+        "medical_prescription": "Medical Prescription"
+      },
+      "explore_services": "Explore Services"
+    },
+    "Consultations": {
+      "medical_certificate": "Medical Certificate",
+      "prescription_refill": "Prescription Refill",
+      "immediate_evaluation": "Immediate Medical Evaluation",
+      "follow_up": "Follow-up Appointment",
+      "influenza_test": "Influenza A & B Test",
+      "cbc_diff": "CBC + DIFF Lab"
+    },
+    "Services": {
+      "title": "Our Services",
+      "subtitle": "Explore our online medical solutions",
+      "default_description": "Explore this specialized medical service.",
+      "image_alt": "Medical service"
+    },
+    "WhyChooseUs": {
+      "title": "Why choose us?",
+      "p1": "we are a Puerto Rican company established in 2020 as a result of the COVID pandemic.",
+      "p2": "Our medical group is composed of a diverse number of assistant doctors, nurses, internists, and specialists. Our goal is to bring Health to the greatest number of people in Puerto Rico from our center to the comfort of your home."
+    },
+    "HowItWorks": {
+      "title": "How it works?",
+      "subtitle": "Follow these steps to get the desired prescription",
+      "step1": "Complete the registration, choose the desired medical or laboratory service.",
+      "step2": "Pay with Credit Card or ATH MOVIL.",
+      "step3": "If it is a chosen laboratory, it arrives immediately at your email.",
+      "step4": "If it is a medical appointment, a doctor will contact you during the day. If you need a faster appointment, please call us at our number (787) 710-7426."
+    },
+    "FAQ": {
+      "badge": "Questions?",
+      "title": "We have answers",
+      "q1": "How long until I receive my license?",
+      "a1": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
+      "others_q": "Contrary to popular belief, Lorem Ipsum is not simply?",
+      "others_a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "Testimonials": {
+      "title": "Satisfied customers trust Dr.Recetas",
+      "t1": {
+        "text": "Excellent service, the prescription reached my email in less than 10 minutes. Highly recommended.",
+        "author": "Maria Rodriguez",
+        "role": "Patient"
+      },
+      "t2": {
+        "text": "The Dr.'s attention was exceptional. I was able to handle my medication refill without leaving home.",
+        "author": "Carlos Ortiz",
+        "role": "Patient"
+      },
+      "t3": {
+        "text": "Very easy to use. The payment process with ATH Móvil was super fast. Thanks!",
+        "author": "Elena Rivera",
+        "role": "Patient"
+      }
+    },
+    "Benefits": {
+      "title": "Enjoy our benefits",
+      "benefit1": {
+        "title": "Are you a medical cannabis patient?",
+        "description": "Get your license with just one click",
+        "button": "Request now"
+      },
+      "benefit2": {
+        "title": "Save up to 80% on your medications",
+        "description": "Access quality medications at affordable prices",
+        "button": "Enter here"
+      },
+      "tap_hint": "Tap a card to see more"
+    }
+  },
+  "Chatbot": {
+    "title": "What do you need today?",
+    "description": "Whether it's a medical certificate, if your child has a fever, or you need an urgent refill of your prescription, Ana is here to help you.",
+    "online": "Online",
+    "instant_reply": "Instant response",
+    "placeholder": "Type here...",
+    "tooltip": "Need help? Talk to Ana! 👋",
+    "welcome": "Hello! 👋 How can I help you today?",
+    "error_api": "Sorry, I had a problem processing your message.",
+    "error_network": "Sorry, I couldn't connect to the server. Please try again later."
+  },
+  "DynamicServices": {
+    "service_7": {
+      "title": "Medical Appointments",
+      "description": "Book your medical appointment in a few minutes, from anywhere and at any time."
+    },
+    "service_8": {
+      "title": "Memberships",
+      "description": "Get preferential access to medical consultations and special services."
+    },
+    "service_9": {
+      "title": "Laboratory Orders",
+      "description": "Request your laboratory tests quickly and without complications."
+    },
+    "service_12": {
+      "title": "Others",
+      "description": "Discover the full variety of medical services we have for you."
+    },
+    "service_10": {
+      "title": "For Him",
+      "description": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being."
+    },
+    "service_11": {
+      "title": "For Her",
+      "description": "Prevention, diagnosis, and medical support with professional and safe care."
+    }
+  },
+  "Footer": {
+    "About": {
+      "title": "About",
+      "home": "Home",
+      "shop": "Shop",
+      "about_us": "About Us",
+      "journal": "Journal",
+      "science": "Science"
+    },
+    "Support": {
+      "title": "Support",
+      "faq": "FAQ",
+      "shipping": "Shipping Policy",
+      "refund": "Refund and Returns Policy",
+      "account": "My account",
+      "contact": "Contact"
+    },
+    "Newsletter": {
+      "title": "Subscribe to our newsletter and claim your 15% discount today",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "button": "Claim discount"
+    },
+    "Legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "rights": "© 2025 DR. Recetas All rights reserved."
+    }
+  },
+  "ServicesPage": {
+    "Static": {
+      "notFound": "Service not found",
+      "vipPrice": "VIP Price",
+      "loading": "Loading...",
+      "ourServices": "Our Services",
+      "basePrice": "Base Price",
+      "viewMore": "View more options",
+      "exploreMore": "Explore more categories",
+      "keepDiscovering": "Keep discovering everything Doctor Recetas has for your health.",
+      "loadingRecommendations": "Loading recommendations...",
+      "noRecommendations": "No additional categories found.",
+      "price": "Price",
+      "currency": "USD",
+      "buyButton": "Buy",
+      "description": "Description",
+      "technicalSheet": "Technical Sheet",
+      "detailedDescription": "Detailed Description",
+      "serviceSpecs": "Service Specifications",
+      "serviceLabel": "Service",
+      "categoryLabel": "Category",
+      "availabilityLabel": "Availability",
+      "responseLabel": "Response Time",
+      "codeLabel": "Code",
+      "managementLabel": "Management",
+      "availabilityValue": "24/7 Online",
+      "responseValue": "Immediate",
+      "managementValue": "Priority Support",
+      "totalToPay": "Total to pay",
+      "loginRequiredTitle": "Access Restricted",
+      "loginRequiredDescription": "To add services to the cart, you must first",
+      "loginAction": "Log in",
+      "expandedDetail": "Expanded Detail",
+      "expandedDetailSubtitle": "What is this service about?",
+      "technicalSheetSubtitle": "Details and specifications",
+      "productNotFound": "Product not found",
+      "productNotFoundMessage": "Sorry, we couldn't find the service you are looking for.",
+      "backToCategory": "Back to {category}",
+      "relatedServicesTitle": "Related Services",
+      "relatedServicesSubtitle": "Other services in the {category} category that might interest you.",
+      "debugSearch": "Debug: Searching for slug {slug} in the API."
+    },
+    "Categories": {
+      "citas-medicas": {
+        "title": "Medical Appointments",
+        "description": "Book your medical appointment in a few minutes, from anywhere and at any time.",
+        "longDescription": "Book your medical appointment in a few minutes, from anywhere and at any time."
+      },
+      "membresia": {
+        "title": "Memberships",
+        "description": "Get preferential access to medical consultations and special services.",
+        "longDescription": "Get preferential access to medical consultations and special services."
+      },
+      "lab": {
+        "title": "Lab Orders",
+        "description": "Request your laboratory tests quickly and without complications.",
+        "longDescription": "Request your laboratory tests quickly and without complications."
+      },
+      "otros": {
+        "title": "Other Services",
+        "description": "Discover the full variety of medical services we have for you.",
+        "longDescription": "Discover the full variety of medical services we have for you."
+      },
+      "para-el": {
+        "title": "For Him",
+        "description": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being.",
+        "longDescription": "Access evaluations, specialized programs, and laboratory tests that help you take care of your overall well-being."
+      },
+      "para-ella": {
+        "title": "For Her",
+        "description": "Prevention, diagnosis, and medical support with professional and safe care.",
+        "longDescription": "Prevention, diagnosis, and medical support with professional and safe care."
+      }
+    },
+    "Items": {
+      "certificado-mdico-26": {
+        "title": "Medical Certificate",
+        "description": "We offer a medical service oriented to provide you with a full clinical evaluation and the necessary certification to justify your work absence."
+      },
+      "examen-licencia-conducir-27": {
+        "title": "Driver's License Exam",
+        "description": "Medical evaluation for driver's license application or renewal."
+      },
+      "programa-de-salud-sexual-para-hombres-37": {
+        "title": "Men's Sexual Health Program",
+        "description": "Medical consultation for erectile dysfunction, focused on diagnosing the cause and offering safe and confidential treatment."
+      },
+      "back-to-school-39": {
+        "title": "Back to School",
+        "description": "Professional pediatric consultation to obtain the medical certificate necessary for returning to classes."
+      },
+      "cita-de-seguimiento-31": {
+        "title": "Follow-up Appointment",
+        "description": "Follow-up medical consultation for existing patients."
+      },
+      "cita-medica-nuevo-paciente-30": {
+        "title": "New Patient Medical Appointment",
+        "description": "Comprehensive medical evaluation for new patients."
+      },
+      "consulta-por-covid-positivo-33": {
+        "title": "COVID Positive Consultation",
+        "description": "Personalized medical consultation from home to evaluate your symptoms and guide you through treatment."
+      },
+      "evaluacin-mdica-del-sueo-36": {
+        "title": "Medical Sleep Evaluation",
+        "description": "Professional evaluation to diagnose and treat your sleep problems. Includes habit review and personalized diagnosis."
+      },
+      "evaluacin-mdica-inmediata-38": {
+        "title": "Immediate Medical Evaluation",
+        "description": "Quick and professional consultation to obtain diagnosis, prescriptions or certificates the same day."
+      },
+      "receta-de-medicamentos-o-refill-25": {
+        "title": "Medication Prescription or Refill",
+        "description": "Get your medication refills or new prescriptions quickly."
+      },
+      "anlisis-de-orina-y-cultivo-de-orina-10": {
+        "title": "Urinalysis and Urine Culture",
+        "description": "Urinalysis checks the appearance and content of your urine. Urine culture looks for bacteria causing infections."
+      },
+      "cbc-diff-lab-45": {
+        "title": "CBC + DIFF Lab",
+        "description": "Measures different types of cells in the blood (red blood cells, white blood cells, platelets) to detect infections or anemia."
+      },
+      "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8": {
+        "title": "Female Blood Test Panel",
+        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+      },
+      "mamografia-29": {
+        "title": "Mammography",
+        "description": "Specialized X-ray of the breasts that allows early detection of abnormalities like tumors or microcalcifications."
+      },
+      "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7": {
+        "title": "Male Blood Test Panel",
+        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+      },
+      "prueba-de-covid-19-ant-geno-2": {
+        "title": "COVID-19 Antigen Test",
+        "description": "Detects parts of the virus in people with an active infection. Results in 15-30 minutes."
+      },
+      "prueba-de-covid-19-molecular-pcr-3": {
+        "title": "COVID-19 Molecular PCR Test",
+        "description": "Precise test to detect if you are infected with the virus. Confirms diagnosis even with few symptoms."
+      },
+      "prueba-de-covid-19-serolgica-rapid-test-4": {
+        "title": "COVID-19 Serological Rapid Test",
+        "description": "Detects antibodies in the blood indicating past exposure to the virus. Results in minutes."
+      },
+      "prueba-de-embarazo-15": {
+        "title": "Pregnancy Test",
+        "description": "Detects the hCG hormone to confirm pregnancy. Can be done with urine or blood sample."
+      },
+      "prueba-de-influenza-a-y-b-14": {
+        "title": "Influenza A & B Test",
+        "description": "Detects if a person has the flu virus type A or B. Useful for quick treatment decisions."
+      },
+      "prueba-de-micoplasma-o-bronchitis-12": {
+        "title": "Mycoplasma or Bronchitis Test",
+        "description": "Blood test to detect Mycoplasma or Bronchitis."
+      },
+      "prueba-de-sangre-pth-13": {
+        "title": "PTH Blood Test",
+        "description": "Measures parathyroid hormone in the blood, which regulates calcium and phosphorus levels."
+      },
+      "prueba-de-sedimento-esr-11": {
+        "title": "Sedimentation Rate (ESR) Test",
+        "description": "Measures how fast red blood cells settle. High value may indicate inflammation."
+      },
+      "prueba-diabetes-hba1c-41": {
+        "title": "Diabetes Test (HbA1c%)",
+        "description": "Measures average blood sugar of the last 2-3 months. Key for diagnosing diabetes."
+      },
+      "quantitative-hcg-test-35": {
+        "title": "Quantitative hCG Test",
+        "description": "Measures the exact amount of pregnancy hormone (hCG) in the blood. More precise than urine test."
+      },
+      "sonomamografia-28": {
+        "title": "Sono-mammography",
+        "description": "Ultrasound of the breast, complements mammography. Ideal for dense breasts."
+      },
+      "strep-throat-garganta-44": {
+        "title": "Strep Throat Test",
+        "description": "Rapid test detects Streptococcus bacteria in the throat in minutes."
+      },
+      "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42": {
+        "title": "Respiratory Panel",
+        "description": "Combined test for COVID-19, Influenza A/B and Mycoplasma. Identifies cause of respiratory symptoms."
+      },
+      "producto-de-prueba-paquete-64": {
+        "title": "Test Product Package",
+        "description": "Test product."
+      },
+      "pruebas-para-licencia-matrimonial-32": {
+        "title": "Marriage License Tests",
+        "description": "Fulfill health requirements for marriage. Includes blood tests, STD tests, and medical certificate."
+      },
+      "test-de-enfermedades-de-transmisin-sexual-ets-34": {
+        "title": "STD Panel",
+        "description": "Detects infections like HIV, syphilis, chlamydia, gonorrhea. Important for sexually active people."
+      },
+      "programa-de-reduccin-de-peso-58": {
+        "title": "Weight Reduction Program",
+        "description": "Includes appointment, lab tests, and prescription."
+      }
+    }
+  },
+  "Auth": {
+    "Login": {
+      "title": "Welcome back",
+      "subtitle": "Enter your details to access your account",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Log In",
+      "loading": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "registerNow": "Register for free",
+      "error": "Error logging in",
+      "unexpectedError": "An unexpected error occurred while trying to log in"
+    },
+    "Register": {
+      "title": "Create your free account",
+      "step1": "Step 1: Personal Data",
+      "step2": "Step 2: Account Details",
+      "name": "Name and Last Name",
+      "namePlaceholder": "e.g. John Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "(000) 000-0000",
+      "continue": "Continue",
+      "region": "Region",
+      "municipality": "Municipality",
+      "municipalityPlaceholder": "Select",
+      "municipalityFirst": "Choose region first",
+      "address": "Address",
+      "addressPlaceholder": "Street, Number, Urbanization",
+      "username": "Username",
+      "usernamePlaceholder": "Username",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "terms": "I accept the",
+      "termsLink": "Terms and Conditions",
+      "submit": "Create Account",
+      "loading": "Creating account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginNow": "Log in here",
+      "success": "Account created successfully",
+      "error": "Error creating account",
+      "unexpectedError": "An error occurred while trying to register",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailInvalid": "Invalid email address",
+        "usernameRequired": "Username is required",
+        "passwordMin": "Password must be at least 6 characters"
+      },
+      "regions": {
+        "pr": "Puerto Rico",
+        "usa": "USA"
+      }
+    },
+    "Recovery": {
+      "title": "Recover Password",
+      "subtitle": "Enter your email address and we will send you the instructions",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send Email",
+      "loading": "Sending...",
+      "backToLogin": "Back to Login",
+      "successTitle": "Email Sent!",
+      "successSubtitle": "We have sent the recovery instructions to:",
+      "error": "Error requesting recovery",
+      "unexpectedError": "An unexpected error occurred. Please try again."
+    }
+  },
+  "Cart": {
+    "Empty": {
+      "title": "Your cart is empty",
+      "description": "You haven't added any services to your cart yet.",
+      "button": "View Services"
+    },
+    "Review": {
+      "title": "My Cart",
+      "back": "Back to Services",
+      "summary": "You have {count, plural, one {1 service selected} other {{count} services selected}}",
+      "table": {
+        "service": "Service",
+        "price": "Price",
+        "total": "Total",
+        "delete": "Delete {name}"
+      },
+      "continue": "Confirm my information",
+      "deleteDialog": {
+        "title": "Delete service?",
+        "description": "Are you sure you want to delete {name} from your cart? This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Yes, delete"
+      }
+    },
+    "Personal": {
+      "title": "Personal Information",
+      "steps": {
+        "step": "Step {current} of {total}",
+        "basic": "Patient Data",
+        "contact": "Contact & Address",
+        "id": "Identification"
+      },
+      "form": {
+        "patient": "Patient",
+        "patientPlaceholder": "Full name",
+        "birthDate": "Birth Date",
+        "birthDatePlaceholder": "Select date",
+        "country": "Country",
+        "municipality": "Municipality",
+        "municipalityPlaceholder": "San Juan...",
+        "email": "Email Address",
+        "emailPlaceholder": "example@email.com",
+        "address": "Physical Address",
+        "addressPlaceholder": "Street, Number, Urbanization",
+        "zipCode": "Zip Code",
+        "zipCodePlaceholder": "00XXX",
+        "phone": "Phone",
+        "phonePlaceholder": "787...",
+        "idType": "Identification Type",
+        "idNumber": "Document Number",
+        "idNumberPlaceholder": "XXX-XXX-XXX",
+        "uploadId": "Upload your identification",
+        "uploadHint": "Formats: JPG or PNG (Max 5MB)",
+        "uploadButton": "Select File",
+        "uploadChange": "Change",
+        "uploadLoading": "Loading information...",
+        "backToSchoolHint": "*If you are purchasing the \"Back to School\" order, an image of the Medical Certificate is required to be uploaded."
+      },
+      "navigation": {
+        "back": "Back",
+        "previous": "Previous",
+        "continue": "Continue",
+        "next": "Next"
+      },
+      "idTypes": {
+        "license": "Driver's License",
+        "passport": "Passport"
+      }
+    },
+    "Details": {
+      "title": "Order Details",
+      "table": {
+        "header": "Product / Patient",
+        "price": "Price",
+        "defaultDetail": "Immediate medical consultation",
+        "orderNameLabel": "Name for this order:"
+      },
+      "totalLabel": "Total to pay:",
+      "advisorCode": "Advisor Code (Optional)",
+      "advisorCodePlaceholder": "Ex: DR-9900",
+      "navigation": {
+        "back": "Back",
+        "continue": "Continue"
+      }
+    },
+    "Payment": {
+      "title": "Finalize Payment",
+      "orderSummary": "Service Order",
+      "patientLabel": "Patient: {name}",
+      "totalLabel": "Total",
+      "methodTitle": "Select Payment Method",
+      "athLabel": "Ath Movil",
+      "cardLabel": "Card",
+      "athLoading": "Loading ATH Móvil button...",
+      "cardButton": "CONTINUE WITH CARD",
+      "noMethodSelected": "SELECT PAYMENT METHOD",
+      "cardModal": {
+        "title": "Card Details",
+        "subtitle": "Secure Encrypted Payment",
+        "number": "Card Number",
+        "expiry": "Expiration",
+        "cvc": "CVC",
+        "name": "Name on Card",
+        "namePlaceholder": "CARD HOLDER NAME",
+        "shieldHint": "Your information is protected by bank-grade encryption.",
+        "submit": "PAY ${total}",
+        "processing": "Processing..."
+      },
+      "errorModal": {
+        "title": "Payment Error",
+        "button": "Understood"
+      },
+      "back": "Back to details",
+      "errors": {
+        "declined": "Your card has been declined. Please check the data or try another card.",
+        "insufficient": "Insufficient funds on the card. Please try another payment method.",
+        "expired": "Your card has expired. Please use a current card.",
+        "invalid": "Invalid card number. Please check the entered data.",
+        "cvc": "The security code (CVC) is incorrect. Please check and try again.",
+        "network": "Connection error. Please check your internet and try again.",
+        "server": "There was a problem processing your payment. Please try again in a few minutes.",
+        "default": "Could not process payment. Please check your card data and try again.",
+        "sessionExpired": "Session expired. Please log in again.",
+        "invalidDate": "Invalid date. Use MM/YY format",
+        "invalidOrderCode": "API Error: No order code received (cp_code). Please contact support. ID: {id}",
+        "athCancel": "Payment cancelled. You have cancelled the transaction.",
+        "athExpired": "Transaction expired. The time to complete payment has expired."
+      }
+    },
+    "Stepper": {
+      "step1": "Personal Information",
+      "step2": "Order Details",
+      "step3": "Pay"
+    },
+    "Page": {
+      "sessionRequired": "Session required. You must log in to view your cart.",
+      "paymentSuccess": "Payment successful. Your order has been processed."
+    }
+  },
+  "Profile": {
+    "Page": {
+      "loading": "Loading profile...",
+      "verifiedUser": "Verified User",
+      "tabs": {
+        "info": "Information",
+        "infoShort": "Info",
+        "orders": "My Orders",
+        "ordersShort": "Orders",
+        "history": "Payment History",
+        "historyShort": "Payments"
+      },
+      "suspenseLoading": "Loading...",
+      "toast": {
+        "updating": "Updating your information...",
+        "success": "Profile updated successfully!",
+        "error": "Could not update profile"
+      },
+      "errors": {
+        "serverError": "Server error ({status})",
+        "emptyResponse": "Empty server response",
+        "updateError": "Update failed"
+      }
+    },
+    "InfoForm": {
+      "title": "Edit Profile",
+      "description": "Keep your information up to date for a better experience.",
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "Your full name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@email.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+1 300 000 0000"
+        },
+        "birthdate": {
+          "label": "Date of Birth"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Your city"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": "Your country"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Full address"
+        },
+        "postalCode": {
+          "label": "Postal Code",
+          "placeholder": "000000"
+        },
+        "password": {
+          "label": "New Password (optional)",
+          "placeholder": "••••••••"
+        },
+        "idDocument": {
+          "label": "ID Document",
+          "currentFile": "Current file",
+          "savedDocument": "Saved document",
+          "change": "Change",
+          "uploadTitle": "Upload your ID",
+          "uploadHint": "Formats: JPG or PNG (Max 5MB)",
+          "selectFile": "Select File"
+        }
+      },
+      "errors": {
+        "invalidFileType": "Only PNG or JPEG files are allowed",
+        "fileTooLarge": "File must not exceed 5MB"
+      },
+      "buttons": {
+        "update": "Update Information",
+        "updating": "Updating..."
+      }
+    },
+    "OrdersList": {
+      "loading": "Loading your orders...",
+      "empty": {
+        "title": "You don't have any orders yet",
+        "description": "It looks like you haven't made any purchases yet. Explore our services and get started today!",
+        "button": "Explore Services"
+      },
+      "orderId": "Order ID",
+      "status": {
+        "paid": "Paid",
+        "pending": "In Process",
+        "readyToDownload": "Ready to download",
+        "pendingPayment": "Pending payment"
+      },
+      "viewDetails": "View details",
+      "closeDetails": "Close details",
+      "mainDocumentation": "Main Documentation",
+      "medicalOrder": "Medical Order PDF",
+      "officialValidation": "Official Dr.Recetas Validation",
+      "specificResults": "Specific Results",
+      "pdfLoading": "Loading PDF...",
+      "pdfTitle": "Medical Order PDF"
+    },
+    "TransactionsList": {
+      "empty": {
+        "title": "No transactions",
+        "description": "You haven't made any payments yet. Your transaction history will appear here."
+      },
+      "transaction": "Transaction",
+      "method": "Card",
+      "orderDetail": "Order Detail",
+      "patient": "Patient",
+      "service": "Service",
+      "referenceCode": "Reference Code",
+      "items": "items"
+    }
+  }
+}
