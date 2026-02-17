@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CartItem } from "@/context/cart-context";
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
@@ -30,6 +30,43 @@ export const OrderDetails = ({
   onContinue,
 }: OrderDetailsProps) => {
   const t = useTranslations("Cart.Details");
+  const tServices = useTranslations("ServicesPage");
+  const tDynamic = useTranslations("DynamicServices");
+  const messages = useMessages();
+  const itemsMessages = (messages as any)?.ServicesPage?.Items || {};
+
+  const getTranslatedItem = (item: CartItem) => {
+    let title = item.titulo;
+    let detail = item.detalle;
+
+    // Helper to find slug from messages if missing in item
+    const lookupSlug = item.slug || Object.keys(itemsMessages).find(key => key.endsWith(`-${item.id}`));
+
+    // Translate Title and Detail
+    // 1. Try by slug (static items)
+    if (lookupSlug && tServices.has(`Items.${lookupSlug}.title`)) {
+      title = tServices(`Items.${lookupSlug}.title`);
+      if (tServices.has(`Items.${lookupSlug}.description`)) {
+        detail = tServices(`Items.${lookupSlug}.description`);
+      }
+    }
+    // 2. Try dynamic service fallback (service_ID)
+    else if (tDynamic.has(`service_${item.id}.title`)) {
+      title = tDynamic(`service_${item.id}.title`);
+      if (tDynamic.has(`service_${item.id}.description`)) {
+        detail = tDynamic(`service_${item.id}.description`);
+      }
+    }
+    // 3. Try legacy/direct ID match
+    else if (tDynamic.has(`${item.id}.title`)) {
+      title = tDynamic(`${item.id}.title`);
+      if (tDynamic.has(`${item.id}.description`)) {
+        detail = tDynamic(`${item.id}.description`);
+      }
+    }
+
+    return { title, detail };
+  };
 
   return (
     <motion.div
@@ -67,10 +104,10 @@ export const OrderDetails = ({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 md:block">
                   <div>
                     <h3 className="font-bold text-[#0D4B4D] text-lg md:text-base">
-                      {item.titulo}
+                      {getTranslatedItem(item).title}
                     </h3>
                     <p className="text-xs text-slate-400 mt-1 line-clamp-2">
-                      {item.detalle || t("table.defaultDetail")}
+                      {getTranslatedItem(item).detail || t("table.defaultDetail")}
                     </p>
                   </div>
                   {/* Mobile Price */}

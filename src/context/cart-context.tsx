@@ -23,6 +23,7 @@ export interface CartItem {
   imagen: string;
   categoria: string;
   detalle?: string;
+  slug?: string;
 }
 
 interface CartContextType {
@@ -40,6 +41,7 @@ const CART_STORAGE_KEY = "dr-recetas-cart";
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isDuplicateAlertOpen, setIsDuplicateAlertOpen] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Load cart from localStorage
   useEffect(() => {
@@ -47,19 +49,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (savedCart) {
       try {
         const parsed = JSON.parse(savedCart);
-        queueMicrotask(() => {
-          setCart(parsed);
-        });
+        setCart(parsed);
       } catch (e) {
         console.error("Failed to parse cart storage", e);
       }
     }
+    setIsInitialized(true);
   }, []);
 
   // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-  }, [cart]);
+    if (isInitialized) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    }
+  }, [cart, isInitialized]);
 
   const addToCart = useCallback(
     (item: CartItem) => {

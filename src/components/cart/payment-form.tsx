@@ -21,7 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 
 interface PaymentFormProps {
   cart: CartItem[];
@@ -43,6 +43,28 @@ export const PaymentForm = ({
   onComplete,
 }: PaymentFormProps) => {
   const t = useTranslations("Cart.Payment");
+  const tServices = useTranslations("ServicesPage");
+  const tDynamic = useTranslations("DynamicServices");
+  const messages = useMessages();
+  const itemsMessages = (messages as any)?.ServicesPage?.Items || {};
+
+  const getTranslatedItem = (item: CartItem) => {
+    let title = item.titulo;
+
+    // Helper to find slug from messages if missing in item
+    const lookupSlug = item.slug || Object.keys(itemsMessages).find(key => key.endsWith(`-${item.id}`));
+
+    // Translate Title
+    if (lookupSlug && tServices.has(`Items.${lookupSlug}.title`)) {
+      title = tServices(`Items.${lookupSlug}.title`);
+    } else if (tDynamic.has(`service_${item.id}.title`)) {
+      title = tDynamic(`service_${item.id}.title`);
+    } else if (tDynamic.has(`${item.id}.title`)) {
+      title = tDynamic(`${item.id}.title`);
+    }
+
+    return { title };
+  };
   const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -226,8 +248,8 @@ export const PaymentForm = ({
         metadata1: purchaseId,
         metadata2: formData.nombre_completo,
         items: cart.map((item: CartItem) => ({
-          name: item.titulo,
-          description: item.titulo,
+          name: getTranslatedItem(item).title,
+          description: getTranslatedItem(item).title,
           quantity: "1",
           price: parseFloat(item.precio).toFixed(2),
           tax: "0.00",
@@ -483,7 +505,7 @@ export const PaymentForm = ({
                   className="py-4 flex justify-between items-center text-sm"
                 >
                   <div>
-                    <p className="font-bold text-[#0D4B4D]">{item.titulo}</p>
+                    <p className="font-bold text-[#0D4B4D]">{getTranslatedItem(item).title}</p>
                     <span className="text-[10px] text-slate-400">
                       {t("patientLabel", {
                         name:

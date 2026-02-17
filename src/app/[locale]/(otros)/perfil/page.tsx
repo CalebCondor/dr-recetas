@@ -155,6 +155,7 @@ function PerfilContent() {
         },
       );
 
+
       if (!response.ok) throw new Error("Error fetching transactions");
 
       const data = await response.json();

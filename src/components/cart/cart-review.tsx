@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 
 import { CartItem } from "@/context/cart-context";
 
@@ -37,7 +37,65 @@ export const CartReview = ({
   onContinue,
 }: CartReviewProps) => {
   const t = useTranslations("Cart.Review");
+  const tServices = useTranslations("ServicesPage");
+  const tDynamic = useTranslations("DynamicServices");
+  const messages = useMessages();
+  const itemsMessages = (messages as any)?.ServicesPage?.Items || {};
   const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
+
+  const getTranslatedItem = (item: CartItem) => {
+    let title = item.titulo;
+    let category = item.categoria;
+
+    // Helper to find slug from messages if missing in item
+    const lookupSlug = item.slug || Object.keys(itemsMessages).find(key => key.endsWith(`-${item.id}`));
+
+    // Translate Title
+    // 1. Try by slug (static items)
+    if (lookupSlug && tServices.has(`Items.${lookupSlug}.title`)) {
+      title = tServices(`Items.${lookupSlug}.title`);
+    }
+    // 2. Try dynamic service fallback using ID (service_ID)
+    else if (tDynamic.has(`service_${item.id}.title`)) {
+      title = tDynamic(`service_${item.id}.title`);
+    }
+    // 3. Try legacy/direct ID match if any
+    else if (tDynamic.has(`${item.id}.title`)) {
+      title = tDynamic(`${item.id}.title`);
+    }
+
+    // Translate Category
+    const catMap: Record<string, string> = {
+      "citas-medicas": "citas-medicas",
+      "medical-appointments": "citas-medicas",
+      "consultas-medicas": "citas-medicas",
+      "certificados-medicos": "citas-medicas",
+      "ordenes-medicas": "lab",
+      "membresias": "membresia",
+      "memberships": "membresia",
+      "ordenes-de-laboratorio": "lab",
+      "lab-orders": "lab",
+      "laboratory-orders": "lab",
+      "otros": "otros",
+      "otros-servicios": "otros",
+      "other-services": "otros",
+      "others": "otros",
+      "para-el": "para-el",
+      "for-him": "para-el",
+      "para-ella": "para-ella",
+      "for-her": "para-ella",
+      "salud-y-bienestar": "otros"
+    };
+
+    const catNormalized = item.categoria?.toLowerCase().trim().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const catKey = catMap[catNormalized] || catNormalized;
+
+    if (tServices.has(`Categories.${catKey}.title`)) {
+      category = tServices(`Categories.${catKey}.title`);
+    }
+
+    return { title, category };
+  };
 
   const handleDeleteClick = (item: CartItem) => {
     setItemToDelete(item);
@@ -103,17 +161,17 @@ export const CartReview = ({
                       <div className="w-16 h-16 rounded-xl relative overflow-hidden shrink-0 border border-slate-100">
                         <Image
                           src={item.imagen}
-                          alt={item.titulo}
+                          alt={getTranslatedItem(item).title}
                           fill
                           className="object-cover"
                         />
                       </div>
                       <div>
                         <h3 className="font-bold text-[#0D4B4D]">
-                          {item.titulo}
+                          {getTranslatedItem(item).title}
                         </h3>
                         <p className="text-xs text-slate-400">
-                          {item.categoria}
+                          {getTranslatedItem(item).category}
                         </p>
                       </div>
                     </div>
@@ -127,7 +185,7 @@ export const CartReview = ({
                     <button
                       onClick={() => handleDeleteClick(item)}
                       className="p-2 text-slate-300 hover:text-red-500 transition-colors"
-                      aria-label={t("table.delete", { name: item.titulo })}
+                      aria-label={t("table.delete", { name: getTranslatedItem(item).title })}
                     >
                       <RiDeleteBin6Line size={18} />
                     </button>
@@ -170,7 +228,7 @@ export const CartReview = ({
             </AlertDialogTitle>
             <AlertDialogDescription className="text-slate-600 text-base">
               {t.rich("deleteDialog.description", {
-                name: (chunks) => <span className="font-bold text-[#0D4B4D]">{itemToDelete?.titulo}</span>
+                name: (chunks) => <span className="font-bold text-[#0D4B4D]">{itemToDelete ? getTranslatedItem(itemToDelete).title : ""}</span>
               })}
             </AlertDialogDescription>
           </AlertDialogHeader>
