@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   User,
   Mail,
@@ -41,6 +42,7 @@ export function ProfileInfoForm({
   isUpdatingProfile,
   handleUpdateProfile,
 }: ProfileInfoFormProps) {
+  const t = useTranslations("Profile.InfoForm");
   useEffect(() => {
     const fetchUploads = async () => {
       try {
@@ -85,10 +87,10 @@ export function ProfileInfoForm({
     <Card className="border-slate-100 shadow-xl shadow-slate-200/50 rounded-3xl overflow-hidden border-none">
       <CardHeader className="bg-white border-b border-slate-50 px-8 py-6">
         <CardTitle className="text-xl font-bold text-[#0D4B4D]">
-          Editar Perfil
+          {t("title")}
         </CardTitle>
         <CardDescription className="text-slate-400 font-medium">
-          Mantén tu información actualizada para una mejor experiencia.
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-8">
@@ -98,7 +100,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <User className="w-3.5 h-3.5 text-slate-400" />
-                Nombre y Apellido
+                {t("fields.name.label")}
               </label>
               <Input
                 value={formData.us_nombres}
@@ -109,7 +111,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="Tu nombre completo"
+                placeholder={t("fields.name.placeholder")}
               />
             </div>
 
@@ -117,7 +119,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-slate-400" />
-                Correo Electrónico
+                {t("fields.email.label")}
               </label>
               <Input
                 type="email"
@@ -129,7 +131,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="ejemplo@correo.com"
+                placeholder={t("fields.email.placeholder")}
               />
             </div>
 
@@ -137,7 +139,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-slate-400" />
-                Teléfono
+                {t("fields.phone.label")}
               </label>
               <Input
                 value={formData.us_telefono}
@@ -148,7 +150,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="+57 300 000 0000"
+                placeholder={t("fields.phone.placeholder")}
               />
             </div>
 
@@ -156,7 +158,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                Fecha de Nacimiento
+                {t("fields.birthdate.label")}
               </label>
               <Input
                 type="date"
@@ -175,7 +177,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-slate-400" />
-                Ciudad
+                {t("fields.city.label")}
               </label>
               <Input
                 value={formData.us_ciudad}
@@ -186,7 +188,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="Tu ciudad"
+                placeholder={t("fields.city.placeholder")}
               />
             </div>
 
@@ -194,7 +196,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-slate-400" />
-                País
+                {t("fields.country.label")}
               </label>
               <Input
                 value={formData.us_pais}
@@ -205,7 +207,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="Tu país"
+                placeholder={t("fields.country.placeholder")}
               />
             </div>
 
@@ -213,7 +215,7 @@ export function ProfileInfoForm({
             <div className="space-y-2 md:col-span-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                Dirección
+                {t("fields.address.label")}
               </label>
               <Input
                 value={formData.us_direccion}
@@ -224,7 +226,7 @@ export function ProfileInfoForm({
                   })
                 }
                 className="h-12 rounded-xl bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium"
-                placeholder="Dirección completa"
+                placeholder={t("fields.address.placeholder")}
               />
             </div>
 
@@ -232,7 +234,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <Hash className="w-3.5 h-3.5 text-slate-400" />
-                Código Postal
+                {t("fields.postalCode.label")}
               </label>
               <Input
                 value={formData.us_code_postal}
@@ -251,7 +253,7 @@ export function ProfileInfoForm({
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                Nueva Contraseña (opcional)
+                {t("fields.password.label")}
               </label>
               <Input
                 type="password"
@@ -271,7 +273,7 @@ export function ProfileInfoForm({
             <div className="space-y-4 md:col-span-2 border-t border-slate-100 pt-6 mt-2">
               <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
                 <FileText className="w-3.5 h-3.5 text-slate-400" />
-                Documento de Identificación
+                {t("fields.idDocument.label")}
               </label>
 
               <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 transition-all hover:bg-slate-50/50 hover:border-[#0D4B4D]/30 group">
@@ -312,12 +314,12 @@ export function ProfileInfoForm({
                       <p className="font-bold text-slate-700 truncate text-sm">
                         {formData.archivo
                           ? formData.archivo.name
-                          : "Archivo actual"}
+                          : t("fields.idDocument.currentFile")}
                       </p>
                       <p className="text-xs text-slate-500 mt-0.5">
                         {formData.archivo
                           ? `${(formData.archivo.size / 1024).toFixed(1)} KB`
-                          : "Documento guardado"}
+                          : t("fields.idDocument.savedDocument")}
                       </p>
                     </div>
 
@@ -333,14 +335,12 @@ export function ProfileInfoForm({
                             if (
                               !["image/png", "image/jpeg"].includes(file.type)
                             ) {
-                              toast.error(
-                                "Solo se permiten archivos PNG o JPEG",
-                              );
+                              toast.error(t("errors.invalidFileType"));
                               e.target.value = "";
                               return;
                             }
                             if (file.size > 5 * 1024 * 1024) {
-                              toast.error("El archivo no debe superar los 5MB");
+                              toast.error(t("errors.fileTooLarge"));
                               e.target.value = "";
                               return;
                             }
@@ -356,7 +356,7 @@ export function ProfileInfoForm({
                         }
                         className="h-9 px-3 rounded-lg text-xs font-bold border-slate-200 text-slate-600 hover:text-[#0D4B4D] hover:bg-white"
                       >
-                        Cambiar
+                        {t("fields.idDocument.change")}
                       </Button>
                       {(formData.archivo || formData.archivo_url) && (
                         <Button
@@ -383,10 +383,10 @@ export function ProfileInfoForm({
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-bold text-slate-700">
-                        Sube tu identificación
+                        {t("fields.idDocument.uploadTitle")}
                       </p>
                       <p className="text-xs text-slate-400">
-                        Formatos: JPG o PNG (Máx 5MB)
+                        {t("fields.idDocument.uploadHint")}
                       </p>
                     </div>
                     <input
@@ -400,12 +400,12 @@ export function ProfileInfoForm({
                           if (
                             !["image/png", "image/jpeg"].includes(file.type)
                           ) {
-                            toast.error("Solo se permiten archivos PNG o JPEG");
+                            toast.error(t("errors.invalidFileType"));
                             e.target.value = "";
                             return;
                           }
                           if (file.size > 5 * 1024 * 1024) {
-                            toast.error("El archivo no debe superar los 5MB");
+                            toast.error(t("errors.fileTooLarge"));
                             e.target.value = "";
                             return;
                           }
@@ -421,7 +421,7 @@ export function ProfileInfoForm({
                       variant="outline"
                       className="h-9 rounded-lg border-[#0D4B4D]/20 text-[#0D4B4D] hover:bg-[#0D4B4D] hover:text-white font-bold text-xs"
                     >
-                      Seleccionar Archivo
+                      {t("fields.idDocument.selectFile")}
                     </Button>
                   </div>
                 )}
@@ -438,10 +438,10 @@ export function ProfileInfoForm({
               {isUpdatingProfile ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Actualizando...
+                  {t("buttons.updating")}
                 </>
               ) : (
-                "Actualizar Información"
+                t("buttons.update")
               )}
             </Button>
           </div>

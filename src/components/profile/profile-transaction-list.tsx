@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import {
@@ -41,6 +42,7 @@ export function ProfileTransactionList({
   transactions,
   isLoading,
 }: ProfileTransactionListProps) {
+  const t = useTranslations("Profile.TransactionsList");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleExpand = (id: string) => {
@@ -73,11 +75,10 @@ export function ProfileTransactionList({
           <RiMoneyDollarCircleLine className="w-10 h-10 text-slate-300" />
         </div>
         <h3 className="text-xl font-bold text-slate-900 mb-2">
-          No hay transacciones
+          {t("empty.title")}
         </h3>
         <p className="text-slate-500 max-w-sm mx-auto">
-          Aún no has realizado ningún pago. Tu historial de transacciones
-          aparecerá aquí.
+          {t("empty.description")}
         </p>
       </div>
     );
@@ -121,7 +122,7 @@ export function ProfileTransactionList({
                     <h3 className="font-bold text-slate-900 text-sm sm:text-lg truncate leading-tight">
                       {transaction.transaction_id
                         ? `#${transaction.transaction_id}`
-                        : "Transacción"}
+                        : t("transaction")}
                     </h3>
                   </div>
 
@@ -134,7 +135,7 @@ export function ProfileTransactionList({
                     </span>
                     <span className="text-slate-300">•</span>
                     <span className="capitalize">
-                      {transaction.metodo || "Tarjeta"}
+                      {transaction.metodo || t("method")}
                     </span>
                   </div>
 
@@ -187,7 +188,7 @@ export function ProfileTransactionList({
                 <div className="p-6 pt-4 space-y-4">
                   <div className="flex items-center gap-2 text-sm font-bold text-slate-700 uppercase tracking-widest pl-1">
                     <RiFileList2Line className="text-[#0D4B4D]" />
-                    Detalle de la Orden
+                    {t("orderDetail")}
                   </div>
 
                   <div className="grid gap-3">
@@ -201,14 +202,14 @@ export function ProfileTransactionList({
                             {item.titulo}
                           </p>
                           <p className="text-slate-500 text-xs font-medium">
-                            Paciente:{" "}
+                            {t("patient")}:{" "}
                             <span className="text-slate-700">
                               {item.a_nombre_de}
                             </span>
                           </p>
                           {item.fecha_servicio && (
                             <p className="text-slate-400 text-xs mt-1">
-                              Servicio: {item.fecha_servicio}
+                              {t("service")}: {item.fecha_servicio}
                             </p>
                           )}
                         </div>
@@ -221,13 +222,13 @@ export function ProfileTransactionList({
 
                   <div className="flex justify-between items-center pt-2 text-xs text-slate-400 font-medium px-1">
                     <span>
-                      Código de Referencia:{" "}
+                      {t("referenceCode")}:{" "}
                       <span className="font-mono text-slate-600">
                         {transaction.cp_code}
                       </span>
                     </span>
                     {transaction.items.length > 1 && (
-                      <span>{transaction.items.length} artículos</span>
+                      <span>{transaction.items.length} {t("items")}</span>
                     )}
                   </div>
                 </div>

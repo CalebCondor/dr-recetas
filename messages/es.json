@@ -581,5 +581,124 @@
       "sessionRequired": "Sesión requerida. Debes iniciar sesión para ver tu carrito.",
       "paymentSuccess": "Pago exitoso. Su orden ha sido procesada."
     }
+  },
+  "Profile": {
+    "Page": {
+      "loading": "Cargando perfil...",
+      "verifiedUser": "Usuario Verificado",
+      "tabs": {
+        "info": "Información",
+        "infoShort": "Info",
+        "orders": "Mis Órdenes",
+        "ordersShort": "Órdenes",
+        "history": "Historial Pagos",
+        "historyShort": "Pagos"
+      },
+      "suspenseLoading": "Cargando...",
+      "toast": {
+        "updating": "Actualizando tu información...",
+        "success": "¡Perfil actualizado correctamente!",
+        "error": "No se pudo actualizar el perfil"
+      },
+      "errors": {
+        "serverError": "Error del servidor ({status})",
+        "emptyResponse": "Respuesta vacía del servidor",
+        "updateError": "Error al actualizar"
+      }
+    },
+    "InfoForm": {
+      "title": "Editar Perfil",
+      "description": "Mantén tu información actualizada para una mejor experiencia.",
+      "fields": {
+        "name": {
+          "label": "Nombre y Apellido",
+          "placeholder": "Tu nombre completo"
+        },
+        "email": {
+          "label": "Correo Electrónico",
+          "placeholder": "ejemplo@correo.com"
+        },
+        "phone": {
+          "label": "Teléfono",
+          "placeholder": "+57 300 000 0000"
+        },
+        "birthdate": {
+          "label": "Fecha de Nacimiento"
+        },
+        "city": {
+          "label": "Ciudad",
+          "placeholder": "Tu ciudad"
+        },
+        "country": {
+          "label": "País",
+          "placeholder": "Tu país"
+        },
+        "address": {
+          "label": "Dirección",
+          "placeholder": "Dirección completa"
+        },
+        "postalCode": {
+          "label": "Código Postal",
+          "placeholder": "000000"
+        },
+        "password": {
+          "label": "Nueva Contraseña (opcional)",
+          "placeholder": "••••••••"
+        },
+        "idDocument": {
+          "label": "Documento de Identificación",
+          "currentFile": "Archivo actual",
+          "savedDocument": "Documento guardado",
+          "change": "Cambiar",
+          "uploadTitle": "Sube tu identificación",
+          "uploadHint": "Formatos: JPG o PNG (Máx 5MB)",
+          "selectFile": "Seleccionar Archivo"
+        }
+      },
+      "errors": {
+        "invalidFileType": "Solo se permiten archivos PNG o JPEG",
+        "fileTooLarge": "El archivo no debe superar los 5MB"
+      },
+      "buttons": {
+        "update": "Actualizar Información",
+        "updating": "Actualizando..."
+      }
+    },
+    "OrdersList": {
+      "loading": "Cargando tus pedidos...",
+      "empty": {
+        "title": "Aún no tienes órdenes",
+        "description": "Parece que todavía no has realizado ninguna compra. ¡Explora nuestros servicios y comienza hoy!",
+        "button": "Explorar Servicios"
+      },
+      "orderId": "Orden ID",
+      "status": {
+        "paid": "Pagado",
+        "pending": "En Proceso",
+        "readyToDownload": "Listo para descargar",
+        "pendingPayment": "Pendiente de pago"
+      },
+      "viewDetails": "Ver detalles",
+      "closeDetails": "Cerrar detalles",
+      "mainDocumentation": "Documentación Principal",
+      "medicalOrder": "Orden Médica PDF",
+      "officialValidation": "Validación Oficial Dr.Recetas",
+      "specificResults": "Resultados Específicos",
+      "pdfLoading": "Cargando PDF...",
+      "pdfTitle": "Orden Médica PDF"
+    },
+    "TransactionsList": {
+      "empty": {
+        "title": "No hay transacciones",
+        "description": "Aún no has realizado ningún pago. Tu historial de transacciones aparecerá aquí."
+      },
+      "transaction": "Transacción",
+      "method": "Tarjeta",
+      "orderDetail": "Detalle de la Orden",
+      "patient": "Paciente",
+      "service": "Servicio",
+      "referenceCode": "Código de Referencia",
+      "items": "artículos"
+    }
   }
 }

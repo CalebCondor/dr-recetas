@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Package,
   Loader2,
@@ -47,6 +48,7 @@ export function ProfileOrdersList({
   expandedOrderId,
   setExpandedOrderId,
 }: ProfileOrdersListProps) {
+  const t = useTranslations("Profile.OrdersList");
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
 
   // Helper to extract nested or prefixed fields from API responses
@@ -80,7 +82,7 @@ export function ProfileOrdersList({
       <div className="bg-white rounded-3xl p-12 flex flex-col items-center justify-center space-y-4 border border-slate-100 shadow-sm">
         <Loader2 className="w-8 h-8 text-[#0D4B4D] animate-spin" />
         <p className="text-slate-400 font-bold tracking-tight">
-          Cargando tus pedidos...
+          {t("loading")}
         </p>
       </div>
     );
@@ -94,18 +96,17 @@ export function ProfileOrdersList({
         </div>
         <div className="space-y-2">
           <h3 className="text-xl font-bold text-slate-900 tracking-tight">
-            Aún no tienes órdenes
+            {t("empty.title")}
           </h3>
           <p className="text-slate-500 max-w-sm font-medium text-sm leading-relaxed">
-            Parece que todavía no has realizado ninguna compra. ¡Explora
-            nuestros servicios y comienza hoy!
+            {t("empty.description")}
           </p>
         </div>
         <Button
           onClick={onViewServices}
           className="bg-[#0D4B4D] hover:bg-[#093638] text-white px-8 py-6 rounded-2xl font-bold shadow-lg shadow-[#0D4B4D]/20 transition-all active:scale-95 h-auto text-sm"
         >
-          Explorar Servicios
+          {t("empty.button")}
         </Button>
       </div>
     );
@@ -126,11 +127,10 @@ export function ProfileOrdersList({
           return (
             <Card
               key={`order-${uniqueId}`}
-              className={`border-none transition-all duration-300 rounded-[2rem] overflow-hidden ${
-                isExpanded
-                  ? "ring-2 ring-[#0D4B4D] shadow-2xl shadow-[#0D4B4D]/10 translate-y-[-2px]"
-                  : "shadow-lg shadow-slate-200/60 hover:shadow-xl hover:shadow-slate-200/80 hover:translate-y-[-2px]"
-              }`}
+              className={`border-none transition-all duration-300 rounded-[2rem] overflow-hidden ${isExpanded
+                ? "ring-2 ring-[#0D4B4D] shadow-2xl shadow-[#0D4B4D]/10 translate-y-[-2px]"
+                : "shadow-lg shadow-slate-200/60 hover:shadow-xl hover:shadow-slate-200/80 hover:translate-y-[-2px]"
+                }`}
             >
               <CardContent className="p-0">
                 <button
@@ -143,11 +143,10 @@ export function ProfileOrdersList({
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0 ${
-                          isExpanded
-                            ? "bg-[#0D4B4D] text-white"
-                            : "bg-slate-100 text-[#0D4B4D]"
-                        }`}
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0 ${isExpanded
+                          ? "bg-[#0D4B4D] text-white"
+                          : "bg-slate-100 text-[#0D4B4D]"
+                          }`}
                       >
                         {isExpanded ? (
                           <Check className="w-5 h-5" />
@@ -157,7 +156,7 @@ export function ProfileOrdersList({
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">
-                          Orden ID
+                          {t("orderId")}
                         </span>
                         <span className="text-sm font-bold text-slate-900 leading-none">
                           #{orderId}
@@ -165,13 +164,12 @@ export function ProfileOrdersList({
                       </div>
                     </div>
                     <Badge
-                      className={`rounded-full px-3 py-1 font-bold text-[10px] uppercase border-none tracking-wider ${
-                        isPaid
-                          ? "bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100"
-                          : "bg-amber-50 text-amber-600 shadow-sm shadow-amber-100"
-                      }`}
+                      className={`rounded-full px-3 py-1 font-bold text-[10px] uppercase border-none tracking-wider ${isPaid
+                        ? "bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100"
+                        : "bg-amber-50 text-amber-600 shadow-sm shadow-amber-100"
+                        }`}
                     >
-                      {status || "En Proceso"}
+                      {status || t("status.pending")}
                     </Badge>
                   </div>
 
@@ -180,8 +178,8 @@ export function ProfileOrdersList({
                     <h4 className="text-lg md:text-xl font-extrabold text-[#0D4B4D] leading-tight tracking-tight">
                       {String(
                         getOrderField(order, "titulo") ||
-                          getOrderField(order, "nombre") ||
-                          "Pedido Sin Nombre",
+                        getOrderField(order, "nombre") ||
+                        "Pedido Sin Nombre",
                       )}
                     </h4>
                     <div className="flex items-center gap-3 text-slate-400">
@@ -199,10 +197,10 @@ export function ProfileOrdersList({
                             return isNaN(date.getTime())
                               ? rawDate
                               : date.toLocaleDateString("es-ES", {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "numeric",
-                                });
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                              });
                           })()}
                         </span>
                       </div>
@@ -214,12 +212,12 @@ export function ProfileOrdersList({
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">
-                        {isPaid ? "Listo para descargar" : "Pendiente de pago"}
+                        {isPaid ? t("status.readyToDownload") : t("status.pendingPayment")}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-[#0D4B4D] group">
                       <span className="text-xs font-bold transition-transform group-hover:translate-x-1">
-                        {isExpanded ? "Cerrar detalles" : "Ver detalles"}
+                        {isExpanded ? t("closeDetails") : t("viewDetails")}
                       </span>
                       <div
                         className={`transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
@@ -238,7 +236,7 @@ export function ProfileOrdersList({
                       <div className="space-y-4">
                         <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 mb-4">
                           <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D]" />
-                          Documentación Principal
+                          {t("mainDocumentation")}
                         </h5>
                         <div className="group relative">
                           <div className="absolute -inset-0.5 bg-linear-to-r from-emerald-500 to-[#0D4B4D] rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
@@ -254,10 +252,10 @@ export function ProfileOrdersList({
                               </div>
                               <div className="text-left space-y-0.5">
                                 <p className="font-bold text-sm">
-                                  Orden Médica PDF
+                                  {t("medicalOrder")}
                                 </p>
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
-                                  Validación Oficial Dr.Recetas
+                                  {t("officialValidation")}
                                 </p>
                               </div>
                             </span>
@@ -271,7 +269,7 @@ export function ProfileOrdersList({
                         <div className="space-y-4">
                           <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 mb-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#0D4B4D]" />
-                            Resultados Específicos ({order.url_paquetes.length})
+                            {t("specificResults")} ({order.url_paquetes.length})
                           </h5>
                           <div className="grid grid-cols-1 gap-3 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
                             {order.url_paquetes.map((pkg, pIdx) => (
@@ -312,7 +310,7 @@ export function ProfileOrdersList({
       >
         <DialogContent className="max-w-4xl w-[calc(100%-2rem)] sm:w-full h-[95vh] sm:h-[90vh] p-0 border-0 flex flex-col">
           <DialogHeader className="px-6 pt-6 pb-0 shrink-0">
-            <DialogTitle>Orden Médica PDF</DialogTitle>
+            <DialogTitle>{t("pdfTitle")}</DialogTitle>
           </DialogHeader>
           {selectedPdfUrl ? (
             <PdfViewer

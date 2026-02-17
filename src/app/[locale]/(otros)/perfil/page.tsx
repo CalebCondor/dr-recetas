@@ -6,6 +6,7 @@ import { User, Package, ShieldCheck, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { PageWrapper } from "@/components/page-wrapper";
 import { ProfileInfoForm } from "@/components/profile/profile-info-form";
 import { ProfileOrdersList } from "@/components/profile/profile-orders-list";
@@ -16,6 +17,7 @@ import {
 } from "@/components/profile/profile-transaction-list";
 
 function PerfilContent() {
+  const t = useTranslations("Profile.Page");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [user, setUser] = useState<UserData | null>(null);
@@ -257,12 +259,12 @@ function PerfilContent() {
 
         if (!response.ok) {
           const errorMessage =
-            data?.message || `Error del servidor (${response.status})`;
+            data?.message || t("errors.serverError", { status: response.status });
           throw new Error(errorMessage);
         }
 
         if (!data) {
-          throw new Error("Respuesta vacía del servidor");
+          throw new Error(t("errors.emptyResponse"));
         }
 
         if (data.success) {
@@ -287,7 +289,7 @@ function PerfilContent() {
 
           resolve(data);
         } else {
-          reject(new Error(data.message || "Error al actualizar"));
+          reject(new Error(data.message || t("errors.updateError")));
         }
       } catch (error) {
         reject(error);
@@ -295,9 +297,9 @@ function PerfilContent() {
     });
 
     toast.promise(updatePromise, {
-      loading: "Actualizando tu información...",
-      success: "¡Perfil actualizado correctamente!",
-      error: (err: Error) => err.message || "No se pudo actualizar el perfil",
+      loading: t("toast.updating"),
+      success: t("toast.success"),
+      error: (err: Error) => err.message || t("toast.error"),
     });
 
     try {
@@ -315,7 +317,7 @@ function PerfilContent() {
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="w-10 h-10 text-[#0D4B4D] animate-spin" />
           <p className="text-slate-400 font-bold animate-pulse">
-            Cargando perfil...
+            {t("loading")}
           </p>
         </div>
       </div>
@@ -345,7 +347,7 @@ function PerfilContent() {
                   </Badge>
                   <div className="flex items-center gap-1.5 text-slate-400 text-sm font-medium">
                     <ShieldCheck className="w-4 h-4 text-[#0D4B4D]" />
-                    Usuario Verificado
+                    {t("verifiedUser")}
                   </div>
                 </div>
               </div>
@@ -365,24 +367,24 @@ function PerfilContent() {
                   className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
                 >
                   <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="sm:hidden">Info</span>
-                  <span className="hidden sm:inline">Información</span>
+                  <span className="sm:hidden">{t("tabs.infoShort")}</span>
+                  <span className="hidden sm:inline">{t("tabs.info")}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="orders"
                   className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
                 >
                   <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="sm:hidden">Órdenes</span>
-                  <span className="hidden sm:inline">Mis Órdenes</span>
+                  <span className="sm:hidden">{t("tabs.ordersShort")}</span>
+                  <span className="hidden sm:inline">{t("tabs.orders")}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="history"
                   className="rounded-lg sm:rounded-xl px-2 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-500 data-[state=active]:bg-white data-[state=active]:text-[#0D4B4D] data-[state=active]:shadow-sm transition-all gap-1.5 sm:gap-2 flex items-center justify-center"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="sm:hidden">Pagos</span>
-                  <span className="hidden sm:inline">Historial Pagos</span>
+                  <span className="sm:hidden">{t("tabs.historyShort")}</span>
+                  <span className="hidden sm:inline">{t("tabs.history")}</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -420,6 +422,7 @@ function PerfilContent() {
 }
 
 export default function PerfilPage() {
+  const t = useTranslations("Profile.Page");
   return (
     <Suspense
       fallback={
@@ -427,7 +430,7 @@ export default function PerfilPage() {
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="w-10 h-10 text-[#0D4B4D] animate-spin" />
             <p className="text-slate-400 font-bold animate-pulse">
-              Cargando...
+              {t("suspenseLoading")}
             </p>
           </div>
         </div>

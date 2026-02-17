@@ -581,5 +581,124 @@
       "sessionRequired": "Session required. You must log in to view your cart.",
       "paymentSuccess": "Payment successful. Your order has been processed."
     }
+  },
+  "Profile": {
+    "Page": {
+      "loading": "Loading profile...",
+      "verifiedUser": "Verified User",
+      "tabs": {
+        "info": "Information",
+        "infoShort": "Info",
+        "orders": "My Orders",
+        "ordersShort": "Orders",
+        "history": "Payment History",
+        "historyShort": "Payments"
+      },
+      "suspenseLoading": "Loading...",
+      "toast": {
+        "updating": "Updating your information...",
+        "success": "Profile updated successfully!",
+        "error": "Could not update profile"
+      },
+      "errors": {
+        "serverError": "Server error ({status})",
+        "emptyResponse": "Empty server response",
+        "updateError": "Update failed"
+      }
+    },
+    "InfoForm": {
+      "title": "Edit Profile",
+      "description": "Keep your information up to date for a better experience.",
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "Your full name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@email.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+1 300 000 0000"
+        },
+        "birthdate": {
+          "label": "Date of Birth"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Your city"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": "Your country"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Full address"
+        },
+        "postalCode": {
+          "label": "Postal Code",
+          "placeholder": "000000"
+        },
+        "password": {
+          "label": "New Password (optional)",
+          "placeholder": "••••••••"
+        },
+        "idDocument": {
+          "label": "ID Document",
+          "currentFile": "Current file",
+          "savedDocument": "Saved document",
+          "change": "Change",
+          "uploadTitle": "Upload your ID",
+          "uploadHint": "Formats: JPG or PNG (Max 5MB)",
+          "selectFile": "Select File"
+        }
+      },
+      "errors": {
+        "invalidFileType": "Only PNG or JPEG files are allowed",
+        "fileTooLarge": "File must not exceed 5MB"
+      },
+      "buttons": {
+        "update": "Update Information",
+        "updating": "Updating..."
+      }
+    },
+    "OrdersList": {
+      "loading": "Loading your orders...",
+      "empty": {
+        "title": "You don't have any orders yet",
+        "description": "It looks like you haven't made any purchases yet. Explore our services and get started today!",
+        "button": "Explore Services"
+      },
+      "orderId": "Order ID",
+      "status": {
+        "paid": "Paid",
+        "pending": "In Process",
+        "readyToDownload": "Ready to download",
+        "pendingPayment": "Pending payment"
+      },
+      "viewDetails": "View details",
+      "closeDetails": "Close details",
+      "mainDocumentation": "Main Documentation",
+      "medicalOrder": "Medical Order PDF",
+      "officialValidation": "Official Dr.Recetas Validation",
+      "specificResults": "Specific Results",
+      "pdfLoading": "Loading PDF...",
+      "pdfTitle": "Medical Order PDF"
+    },
+    "TransactionsList": {
+      "empty": {
+        "title": "No transactions",
+        "description": "You haven't made any payments yet. Your transaction history will appear here."
+      },
+      "transaction": "Transaction",
+      "method": "Card",
+      "orderDetail": "Order Detail",
+      "patient": "Patient",
+      "service": "Service",
+      "referenceCode": "Reference Code",
+      "items": "items"
+    }
   }
 }
