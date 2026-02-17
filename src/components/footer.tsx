@@ -124,44 +124,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter Section */}
-        <div className="col-span-2 md:col-span-1 border-t border-white/10 pt-12 md:border-none md:pt-0">
-          <h3 className="text-xl font-bold mb-6">{t("Newsletter.title")}</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <input
-                type="text"
-                name="firstName"
-                placeholder={t("Newsletter.first_name")}
-                value={formData.firstName}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-full bg-white/30 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder={t("Newsletter.last_name")}
-                value={formData.lastName}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-full bg-white/30 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-            </div>
-            <input
-              type="email"
-              name="email"
-              placeholder={t("Newsletter.email")}
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 rounded-full bg-white/30 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-            />
-            <Button
-              type="submit"
-              className="w-full bg-white text-[#4ECDC4] font-semibold py-3 rounded-full hover:bg-white/90 transition-colors"
-            >
-              {t("Newsletter.button")}
-            </Button>
-          </form>
-        </div>
+
       </div>
 
       {/* Bottom Section */}

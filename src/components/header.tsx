@@ -375,6 +375,63 @@ export default function Header() {
         </nav>
 
         <div className="flex md:hidden items-center gap-2">
+          {/* Language Dropdown Mobile */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`relative flex items-center justify-center w-10 h-10 rounded-xl backdrop-blur-md transition-all active:scale-95 group ${buttonBg}`}
+              >
+                <div className="relative w-6 h-4 overflow-hidden rounded-sm">
+                  <Image
+                    src={locale === "es" ? "/puerto-rico.svg" : "/usa.svg"}
+                    alt={locale === "es" ? "PR" : "USA"}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-[150px] rounded-xl">
+              <DropdownMenuItem
+                className="flex items-center justify-between font-bold cursor-pointer"
+                onClick={() => handleLanguageChange("es")}
+              >
+                <span className="flex items-center gap-2">
+                  <div className="relative w-5 h-3.5 overflow-hidden rounded-sm">
+                    <img
+                      src="/puerto-rico.svg"
+                      alt="Puerto Rico"
+                      className="object-cover"
+                    />
+                  </div>
+                  Español
+                </span>
+                {locale === "es" && (
+                  <Check className="w-4 h-4 text-[#0D4B4D]" />
+                )}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="flex items-center justify-between font-bold cursor-pointer"
+                onClick={() => handleLanguageChange("en")}
+              >
+                <span className="flex items-center gap-2">
+                  <div className="relative w-5 h-3.5 overflow-hidden rounded-sm">
+                    <Image
+                      src="/usa.svg"
+                      alt="English"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  English
+                </span>
+                {locale === "en" && (
+                  <Check className="w-4 h-4 text-[#0D4B4D]" />
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Cart Button Mobile */}
           <Link href="/carrito">
             <button

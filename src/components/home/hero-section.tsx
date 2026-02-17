@@ -109,7 +109,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-slate-900"
+      className="relative w-full min-h-screen md:min-h-[800px] lg:min-h-[850px] flex items-start md:items-center justify-center overflow-hidden bg-slate-900"
     >
       {/* Video Background Container */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D4B4D]">
@@ -127,9 +127,8 @@ export default function Hero() {
           playsInline
           preload="auto"
           onPlaying={() => setVideoReady(true)}
-          className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
-            videoReady ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"
+            }`}
           style={{ filter: "brightness(0.80) contrast(1.15)" }}
         >
           <source src="/video_fondo.mp4" type="video/mp4" />
@@ -140,8 +139,8 @@ export default function Hero() {
         <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-white/5" />
       </div>
 
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-12 lg:py-16">
-        <div className="flex-1 w-full max-w-4xl sm:mt-10">
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 xl:gap-40 text-center lg:text-left pt-14 md:pt-16 lg:py-16">
+        <div className="flex-1 w-full max-w-4xl mt-6 lg:mt-10">
           <h1 className="text-[2.6rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-bold text-white mb-4 lg:mb-10 tracking-tight text-balance drop-shadow-sm font-helvetica">
             {t("title")}
             <br />
@@ -212,10 +211,9 @@ export default function Hero() {
                             relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
                             transition-all duration-500 flex flex-col justify-center min-h-[70px]
                             font-helvetica
-                            ${
-                              isActive
-                                ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                                : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
+                            ${isActive
+                              ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
+                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
                             }
                           `}
                           style={{
@@ -241,10 +239,9 @@ export default function Hero() {
                             <div
                               className={`
                                 shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
-                                ${
-                                  isActive
-                                    ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
-                                    : "bg-white/10 text-white/90"
+                                ${isActive
+                                  ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
+                                  : "bg-white/10 text-white/90"
                                 }
                               `}
                             >
@@ -253,10 +250,9 @@ export default function Hero() {
                             <p
                               className={`
                                 text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
-                                ${
-                                  isActive
-                                    ? "text-white scale-[1.02] translate-x-1"
-                                    : "text-white"
+                                ${isActive
+                                  ? "text-white scale-[1.02] translate-x-1"
+                                  : "text-white"
                                 }
                               `}
                             >
