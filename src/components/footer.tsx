@@ -35,7 +35,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white">
+    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white" id="footer">
       {/* Top Section with Logo and Social Icons */}
       <div className="w-full mx-auto px-6 md:px-12 lg:px-[5%] pt-12 pb-8 flex justify-between items-start">
         <div className="flex items-center gap-3">

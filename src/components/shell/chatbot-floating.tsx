@@ -42,18 +42,18 @@ export function ChatbotFloating() {
     const chatbotElement = document.getElementById("chatbot");
     const heroElement = document.getElementById("hero");
     const homeElement = document.getElementById("home");
-    const carritoElement = document.getElementById("carrito");
+    const footerElement = document.getElementById("footer");
 
     if (chatbotElement) observer.observe(chatbotElement);
     if (heroElement) observer.observe(heroElement);
     if (homeElement) observer.observe(homeElement);
-    if (carritoElement) observer.observe(carritoElement);
+    if (footerElement) observer.observe(footerElement);
 
     return () => {
       if (chatbotElement) observer.unobserve(chatbotElement);
       if (heroElement) observer.unobserve(heroElement);
       if (homeElement) observer.unobserve(homeElement);
-      if (carritoElement) observer.unobserve(carritoElement);
+      if (footerElement) observer.unobserve(footerElement);
     };
   }, []);
 
