@@ -370,5 +370,76 @@
         "description": "Incluye cita, pruebas de laboratorio y receta."
       }
     }
+  },
+  "Auth": {
+    "Login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Ingresa tus datos para acceder a tu cuenta",
+      "username": "Usuario",
+      "usernamePlaceholder": "Ingresa tu usuario",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "loading": "Iniciando sesión...",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerNow": "Regístrate gratis",
+      "error": "Error al iniciar sesión",
+      "unexpectedError": "Ocurrió un error inesperado al intentar iniciar sesión"
+    },
+    "Register": {
+      "title": "Crea tu cuenta gratis",
+      "step1": "Paso 1: Datos Personales",
+      "step2": "Paso 2: Detalles de la Cuenta",
+      "name": "Nombre y Apellido",
+      "namePlaceholder": "Ej. Juan Pérez",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "(000) 000-0000",
+      "continue": "Continuar",
+      "region": "Región",
+      "municipality": "Municipio",
+      "municipalityPlaceholder": "Seleccionar",
+      "municipalityFirst": "Primero elija región",
+      "address": "Dirección",
+      "addressPlaceholder": "Calle, Número, Urbanización",
+      "username": "Usuario",
+      "usernamePlaceholder": "Nombre de usuario",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "terms": "Acepto los",
+      "termsLink": "Términos y Condiciones",
+      "submit": "Crear Cuenta",
+      "loading": "Creando cuenta...",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "loginNow": "Inicia sesión aquí",
+      "success": "Cuenta creada exitosamente",
+      "error": "Error al crear la cuenta",
+      "unexpectedError": "Ocurrió un error al intentar registrarse",
+      "validation": {
+        "nameRequired": "El nombre es obligatorio",
+        "emailInvalid": "Correo electrónico inválido",
+        "usernameRequired": "El usuario es obligatorio",
+        "passwordMin": "La contraseña debe tener al menos 6 caracteres"
+      },
+      "regions": {
+        "pr": "Puerto Rico",
+        "usa": "USA"
+      }
+    },
+    "Recovery": {
+      "title": "Recuperar Contraseña",
+      "subtitle": "Ingresa tu correo electrónico y te enviaremos las instrucciones",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "submit": "Enviar Correo",
+      "loading": "Enviando...",
+      "backToLogin": "Volver a Iniciar Sesión",
+      "successTitle": "¡Correo Enviado!",
+      "successSubtitle": "Hemos enviado las instrucciones de recuperación a:",
+      "error": "Error al solicitar recuperación",
+      "unexpectedError": "Ocurrió un error inesperado. Intente nuevamente."
+    }
   }
 }

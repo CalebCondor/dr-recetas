@@ -370,5 +370,76 @@
         "description": "Includes appointment, lab tests, and prescription."
       }
     }
+  },
+  "Auth": {
+    "Login": {
+      "title": "Welcome back",
+      "subtitle": "Enter your details to access your account",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Log In",
+      "loading": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "registerNow": "Register for free",
+      "error": "Error logging in",
+      "unexpectedError": "An unexpected error occurred while trying to log in"
+    },
+    "Register": {
+      "title": "Create your free account",
+      "step1": "Step 1: Personal Data",
+      "step2": "Step 2: Account Details",
+      "name": "Name and Last Name",
+      "namePlaceholder": "e.g. John Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "(000) 000-0000",
+      "continue": "Continue",
+      "region": "Region",
+      "municipality": "Municipality",
+      "municipalityPlaceholder": "Select",
+      "municipalityFirst": "Choose region first",
+      "address": "Address",
+      "addressPlaceholder": "Street, Number, Urbanization",
+      "username": "Username",
+      "usernamePlaceholder": "Username",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "terms": "I accept the",
+      "termsLink": "Terms and Conditions",
+      "submit": "Create Account",
+      "loading": "Creating account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginNow": "Log in here",
+      "success": "Account created successfully",
+      "error": "Error creating account",
+      "unexpectedError": "An error occurred while trying to register",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailInvalid": "Invalid email address",
+        "usernameRequired": "Username is required",
+        "passwordMin": "Password must be at least 6 characters"
+      },
+      "regions": {
+        "pr": "Puerto Rico",
+        "usa": "USA"
+      }
+    },
+    "Recovery": {
+      "title": "Recover Password",
+      "subtitle": "Enter your email address and we will send you the instructions",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send Email",
+      "loading": "Sending...",
+      "backToLogin": "Back to Login",
+      "successTitle": "Email Sent!",
+      "successSubtitle": "We have sent the recovery instructions to:",
+      "error": "Error requesting recovery",
+      "unexpectedError": "An unexpected error occurred. Please try again."
+    }
   }
 }

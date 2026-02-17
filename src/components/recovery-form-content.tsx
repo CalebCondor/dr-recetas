@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Mail, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface RecoveryFormContentProps {
   setView: (view: "login" | "register" | "recovery") => void;
 }
 
 export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
+  const t = useTranslations("Auth.Recovery");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,11 +40,11 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
       if (data.success) {
         setSuccess(true);
       } else {
-        setError(data.message || "Error al solicitar recuperación");
+        setError(data.message || t("error"));
       }
     } catch (err) {
       console.error("Error requesting recovery:", err);
-      setError("Ocurrió un error inesperado. Intente nuevamente.");
+      setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -57,11 +59,11 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
           </div>
           <SheetHeader>
             <SheetTitle className="text-3xl font-bold tracking-tight text-slate-900 text-center">
-              ¡Correo Enviado!
+              {t("successTitle")}
             </SheetTitle>
           </SheetHeader>
           <p className="text-slate-500 text-base max-w-xs mx-auto">
-            Hemos enviado las instrucciones de recuperación a: <br />
+            {t("successSubtitle")} <br />
             <span className="font-semibold text-slate-900">{email}</span>
           </p>
         </div>
@@ -70,7 +72,7 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
           onClick={() => setView("login")}
           className="w-full h-12 rounded-xl bg-[#0D4B4D] hover:bg-[#093638] text-white font-bold shadow-lg hover:shadow-xl transition-all"
         >
-          Volver a Iniciar Sesión
+          {t("backToLogin")}
         </Button>
       </div>
     );
@@ -84,11 +86,11 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
         </div>
         <SheetHeader>
           <SheetTitle className="text-3xl font-bold tracking-tight text-slate-900 text-center">
-            Recuperar Contraseña
+            {t("title")}
           </SheetTitle>
         </SheetHeader>
         <p className="text-slate-500 text-sm">
-          Ingresa tu correo electrónico y te enviaremos las instrucciones
+          {t("subtitle")}
         </p>
       </div>
 
@@ -103,7 +105,7 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
         <div className="space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-700 ml-1">
-              Correo Electrónico
+              {t("email")}
             </label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-[#0D4B4D] transition-colors" />
@@ -112,7 +114,7 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@ejemplo.com"
+                placeholder={t("emailPlaceholder")}
                 className="pl-12 h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-[#0D4B4D] focus-visible:ring-offset-0 transition-all"
               />
             </div>
@@ -124,7 +126,7 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
           disabled={isLoading}
           className="w-full h-12 rounded-xl bg-[#0D4B4D] hover:bg-[#093638] text-white font-bold shadow-lg hover:shadow-xl transition-all"
         >
-          {isLoading ? "Enviando..." : "Enviar Correo"}
+          {isLoading ? t("loading") : t("submit")}
         </Button>
 
         <Button
@@ -134,7 +136,7 @@ export function RecoveryFormContent({ setView }: RecoveryFormContentProps) {
           className="w-full h-12 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-medium"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Volver a Iniciar Sesión
+          {t("backToLogin")}
         </Button>
       </form>
     </div>
