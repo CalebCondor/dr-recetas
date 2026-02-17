@@ -16,6 +16,7 @@ import {
   ClipboardList,
   Receipt,
   Check,
+  Crown,
 } from "lucide-react";
 
 import { useState, useEffect } from "react";
@@ -43,6 +44,7 @@ interface UserData {
   us_id: string;
   us_nombres: string;
   token: string;
+  es_vip?: number | string;
 }
 
 const Shimmer = () => (
@@ -144,16 +146,14 @@ export default function Header() {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${
-        isScrolled || isHeaderDark
-          ? "bg-white/90 backdrop-blur-xl shadow-sm"
-          : "bg-transparent"
-      }`}
+      className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${isScrolled || isHeaderDark
+        ? "bg-white/90 backdrop-blur-xl shadow-sm"
+        : "bg-transparent"
+        }`}
     >
       <div
-        className={`w-full px-6 md:px-12 lg:px-[8%] flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? "py-4 lg:py-5" : "py-4 lg:py-10"
-        }`}
+        className={`w-full px-6 md:px-12 lg:px-[8%] flex items-center justify-between transition-all duration-300 ${isScrolled ? "py-4 lg:py-5" : "py-4 lg:py-10"
+          }`}
       >
         <Link href="/" prefetch={true}>
           <Image
@@ -249,11 +249,10 @@ export default function Header() {
                   />
                   {cart.length > 0 && (
                     <span
-                      className={`absolute -top-2.5 -right-2.5 w-4.5 h-4.5 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 animate-in zoom-in-50 duration-300 ${
-                        isScrolled || isHeaderDark
-                          ? "bg-[#0D4B4D] border-white"
-                          : "bg-[#0D4B4D] border-white/40"
-                      }`}
+                      className={`absolute -top-2.5 -right-2.5 w-4.5 h-4.5 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 animate-in zoom-in-50 duration-300 ${isScrolled || isHeaderDark
+                        ? "bg-[#0D4B4D] border-white"
+                        : "bg-[#0D4B4D] border-white/40"
+                        }`}
                     >
                       {cart.length}
                     </span>
@@ -269,27 +268,34 @@ export default function Header() {
                   >
                     <Shimmer />
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-inner relative z-10 ${
-                        isScrolled || isHeaderDark
-                          ? "bg-[#0D4B4D]"
-                          : "bg-white/20"
-                      }`}
+                      className={`w-7 h-7 relative rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-inner z-10 ${isScrolled || isHeaderDark
+                        ? "bg-[#0D4B4D]"
+                        : "bg-white/20"
+                        }`}
                     >
+                      {Number(user.es_vip) === 1 && (
+                        <div className="absolute -top-2 -right-2 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-0.5 border-2 border-white shadow-sm flex items-center justify-center">
+                          <Crown size={10} className="text-white fill-white" />
+                        </div>
+                      )}
                       {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
                     <span
-                      className={`text-xs font-bold hidden lg:block max-w-[100px] truncate relative z-10 ${
-                        isScrolled || isHeaderDark
-                          ? "text-slate-700"
-                          : "text-white"
-                      }`}
+                      className={`text-xs font-bold hidden lg:flex items-center gap-1.5 max-w-[150px] relative z-10 ${isScrolled || isHeaderDark
+                        ? "text-slate-700"
+                        : "text-white"
+                        }`}
                     >
-                      {user.us_nombres.split(" ")[0]}
+                      <span className="truncate">{user.us_nombres.split(" ")[0]}</span>
+                      {Number(user.es_vip) === 1 && (
+                        <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0">
+                          VIP
+                        </span>
+                      )}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 relative z-10 ${
-                        isMenuOpen ? "rotate-180" : ""
-                      } ${isScrolled || isHeaderDark ? "text-slate-400" : "text-white/70"}`}
+                      className={`w-4 h-4 transition-transform duration-200 relative z-10 ${isMenuOpen ? "rotate-180" : ""
+                        } ${isScrolled || isHeaderDark ? "text-slate-400" : "text-white/70"}`}
                     />
                   </button>
                 </DropdownMenuTrigger>
@@ -299,15 +305,25 @@ export default function Header() {
                 >
                   <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-3 px-3 py-3 text-left">
-                      <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
-                        <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
-                          {user.us_nombres.charAt(0).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-bold text-[#0D4B4D]">
-                          {user.us_nombres}
-                        </span>
+                      <div className="relative">
+                        <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
+                          <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
+                            {user.us_nombres.charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        {Number(user.es_vip) === 1 && (
+                          <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+                            <Crown size={12} className="text-white fill-white" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="grid flex-1 text-left text-sm leading-tight overflow-hidden">
+                        <div className="flex items-center justify-between gap-2 w-full">
+                          <span className="truncate font-bold text-[#0D4B4D]">
+                            {user.us_nombres}
+                          </span>
+
+                        </div>
                         <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
                           ID: {user.us_id}
                         </span>
@@ -349,11 +365,10 @@ export default function Header() {
             ) : (
               <LoginSheet>
                 <button
-                  className={`relative overflow-hidden px-6 h-10 rounded-xl font-bold transition-all active:scale-95 text-xs backdrop-blur-md flex items-center justify-center ${
-                    isScrolled || isHeaderDark
-                      ? "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
-                      : "bg-white/20 border border-white/30 text-white shadow-lg hover:bg-white/30"
-                  }`}
+                  className={`relative overflow-hidden px-6 h-10 rounded-xl font-bold transition-all active:scale-95 text-xs backdrop-blur-md flex items-center justify-center ${isScrolled || isHeaderDark
+                    ? "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
+                    : "bg-white/20 border border-white/30 text-white shadow-lg hover:bg-white/30"
+                    }`}
                 >
                   <Shimmer />
                   <span className="relative z-10">{t("user.login")}</span>
@@ -376,11 +391,10 @@ export default function Header() {
                 <ShoppingCart size={18} className={iconColor} />
                 {cart.length > 0 && (
                   <span
-                    className={`absolute -top-1 -right-1 w-4 h-4 text-white text-[8px] font-bold rounded-full flex items-center justify-center border ${
-                      isScrolled || isHeaderDark
-                        ? "bg-[#0D4B4D] border-white"
-                        : "bg-[#0D4B4D] border-white/40"
-                    }`}
+                    className={`absolute -top-1 -right-1 w-4 h-4 text-white text-[8px] font-bold rounded-full flex items-center justify-center border ${isScrolled || isHeaderDark
+                      ? "bg-[#0D4B4D] border-white"
+                      : "bg-[#0D4B4D] border-white/40"
+                      }`}
                   >
                     {cart.length}
                   </span>
@@ -400,11 +414,10 @@ export default function Header() {
                   alt="Menu"
                   width={20}
                   height={20}
-                  className={`relative z-10 transition-all duration-300 ${
-                    isScrolled || isHeaderDark
-                      ? ""
-                      : "brightness-0 invert opacity-90"
-                  }`}
+                  className={`relative z-10 transition-all duration-300 ${isScrolled || isHeaderDark
+                    ? ""
+                    : "brightness-0 invert opacity-90"
+                    }`}
                 />
               </button>
             </SheetTrigger>
@@ -431,7 +444,12 @@ export default function Header() {
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <button className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm active:scale-95 outline-none text-left w-full group hover:border-[#0D4B4D]/20 transition-all">
-                              <div className="w-12 h-12 rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                              <div className="w-12 h-12 relative rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                                {Number(user.es_vip) === 1 && (
+                                  <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+                                    <Crown size={12} className="text-white fill-white" />
+                                  </div>
+                                )}
                                 {user.us_nombres.charAt(0).toUpperCase()}
                               </div>
                               <div className="flex-1 overflow-hidden">
@@ -439,8 +457,13 @@ export default function Header() {
                                   Mi Cuenta
                                 </p>
                                 <div className="flex items-center justify-between gap-2">
-                                  <p className="text-base font-extrabold text-[#0D4B4D] truncate">
-                                    {user.us_nombres}
+                                  <p className="text-base font-extrabold text-[#0D4B4D] truncate flex items-center gap-2">
+                                    <span className="truncate">{user.us_nombres}</span>
+                                    {Number(user.es_vip) === 1 && (
+                                      <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0 border-none">
+                                        VIP
+                                      </span>
+                                    )}
                                   </p>
                                   <ChevronDown className="w-4 h-4 text-[#0D4B4D]/50 group-hover:text-[#0D4B4D] transition-colors" />
                                 </div>
@@ -453,15 +476,29 @@ export default function Header() {
                           >
                             <DropdownMenuLabel className="p-0 font-normal">
                               <div className="flex items-center gap-3 px-3 py-3 text-left">
-                                <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
-                                  <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
-                                    {user.us_nombres.charAt(0).toUpperCase()}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                  <span className="truncate font-bold text-[#0D4B4D]">
-                                    {user.us_nombres}
-                                  </span>
+                                <div className="relative">
+                                  <Avatar className="h-10 w-10 rounded-xl border-2 border-[#0D4B4D]/10">
+                                    <AvatarFallback className="rounded-xl bg-[#0D4B4D] text-white font-bold">
+                                      {user.us_nombres.charAt(0).toUpperCase()}
+                                    </AvatarFallback>
+                                  </Avatar>
+                                  {Number(user.es_vip) === 1 && (
+                                    <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+                                      <Crown size={12} className="text-white fill-white" />
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="grid flex-1 text-left text-sm leading-tight overflow-hidden">
+                                  <div className="flex items-center justify-between gap-2 w-full">
+                                    <span className="truncate font-bold text-[#0D4B4D]">
+                                      {user.us_nombres}
+                                    </span>
+                                    {Number(user.es_vip) === 1 && (
+                                      <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none uppercase tracking-wider shrink-0 font-black">
+                                        VIP
+                                      </span>
+                                    )}
+                                  </div>
                                   <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
                                     ID: {user.us_id}
                                   </span>
@@ -566,11 +603,10 @@ export default function Header() {
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         onClick={() => handleLanguageChange("es")}
-                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${
-                          locale === "es"
-                            ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
-                            : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
-                        }`}
+                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${locale === "es"
+                          ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
+                          : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
+                          }`}
                       >
                         <div className="relative w-6 h-4 overflow-hidden rounded-sm">
                           <Image
@@ -584,11 +620,10 @@ export default function Header() {
                       </button>
                       <button
                         onClick={() => handleLanguageChange("en")}
-                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${
-                          locale === "en"
-                            ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
-                            : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
-                        }`}
+                        className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all border font-bold ${locale === "en"
+                          ? "bg-[#0D4B4D]/10 border-[#0D4B4D] text-[#0D4B4D]"
+                          : "bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100"
+                          }`}
                       >
                         <div className="relative w-6 h-4 overflow-hidden rounded-sm">
                           <Image
