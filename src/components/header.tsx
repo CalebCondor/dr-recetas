@@ -482,22 +482,14 @@ export default function Header() {
                                       {user.us_nombres.charAt(0).toUpperCase()}
                                     </AvatarFallback>
                                   </Avatar>
-                                  {Number(user.es_vip) === 1 && (
-                                    <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
-                                      <Crown size={12} className="text-white fill-white" />
-                                    </div>
-                                  )}
+
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight overflow-hidden">
                                   <div className="flex items-center justify-between gap-2 w-full">
                                     <span className="truncate font-bold text-[#0D4B4D]">
                                       {user.us_nombres}
                                     </span>
-                                    {Number(user.es_vip) === 1 && (
-                                      <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none uppercase tracking-wider shrink-0 font-black">
-                                        VIP
-                                      </span>
-                                    )}
+
                                   </div>
                                   <span className="text-slate-400 truncate text-[10px] font-bold uppercase tracking-widest">
                                     ID: {user.us_id}
