@@ -248,8 +248,8 @@ export const PaymentForm = ({
         metadata1: purchaseId,
         metadata2: formData.nombre_completo,
         items: cart.map((item: CartItem) => ({
-          name: item.titulo,
-          description: item.titulo,
+          name: getTranslatedItem(item).title,
+          description: getTranslatedItem(item).title,
           quantity: "1",
           price: parseFloat(item.precio).toFixed(2),
           tax: "0.00",

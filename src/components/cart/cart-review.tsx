@@ -66,25 +66,31 @@ export const CartReview = ({
 
     // Translate Category
     const catMap: Record<string, string> = {
-      "Citas Médicas": "citas-medicas",
-      "Medical Appointments": "citas-medicas",
-      "Membresías": "membresia",
-      "Memberships": "membresia",
-      "Órdenes de Laboratorio": "lab",
-      "Lab Orders": "lab",
-      "Laboratory Orders": "lab",
-      "Otros": "otros",
-      "Otros Servicios": "otros",
-      "Other Services": "otros",
-      "Others": "otros",
-      "Para Él": "para-el",
-      "For Him": "para-el",
-      "Para Ella": "para-ella",
-      "For Her": "para-ella"
+      "citas-medicas": "citas-medicas",
+      "medical-appointments": "citas-medicas",
+      "consultas-medicas": "citas-medicas",
+      "certificados-medicos": "citas-medicas",
+      "ordenes-medicas": "lab",
+      "membresias": "membresia",
+      "memberships": "membresia",
+      "ordenes-de-laboratorio": "lab",
+      "lab-orders": "lab",
+      "laboratory-orders": "lab",
+      "otros": "otros",
+      "otros-servicios": "otros",
+      "other-services": "otros",
+      "others": "otros",
+      "para-el": "para-el",
+      "for-him": "para-el",
+      "para-ella": "para-ella",
+      "for-her": "para-ella",
+      "salud-y-bienestar": "otros"
     };
 
-    const catKey = catMap[item.categoria] || catMap[item.categoria?.trim()];
-    if (catKey && tServices.has(`Categories.${catKey}.title`)) {
+    const catNormalized = item.categoria?.toLowerCase().trim().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const catKey = catMap[catNormalized] || catNormalized;
+
+    if (tServices.has(`Categories.${catKey}.title`)) {
       category = tServices(`Categories.${catKey}.title`);
     }
 
