@@ -12,10 +12,10 @@ export const dynamic = "force-dynamic";
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string; itemSlug: string }>;
+  params: Promise<{ locale: string; slug: string; itemSlug: string }>;
 }) {
-  const { slug, itemSlug } = await params;
-  const t = await getTranslations();
+  const { locale, slug, itemSlug } = await params;
+  const t = await getTranslations({ locale });
 
   // Fetch data on the server side
   const product = await getProductBySlug(itemSlug);
@@ -28,14 +28,18 @@ export default async function ProductDetailPage({
             {t("ServicesPage.Static.productNotFound")}
           </h1>
           <div className="bg-red-50 p-4 rounded text-red-600 font-mono text-xs max-w-lg">
-            Debug: Buscando slug {itemSlug} en la API.
+            {t("ServicesPage.Static.debugSearch", { slug: itemSlug })}
           </div>
           <p className="text-slate-500">
             {t("ServicesPage.Static.productNotFoundMessage")}
           </p>
           <Link href={`/servicios/${slug}`}>
             <Button className="bg-[#0D4B4D] text-white rounded-full">
-              {t("ServicesPage.Static.backToCategory", { category: slug })}
+              {t("ServicesPage.Static.backToCategory", {
+                category: t.has(`ServicesPage.Categories.${slug}.title`)
+                  ? t(`ServicesPage.Categories.${slug}.title`)
+                  : slug,
+              })}
             </Button>
           </Link>
         </div>
