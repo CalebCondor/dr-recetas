@@ -81,8 +81,8 @@ export default async function Home({
   });
 
   return (
-    <>
-      <PageWrapper>
+    < div id="home">
+      <PageWrapper >
         <div className="relative overflow-hidden">
           <Hero />
           <ServicesSection services={services} />
@@ -95,6 +95,6 @@ export default async function Home({
         <TestimonialsSection />
         <BenefitsSection />
       </PageWrapper>
-    </>
+    </div>
   );
 }

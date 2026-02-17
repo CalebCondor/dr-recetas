@@ -154,6 +154,12 @@
       "account": "My account",
       "contact": "Contact"
     },
+    "Contact": {
+      "title": "Contact",
+      "phone": "(787) 710-7426",
+      "email": "info@doctorrecetas.com",
+      "address": "Puerto Rico"
+    },
     "Newsletter": {
       "title": "Subscribe to our newsletter and claim your 15% discount today",
       "first_name": "First name",

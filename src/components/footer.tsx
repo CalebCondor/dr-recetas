@@ -35,7 +35,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white">
+    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white" id="footer">
       {/* Top Section with Logo and Social Icons */}
       <div className="w-full mx-auto px-6 md:px-12 lg:px-[5%] pt-12 pb-8 flex justify-between items-start">
         <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ export function Footer() {
       <div className="border-t border-white/20"></div>
 
       {/* Main Content */}
-      <div className="w-full mx-auto px-6 md:px-12 lg:px-[5%] py-12 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12 md:gap-12">
+      <div className="w-full mx-auto px-6 md:px-12 lg:px-[5%] py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12 md:gap-12">
         {/* About Section */}
         <div className="col-span-1">
           <h3 className="text-xl font-bold mb-6">{t("About.title")}</h3>
@@ -123,8 +123,30 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Newsletter Section */}
+        {/* Contact Section */}
+        <div className="col-span-1">
+          <h3 className="text-xl font-bold mb-6">{t("Contact.title")}</h3>
+          <ul className="space-y-3">
+            <li className="flex flex-col gap-1">
 
+              <a href={`tel:${t("Contact.phone")}`} className="hover:opacity-80 transition-opacity ">
+                {t("Contact.phone")}
+              </a>
+            </li>
+            <li className="flex flex-col gap-1">
+
+              <a href={`mailto:${t("Contact.email")}`} className="hover:opacity-80 transition-opacity ">
+                {t("Contact.email")}
+              </a>
+            </li>
+            <li className="flex flex-col gap-1">
+
+              <span className="hover:opacity-80 transition-opacity">
+                {t("Contact.address")}
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       {/* Bottom Section */}
