@@ -139,57 +139,59 @@ export default function CarritoPage() {
   }
 
   return (
-    <PageWrapper>
-      <div className="min-h-screen bg-white pt-32 pb-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatePresence mode="wait">
-            {currentStep === "review" && (
-              <CartReview
-                cart={cart}
-                total={total}
-                removeFromCart={removeFromCart}
-                onContinue={() => setCurrentStep("personal")}
-              />
-            )}
+    <div id="carrito">
+      <PageWrapper>
+        <div className="min-h-screen bg-white pt-32 pb-20">
+          <div className="max-w-5xl mx-auto px-6">
+            <AnimatePresence mode="wait">
+              {currentStep === "review" && (
+                <CartReview
+                  cart={cart}
+                  total={total}
+                  removeFromCart={removeFromCart}
+                  onContinue={() => setCurrentStep("personal")}
+                />
+              )}
 
-            {currentStep === "personal" && (
-              <PersonalInfoForm
-                formData={formData}
-                setFormData={setFormData}
-                onBack={() => setCurrentStep("review")}
-                onContinue={() => setCurrentStep("details")}
-              />
-            )}
+              {currentStep === "personal" && (
+                <PersonalInfoForm
+                  formData={formData}
+                  setFormData={setFormData}
+                  onBack={() => setCurrentStep("review")}
+                  onContinue={() => setCurrentStep("details")}
+                />
+              )}
 
-            {currentStep === "details" && (
-              <OrderDetails
-                cart={cart}
-                formData={formData}
-                setFormData={setFormData}
-                advisorCode={advisorCode}
-                setAdvisorCode={setAdvisorCode}
-                total={total}
-                onBack={() => setCurrentStep("personal")}
-                onContinue={() => setCurrentStep("payment")}
-              />
-            )}
+              {currentStep === "details" && (
+                <OrderDetails
+                  cart={cart}
+                  formData={formData}
+                  setFormData={setFormData}
+                  advisorCode={advisorCode}
+                  setAdvisorCode={setAdvisorCode}
+                  total={total}
+                  onBack={() => setCurrentStep("personal")}
+                  onContinue={() => setCurrentStep("payment")}
+                />
+              )}
 
-            {currentStep === "payment" && (
-              <PaymentForm
-                cart={cart}
-                formData={formData}
-                setFormData={setFormData}
-                purchaseId={purchaseId}
-                total={total}
-                onBack={() => setCurrentStep("details")}
-                onComplete={() => {
-                  toast.success(t("paymentSuccess"));
-                }}
-              />
-            )}
-          </AnimatePresence>
+              {currentStep === "payment" && (
+                <PaymentForm
+                  cart={cart}
+                  formData={formData}
+                  setFormData={setFormData}
+                  purchaseId={purchaseId}
+                  total={total}
+                  onBack={() => setCurrentStep("details")}
+                  onComplete={() => {
+                    toast.success(t("paymentSuccess"));
+                  }}
+                />
+              )}
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
-    </PageWrapper>
+      </PageWrapper>
+    </div>
   );
 }

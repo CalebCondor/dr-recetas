@@ -41,13 +41,19 @@ export function ChatbotFloating() {
 
     const chatbotElement = document.getElementById("chatbot");
     const heroElement = document.getElementById("hero");
+    const homeElement = document.getElementById("home");
+    const carritoElement = document.getElementById("carrito");
 
     if (chatbotElement) observer.observe(chatbotElement);
     if (heroElement) observer.observe(heroElement);
+    if (homeElement) observer.observe(homeElement);
+    if (carritoElement) observer.observe(carritoElement);
 
     return () => {
       if (chatbotElement) observer.unobserve(chatbotElement);
       if (heroElement) observer.unobserve(heroElement);
+      if (homeElement) observer.unobserve(homeElement);
+      if (carritoElement) observer.unobserve(carritoElement);
     };
   }, []);
 
@@ -108,11 +114,10 @@ export function ChatbotFloating() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`h-16 w-16 rounded-full shadow-2xl border-2 transition-all duration-300 relative overflow-hidden flex items-center justify-center p-0 ${
-                  isOpen
-                    ? "bg-white border-teal-100 text-[#0D4B4D]"
-                    : "bg-[#0D4B4D] border-teal-200 text-white"
-                }`}
+                className={`h-16 w-16 rounded-full shadow-2xl border-2 transition-all duration-300 relative overflow-hidden flex items-center justify-center p-0 ${isOpen
+                  ? "bg-white border-teal-100 text-[#0D4B4D]"
+                  : "bg-[#0D4B4D] border-teal-200 text-white"
+                  }`}
               >
                 {/* Background animation for the button */}
                 {!isOpen && (

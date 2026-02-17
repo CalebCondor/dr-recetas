@@ -21,7 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { useTranslations, useMessages } from "next-intl";
+import { useTranslations, useMessages, useLocale } from "next-intl";
 
 interface PaymentFormProps {
   cart: CartItem[];
@@ -43,6 +43,7 @@ export const PaymentForm = ({
   onComplete,
 }: PaymentFormProps) => {
   const t = useTranslations("Cart.Payment");
+  const locale = useLocale();
   const tServices = useTranslations("ServicesPage");
   const tDynamic = useTranslations("DynamicServices");
   const messages = useMessages();
@@ -216,117 +217,94 @@ export const PaymentForm = ({
     [cart, formData, total, router, onComplete, t],
   );
 
-  // Configure ATHM Globals
+  // Handle messages from the ATH Iframe
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Tipos específicos para evitar errores de lint y mejorar la seguridad
-      const win = window as unknown as Window & {
-        ATHM_Checkout: Record<string, unknown>;
-        authorizationATHM: (response: unknown) => Promise<void>;
-        cancelATHM: () => Promise<void>;
-        expiredATHM: () => Promise<void>;
-        authorization?: () => Promise<unknown>;
-      };
-
-      // NOTA: Para el Modal JS se debe usar env: "production" incluso en pruebas,
-      // y controlar el modo con el flag 'sandbox: true' y el token correspondiente.
-      const isSandboxMode = true;
-
-      win.ATHM_Checkout = {
-        env: "production",
-        publicToken: "54227b700bb036f91a3a7bca06479230f0d92524",
-        sandboxToken: "sandboxtoken01875617264",
-        orderType: "payment",
-        sandbox: isSandboxMode,
-        sandboxMode: isSandboxMode, // Mantener ambos por compatibilidad
-        timeout: 600,
-        theme: "btn",
-        lang: "es",
-        total: total.toFixed(2),
-        subtotal: total.toFixed(2),
-        tax: "0.00",
-        metadata1: purchaseId,
-        metadata2: formData.nombre_completo,
-        items: cart.map((item: CartItem) => ({
-          name: getTranslatedItem(item).title,
-          description: getTranslatedItem(item).title,
-          quantity: "1",
-          price: parseFloat(item.precio).toFixed(2),
-          tax: "0.00",
-          metadata: item.id,
-        })),
-        phoneNumber: "",
-      };
-
-      // Callback de éxito para ATH Móvil
-      win.authorizationATHM = async (responseJSON: unknown) => {
-        try {
-          // El script de ATH Móvil usualmente pasa la respuesta como argumento.
-          if (responseJSON) {
-            handleATHSuccess(
-              responseJSON as {
-                status: string;
-                data?: { cp_code?: string };
-                referenceNumber?: string;
-              },
-            );
-          } else {
-            // Backup por si se usa una versión que no pasa el argumento directamente
-            const authFunc = win.authorization;
-            if (typeof authFunc === "function") {
-              const responseAuth = await authFunc();
-              handleATHSuccess(
-                responseAuth as {
-                  status: string;
-                  data?: { cp_code?: string };
-                  referenceNumber?: string;
-                },
-              );
-            } else {
-              console.error("ATH authorization response not found");
-            }
-          }
-        } catch (error) {
-          console.error("Error in authorizationATHM:", error);
-        }
-      };
-
-      win.cancelATHM = async () => {
+    const handleMessage = (event: MessageEvent) => {
+      // Check for security if possible, for now focus on functionality
+      if (event.data?.type === "ATH_SUCCESS") {
+        handleATHSuccess(event.data.data);
+      } else if (event.data?.type === "ATH_CANCEL") {
         toast.error(t("errors.athCancel"));
-      };
-
-      win.expiredATHM = async () => {
+      } else if (event.data?.type === "ATH_EXPIRED") {
         toast.error(t("errors.athExpired"));
-      };
-    }
-  }, [total, cart, purchaseId, formData.nombre_completo, handleATHSuccess, t]);
-
-  // Inject Script when selected
-  useEffect(() => {
-    if (typeof window !== "undefined" && isAthSelected) {
-      const id = "ath-script";
-      const existingScript = document.getElementById(id);
-
-      if (existingScript) {
-        // Si ya existe, no lo volvemos a inyectar para evitar el error:
-        // "Uncaught SyntaxError: Identifier '_0x1f5570' has already been declared"
-        return;
       }
+    };
 
-      const script = document.createElement("script");
-      script.id = id;
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [handleATHSuccess, t]);
 
-      // NOTA: ATH Móvil no tiene un script de sandbox separado para el Modal JS.
-      // Se debe usar siempre el de producción y controlar el modo con el token y el flag 'sandbox'.
-      const baseUrl =
-        "https://payments.athmovil.com/api/modal/js/athmovil_base.js";
+  // Generate the HTML for the ATH Iframe
+  const getAthIframeSrcDoc = useCallback(() => {
+    const config = {
+      env: "production",
+      publicToken: "54227b700bb036f91a3a7bca06479230f0d92524",
+      timeout: 600,
+      orderType: "payment",
+      theme: "btn",
+      lang: locale || "es",
+      total: Number(total.toFixed(2)),
+      subtotal: Number(total.toFixed(2)),
+      tax: 0.0,
+      metadata1: purchaseId.substring(0, 40),
+      metadata2: formData.nombre_completo.substring(0, 40),
+      items: cart.map((item: CartItem) => ({
+        name: getTranslatedItem(item).title.substring(0, 40),
+        description: getTranslatedItem(item).title.substring(0, 40),
+        quantity: 1,
+        price: Number(parseFloat(item.precio).toFixed(2)),
+        tax: 0.0,
+        metadata: item.id.substring(0, 40),
+      })),
+      phoneNumber: "",
+    };
 
-      // Eliminamos el t=Date.now() para evitar re-ejecuciones innecesarias en cada render
-      script.src = baseUrl;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, [isAthSelected]);
+    return `
+      <!DOCTYPE html>
+      <html lang="${locale || "es"}">
+      <head>
+          <meta charset="UTF-8">
+          <style>
+              body { 
+                margin: 0; 
+                padding: 0; 
+                background: transparent; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center;
+                overflow: hidden;
+              }
+              #ATHMovil_Checkout_Button_payment { 
+                display: flex; 
+                justify-content: center; 
+                width: 100%;
+              }
+          </style>
+      </head>
+      <body>
+          <div id="ATHMovil_Checkout_Button_payment"></div>
+          <script type="text/javascript">
+              window.ATHM_Checkout = ${JSON.stringify(config)};
+              
+              async function authorizationATHM(responseJSON) {
+                  let finalResponse = responseJSON;
+                  if (!finalResponse && typeof authorization === 'function') {
+                      finalResponse = await authorization();
+                  }
+                  window.parent.postMessage({ type: 'ATH_SUCCESS', data: finalResponse }, '*');
+              }
+              async function cancelATHM() {
+                  window.parent.postMessage({ type: 'ATH_CANCEL' }, '*');
+              }
+              async function expiredATHM() {
+                  window.parent.postMessage({ type: 'ATH_EXPIRED' }, '*');
+              }
+          </script>
+          <script src="https://payments.athmovil.com/api/modal/js/athmovil_base.js"></script>
+      </body>
+      </html>
+    `;
+  }, [total, cart, purchaseId, formData.nombre_completo, locale, getTranslatedItem]);
 
   const handlePayment = () => {
     if (formData.payment_method === "tarjeta") {
@@ -594,20 +572,15 @@ export const PaymentForm = ({
 
           <div className="min-h-[80px] flex items-center justify-center">
             {/* Div siempre presente para que el script lo encuentre más fácilmente */}
-            <div
-              id="ATHMovil_Checkout_Button_payment"
-              className={`w-full flex flex-col items-center gap-3 ${isAthSelected ? "block" : "hidden"}`}
-            >
-              {/* El script de ATH Móvil reemplazará este contenido */}
-              <div className="flex flex-col items-center gap-2 py-4">
-                <RiLoader4Line
-                  className="text-orange-500 animate-spin"
-                  size={24}
+            <div className="min-h-[100px] flex items-center justify-center">
+              {isAthSelected && (
+                <iframe
+                  title="ATH Movil Payment"
+                  srcDoc={getAthIframeSrcDoc()}
+                  className="w-full h-[100px] border-none overflow-hidden"
+                  sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
                 />
-                <p className="text-xs text-slate-400 font-medium">
-                  {t("athLoading")}
-                </p>
-              </div>
+              )}
             </div>
 
             {isTarjetaSelected && (
