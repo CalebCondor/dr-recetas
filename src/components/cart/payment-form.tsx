@@ -137,6 +137,8 @@ export const PaymentForm = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  const [isAthExpanded, setIsAthExpanded] = useState(false);
+
   const handleATHSuccess = useCallback(
     async (athResponse: {
       status: string;
@@ -220,13 +222,19 @@ export const PaymentForm = ({
   // Handle messages from the ATH Iframe
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      // Check for security if possible, for now focus on functionality
       if (event.data?.type === "ATH_SUCCESS") {
+        setIsAthExpanded(false);
         handleATHSuccess(event.data.data);
       } else if (event.data?.type === "ATH_CANCEL") {
+        setIsAthExpanded(false);
         toast.error(t("errors.athCancel"));
       } else if (event.data?.type === "ATH_EXPIRED") {
+        setIsAthExpanded(false);
         toast.error(t("errors.athExpired"));
+      } else if (event.data?.type === "ATH_MODAL_OPEN") {
+        setIsAthExpanded(true);
+      } else if (event.data?.type === "ATH_MODAL_CLOSE") {
+        setIsAthExpanded(false);
       }
     };
 
@@ -299,6 +307,20 @@ export const PaymentForm = ({
               async function expiredATHM() {
                   window.parent.postMessage({ type: 'ATH_EXPIRED' }, '*');
               }
+
+              // Observer para detectar cuando el modal se abre/cierra dentro del iframe
+              const observer = new MutationObserver(() => {
+                  const isModalOpen = document.body.children.length > 2 || 
+                                     !!document.querySelector('.athmovil-modal-container') ||
+                                     !!document.querySelector('[id^="waitingPayment"]');
+                  
+                  if (isModalOpen) {
+                      window.parent.postMessage({ type: 'ATH_MODAL_OPEN' }, '*');
+                  } else {
+                      window.parent.postMessage({ type: 'ATH_MODAL_CLOSE' }, '*');
+                  }
+              });
+              observer.observe(document.body, { childList: true, subtree: true });
           </script>
           <script src="https://payments.athmovil.com/api/modal/js/athmovil_base.js"></script>
       </body>
@@ -570,18 +592,19 @@ export const PaymentForm = ({
             </label>
           </div>
 
-          <div className="min-h-[80px] flex items-center justify-center">
-            {/* Div siempre presente para que el script lo encuentre más fácilmente */}
-            <div className="min-h-[100px] flex items-center justify-center">
-              {isAthSelected && (
+
+
+          <div className="flex flex-col items-center justify-center w-full gap-4 relative">
+            {isAthSelected && (
+              <div className="w-full h-full flex items-center justify-center">
                 <iframe
                   title="ATH Movil Payment"
                   srcDoc={getAthIframeSrcDoc()}
-                  className="w-full h-[100px] border-none overflow-hidden"
+                  className="w-full h-full border-none overflow-hidden"
                   sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
                 />
-              )}
-            </div>
+              </div>
+            )}
 
             {isTarjetaSelected && (
               <Button
