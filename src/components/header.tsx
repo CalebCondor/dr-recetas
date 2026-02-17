@@ -273,11 +273,7 @@ export default function Header() {
                         : "bg-white/20"
                         }`}
                     >
-                      {Number(user.es_vip) === 1 && (
-                        <div className="absolute -top-2 -right-2 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-0.5 border-2 border-white shadow-sm flex items-center justify-center">
-                          <Crown size={10} className="text-white fill-white" />
-                        </div>
-                      )}
+
                       {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
                     <span
