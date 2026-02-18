@@ -134,7 +134,7 @@ export default function Header() {
     isScrolled || isHeaderDark
       ? "text-slate-600 hover:text-[#0D4B4D]"
       : "text-white/80 hover:text-white";
-  const logoSrc = isScrolled || isHeaderDark ? "/logo.png" : "/logo_white.png";
+  const logoSrc = isScrolled || isHeaderDark ? "/logo_drrecetas.svg" : "/logo_drreceteasblanco.svg";
   const buttonBg =
     isScrolled || isHeaderDark
       ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
