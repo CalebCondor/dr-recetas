@@ -146,11 +146,12 @@ export const PaymentForm = ({
       referenceNumber?: string;
       [key: string]: unknown;
     }) => {
+      if (isProcessing) return;
       setIsProcessing(true);
-
+      // ... rest of the logic remains same but I'll update the whole block for safety
       const storedUser = localStorage.getItem("dr_user");
       if (!storedUser) {
-        toast.error(t("errors.sessionExpired"));
+        toast.error(t("errors.sessionExpired"), { id: "ath-error" });
         setIsProcessing(false);
         return;
       }
@@ -216,7 +217,7 @@ export const PaymentForm = ({
         setIsProcessing(false);
       }
     },
-    [cart, formData, total, router, onComplete, t],
+    [cart, formData, total, router, onComplete, t, isProcessing],
   );
 
   // Handle messages from the ATH Iframe
@@ -227,10 +228,10 @@ export const PaymentForm = ({
         handleATHSuccess(event.data.data);
       } else if (event.data?.type === "ATH_CANCEL") {
         setIsAthExpanded(false);
-        toast.error(t("errors.athCancel"));
+        toast.error(t("errors.athCancel"), { id: "ath-cancel" });
       } else if (event.data?.type === "ATH_EXPIRED") {
         setIsAthExpanded(false);
-        toast.error(t("errors.athExpired"));
+        toast.error(t("errors.athExpired"), { id: "ath-expire" });
       } else if (event.data?.type === "ATH_MODAL_OPEN") {
         setIsAthExpanded(true);
       } else if (event.data?.type === "ATH_MODAL_CLOSE") {
@@ -617,34 +618,26 @@ export const PaymentForm = ({
             {isAthSelected && (
               <div
                 className={isAthExpanded
-                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4"
+                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-all duration-500"
                   : "w-full flex items-center justify-center"
                 }
               >
-                {/* Backdrop premium que se expande a toda la web */}
-                {isAthExpanded && (
-                  <div
-                    className="absolute inset-0 bg-black/40 backdrop-blur-md animate-in fade-in duration-700"
-                    style={{
-                      background: "radial-gradient(circle at center, rgba(13, 75, 77, 0.15) 0%, rgba(0, 0, 0, 0.85) 100%)"
-                    }}
-                  />
-                )}
-
                 <div
                   className={isAthExpanded
-                    ? "w-full max-w-sm rounded-[2.5rem] overflow-hidden relative z-10 animate-in zoom-in duration-300 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] border border-white/10"
+                    ? "w-full max-w-3xl rounded-3xl overflow-hidden relative animate-in zoom-in duration-300 shadow-2xl "
                     : "w-full flex items-center justify-center p-2"
                   }
                   style={{
-                    height: isAthExpanded ? "640px" : "100px",
-                    transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+                    height: isAthExpanded ? "min(90vh, 820px)" : "100px",
+                    width: isAthExpanded ? "min(95vw, 640px)" : "400px",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
+
                 >
                   <iframe
                     title="ATH Movil Payment"
                     srcDoc={getAthIframeSrcDoc()}
-                    className={`${isAthExpanded ? "w-full h-[580px]" : "w-full h-full"} border-none overflow-hidden transition-all duration-500`}
+                    className={`${isAthExpanded ? "w-full h-full" : "w-full h-full"} border-none overflow-hidden`}
                     sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
                   />
                 </div>
