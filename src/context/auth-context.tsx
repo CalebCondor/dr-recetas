@@ -8,6 +8,16 @@ import React, {
   useCallback,
 } from "react";
 import { UserData } from "@/services/types/types";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { LogOut } from "lucide-react";
 
 interface AuthContextType {
   user: UserData | null;
@@ -20,6 +30,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [showExpireModal, setShowExpireModal] = useState(false);
   const [user, setUser] = useState<UserData | null>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("dr_user");
@@ -80,6 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
+    setShowExpireModal(false);
     setUser(null);
     setToken(null);
     localStorage.removeItem("dr_token");
@@ -88,10 +100,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     window.location.href = "/";
   }, [token]);
 
-  // Función para verificar si la sesión sigue siendo válida (Cierre Frío)
+  // Función para verificar si la sesión sigue siendo válida (Cierre Frío con aviso)
   const checkSession = useCallback(async () => {
     const currentToken = localStorage.getItem("dr_token") || token;
-    if (!currentToken) return;
+    if (!currentToken || showExpireModal) return;
 
     // 1. Verificación local rápida (si es JWT)
     try {
@@ -100,15 +112,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const payload = JSON.parse(atob(parts[1]));
         if (payload.exp && Date.now() >= payload.exp * 1000) {
           console.warn("⚠️ Sesión expirada localmente.");
-          logout();
+          setShowExpireModal(true);
           return;
         }
       }
-    } catch (e) {
-      // No es un JWT o error al parsear, seguimos con la validación del servidor
-    }
+    } catch (e) { }
 
-    // 2. Verificación con el servidor (sin extender la sesión, solo validar)
+    // 2. Verificación con el servidor
     try {
       const response = await fetch("https://doctorrecetas.com/api/perfil.php", {
         method: "GET",
@@ -119,20 +129,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.status === 401) {
         console.warn("⚠️ Token ya no es válido en el servidor.");
-        logout();
+        setShowExpireModal(true);
       }
     } catch (err) {
       console.error("Error de red al validar sesión:", err);
     }
-  }, [token, logout]);
+  }, [token, showExpireModal]);
 
   // Validación inicial y periódica
   useEffect(() => {
     if (token) {
-      // Validar inmediatamente al montar
       checkSession();
-
-      // Validar cada 5 minutos para detectar expiración durante el uso
       const interval = setInterval(checkSession, 1000 * 60 * 5);
       return () => clearInterval(interval);
     }
@@ -143,6 +150,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{ user, token, isLoading, login, logout }}
     >
       {children}
+
+      <AlertDialog open={showExpireModal} onOpenChange={setShowExpireModal}>
+        <AlertDialogContent className="max-w-[400px] rounded-3xl border-none p-8 text-center bg-white shadow-2xl">
+          <AlertDialogHeader className="flex flex-col items-center gap-6">
+
+            <div className="space-y-2">
+              <AlertDialogTitle className="text-2xl font-black text-slate-900 text-center w-full">
+                Sesión Finalizada
+              </AlertDialogTitle>
+              <AlertDialogDescription className="text-slate-400 font-bold leading-relaxed text-center">
+                Tu sesión ha expirado por motivos de seguridad. Por favor, inicia sesión nuevamente para continuar disfrutando de nuestros servicios.
+              </AlertDialogDescription>
+            </div>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="mt-8 flex justify-center sm:justify-center">
+            <AlertDialogAction
+              onClick={logout}
+              className="bg-[#0D4B4D] hover:bg-[#0D4B4D]/90 text-white font-black px-12 py-4 rounded-2xl h-auto shadow-xl shadow-[#0D4B4D]/20 active:scale-95 transition-all w-full sm:w-auto"
+            >
+              ENTENDIDO
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AuthContext.Provider>
   );
 }
