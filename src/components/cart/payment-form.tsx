@@ -617,24 +617,34 @@ export const PaymentForm = ({
             {isAthSelected && (
               <div
                 className={isAthExpanded
-                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300"
+                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4"
                   : "w-full flex items-center justify-center"
                 }
               >
+                {/* Backdrop premium que se expande a toda la web */}
+                {isAthExpanded && (
+                  <div
+                    className="absolute inset-0 bg-black/40 backdrop-blur-md animate-in fade-in duration-700"
+                    style={{
+                      background: "radial-gradient(circle at center, rgba(13, 75, 77, 0.15) 0%, rgba(0, 0, 0, 0.85) 100%)"
+                    }}
+                  />
+                )}
+
                 <div
                   className={isAthExpanded
-                    ? "w-full max-w-sm rounded-3xl overflow-hidden relative animate-in zoom-in duration-300"
+                    ? "w-full max-w-sm rounded-[2.5rem] overflow-hidden relative z-10 animate-in zoom-in duration-300 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] border border-white/10"
                     : "w-full flex items-center justify-center p-2"
                   }
                   style={{
                     height: isAthExpanded ? "640px" : "100px",
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                    transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
                 >
                   <iframe
                     title="ATH Movil Payment"
                     srcDoc={getAthIframeSrcDoc()}
-                    className={`${isAthExpanded ? "w-full h-[580px]" : "w-full h-full"} border-none overflow-hidden`}
+                    className={`${isAthExpanded ? "w-full h-[580px]" : "w-full h-full"} border-none overflow-hidden transition-all duration-500`}
                     sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
                   />
                 </div>
