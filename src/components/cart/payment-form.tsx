@@ -51,20 +51,32 @@ export const PaymentForm = ({
 
   const getTranslatedItem = (item: CartItem) => {
     let title = item.titulo;
+    let description = item.resumen || "";
 
     // Helper to find slug from messages if missing in item
     const lookupSlug = item.slug || Object.keys(itemsMessages).find(key => key.endsWith(`-${item.id}`));
 
-    // Translate Title
-    if (lookupSlug && tServices.has(`Items.${lookupSlug}.title`)) {
-      title = tServices(`Items.${lookupSlug}.title`);
+    // Translate Title and Description
+    if (lookupSlug && itemsMessages[lookupSlug]) {
+      if (tServices.has(`Items.${lookupSlug}.title`)) {
+        title = tServices(`Items.${lookupSlug}.title`);
+      }
+      if (tServices.has(`Items.${lookupSlug}.description`)) {
+        description = tServices(`Items.${lookupSlug}.description`);
+      }
     } else if (tDynamic.has(`service_${item.id}.title`)) {
       title = tDynamic(`service_${item.id}.title`);
+      if (tDynamic.has(`service_${item.id}.description`)) {
+        description = tDynamic(`service_${item.id}.description`);
+      }
     } else if (tDynamic.has(`${item.id}.title`)) {
       title = tDynamic(`${item.id}.title`);
+      if (tDynamic.has(`${item.id}.description`)) {
+        description = tDynamic(`${item.id}.description`);
+      }
     }
 
-    return { title };
+    return { title, description };
   };
   const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
@@ -255,16 +267,20 @@ export const PaymentForm = ({
       total: Number(total.toFixed(2)),
       subtotal: Number(total.toFixed(2)),
       tax: 0.0,
-      metadata1: purchaseId.substring(0, 40),
-      metadata2: formData.nombre_completo.substring(0, 40),
-      items: cart.map((item: CartItem) => ({
-        name: getTranslatedItem(item).title.substring(0, 40),
-        description: getTranslatedItem(item).title.substring(0, 40),
-        quantity: 1,
-        price: Number(parseFloat(item.precio).toFixed(2)),
-        tax: 0.0,
-        metadata: item.id.substring(0, 40),
-      })),
+      metadata1: purchaseId,
+      metadata2: formData.nombre_completo.substring(0, 100),
+      items: cart.map((item: CartItem) => {
+        const translated = getTranslatedItem(item);
+        // Use a longer character limit for ATH Movil compatibility (usually 100-200)
+        return {
+          name: translated.title.substring(0, 100),
+          description: (translated.description || item.resumen || "").substring(0, 150),
+          quantity: 1,
+          price: Number(parseFloat(item.precio).toFixed(2)),
+          tax: 0.0,
+          metadata: item.id.toString().substring(0, 50),
+        };
+      }),
       phoneNumber: "",
     };
 

@@ -250,131 +250,131 @@
     "Items": {
       "certificado-mdico-26": {
         "title": "Certificado Médico",
-        "description": "Ofrecemos un servicio médico orientado a proporcionarle una evaluación clínica completa y la certificación necesaria para justificar su ausencia laboral."
+        "description": "Servicio médico de evaluación clínica completa y certificación necesaria para justificar ausencias laborales ante su empleador o institución."
       },
       "examen-licencia-conducir-27": {
         "title": "Examen Licencia de Conducir",
-        "description": "Evaluación médica para la solicitud o renovación de la licencia de conducir."
+        "description": "Evaluación médica profesional requerida para la solicitud o renovación de la licencia de conducir."
       },
       "programa-de-salud-sexual-para-hombres-37": {
         "title": "Programa de Salud Sexual para Hombres",
-        "description": "Consulta médica para la disfunción eréctil, enfocada en diagnosticar la causa y ofrecer un tratamiento seguro y confidencial."
+        "description": "Consulta médica privada para disfunción eréctil. Incluye evaluación, diagnóstico, receta de tratamiento (Viagra o Cialis) y recomendaciones de mejora."
       },
       "back-to-school-39": {
-        "title": "Regreso a Clases",
-        "description": "Consulta pediátrica profesional para obtener el certificado médico necesario para el regreso a clases."
+        "title": "“Back to School”",
+        "description": "Consulta pediátrica rápida para el certificado médico de regreso a clases tras vacaciones o enfermedad. Incluye revisión general y entrega inmediata."
       },
       "cita-de-seguimiento-31": {
         "title": "Cita de Seguimiento",
-        "description": "Consulta médica de seguimiento para pacientes existentes."
+        "description": "Consulta médica de seguimiento para monitorear la evolución de tratamientos o condiciones existentes."
       },
       "cita-medica-nuevo-paciente-30": {
         "title": "Cita Médica Nuevo Paciente",
-        "description": "Evaluación médica integral para nuevos pacientes."
+        "description": "Evaluación médica integral presencial o remota para pacientes que visitan por primera vez."
       },
       "consulta-por-covid-positivo-33": {
         "title": "Consulta por COVID Positivo",
-        "description": "Consulta médica personalizada desde casa para evaluar sus síntomas y guiarlo a través del tratamiento."
+        "description": "Evaluación médica personalizada desde casa para pacientes positivos. Incluye receta, plan de cuidados y certificado si es necesario."
       },
       "evaluacin-mdica-del-sueo-36": {
         "title": "Evaluación Médica del Sueño",
-        "description": "Evaluación profesional para diagnosticar y tratar sus problemas de sueño. Incluye revisión de hábitos y diagnóstico personalizado."
+        "description": "Evaluación profesional para diagnosticar insomnio o trastornos del sueño. Incluye diagnóstico, recomendaciones y receta si se requiere."
       },
       "evaluacin-mdica-inmediata-38": {
-        "title": "Evaluación Médica Inmediata",
-        "description": "Consulta rápida y profesional para obtener diagnósticos, recetas o certificados el mismo día."
+        "title": "Evaluación médica inmediata",
+        "description": "Consulta rápida para diagnósticos urgentes, recetas o certificados en el mismo día. Ideal para síntomas leves o trámites escolares."
       },
       "receta-de-medicamentos-o-refill-25": {
-        "title": "Receta de Medicamentos o Refill",
-        "description": "Obtenga sus renovaciones de medicamentos o nuevas recetas rápidamente."
+        "title": "Receta de medicamentos o “refill”",
+        "description": "Renovación rápida de recetas de mantenimiento o nuevas prescripciones médicas autorizadas."
       },
       "anlisis-de-orina-y-cultivo-de-orina-10": {
-        "title": "Análisis de Orina y Cultivo de Orina",
-        "description": "El análisis de orina verifica la apariencia y el contenido de su orina. El cultivo de orina busca bacterias que causan infecciones."
+        "title": "Análisis de orina y cultivo de orina",
+        "description": "Detección de infecciones urinarias, problemas renales o diabetes mediante el análisis completo de aspecto y contenido de la orina."
       },
       "cbc-diff-lab-45": {
         "title": "CBC + DIFF Lab",
-        "description": "Mide diferentes tipos de células en la sangre (glóbulos rojos, glóbulos blancos, plaquetas) para detectar infecciones o anemia."
+        "description": "Conteo Sanguíneo Completo con Diferencial para medir glóbulos rojos, blancos y plaquetas. Detecta anemia e infecciones."
       },
       "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8": {
-        "title": "Panel de Prueba de Sangre Femenino",
-        "description": "Conjunto integral de pruebas de sangre y orina para evaluar la salud general (CBC, CMP, Panel de Lípidos, Tiroides, etc)."
+        "title": "Prueba de Sangre Femenina (CBC, CMP, Perfil Lipídico, HbA1c, Tiroides, Orina)",
+        "description": "Perfil integral que evalúa función de órganos, colesterol, diabetes, tiroides, salud renal y detección de sangre en heces."
       },
       "mamografia-29": {
         "title": "Mamografía",
-        "description": "Radiografía especializada de las mamas que permite la detección temprana de anomalías como tumores o microcalcificaciones."
+        "description": "Radiografía especializada de las mamas para la detección precoz de anomalías, tumores o microcalcificaciones."
       },
       "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7": {
-        "title": "Panel de Prueba de Sangre Masculino",
-        "description": "Conjunto integral de pruebas de sangre y orina para evaluar la salud general (CBC, CMP, Panel de Lípidos, Tiroides, etc)."
+        "title": "Prueba de Sangre Masculina (CBC, CMP, Perfil Lipídico, HbA1c, Tiroides, Orina)",
+        "description": "Evaluación completa de salud masculina: órganos, metabolismo, riesgo cardiovascular y niveles hormonales clave."
       },
       "prueba-de-covid-19-ant-geno-2": {
-        "title": "Prueba de Antígeno COVID-19",
-        "description": "Detecta partes del virus en personas con una infección activa. Resultados en 15-30 minutos."
+        "title": "Prueba de Covid-19 Antígeno",
+        "description": "Detección rápida de proteínas del virus SARS-CoV-2 en 15-30 minutos para casos con síntomas o exposición reciente."
       },
       "prueba-de-covid-19-molecular-pcr-3": {
-        "title": "Prueba de COVID-19 Molecular PCR",
-        "description": "Prueba precisa para detectar si está infectado con el virus. Confirma el diagnóstico incluso con pocos síntomas."
+        "title": "Prueba de Covid-19 Molecular PCR",
+        "description": "La prueba más precisa para confirmar infección por COVID-19, detectando material genético del virus en etapas tempranas."
       },
       "prueba-de-covid-19-serolgica-rapid-test-4": {
-        "title": "Prueba de COVID-19 Serológica (Prueba Rápida)",
-        "description": "Detecta anticuerpos en la sangre que indican exposición pasada al virus. Resultados en minutos."
+        "title": "Prueba de Covid-19 Serológica - Rapid Test",
+        "description": "Detecta anticuerpos que indican exposición pasada al virus o respuesta a la vacuna. Resultados en minutos."
       },
       "prueba-de-embarazo-15": {
         "title": "Prueba de Embarazo",
-        "description": "Detecta la hormona hCG para confirmar el embarazo. Se puede realizar con una muestra de orina o sangre."
+        "description": "Detección de la hormona hCG en orina o sangre para confirmar el embarazo y comenzar el cuidado adecuado."
       },
       "prueba-de-influenza-a-y-b-14": {
         "title": "Prueba de Influenza A y B",
-        "description": "Detecta si una persona tiene el virus de la gripe tipo A o B. Útil para decisiones rápidas de tratamiento."
+        "description": "Detección rápida de los virus de la gripe tipo A o B para iniciar el tratamiento adecuado y evitar contagios."
       },
       "prueba-de-micoplasma-o-bronchitis-12": {
-        "title": "Prueba de Micoplasma o Bronquitis",
-        "description": "Prueba de sangre para detectar Micoplasma o Bronquitis."
+        "title": "Prueba de Micoplasma o Bronchitis",
+        "description": "Prueba de sangre específica para detectar infecciones respiratorias causadas por Mycoplasma o bronquitis aguda."
       },
       "prueba-de-sangre-pth-13": {
         "title": "Prueba de Sangre PTH",
-        "description": "Mide la hormona paratiroidea en la sangre, que regula los niveles de calcio y fósforo."
+        "description": "Medición de la hormona paratiroidea para evaluar la regulación de calcio y fósforo en el cuerpo y detectar problemas óseos."
       },
       "prueba-de-sedimento-esr-11": {
-        "title": "Prueba de Velocidad de Sedimentación (ESR)",
-        "description": "Mide qué tan rápido se asientan los glóbulos rojos. Un valor alto puede indicar inflamación."
+        "title": "Prueba de Sedimento ESR",
+        "description": "Marcador sensible de inflamación general en el organismo causado por infecciones o enfermedades crónicas."
       },
       "prueba-diabetes-hba1c-41": {
-        "title": "Prueba de Diabetes (HbA1c%)",
-        "description": "Mide el promedio de azúcar en la sangre de los últimos 2-3 meses. Clave para diagnosticar la diabetes."
+        "title": "Prueba DIABETES (HbA1c%)",
+        "description": "Promedio de azúcar en sangre de los últimos 2-3 meses. Clave para el diagnóstico de diabetes y control de tratamiento."
       },
       "quantitative-hcg-test-35": {
-        "title": "Prueba de hCG Cuantitativa",
-        "description": "Mide la cantidad exacta de hormona del embarazo (hCG) en la sangre. Más precisa que la prueba de orina."
+        "title": "Quantitative hCG test",
+        "description": "Medición exacta de los niveles de la hormona del embarazo en sangre para monitorear el desarrollo gestacional temprano."
       },
       "sonomamografia-28": {
         "title": "Sonomamografía",
-        "description": "Ecografía de la mama, complementa la mamografía. Ideal para mamas densas."
+        "description": "Ultrasonido mamario sin dolor para complementar la mamografía, ideal para evaluar quistes o senos densos."
       },
       "strep-throat-garganta-44": {
-        "title": "Prueba de Estreptococo (Garganta)",
-        "description": "Prueba rápida que detecta la bacteria Streptococcus en la garganta en minutos."
+        "title": "Strep Throat (Garganta)",
+        "description": "Prueba rápida que detecta la bacteria estreptococo en minutos para diferenciar infecciones bacterianas de virales."
       },
       "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42": {
-        "title": "Panel Respiratorio",
-        "description": "Prueba combinada para COVID-19, Influenza A/B y Micoplasma. Identifica la causa de los síntomas respiratorios."
+        "title": "Panel Respiratorio: COVID-19 PCR, Influenza A/B y Micoplasma",
+        "description": "Detección combinada de las causas más comunes de síntomas respiratorios en un solo análisis rápido y preciso."
       },
       "producto-de-prueba-paquete-64": {
-        "title": "Paquete de Producto de Prueba",
-        "description": "Producto de prueba."
+        "title": "Producto de prueba paquete",
+        "description": "Servicio de prueba para validación de sistema."
       },
       "pruebas-para-licencia-matrimonial-32": {
         "title": "Pruebas para Licencia Matrimonial",
-        "description": "Cumpla con los requisitos de salud para el matrimonio. Incluye pruebas de sangre, pruebas de ETS y certificado médico."
+        "description": "Cumple con los requisitos legales para casarte. Incluye laboratorios de ITS, grupo sanguíneo y certificado oficial."
       },
       "test-de-enfermedades-de-transmisin-sexual-ets-34": {
-        "title": "Panel de ETS",
-        "description": "Detecta infecciones como VIH, sífilis, clamidia, gonorrea. Importante para personas sexualmente activas."
+        "title": "Test de enfermedades de transmisión sexual (ETS)",
+        "description": "Panel integral para detectar VIH, sífilis, clamidia y gonorrea. Vital para la salud sexual preventiva."
       },
       "programa-de-reduccin-de-peso-58": {
         "title": "Programa de Reducción de Peso",
-        "description": "Incluye cita, pruebas de laboratorio y receta."
+        "description": "Servicio completo que incluye cita médica inicial, laboratorios requeridos y receta a farmacia."
       }
     }
   },

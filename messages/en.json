@@ -250,131 +250,131 @@
     "Items": {
       "certificado-mdico-26": {
         "title": "Medical Certificate",
-        "description": "We offer a medical service oriented to provide you with a full clinical evaluation and the necessary certification to justify your work absence."
+        "description": "Full clinical evaluation service and medical certification required to justify work absences to your employer or institution."
       },
       "examen-licencia-conducir-27": {
         "title": "Driver's License Exam",
-        "description": "Medical evaluation for driver's license application or renewal."
+        "description": "Professional medical evaluation required for the application or renewal of a driver's license."
       },
       "programa-de-salud-sexual-para-hombres-37": {
         "title": "Men's Sexual Health Program",
-        "description": "Medical consultation for erectile dysfunction, focused on diagnosing the cause and offering safe and confidential treatment."
+        "description": "Private medical consultation for erectile dysfunction. Includes evaluation, diagnosis, prescription treatment (Viagra or Cialis), and health recommendations."
       },
       "back-to-school-39": {
-        "title": "Back to School",
-        "description": "Professional pediatric consultation to obtain the medical certificate necessary for returning to classes."
+        "title": "“Back to School”",
+        "description": "Quick pediatric consultation for returning to school after vacations or illness. Includes general health check and same-day certificate delivery."
       },
       "cita-de-seguimiento-31": {
         "title": "Follow-up Appointment",
-        "description": "Follow-up medical consultation for existing patients."
+        "description": "Follow-up medical consultation to monitor the progress of existing treatments or conditions."
       },
       "cita-medica-nuevo-paciente-30": {
         "title": "New Patient Medical Appointment",
-        "description": "Comprehensive medical evaluation for new patients."
+        "description": "Comprehensive initial medical evaluation (in-person or remote) for first-time visiting patients."
       },
       "consulta-por-covid-positivo-33": {
         "title": "COVID Positive Consultation",
-        "description": "Personalized medical consultation from home to evaluate your symptoms and guide you through treatment."
+        "description": "Personalized home-based medical evaluation for positive patients. Includes prescription, care plan, and certificate if needed."
       },
       "evaluacin-mdica-del-sueo-36": {
         "title": "Medical Sleep Evaluation",
-        "description": "Professional evaluation to diagnose and treat your sleep problems. Includes habit review and personalized diagnosis."
+        "description": "Professional evaluation to diagnose insomnia or sleep disorders. Includes diagnosis, recommendations, and prescription if required."
       },
       "evaluacin-mdica-inmediata-38": {
         "title": "Immediate Medical Evaluation",
-        "description": "Quick and professional consultation to obtain diagnosis, prescriptions or certificates the same day."
+        "description": "Fast consultation for urgent diagnoses, prescriptions, or certificates delivered the same day. Ideal for mild symptoms."
       },
       "receta-de-medicamentos-o-refill-25": {
-        "title": "Medication Prescription or Refill",
-        "description": "Get your medication refills or new prescriptions quickly."
+        "title": "Medication Prescription or “Refill”",
+        "description": "Fast renewal of maintenance prescriptions or authorized new medical prescriptions."
       },
       "anlisis-de-orina-y-cultivo-de-orina-10": {
         "title": "Urinalysis and Urine Culture",
-        "description": "Urinalysis checks the appearance and content of your urine. Urine culture looks for bacteria causing infections."
+        "description": "Detection of urinary infections, kidney problems, or diabetes through complete analysis of urine appearance and content."
       },
       "cbc-diff-lab-45": {
         "title": "CBC + DIFF Lab",
-        "description": "Measures different types of cells in the blood (red blood cells, white blood cells, platelets) to detect infections or anemia."
+        "description": "Complete Blood Count with Differential to measure red and white blood cells and platelets. Detects anemia and infections."
       },
       "femenino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-8": {
-        "title": "Female Blood Test Panel",
-        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+        "title": "Female Blood Test (CBC, CMP, Lipid Panel, HbA1c, Thyroid, Urinalysis)",
+        "description": "Comprehensive profile evaluating organ function, cholesterol, diabetes, thyroid, kidney health, and occult blood in stool."
       },
       "mamografia-29": {
         "title": "Mammography",
-        "description": "Specialized X-ray of the breasts that allows early detection of abnormalities like tumors or microcalcifications."
+        "description": "Specialized breast X-ray for early detection of abnormalities, tumors, or microcalcifications."
       },
       "masculino-prueba-de-sangre-blood-test-cbc-cmp-lipid-panel-u-microalbumin-hgb-glicosilada-u-a-t3-t4-tsh-ob-in-stool-7": {
-        "title": "Male Blood Test Panel",
-        "description": "Comprehensive set of blood and urine tests to evaluate general health (CBC, CMP, Lipid Panel, Thyroid, etc)."
+        "title": "Male Blood Test (CBC, CMP, Lipid Panel, HbA1c, Thyroid, Urinalysis)",
+        "description": "Complete male health evaluation: organ function, metabolism, cardiovascular risk, and key hormonal levels."
       },
       "prueba-de-covid-19-ant-geno-2": {
         "title": "COVID-19 Antigen Test",
-        "description": "Detects parts of the virus in people with an active infection. Results in 15-30 minutes."
+        "description": "Rapid detection of SARS-CoV-2 protein antigens (15-30 mins) for cases with symptoms or recent exposure."
       },
       "prueba-de-covid-19-molecular-pcr-3": {
         "title": "COVID-19 Molecular PCR Test",
-        "description": "Precise test to detect if you are infected with the virus. Confirms diagnosis even with few symptoms."
+        "description": "The most accurate test to confirm COVID-19 infection, detecting viral genetic material in early stages."
       },
       "prueba-de-covid-19-serolgica-rapid-test-4": {
         "title": "COVID-19 Serological Rapid Test",
-        "description": "Detects antibodies in the blood indicating past exposure to the virus. Results in minutes."
+        "description": "Detects antibodies indicating past exposure to the virus or vaccine response. Results available in minutes."
       },
       "prueba-de-embarazo-15": {
         "title": "Pregnancy Test",
-        "description": "Detects the hCG hormone to confirm pregnancy. Can be done with urine or blood sample."
+        "description": "hCG hormone detection in urine or blood to confirm pregnancy and begin appropriate prenatal care."
       },
       "prueba-de-influenza-a-y-b-14": {
         "title": "Influenza A & B Test",
-        "description": "Detects if a person has the flu virus type A or B. Useful for quick treatment decisions."
+        "description": "Rapid detection of type A or B flu viruses to start appropriate treatment and prevent contagion."
       },
       "prueba-de-micoplasma-o-bronchitis-12": {
         "title": "Mycoplasma or Bronchitis Test",
-        "description": "Blood test to detect Mycoplasma or Bronchitis."
+        "description": "Specific blood test to detect respiratory infections caused by Mycoplasma or acute bronchitis."
       },
       "prueba-de-sangre-pth-13": {
         "title": "PTH Blood Test",
-        "description": "Measures parathyroid hormone in the blood, which regulates calcium and phosphorus levels."
+        "description": "Measurement of parathyroid hormone to evaluate calcium and phosphorus regulation and detect bone issues."
       },
       "prueba-de-sedimento-esr-11": {
         "title": "Sedimentation Rate (ESR) Test",
-        "description": "Measures how fast red blood cells settle. High value may indicate inflammation."
+        "description": "Sensitive marker of general body inflammation caused by infections or chronic diseases."
       },
       "prueba-diabetes-hba1c-41": {
-        "title": "Diabetes Test (HbA1c%)",
-        "description": "Measures average blood sugar of the last 2-3 months. Key for diagnosing diabetes."
+        "title": "DIABETES Test (HbA1c%)",
+        "description": "Average blood sugar levels for the last 2-3 months. Essential for diabetes diagnosis and treatment control."
       },
       "quantitative-hcg-test-35": {
         "title": "Quantitative hCG Test",
-        "description": "Measures the exact amount of pregnancy hormone (hCG) in the blood. More precise than urine test."
+        "description": "Exact measurement of pregnancy hormone levels in blood to monitor early gestational development."
       },
       "sonomamografia-28": {
         "title": "Sono-mammography",
-        "description": "Ultrasound of the breast, complements mammography. Ideal for dense breasts."
+        "description": "Painless breast ultrasound to complement mammography, ideal for evaluating cysts or dense breast tissue."
       },
       "strep-throat-garganta-44": {
-        "title": "Strep Throat Test",
-        "description": "Rapid test detects Streptococcus bacteria in the throat in minutes."
+        "title": "Strep Throat Test (Throat)",
+        "description": "Rapid test that detects streptococcus bacteria in minutes to differentiate bacterial from viral infections."
       },
       "panel-respiratorio-covid-19-molecular-influenza-ab-y-micoplasma-42": {
-        "title": "Respiratory Panel",
-        "description": "Combined test for COVID-19, Influenza A/B and Mycoplasma. Identifies cause of respiratory symptoms."
+        "title": "Respiratory Panel: COVID-19 PCR, Influenza A/B, and Mycoplasma",
+        "description": "Combined detection of the most common causes of respiratory symptoms in a single rapid and accurate analysis."
       },
       "producto-de-prueba-paquete-64": {
-        "title": "Test Product Package",
-        "description": "Test product."
+        "title": "System Test Package",
+        "description": "Verification service used for system validation."
       },
       "pruebas-para-licencia-matrimonial-32": {
         "title": "Marriage License Tests",
-        "description": "Fulfill health requirements for marriage. Includes blood tests, STD tests, and medical certificate."
+        "description": "Fulfills legal requirements for marriage. Includes STD labs, blood typing, and official certification."
       },
       "test-de-enfermedades-de-transmisin-sexual-ets-34": {
         "title": "STD Panel",
-        "description": "Detects infections like HIV, syphilis, chlamydia, gonorrhea. Important for sexually active people."
+        "description": "Comprehensive panel to detect HIV, syphilis, chlamydia, and gonorrhea. Vital for preventive sexual health."
       },
       "programa-de-reduccin-de-peso-58": {
         "title": "Weight Reduction Program",
-        "description": "Includes appointment, lab tests, and prescription."
+        "description": "Complete service including initial medical appointment, required lab tests, and prescription to pharmacy."
       }
     }
   },

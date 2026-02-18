@@ -23,6 +23,7 @@ export interface CartItem {
   imagen: string;
   categoria: string;
   detalle?: string;
+  resumen?: string;
   slug?: string;
 }
 

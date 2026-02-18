@@ -377,7 +377,12 @@ export default function ServicePage() {
                         price={item.precio}
                         vipPrice={item.precio_vip}
                         image={item.imagen}
-                        category={item.category}
+                        category={(() => {
+                          // Try to find the category object to get its ID/Tag for translation
+                          const cat = categories.find(c => c.nombre === item.category);
+                          const catSlug = cat?.tag?.toLowerCase().replace(/\s+/g, "-") || "otros";
+                          return getTranslated("Categories", catSlug, "title", item.category);
+                        })()}
                         index={idx}
                         slug={item.slug}
                         categorySlug={slug}
