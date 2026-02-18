@@ -273,9 +273,11 @@ export const PaymentForm = ({
       <head>
           <meta charset="UTF-8">
           <style>
-              body { 
+              html, body { 
                 margin: 0; 
                 padding: 0; 
+                height: 100%;
+                width: 100%;
                 background: transparent; 
                 display: flex; 
                 justify-content: center; 
@@ -286,6 +288,14 @@ export const PaymentForm = ({
                 display: flex; 
                 justify-content: center; 
                 width: 100%;
+                height: auto;
+              }
+              /* Forzar que el modal de ATH se centre si es posible */
+              .athmovil-modal-container {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
               }
           </style>
       </head>
@@ -308,16 +318,25 @@ export const PaymentForm = ({
                   window.parent.postMessage({ type: 'ATH_EXPIRED' }, '*');
               }
 
-              // Observer para detectar cuando el modal se abre/cierra dentro del iframe
+              // Detectar clic para expandir inmediatamente al interactuar
+              document.addEventListener('click', () => {
+                  window.parent.postMessage({ type: 'ATH_MODAL_OPEN' }, '*');
+              });
+
+              // Observer para detectar cambios en el DOM
+              let timeout;
               const observer = new MutationObserver(() => {
-                  const isModalOpen = document.body.children.length > 2 || 
-                                     !!document.querySelector('.athmovil-modal-container') ||
-                                     !!document.querySelector('[id^="waitingPayment"]');
+                  const hasModal = !!document.querySelector('.athmovil-modal-container') || 
+                                  !!document.querySelector('[id^="waitingPayment"]') ||
+                                  !!document.querySelector('.athmovil-modal-overlay');
                   
-                  if (isModalOpen) {
+                  if (hasModal) {
                       window.parent.postMessage({ type: 'ATH_MODAL_OPEN' }, '*');
                   } else {
-                      window.parent.postMessage({ type: 'ATH_MODAL_CLOSE' }, '*');
+                      // Solo cerramos si no hay modal y el scrollHeight es pequeño
+                      if (document.body.scrollHeight < 150) {
+                          window.parent.postMessage({ type: 'ATH_MODAL_CLOSE' }, '*');
+                      }
                   }
               });
               observer.observe(document.body, { childList: true, subtree: true });
@@ -596,13 +615,29 @@ export const PaymentForm = ({
 
           <div className="flex flex-col items-center justify-center w-full gap-4 relative">
             {isAthSelected && (
-              <div className="w-full h-full flex items-center justify-center">
-                <iframe
-                  title="ATH Movil Payment"
-                  srcDoc={getAthIframeSrcDoc()}
-                  className="w-full h-full border-none overflow-hidden"
-                  sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
-                />
+              <div
+                className={isAthExpanded
+                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300"
+                  : "w-full flex items-center justify-center"
+                }
+              >
+                <div
+                  className={isAthExpanded
+                    ? "w-full max-w-sm rounded-3xl overflow-hidden relative animate-in zoom-in duration-300"
+                    : "w-full flex items-center justify-center p-2"
+                  }
+                  style={{
+                    height: isAthExpanded ? "640px" : "100px",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  }}
+                >
+                  <iframe
+                    title="ATH Movil Payment"
+                    srcDoc={getAthIframeSrcDoc()}
+                    className={`${isAthExpanded ? "w-full h-[580px]" : "w-full h-full"} border-none overflow-hidden`}
+                    sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin"
+                  />
+                </div>
               </div>
             )}
 
@@ -782,6 +817,6 @@ export const PaymentForm = ({
           </button>
         </div>
       </div>
-    </motion.div>
+    </motion.div >
   );
 };

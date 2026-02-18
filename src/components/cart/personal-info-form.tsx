@@ -34,7 +34,7 @@ import { Stepper } from "./stepper";
 
 interface PersonalInfoFormProps {
   formData: CartFormData;
-  setFormData: (data: CartFormData) => void;
+  setFormData: (data: CartFormData | ((prev: CartFormData) => CartFormData)) => void;
   onBack: () => void;
   onContinue: () => void;
 }
@@ -88,7 +88,66 @@ export const PersonalInfoForm = ({
           return;
         }
 
-        const { token } = JSON.parse(storedUser);
+        const parsedUser = JSON.parse(storedUser);
+        const { token } = parsedUser;
+
+        // First, pre-fill from localStorage (which is populated from perfil.php)
+        setFormData((prev) => ({
+          ...prev,
+          nombre_completo:
+            prev.nombre_completo ||
+            parsedUser.us_nombres ||
+            parsedUser.us_nombre ||
+            parsedUser.nombres ||
+            "",
+          email: prev.email || parsedUser.us_email || parsedUser.email || "",
+          telefono:
+            prev.telefono ||
+            parsedUser.us_telefono ||
+            parsedUser.telefono ||
+            "",
+          fecha_nacimiento:
+            prev.fecha_nacimiento ||
+            parsedUser.us_fech_nac ||
+            parsedUser.fecha_nacimiento ||
+            "",
+          municipio:
+            prev.municipio ||
+            parsedUser.us_municipio ||
+            parsedUser.us_ciudad ||
+            parsedUser.municipio ||
+            "",
+          pais:
+            prev.pais ||
+            parsedUser.us_pais ||
+            parsedUser.pais ||
+            "Puerto Rico",
+          direccion:
+            prev.direccion ||
+            parsedUser.us_direccion ||
+            parsedUser.direccion ||
+            "",
+          codigo_postal:
+            prev.codigo_postal ||
+            parsedUser.us_code_postal ||
+            parsedUser.codigo_postal ||
+            "",
+          numero_documento:
+            prev.numero_documento ||
+            parsedUser.us_documento ||
+            parsedUser.num_id ||
+            "",
+          tipo_documento:
+            prev.tipo_documento ||
+            (parsedUser.num_id_tipo === "Licencia" ||
+              parsedUser.us_tipo_doc === "Licencia"
+              ? "Licencia de Conducir"
+              : parsedUser.num_id_tipo === "Pasaporte" ||
+                parsedUser.us_tipo_doc === "Pasaporte"
+                ? "Pasaporte"
+                : prev.tipo_documento),
+        }));
+
         const response = await fetch(
           "https://doctorrecetas.com/api/ver_uploads.php",
           {
@@ -110,24 +169,58 @@ export const PersonalInfoForm = ({
         if (data.success && data.data) {
           const { usuario, archivo, archivo_existe } = data.data;
 
-          // Pre-fill form with user data if fields are empty
-          setFormData({
-            ...formData,
-            nombre_completo:
-              formData.nombre_completo || usuario?.us_nombres || "",
-            email: formData.email || usuario?.us_email || "",
-            numero_documento:
-              formData.numero_documento || usuario?.num_id || "",
-            tipo_documento:
-              formData.tipo_documento ||
-              (usuario?.num_id_tipo === "Licencia"
-                ? "Licencia de Conducir"
-                : usuario?.num_id_tipo === "Pasaporte"
-                  ? "Pasaporte"
-                  : formData.tipo_documento),
-          });
+          // Complement with any info from ver_uploads.php if missing
+          if (usuario) {
+            setFormData((prev) => ({
+              ...prev,
+              nombre_completo:
+                prev.nombre_completo ||
+                usuario.us_nombres ||
+                usuario.us_nombre ||
+                "",
+              email: prev.email || usuario.us_email || usuario.email || "",
+              telefono:
+                prev.telefono || usuario.us_telefono || usuario.telefono || "",
+              fecha_nacimiento:
+                prev.fecha_nacimiento ||
+                usuario.us_fech_nac ||
+                usuario.fecha_nacimiento ||
+                "",
+              municipio:
+                prev.municipio ||
+                usuario.us_municipio ||
+                usuario.us_ciudad ||
+                "",
+              pais:
+                prev.pais || usuario.us_pais || usuario.pais || "Puerto Rico",
+              direccion:
+                prev.direccion ||
+                usuario.us_direccion ||
+                usuario.direccion ||
+                "",
+              codigo_postal:
+                prev.codigo_postal ||
+                usuario.us_code_postal ||
+                usuario.codigo_postal ||
+                "",
+              numero_documento:
+                prev.numero_documento ||
+                usuario.us_documento ||
+                usuario.num_id ||
+                "",
+              tipo_documento:
+                prev.tipo_documento ||
+                (usuario.num_id_tipo === "Licencia" ||
+                  usuario.us_tipo_doc === "Licencia"
+                  ? "Licencia de Conducir"
+                  : usuario.num_id_tipo === "Pasaporte" ||
+                    usuario.us_tipo_doc === "Pasaporte"
+                    ? "Pasaporte"
+                    : prev.tipo_documento),
+            }));
+          }
 
-          // Set existing file upload info if exists
+          // Set existing file upload info if it exists
           if (archivo_existe && archivo) {
             setExistingUpload({
               url: archivo.url,

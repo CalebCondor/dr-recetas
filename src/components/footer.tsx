@@ -26,9 +26,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white font-sans" id="footer">
+    <footer className="bg-linear-to-t from-[#167D7F] to-[#B0E5CC] text-white" id="footer">
       {/* Main Footer Section */}
-      <div className="w-full mx-auto px-6 md:px-12 lg:px-[8%] py-16">
+      <div className="w-full mx-auto px-6 md:px-12 lg:px-[8%] py-10">
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-24">
           {/* Brand and Apps Column */}
           <div className="flex flex-col gap-8 max-w-[300px]">
@@ -150,7 +150,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="w-full mx-auto px-6 md:px-12 lg:px-[8%] py-8">
+      <div className="w-full mx-auto px-6 md:px-12 lg:px-[8%] py-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Copyright & Language */}
           <div className="flex flex-col sm:flex-row items-center gap-6 order-2 md:order-1">
