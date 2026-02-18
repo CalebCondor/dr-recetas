@@ -88,6 +88,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     window.location.href = "/";
   }, [token]);
 
+  // Función para verificar si la sesión sigue siendo válida (Cierre Frío)
+  const checkSession = useCallback(async () => {
+    const currentToken = localStorage.getItem("dr_token") || token;
+    if (!currentToken) return;
+
+    // 1. Verificación local rápida (si es JWT)
+    try {
+      const parts = currentToken.split(".");
+      if (parts.length === 3) {
+        const payload = JSON.parse(atob(parts[1]));
+        if (payload.exp && Date.now() >= payload.exp * 1000) {
+          console.warn("⚠️ Sesión expirada localmente.");
+          logout();
+          return;
+        }
+      }
+    } catch (e) {
+      // No es un JWT o error al parsear, seguimos con la validación del servidor
+    }
+
+    // 2. Verificación con el servidor (sin extender la sesión, solo validar)
+    try {
+      const response = await fetch("https://doctorrecetas.com/api/perfil.php", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${currentToken}`,
+        },
+      });
+
+      if (response.status === 401) {
+        console.warn("⚠️ Token ya no es válido en el servidor.");
+        logout();
+      }
+    } catch (err) {
+      console.error("Error de red al validar sesión:", err);
+    }
+  }, [token, logout]);
+
+  // Validación inicial y periódica
+  useEffect(() => {
+    if (token) {
+      // Validar inmediatamente al montar
+      checkSession();
+
+      // Validar cada 5 minutos para detectar expiración durante el uso
+      const interval = setInterval(checkSession, 1000 * 60 * 5);
+      return () => clearInterval(interval);
+    }
+  }, [token, checkSession]);
+
   return (
     <AuthContext.Provider
       value={{ user, token, isLoading, login, logout }}
