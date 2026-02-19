@@ -60,9 +60,14 @@ export function ProductDetailClient({
   const isVip = user?.es_vip === 1 || user?.es_vip === "1";
   const displayPrice = isVip && product.precio_vip ? product.precio_vip : product.precio;
 
-  // Helper for dynamic translations
+  // Helper for dynamic translations (safe for plain strings)
   const getTranslated = (path: string, fallback: string) => {
     return t.has(path) ? t(path) : fallback;
+  };
+
+  // Helper for HTML fields — uses t.raw() to avoid ICU parsing errors
+  const getRawTranslated = (path: string, fallback: string) => {
+    return t.has(path) ? (t.raw(path) as string) : fallback;
   };
 
   const productTitle = getTranslated(
@@ -74,8 +79,8 @@ export function ProductDetailClient({
     product.resumen,
   );
 
-  const productLongDetail = getTranslated(
-    `Items.${product.slug}.longDescription`,
+  const productLongDetail = getRawTranslated(
+    `Items.${product.slug}.detail`,
     product.detalle || product.resumen || productTitle,
   );
 
