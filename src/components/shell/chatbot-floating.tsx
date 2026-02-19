@@ -50,12 +50,10 @@ export function ChatbotFloating() {
     if (footerElement) observer.observe(footerElement);
 
     return () => {
-      if (chatbotElement) observer.unobserve(chatbotElement);
-      if (heroElement) observer.unobserve(heroElement);
-      if (homeElement) observer.unobserve(homeElement);
-      if (footerElement) observer.unobserve(footerElement);
+      observer.disconnect();
+      intersectingSections.clear();
     };
-  }, []);
+  }, [pathname]);
 
   if (pathname === "/lock" || pathname === "/") return null;
 
