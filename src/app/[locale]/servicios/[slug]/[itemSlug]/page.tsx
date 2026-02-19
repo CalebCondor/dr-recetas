@@ -90,7 +90,7 @@ export default async function ProductDetailPage({
                   : item.category;
 
                 return (
-                  <div key={item.id} className="h-[420px]">
+                  <div key={item.id} className="h-105">
                     <RelatedBentoCard
                       title={title}
                       content={content}

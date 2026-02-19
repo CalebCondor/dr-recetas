@@ -60,9 +60,14 @@ export function ProductDetailClient({
   const isVip = user?.es_vip === 1 || user?.es_vip === "1";
   const displayPrice = isVip && product.precio_vip ? product.precio_vip : product.precio;
 
-  // Helper for dynamic translations
+  // Helper for dynamic translations (safe for plain strings)
   const getTranslated = (path: string, fallback: string) => {
     return t.has(path) ? t(path) : fallback;
+  };
+
+  // Helper for HTML fields — uses t.raw() to avoid ICU parsing errors
+  const getRawTranslated = (path: string, fallback: string) => {
+    return t.has(path) ? (t.raw(path) as string) : fallback;
   };
 
   const productTitle = getTranslated(
@@ -73,9 +78,10 @@ export function ProductDetailClient({
     `Items.${product.slug}.description`,
     product.resumen,
   );
-  const productDetail = getTranslated(
-    `Items.${product.slug}.description`,
-    product.detalle || product.resumen,
+
+  const productLongDetail = getRawTranslated(
+    `Items.${product.slug}.detail`,
+    product.detalle || product.resumen || productTitle,
   );
 
   const handleAddToCart = () => {
@@ -90,11 +96,12 @@ export function ProductDetailClient({
 
     addToCart({
       id: product.id.toString(),
-      titulo: product.titulo,
+      titulo: productTitle, // Use translated title
       precio: displayPrice,
       imagen: product.imagen || "/logo.png",
       categoria: product.category || "Servicio",
-      detalle: product.resumen,
+      resumen: productDescription,
+      detalle: productLongDetail,
       slug: product.slug,
     });
     router.push("/carrito");
@@ -223,7 +230,7 @@ export function ProductDetailClient({
                           {t("Static.detailedDescription")}
                         </h3>
                         {(() => {
-                          const content = productDetail;
+                          const content = productLongDetail;
                           const isEmpty =
                             !content ||
                             content.replace(/<[^>]*>?/gm, "").trim() === "";
@@ -344,7 +351,7 @@ export function ProductDetailClient({
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-6 pt-0">
                       {(() => {
-                        const content = productDetail;
+                        const content = productLongDetail;
                         const isEmpty =
                           !content ||
                           content.replace(/<[^>]*>?/gm, "").trim() === "";
