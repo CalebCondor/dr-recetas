@@ -97,7 +97,7 @@ export const PaymentForm = ({
   const isTarjetaSelected = formData.payment_method === "tarjeta";
 
   // Helper function to convert server errors to friendly messages
-  const getFriendlyErrorMessage = (error: string): string => {
+  const getFriendlyErrorMessage = useCallback((error: string): string => {
     const lowerError = error.toLowerCase();
 
     if (lowerError.includes("declined") || lowerError.includes("rechazada")) {
@@ -142,7 +142,7 @@ export const PaymentForm = ({
 
     // Default friendly message
     return t("errors.default");
-  };
+  }, [t]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -156,13 +156,13 @@ export const PaymentForm = ({
   const handleATHSuccess = useCallback(
     async (athResponse: {
       status: string;
-      data?: { cp_code?: string;[key: string]: unknown };
+      transaction_id?: string;
       referenceNumber?: string;
       [key: string]: unknown;
     }) => {
       if (isProcessing) return;
       setIsProcessing(true);
-      // ... rest of the logic remains same but I'll update the whole block for safety
+
       const storedUser = localStorage.getItem("dr_user");
       if (!storedUser) {
         toast.error(t("errors.sessionExpired"), { id: "ath-error" });
@@ -172,14 +172,28 @@ export const PaymentForm = ({
 
       const { token } = JSON.parse(storedUser);
 
+      // Format current datetime as "YYYY-MM-DD HH:mm"
+      const now = new Date();
+      const iny_fecha = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+
+      const iny_direccion = [formData.direccion, formData.apartamento]
+        .filter(Boolean)
+        .join(", ");
+
+      const pqIds = cart.map((item: CartItem) => parseInt(item.id));
+
       const payload = {
-        pq_id: cart.map((item: CartItem) => parseInt(item.id)),
+        data: athResponse,
+        pq_id: pqIds,
         anombre_de: cart.map(
           (item: CartItem) =>
             formData.order_names[item.id] || formData.nombre_completo,
         ),
         pq_precio: total,
-        ath_data: athResponse,
+        iny_fecha,
+        iny_direccion,
+        pi_id: pqIds,
+        pp_id: 1,
       };
 
       try {
@@ -198,7 +212,8 @@ export const PaymentForm = ({
         const text = await response.text();
 
         if (!response.ok) {
-          setErrorMessage("Error procesando pago con ATH Móvil: " + text);
+          const friendlyMessage = getFriendlyErrorMessage(text);
+          setErrorMessage(friendlyMessage);
           setShowErrorModal(true);
           setIsProcessing(false);
           return;
@@ -207,19 +222,23 @@ export const PaymentForm = ({
         const data = JSON.parse(text);
         if (data.success) {
           const cpCode = data.data?.cp_code || data.cp_code;
+          const status = data.data?.status || athResponse.status;
+
           sessionStorage.setItem(
             "dr_order_data",
             JSON.stringify({
               cp_code: cpCode,
               token: token,
+              transaction_id: data.data?.transaction_id,
+              status,
+              metodo: "ATH Móvil",
             }),
           );
           if (onComplete) onComplete();
           router.push("/procesar-pago");
         } else {
-          setErrorMessage(
-            data.message || "Error al procesar pago con ATH Móvil",
-          );
+          const friendlyMessage = getFriendlyErrorMessage(data.message || "");
+          setErrorMessage(friendlyMessage);
           setShowErrorModal(true);
         }
       } catch (error) {
@@ -230,7 +249,7 @@ export const PaymentForm = ({
         setIsProcessing(false);
       }
     },
-    [cart, formData, total, router, onComplete, t, isProcessing],
+    [cart, formData, total, router, onComplete, t, isProcessing, getFriendlyErrorMessage],
   );
 
   // Handle messages from the ATH Iframe
