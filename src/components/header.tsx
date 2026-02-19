@@ -277,14 +277,14 @@ export default function Header() {
                       {user.us_nombres.charAt(0).toUpperCase()}
                     </div>
                     <span
-                      className={`text-xs font-bold hidden lg:flex items-center gap-1.5 max-w-[150px] relative z-10 ${isScrolled || isHeaderDark
+                      className={`text-xs font-bold hidden lg:flex items-center gap-1.5 max-w-37.5 relative z-10 ${isScrolled || isHeaderDark
                         ? "text-slate-700"
                         : "text-white"
                         }`}
                     >
                       <span className="truncate">{user.us_nombres.split(" ")[0]}</span>
                       {Number(user.es_vip) === 1 && (
-                        <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0">
+                        <span className="bg-linear-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0">
                           VIP
                         </span>
                       )}
@@ -308,7 +308,7 @@ export default function Header() {
                           </AvatarFallback>
                         </Avatar>
                         {Number(user.es_vip) === 1 && (
-                          <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+                          <div className="absolute -top-1.5 -right-1.5 z-20 bg-linear-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
                             <Crown size={12} className="text-white fill-white" />
                           </div>
                         )}
@@ -326,7 +326,7 @@ export default function Header() {
                       </div>
                     </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                  <DropdownMenuSeparator className="bg-slate-50 -mx-2 my-2" />
                   <DropdownMenuGroup>
                     <Link href="/perfil?tab=info">
                       <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-bold cursor-pointer group">
@@ -348,7 +348,7 @@ export default function Header() {
                       </DropdownMenuItem>
                     </Link>
                   </DropdownMenuGroup>
-                  <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                  <DropdownMenuSeparator className="bg-slate-50 -mx-2 my-2" />
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
@@ -391,7 +391,7 @@ export default function Header() {
                 </div>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[150px] rounded-xl">
+            <DropdownMenuContent align="end" className="w-37.5 rounded-xl">
               <DropdownMenuItem
                 className="flex items-center justify-between font-bold cursor-pointer"
                 onClick={() => handleLanguageChange("es")}
@@ -476,7 +476,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[85%] sm:w-[400px] bg-white border-l border-slate-100 p-0 flex flex-col overflow-hidden"
+              className="w-[85%] sm:w-100 bg-white border-l border-slate-100 p-0 flex flex-col overflow-hidden"
             >
               <div className="flex flex-col h-full p-6 sm:p-8">
                 {/* Top Section: Header + User + Links */}
@@ -499,7 +499,7 @@ export default function Header() {
                             <button className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm active:scale-95 outline-none text-left w-full group hover:border-[#0D4B4D]/20 transition-all">
                               <div className="w-12 h-12 relative rounded-xl bg-[#0D4B4D] flex items-center justify-center text-white font-bold text-lg shadow-inner group-hover:scale-105 transition-transform shrink-0">
                                 {Number(user.es_vip) === 1 && (
-                                  <div className="absolute -top-1.5 -right-1.5 z-20 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+                                  <div className="absolute -top-1.5 -right-1.5 z-20 bg-linear-to-br from-amber-300 to-amber-500 rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
                                     <Crown size={12} className="text-white fill-white" />
                                   </div>
                                 )}
@@ -513,7 +513,7 @@ export default function Header() {
                                   <p className="text-base font-extrabold text-[#0D4B4D] truncate flex items-center gap-2">
                                     <span className="truncate">{user.us_nombres}</span>
                                     {Number(user.es_vip) === 1 && (
-                                      <span className="bg-gradient-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0 border-none">
+                                      <span className="bg-linear-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0 border-none">
                                         VIP
                                       </span>
                                     )}
@@ -525,7 +525,7 @@ export default function Header() {
                           </DropdownMenuTrigger>
                           <DropdownMenuContent
                             align="center"
-                            className="w-[300px] p-2 rounded-2xl shadow-xl border-slate-100 z-100 bg-slate-50"
+                            className="w-75 p-2 rounded-2xl shadow-xl border-slate-100 z-100 bg-slate-50"
                           >
                             <DropdownMenuLabel className="p-0 font-normal">
                               <div className="flex items-center gap-3 px-3 py-3 text-left">
@@ -550,7 +550,7 @@ export default function Header() {
                                 </div>
                               </div>
                             </DropdownMenuLabel>
-                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuSeparator className="bg-slate-50 -mx-2 my-2" />
                             <DropdownMenuGroup>
                               <Link
                                 href="/perfil?tab=info"
@@ -580,7 +580,7 @@ export default function Header() {
                                 </DropdownMenuItem>
                               </Link>
                             </DropdownMenuGroup>
-                            <DropdownMenuSeparator className="bg-slate-50 mx-[-8px] my-2" />
+                            <DropdownMenuSeparator className="bg-slate-50 -mx-2 my-2" />
                             <DropdownMenuItem
                               onClick={handleLogout}
                               className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-50 focus:bg-red-50 focus:text-red-600 transition-colors text-sm font-bold cursor-pointer"
