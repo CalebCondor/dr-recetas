@@ -3,7 +3,6 @@ import {
   RiBankCardLine,
   RiShieldCheckLine,
   RiErrorWarningLine,
-  RiLoader4Line,
 } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,7 @@ import {
 import { CartItem } from "@/context/cart-context";
 import { CartFormData } from "./types";
 import { Stepper } from "./stepper";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -46,10 +45,13 @@ export const PaymentForm = ({
   const locale = useLocale();
   const tServices = useTranslations("ServicesPage");
   const tDynamic = useTranslations("DynamicServices");
-  const messages = useMessages();
-  const itemsMessages = (messages as any)?.ServicesPage?.Items || {};
+  const messages = useMessages() as Record<string, Record<string, Record<string, string>>>;
+  const itemsMessages = useMemo(
+    () => messages?.ServicesPage?.Items || {},
+    [messages]
+  );
 
-  const getTranslatedItem = (item: CartItem) => {
+  const getTranslatedItem = useCallback((item: CartItem) => {
     let title = item.titulo;
     let description = item.resumen || "";
 
@@ -77,7 +79,7 @@ export const PaymentForm = ({
     }
 
     return { title, description };
-  };
+  }, [itemsMessages, tServices, tDynamic]);
   const router = useRouter();
   const [showCardModal, setShowCardModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -177,13 +179,12 @@ export const PaymentForm = ({
             formData.order_names[item.id] || formData.nombre_completo,
         ),
         pq_precio: total,
-        metodo_pago: "ath",
         ath_data: athResponse,
       };
 
       try {
         const response = await fetch(
-          "https://doctorrecetas.com/api/pagar.php",
+          "https://doctorrecetas.com/api/pago_ath.php",
           {
             method: "POST",
             headers: {
@@ -634,7 +635,7 @@ export const PaymentForm = ({
             {isAthSelected && (
               <div
                 className={isAthExpanded
-                  ? "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-all duration-500"
+                  ? "fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-all duration-500"
                   : "w-full flex items-center justify-center"
                 }
               >
