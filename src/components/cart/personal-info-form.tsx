@@ -117,7 +117,7 @@ export const PersonalInfoForm = ({
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-        
+
         let profileData: Record<string, string> = {};
         if (perfilRes.ok) {
           const perfilJson = await perfilRes.json();
@@ -151,7 +151,7 @@ export const PersonalInfoForm = ({
           codigo_postal:
             profileData.us_code_postal || parsedUser.us_code_postal || prev.codigo_postal || "",
           numero_documento:
-            prev.numero_documento || parsedUser.us_documento || "",
+            profileData.us_num_documento || parsedUser.us_num_documento || prev.numero_documento || "",
           tipo_documento:
             prev.tipo_documento || "Licencia de Conducir",
         }));
