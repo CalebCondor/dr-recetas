@@ -188,18 +188,18 @@ export default function Hero() {
                         ease: [0.32, 0.72, 0, 1],
                         opacity: { duration: 0.2 },
                       }}
-                      className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity]"
+                      className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity] group/card"
                       onClick={() => handleInteraction(globalIndex)}
                     >
                       <Link href={item.href} className="block w-full">
                         <div
                           className={`
                             relative overflow-hidden rounded-2xl py-4 px-5 lg:px-8
-                            transition-all duration-500 flex flex-col justify-center min-h-[60px]
+                            transition-all duration-300 flex flex-col justify-center min-h-[60px]
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
+                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/45 hover:border-white/65 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:scale-[1.03] hover:backdrop-blur-2xl"
                             }
                           `}
                           style={{
@@ -224,10 +224,10 @@ export default function Hero() {
                           <div className="relative z-10 flex items-center gap-4">
                             <div
                               className={`
-                                shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-500
+                                shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300
                                 ${isActive
                                   ? "bg-white/40 text-white shadow-md"
-                                  : "bg-white/10 text-white/90"
+                                  : "bg-white/10 text-white/90 group-hover/card:bg-white/45 group-hover/card:text-white group-hover/card:shadow-md group-hover/card:scale-110"
                                 }
                               `}
                             >
@@ -235,10 +235,10 @@ export default function Hero() {
                             </div>
                             <p
                               className={`
-                                text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
+                                text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-300 line-clamp-2
                                 ${isActive
                                   ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white"
+                                  : "text-white/80 group-hover/card:text-white group-hover/card:translate-x-1 group-hover/card:drop-shadow-md"
                                 }
                               `}
                             >
