@@ -1,23 +1,16 @@
-# Stage 1: Base image
-FROM node:20-alpine AS base
+# Stage 1: Base image (Bun + Node on Alpine)
+FROM oven/bun:1-alpine AS base
+RUN apk add --no-cache libc6-compat nodejs
 
 # Stage 2: Install dependencies
 FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lock* ./
+# Copy only lockfile + manifest for maximum cache reuse
+COPY package.json bun.lock ./
 
-# Install dependencies based on the lockfile present
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm install; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  elif [ -f bun.lock ]; then npm install; \
-  else echo "Lockfile not found." && npm install; \
-  fi
+# Install with frozen lockfile — cached unless package.json/bun.lock change
+RUN bun install --frozen-lockfile
 
 # Stage 3: Build the application
 FROM base AS builder
@@ -26,17 +19,17 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Disable Next.js telemetry during build
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Generate the production build
-RUN npm run build
+RUN bun run build
 
-# Stage 4: Production runner
-FROM base AS runner
+# Stage 4: Production runner (lean — no bun needed at runtime)
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
