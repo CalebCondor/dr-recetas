@@ -150,17 +150,35 @@ export const PersonalInfoForm = ({
             profileData.us_direccion || parsedUser.us_direccion || prev.direccion || "",
           codigo_postal:
             profileData.us_code_postal || parsedUser.us_code_postal || prev.codigo_postal || "",
-          numero_documento:
-            profileData.us_num_documento || parsedUser.us_num_documento || prev.numero_documento || "",
-          tipo_documento:
-            prev.tipo_documento || "Licencia de Conducir",
         }));
 
-        // --- ver_uploads.php: only used for the document file ---
+        // --- ver_uploads.php: documento number + existing file ---
         if (uploadsRes.ok) {
           const uploadsJson = await uploadsRes.json();
           if (uploadsJson.success && uploadsJson.data) {
-            const { archivo, archivo_existe } = uploadsJson.data;
+            const { usuario, archivo, archivo_existe } = uploadsJson.data;
+
+            if (usuario) {
+              const rawDocType = usuario.us_tipo_doc || usuario.num_id_tipo || "";
+              const normalizeDocType = (val: string): string => {
+                if (val === "Licencia" || val === "Licencia de Conducir") return "Licencia de Conducir";
+                if (val === "Pasaporte") return "Pasaporte";
+                return val;
+              };
+              setFormData((prev) => ({
+                ...prev,
+                numero_documento:
+                  prev.numero_documento ||
+                  usuario.us_documento ||
+                  usuario.num_id ||
+                  "",
+                tipo_documento:
+                  prev.tipo_documento ||
+                  normalizeDocType(rawDocType) ||
+                  "Licencia de Conducir",
+              }));
+            }
+
             if (archivo_existe && archivo) {
               setExistingUpload({
                 url: archivo.url,
