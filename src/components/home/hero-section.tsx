@@ -199,7 +199,7 @@ export default function Hero() {
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/45 hover:border-white/65 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:scale-[1.03] hover:backdrop-blur-2xl"
+                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/35 hover:border-white/50 hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:scale-[1.015]"
                             }
                           `}
                           style={{
@@ -227,7 +227,7 @@ export default function Hero() {
                                 shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300
                                 ${isActive
                                   ? "bg-white/40 text-white shadow-md"
-                                  : "bg-white/10 text-white/90 group-hover/card:bg-white/45 group-hover/card:text-white group-hover/card:shadow-md group-hover/card:scale-110"
+                                  : "bg-white/10 text-white/90 group-hover/card:bg-white/30 group-hover/card:text-white group-hover/card:shadow-sm"
                                 }
                               `}
                             >
@@ -238,7 +238,7 @@ export default function Hero() {
                                 text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-300 line-clamp-2
                                 ${isActive
                                   ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white/80 group-hover/card:text-white group-hover/card:translate-x-1 group-hover/card:drop-shadow-md"
+                                  : "text-white/85 group-hover/card:text-white group-hover/card:translate-x-0.5"
                                 }
                               `}
                             >
