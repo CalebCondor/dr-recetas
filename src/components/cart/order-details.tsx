@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +32,7 @@ export const OrderDetails = ({
   const tServices = useTranslations("ServicesPage");
   const tDynamic = useTranslations("DynamicServices");
   const messages = useMessages();
-  const itemsMessages = (messages as any)?.ServicesPage?.Items || {};
+  const itemsMessages = (messages as Record<string, Record<string, unknown>>)?.ServicesPage?.Items || {};
 
   const getTranslatedItem = (item: CartItem) => {
     let title = item.titulo;
