@@ -171,23 +171,30 @@ export default function Hero() {
                       key={item.id}
                       initial={{
                         opacity: 0,
-                        y: localIndex * ITEM_HEIGHT + 20,
+                        x: 50,
+                        filter: "blur(6px)",
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.75,
+                        opacity: isActive ? 1 : 0.65,
+                        x: 0,
                         y: localIndex * ITEM_HEIGHT,
                         scale: isActive ? 1.02 : 1,
+                        filter: "blur(0px)",
                         zIndex: 100 - distance,
                       }}
                       exit={{
                         opacity: 0,
-                        y: localIndex * ITEM_HEIGHT - 20,
+                        x: -50,
+                        filter: "blur(6px)",
                       }}
                       transition={{
-                        duration: 0.4,
-                        ease: [0.32, 0.72, 0, 1],
-                        opacity: { duration: 0.2 },
+                        duration: 0.45,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                        opacity: { duration: 0.3 },
+                        filter: { duration: 0.3 },
                       }}
+                      whileHover={!isActive ? { scale: 1.03, x: 6, transition: { duration: 0.2 } } : {}}
+                      whileTap={{ scale: 0.98 }}
                       className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity] group/card"
                       onClick={() => handleInteraction(globalIndex)}
                     >
@@ -199,7 +206,7 @@ export default function Hero() {
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/35 hover:border-white/50 hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:scale-[1.015]"
+                              : "bg-white/20 backdrop-blur-lg shadow-xl border border-white/20 hover:bg-white/40 hover:border-white/50 hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:scale-[1.015]"
                             }
                           `}
                           style={{
