@@ -194,8 +194,8 @@ export default function Hero() {
                       <Link href={item.href} className="block w-full">
                         <div
                           className={`
-                            relative overflow-hidden rounded-2xl p-3 lg:p-3.5 px-3 lg:px-8
-                            transition-all duration-500 flex flex-col justify-center min-h-[56px]
+                            relative overflow-hidden rounded-2xl py-4 px-5 lg:px-8
+                            transition-all duration-500 flex flex-col justify-center min-h-[60px]
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
@@ -224,14 +224,14 @@ export default function Hero() {
                           <div className="relative z-10 flex items-center gap-4">
                             <div
                               className={`
-                                shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl transition-all duration-500
+                                shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-500
                                 ${isActive
-                                  ? "bg-white/40 text-white shadow-xl scale-125 rotate-3"
+                                  ? "bg-white/40 text-white shadow-md"
                                   : "bg-white/10 text-white/90"
                                 }
                               `}
                             >
-                              <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                              <item.icon className="w-4 h-4" />
                             </div>
                             <p
                               className={`
