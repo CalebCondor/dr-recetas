@@ -7,8 +7,6 @@ import {
   Pill,
   Stethoscope,
   Calendar,
-  Microscope,
-  TestTube2,
   ArrowDown,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -40,18 +38,6 @@ const consultations = [
     nameKey: "follow_up",
     icon: Calendar,
     href: "/servicios/citas-medicas/cita-de-seguimiento-31",
-  },
-  {
-    id: 5,
-    nameKey: "influenza_test",
-    icon: Microscope,
-    href: "/servicios/lab/prueba-de-influenza-a-y-b-14",
-  },
-  {
-    id: 6,
-    nameKey: "cbc_diff",
-    icon: TestTube2,
-    href: "/servicios/otros/cbc-diff-lab-45",
   },
 ];
 
@@ -97,13 +83,13 @@ export default function Hero() {
     setActiveIndex(index);
   };
 
-  const WINDOW_SIZE = 3;
+  const WINDOW_SIZE = 4;
   const windowStartIndex = Math.max(
     0,
     Math.min(activeIndex, consultations.length - WINDOW_SIZE),
   );
 
-  const ITEM_HEIGHT = 90;
+  const ITEM_HEIGHT = 76;
   const CONTAINER_HEIGHT = ITEM_HEIGHT * WINDOW_SIZE;
   return (
     <section
@@ -147,7 +133,7 @@ export default function Hero() {
             <span className="text-[#95D5B2]">
               <TypingAnimation
                 words={[
-                  t("typing.medical_excuse"),
+                  t("typing.medical_excuse" ),
                   t("typing.covid_test"),
                   t("typing.medical_appointment"),
                   t("typing.medical_prescription"),
@@ -208,8 +194,8 @@ export default function Hero() {
                       <Link href={item.href} className="block w-full">
                         <div
                           className={`
-                            relative overflow-hidden rounded-2xl p-4 lg:p-5 px-5 lg:px-10
-                            transition-all duration-500 flex flex-col justify-center min-h-[70px]
+                            relative overflow-hidden rounded-2xl p-3 lg:p-3.5 px-3 lg:px-8
+                            transition-all duration-500 flex flex-col justify-center min-h-[56px]
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"

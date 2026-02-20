@@ -125,9 +125,9 @@ export function RelatedBentoCard({
             <div
               className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
                 isDark
-                  ? "bg-white/10 text-white/90 border-white/10"
+                  ? "bg-white/10 text-white border-white/20"
                   : "bg-black/5 text-slate-900/60 border-black/10"
-              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
+              } opacity-100`}
             >
               {category}
             </div>
@@ -172,9 +172,9 @@ export function RelatedBentoCard({
           <div
             className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
               isDark
-                ? "bg-black/5 text-slate-900/60 border-black/10"
+                ? "bg-white/10 text-white border-white/20"
                 : "bg-black/5 text-slate-900/60 border-black/10"
-            } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+            } opacity-100`}
           >
             {category}
           </div>
@@ -297,7 +297,7 @@ export default function ServicePage() {
   const hasMore = visibleCount < filteredItems.length;
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-[#F5F7F6] pt-16 pb-24 overflow-hidden relative">
+      <div className="min-h-screen  pt-16 pb-24 overflow-hidden relative">
         {/* Background Accents */}
         <div className="relative mb-12">
           <div className="container mx-auto lg:mt-12 px-6 text-center relative z-10 pt-12">
@@ -306,7 +306,12 @@ export default function ServicePage() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
             >
-              {t("Static.ourServices")}
+              {getTranslated(
+                "Categories",
+                serviceInfo?.slug,
+                "title",
+                serviceInfo?.title,
+              )}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -383,7 +388,6 @@ export default function ServicePage() {
             </div>
           ) : (
             <div className="relative">
-              <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.7),rgba(13,75,77,0.04),rgba(255,255,255,0.8))] rounded-[2.5rem] -z-10" />
               <div className="absolute -inset-6 border border-white/40 rounded-[3rem] -z-20" />
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[340px] grid-flow-dense">
                 <AnimatePresence mode="popLayout">
@@ -472,21 +476,12 @@ export default function ServicePage() {
                         price={item.precio}
                         vipPrice={item.precio_vip}
                         image={item.imagen}
-                        category={(() => {
-                          // Try to find the category object to get its ID/Tag for translation
-                          const cat = categories.find(
-                            (c) => c.nombre === item.category,
-                          );
-                          const catSlug =
-                            cat?.tag?.toLowerCase().replace(/\s+/g, "-") ||
-                            "otros";
-                          return getTranslated(
-                            "Categories",
-                            catSlug,
-                            "title",
-                            item.category,
-                          );
-                        })()}
+                        category={getTranslated(
+                          "Categories",
+                          serviceInfo.slug,
+                          "title",
+                          serviceInfo.title,
+                        )}
                         index={idx}
                         slug={item.slug}
                         categorySlug={slug}
