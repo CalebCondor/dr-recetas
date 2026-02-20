@@ -125,22 +125,18 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
               align: "start",
               slidesToScroll: 3,
             },
-            "(min-width: 640px)": {
-              align: "center",
-              slidesToScroll: 3,
-            },
           },
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-2 px-4 md:px-0 lg:-ml-6">
+        <CarouselContent className="-ml-2 px-4 lg:px-0 lg:-ml-6">
           {services.map((service, index) => {
             const isActiveOnMobile = index === current;
 
             return (
               <CarouselItem
                 key={index}
-                className="pl-2 lg:pl-6 basis-[82%] sm:basis-[70%] lg:basis-1/3 "
+                className="pl-2 lg:pl-6 basis-[82%] lg:basis-1/3"
               >
                 <motion.div
                   initial={false}
