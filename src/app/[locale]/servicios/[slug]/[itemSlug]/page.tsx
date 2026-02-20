@@ -60,7 +60,7 @@ export default async function ProductDetailPage({
       {relatedProducts.length > 0 && (
         <div className="pb-24">
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
-            <div className="mb-12">
+            <div className="mb-6 lg:mb-12">
               <h2 className="text-center text-3xl md:text-4xl font-black text-[#0D4B4D] tracking-tighter">
                 {t("ServicesPage.Static.relatedServicesTitle")}
               </h2>

@@ -120,7 +120,7 @@ export function ProductDetailClient({
   return (
     <>
       <PageWrapper>
-        <div className="min-h-auto pt-30 pb-40 md:pb-20 relative overflow-visible">
+        <div className="min-h-auto pt-30 pb-6 md:pb-20 lg:pb-40 relative overflow-visible">
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
             <div className="grid grid-cols-1 gap-8 lg:gap-12 items-start">
               {/* Right Column: Info */}
