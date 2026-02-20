@@ -11,6 +11,7 @@ import { useServiceDetails } from "@/hooks/use-service-details";
 import { useInView } from "motion/react";
 import { ServicesCarousel } from "@/components/home/services-carousel";
 import { useAuth } from "@/context/auth-context";
+import { Badge } from "@/components/ui/badge";
 
 // Helper component for the Related card
 export function RelatedBentoCard({
@@ -54,13 +55,14 @@ export function RelatedBentoCard({
   });
   const shouldAnimateFocus = isMobile && isFocused;
   const bgImage = image;
+  // Variety of background colors based on index to match the reference image
   const cardColors = [
-    "bg-white text-[#0D4B4D] border-white/40",
-    "bg-[#0D4B4D] text-white border-white/10",
-    "bg-[#B0E5CC] text-[#0D4B4D] border-white/40",
-    "bg-[#F8FAFC] text-slate-900 border-white/40",
-    "bg-[#1E293B] text-white border-white/10",
-    "bg-[#E0F2F1] text-teal-900 border-white/40",
+    "bg-white text-slate-900 border-slate-100", // White
+    "bg-[#FFD54F] text-[#0D4B4D] border-[#FFECB3]", // Yellow
+    "bg-[#E1F5FE] text-[#01579B] border-[#B3E5FC]", // Light Blue
+    "bg-[#0D4B4D] text-white border-white/10", // Dark Teal
+    "bg-[#FCE4EC] text-[#880E4F] border-[#F8BBD0]", // Light Pink
+    "bg-[#E8F5E9] text-[#1B5E20] border-[#C8E6C9]", // Light Green
   ];
   const currentBg = cardColors[index % cardColors.length];
   const isDark =
@@ -106,23 +108,26 @@ export function RelatedBentoCard({
           }}
           transition={{ duration: 0.7 }}
         >
-          <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-110 grayscale-20 group-hover:grayscale-0"
-            style={{ backgroundImage: `url("${bgImage}")` }}
-          />
-          {/* Overlay for readability - sophisticated gradient */}
-          <div
-            className={`absolute inset-0 transition-opacity duration-500 ${isDark ? "bg-linear-to-t from-black/95 via-black/40 to-black/20" : "bg-linear-to-t from-white/95 via-white/40 to-white/20"}`}
-          />
+          {/* Background Image/Overlay logic depending on the card type */}
+          <motion.div
+            className="absolute right-4 top-4 w-[60%] h-[70%] z-0 opacity-40 group-hover:opacity-60 transition-opacity"
+            initial={false}
+          >
+            <div
+              className="w-full h-full bg-contain bg-bottom-right bg-no-repeat"
+              style={{ backgroundImage: `url("${bgImage}")` }}
+            />
+          </motion.div>
         </motion.div>
         {/* Central Content (Top Area) */}
         <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
           {category && (
             <div
-              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${isDark
-                ? "bg-white/10 text-white/90 border-white/10"
-                : "bg-black/5 text-slate-900/60 border-black/10"
-                } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-60") : "opacity-60 group-hover:opacity-100"}`}
+              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
+                isDark
+                  ? "bg-white/10 text-white border-white/20"
+                  : "bg-black/5 text-slate-900/60 border-black/10"
+              } opacity-100`}
             >
               {category}
             </div>
@@ -152,7 +157,9 @@ export function RelatedBentoCard({
               <span
                 className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-40 ${isDark ? "text-white" : "text-[#0D4B4D]"}`}
               >
-                {isVip && vipPrice ? t("Static.vipPrice") : t("Static.basePrice")}
+                {isVip && vipPrice
+                  ? t("Static.vipPrice")
+                  : t("Static.basePrice")}
               </span>
               <div className="text-3xl md:text-4xl font-black leading-none tracking-tighter">
                 ${displayPrice}
@@ -163,10 +170,11 @@ export function RelatedBentoCard({
         {/* Category Tag (Absolute - Desktop only) */}
         {category && (
           <div
-            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${isDark
-              ? "bg-white/10 text-white/90 border-white/10"
-              : "bg-black/5 text-slate-900/60 border-black/10"
-              } ${isMobile ? (shouldAnimateFocus ? "opacity-100" : "opacity-40") : "opacity-40 group-hover:opacity-100"}`}
+            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
+              isDark
+                ? "bg-white/10 text-white border-white/20"
+                : "bg-black/5 text-slate-900/60 border-black/10"
+            } opacity-100`}
           >
             {category}
           </div>
@@ -191,6 +199,14 @@ export default function ServicePage() {
     useServiceDetails(slug);
   const t = useTranslations("ServicesPage");
   const tDynamic = useTranslations("DynamicServices");
+  const allLabel = t.has("Static.all") ? t("Static.all") : "Todos";
+
+  const [activeTag, setActiveTag] = useState("all");
+
+  const handleTagChange = (tag: string) => {
+    setActiveTag(tag);
+    setVisibleCount(ITEMS_PER_PAGE);
+  };
 
   // Helper to translate dynamic content
   const getTranslated = (
@@ -205,6 +221,36 @@ export default function ServicePage() {
   };
 
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  const normalizeTag = (tag: string) => tag.trim().toLowerCase();
+
+  const extractTags = (item: { pq_tag?: string | null; tags?: string[] }) => {
+    const collected: string[] = [];
+    if (item.pq_tag) {
+      collected.push(...item.pq_tag.split(","));
+    }
+    if (item.tags?.length) {
+      item.tags.forEach((tag) => {
+        collected.push(...tag.split(","));
+      });
+    }
+    return collected.map((tag) => tag.trim()).filter((tag) => tag.length > 0);
+  };
+
+  const tagMap = new Map<string, string>();
+  apiItems.forEach((item) => {
+    extractTags(item).forEach((tag) => {
+      const key = normalizeTag(tag);
+      if (!tagMap.has(key)) {
+        tagMap.set(key, tag);
+      }
+    });
+  });
+
+  const filterTags = Array.from(tagMap.entries())
+    .map(([key, label]) => ({ key, label }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
   if (!serviceInfo) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F5F7F6]">
@@ -240,11 +286,18 @@ export default function ServicePage() {
     .filter((item) => item.slug !== slug)
     .filter((v, i, a) => a.findIndex((t) => t.title === v.title) === i)
     .slice(0, 10);
-  const visibleItems = apiItems.slice(0, visibleCount);
-  const hasMore = visibleCount < apiItems.length;
+  const filteredItems =
+    activeTag === "all"
+      ? apiItems
+      : apiItems.filter((item) =>
+          extractTags(item).some((tag) => normalizeTag(tag) === activeTag),
+        );
+
+  const visibleItems = filteredItems.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredItems.length;
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-[#F5F7F6] pt-16 pb-24 overflow-hidden relative">
+      <div className="min-h-screen  pt-16 pb-24 overflow-hidden relative">
         {/* Background Accents */}
         <div className="relative mb-12">
           <div className="container mx-auto lg:mt-12 px-6 text-center relative z-10 pt-12">
@@ -253,7 +306,12 @@ export default function ServicePage() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
             >
-              {t("Static.ourServices")}
+              {getTranslated(
+                "Categories",
+                serviceInfo?.slug,
+                "title",
+                serviceInfo?.title,
+              )}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -282,6 +340,45 @@ export default function ServicePage() {
           </div>
         </div>
         <div className="container mx-auto px-4 md:px-6 mb-16 relative z-10">
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[90%] h-40 bg-[radial-gradient(circle_at_center,rgba(13,75,77,0.12),transparent_70%)] blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-28 right-0 w-72 h-72 bg-[radial-gradient(circle_at_center,rgba(13,75,77,0.10),transparent_65%)] blur-3xl pointer-events-none" />
+          {filterTags.length > 0 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+              <Badge
+                asChild
+                variant="outline"
+                className={`cursor-pointer h-auto rounded-full border transition-all duration-300 shadow-sm ${
+                  activeTag === "all"
+                    ? "bg-[#0D4B4D] text-white border-[#0D4B4D] shadow-[0_4px_14px_rgba(13,75,77,0.35)] scale-105"
+                    : "bg-white/80 text-[#0D4B4D]/70 border-[#0D4B4D]/10 hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
+                }`}
+              >
+                <button type="button" className="px-4 py-2 text-xl font-semibold tracking-wide" onClick={() => handleTagChange("all")}>
+                  {allLabel}
+                </button>
+              </Badge>
+              {filterTags.map((tag) => (
+                <Badge
+                  key={tag.key}
+                  asChild
+                  variant="outline"
+                  className={`cursor-pointer h-auto rounded-full border transition-all duration-300 shadow-sm ${
+                    activeTag === tag.key
+                      ? "bg-[#0D4B4D] text-white border-[#0D4B4D] shadow-[0_4px_14px_rgba(13,75,77,0.35)] scale-105"
+                      : "bg-white/80 text-[#0D4B4D]/70 border-[#0D4B4D]/10 hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    className="px-4 py-2 text-md font-semibold tracking-wide"
+                    onClick={() => handleTagChange(tag.key)}
+                  >
+                    {tag.label}
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 space-y-4">
               <RiLoader4Line className="w-12 h-12 text-teal-600 animate-spin" />
@@ -290,8 +387,10 @@ export default function ServicePage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[340px] grid-flow-dense">
-              <AnimatePresence mode="popLayout">
+            <div className="relative">
+              <div className="absolute -inset-6 border border-white/40 rounded-[3rem] -z-20" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[340px] grid-flow-dense">
+                <AnimatePresence mode="popLayout">
                 {(() => {
                   const gridClasses: string[] = [];
                   const slots = Array.from({ length: 200 }, () => [
@@ -377,12 +476,12 @@ export default function ServicePage() {
                         price={item.precio}
                         vipPrice={item.precio_vip}
                         image={item.imagen}
-                        category={(() => {
-                          // Try to find the category object to get its ID/Tag for translation
-                          const cat = categories.find(c => c.nombre === item.category);
-                          const catSlug = cat?.tag?.toLowerCase().replace(/\s+/g, "-") || "otros";
-                          return getTranslated("Categories", catSlug, "title", item.category);
-                        })()}
+                        category={getTranslated(
+                          "Categories",
+                          serviceInfo.slug,
+                          "title",
+                          serviceInfo.title,
+                        )}
                         index={idx}
                         slug={item.slug}
                         categorySlug={slug}
@@ -390,7 +489,8 @@ export default function ServicePage() {
                     </motion.div>
                   ));
                 })()}
-              </AnimatePresence>
+                </AnimatePresence>
+              </div>
             </div>
           )}
         </div>
