@@ -194,16 +194,7 @@ export function LoginSheet({ children }: LoginSheetProps) {
             {/* VIEW: RECOVERY */}
             {view === "recovery" && <RecoveryFormContent setView={setView} />}
 
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 p-8 opacity-5">
-              <Image
-                src="/logo.png"
-                width={256}
-                height={100}
-                className="w-64 h-auto grayscale"
-                alt="Background deco"
-              />
-            </div>
+          
           </div>
         </div>
       </SheetContent>

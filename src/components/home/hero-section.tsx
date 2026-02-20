@@ -158,7 +158,7 @@ export default function Hero() {
               height: `${CONTAINER_HEIGHT}px`,
             }}
           >
-            <AnimatePresence initial={false} mode="popLayout">
+            <AnimatePresence initial={false} mode="sync">
               {consultations
                 .slice(windowStartIndex, windowStartIndex + WINDOW_SIZE)
                 .map((item, localIndex) => {
@@ -178,7 +178,6 @@ export default function Hero() {
                         opacity: isActive ? 1 : 0.65,
                         x: 0,
                         y: localIndex * ITEM_HEIGHT,
-                        scale: isActive ? 1.02 : 1,
                         filter: "blur(0px)",
                         zIndex: 100 - distance,
                       }}
@@ -193,8 +192,8 @@ export default function Hero() {
                         opacity: { duration: 0.3 },
                         filter: { duration: 0.3 },
                       }}
-                      whileHover={!isActive ? { scale: 1.03, x: 6, transition: { duration: 0.2 } } : {}}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={!isActive ? { x: 6, transition: { duration: 0.2 } } : {}}
+                      whileTap={{ opacity: 0.85 }}
                       className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity] group/card"
                       onClick={() => handleInteraction(globalIndex)}
                     >
@@ -244,8 +243,8 @@ export default function Hero() {
                               className={`
                                 text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-300 line-clamp-2
                                 ${isActive
-                                  ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white/85 group-hover/card:text-white group-hover/card:translate-x-0.5"
+                                  ? "text-white"
+                                  : "text-white/85 group-hover/card:text-white"
                                 }
                               `}
                             >
