@@ -7,7 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Image from "next/image";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { motion } from "framer-motion";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useTranslations } from "next-intl";

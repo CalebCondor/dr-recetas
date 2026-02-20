@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  RiUpload2Line,
   RiArrowRightLine,
   RiArrowLeftLine,
-  RiCheckLine,
-  RiFileImageLine,
-  RiFilePdf2Line,
   RiCloseLine,
 } from "react-icons/ri";
 import { FileText, X, Upload } from "lucide-react";
@@ -91,143 +87,88 @@ export const PersonalInfoForm = ({
         const parsedUser = JSON.parse(storedUser);
         const { token } = parsedUser;
 
-        // First, pre-fill from localStorage (which is populated from perfil.php)
+        // Normalize date to YYYY-MM-DD for <input type="date" />
+        const normalizeDate = (dateStr: string | undefined | null): string => {
+          if (!dateStr || typeof dateStr !== "string") return "";
+          if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+          if (dateStr.includes("/")) {
+            const parts = dateStr.split("/");
+            if (parts.length === 3) {
+              const day = parts[0].padStart(2, "0");
+              const month = parts[1].padStart(2, "0");
+              const year = parts[2].length === 4 ? parts[2] : `20${parts[2]}`;
+              return `${year}-${month}-${day}`;
+            }
+          }
+          if (dateStr.includes(" ")) {
+            const datePart = dateStr.split(" ")[0];
+            if (/^\d{4}-\d{2}-\d{2}$/.test(datePart)) return datePart;
+          }
+          return dateStr;
+        };
+
+        const [perfilRes, uploadsRes] = await Promise.all([
+          fetch("https://doctorrecetas.com/api/perfil.php", {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch("https://doctorrecetas.com/api/ver_uploads.php", {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+        
+        let profileData: Record<string, string> = {};
+        if (perfilRes.ok) {
+          const perfilJson = await perfilRes.json();
+          if (perfilJson.success && perfilJson.data) {
+            profileData = perfilJson.data;
+            // Update localStorage with fresh data
+            localStorage.setItem(
+              "dr_user",
+              JSON.stringify({ ...parsedUser, ...profileData }),
+            );
+          }
+        }
+
         setFormData((prev) => ({
           ...prev,
           nombre_completo:
-            prev.nombre_completo ||
-            parsedUser.us_nombres ||
-            parsedUser.us_nombre ||
-            parsedUser.nombres ||
-            "",
-          email: prev.email || parsedUser.us_email || parsedUser.email || "",
+            profileData.us_nombres || parsedUser.us_nombres || prev.nombre_completo || "",
+          email:
+            profileData.us_email || parsedUser.us_email || prev.email || "",
           telefono:
-            prev.telefono ||
-            parsedUser.us_telefono ||
-            parsedUser.telefono ||
-            "",
+            profileData.us_telefono || parsedUser.us_telefono || prev.telefono || "",
           fecha_nacimiento:
-            prev.fecha_nacimiento ||
-            parsedUser.us_fech_nac ||
-            parsedUser.fecha_nacimiento ||
-            "",
+            normalizeDate(profileData.us_fech_nac || parsedUser.us_fech_nac) ||
+            prev.fecha_nacimiento,
           municipio:
-            prev.municipio ||
-            parsedUser.us_municipio ||
-            parsedUser.us_ciudad ||
-            parsedUser.municipio ||
-            "",
+            profileData.us_ciudad || parsedUser.us_ciudad || prev.municipio || "",
           pais:
-            prev.pais ||
-            parsedUser.us_pais ||
-            parsedUser.pais ||
-            "Puerto Rico",
+            profileData.us_pais || parsedUser.us_pais || prev.pais || "Puerto Rico",
           direccion:
-            prev.direccion ||
-            parsedUser.us_direccion ||
-            parsedUser.direccion ||
-            "",
+            profileData.us_direccion || parsedUser.us_direccion || prev.direccion || "",
           codigo_postal:
-            prev.codigo_postal ||
-            parsedUser.us_code_postal ||
-            parsedUser.codigo_postal ||
-            "",
+            profileData.us_code_postal || parsedUser.us_code_postal || prev.codigo_postal || "",
           numero_documento:
-            prev.numero_documento ||
-            parsedUser.us_documento ||
-            parsedUser.num_id ||
-            "",
+            prev.numero_documento || parsedUser.us_documento || "",
           tipo_documento:
-            prev.tipo_documento ||
-            (parsedUser.num_id_tipo === "Licencia" ||
-              parsedUser.us_tipo_doc === "Licencia"
-              ? "Licencia de Conducir"
-              : parsedUser.num_id_tipo === "Pasaporte" ||
-                parsedUser.us_tipo_doc === "Pasaporte"
-                ? "Pasaporte"
-                : prev.tipo_documento),
+            prev.tipo_documento || "Licencia de Conducir",
         }));
 
-        const response = await fetch(
-          "https://doctorrecetas.com/api/ver_uploads.php",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (!response.ok) {
-          console.error("Error fetching user uploads:", response.status);
-          setIsLoadingData(false);
-          return;
-        }
-
-        const data = await response.json();
-
-        if (data.success && data.data) {
-          const { usuario, archivo, archivo_existe } = data.data;
-
-          // Complement with any info from ver_uploads.php if missing
-          if (usuario) {
-            setFormData((prev) => ({
-              ...prev,
-              nombre_completo:
-                prev.nombre_completo ||
-                usuario.us_nombres ||
-                usuario.us_nombre ||
-                "",
-              email: prev.email || usuario.us_email || usuario.email || "",
-              telefono:
-                prev.telefono || usuario.us_telefono || usuario.telefono || "",
-              fecha_nacimiento:
-                prev.fecha_nacimiento ||
-                usuario.us_fech_nac ||
-                usuario.fecha_nacimiento ||
-                "",
-              municipio:
-                prev.municipio ||
-                usuario.us_municipio ||
-                usuario.us_ciudad ||
-                "",
-              pais:
-                prev.pais || usuario.us_pais || usuario.pais || "Puerto Rico",
-              direccion:
-                prev.direccion ||
-                usuario.us_direccion ||
-                usuario.direccion ||
-                "",
-              codigo_postal:
-                prev.codigo_postal ||
-                usuario.us_code_postal ||
-                usuario.codigo_postal ||
-                "",
-              numero_documento:
-                prev.numero_documento ||
-                usuario.us_documento ||
-                usuario.num_id ||
-                "",
-              tipo_documento:
-                prev.tipo_documento ||
-                (usuario.num_id_tipo === "Licencia" ||
-                  usuario.us_tipo_doc === "Licencia"
-                  ? "Licencia de Conducir"
-                  : usuario.num_id_tipo === "Pasaporte" ||
-                    usuario.us_tipo_doc === "Pasaporte"
-                    ? "Pasaporte"
-                    : prev.tipo_documento),
-            }));
-          }
-
-          // Set existing file upload info if it exists
-          if (archivo_existe && archivo) {
-            setExistingUpload({
-              url: archivo.url,
-              nombre: archivo.nombre,
-              tamano_legible: archivo.tamano_legible,
-              tipo: archivo.tipo,
-            });
+        // --- ver_uploads.php: only used for the document file ---
+        if (uploadsRes.ok) {
+          const uploadsJson = await uploadsRes.json();
+          if (uploadsJson.success && uploadsJson.data) {
+            const { archivo, archivo_existe } = uploadsJson.data;
+            if (archivo_existe && archivo) {
+              setExistingUpload({
+                url: archivo.url,
+                nombre: archivo.nombre,
+                tamano_legible: archivo.tamano_legible,
+                tipo: archivo.tipo,
+              });
+            }
           }
         }
       } catch (error) {
