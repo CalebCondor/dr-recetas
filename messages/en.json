@@ -27,8 +27,8 @@
       "typing": {
         "medical_excuse": "Medical Excuse",
         "covid_test": "Covid Test",
-        "medical_appointment": "Medical Appointment",
-        "medical_prescription": "Medical Prescription"
+        "medical_appointment": "Appointment",
+        "medical_prescription": "Prescription"
       },
       "explore_services": "Explore Services"
     },

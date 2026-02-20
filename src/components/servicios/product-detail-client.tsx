@@ -120,7 +120,7 @@ export function ProductDetailClient({
   return (
     <>
       <PageWrapper>
-        <div className="min-h-auto pt-30 pb-40 md:pb-20 relative overflow-visible">
+        <div className="min-h-auto pt-30 pb-6 md:pb-20 lg:pb-40 relative overflow-visible">
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8">
             <div className="grid grid-cols-1 gap-8 lg:gap-12 items-start">
               {/* Right Column: Info */}
@@ -373,7 +373,7 @@ export function ProductDetailClient({
                   >
                     <AccordionTrigger className="px-6 py-5 hover:no-underline">
                       <div className="flex items-center gap-4 text-left">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 transition-all duration-300 group-data-[state=open]:bg-blue-600 group-data-[state=open]:text-white group-data-[state=open]:rotate-[360deg] group-data-[state=open]:rounded-full shadow-sm">
+                        <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 transition-all duration-300 group-data-[state=open]:bg-blue-600 group-data-[state=open]:border-blue-600 group-data-[state=open]:text-white group-data-[state=open]:rotate-360 group-data-[state=open]:rounded-full shadow-sm">
                           <RiListCheck className="w-6 h-6" />
                         </div>
                         <div className="flex flex-col gap-0.5">
