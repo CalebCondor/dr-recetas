@@ -156,7 +156,7 @@ export function TestimonialsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="hidden lg:grid lg:grid-cols-3 gap-8"
         >
           {translatedTestimonials.map((testimonial) => (
             <motion.div
@@ -169,8 +169,8 @@ export function TestimonialsSection() {
           ))}
         </motion.div>
 
-        {/* Mobile Carousel Layout */}
-        <div className="md:hidden -mx-4">
+        {/* Mobile + Tablet Carousel Layout */}
+        <div className="lg:hidden -mx-4">
           <Carousel
             setApi={setApi}
             opts={{
