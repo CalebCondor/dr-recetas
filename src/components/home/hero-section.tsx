@@ -171,35 +171,42 @@ export default function Hero() {
                       key={item.id}
                       initial={{
                         opacity: 0,
-                        y: localIndex * ITEM_HEIGHT + 20,
+                        x: 50,
+                        filter: "blur(6px)",
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.75,
+                        opacity: isActive ? 1 : 0.65,
+                        x: 0,
                         y: localIndex * ITEM_HEIGHT,
                         scale: isActive ? 1.02 : 1,
+                        filter: "blur(0px)",
                         zIndex: 100 - distance,
                       }}
                       exit={{
                         opacity: 0,
-                        y: localIndex * ITEM_HEIGHT - 20,
+                        x: -50,
+                        filter: "blur(6px)",
                       }}
                       transition={{
-                        duration: 0.4,
-                        ease: [0.32, 0.72, 0, 1],
-                        opacity: { duration: 0.2 },
+                        duration: 0.45,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                        opacity: { duration: 0.3 },
+                        filter: { duration: 0.3 },
                       }}
-                      className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity]"
+                      whileHover={!isActive ? { scale: 1.03, x: 6, transition: { duration: 0.2 } } : {}}
+                      whileTap={{ scale: 0.98 }}
+                      className="absolute top-0 left-0 w-full cursor-pointer will-change-[transform,opacity] group/card"
                       onClick={() => handleInteraction(globalIndex)}
                     >
                       <Link href={item.href} className="block w-full">
                         <div
                           className={`
                             relative overflow-hidden rounded-2xl py-4 px-5 lg:px-8
-                            transition-all duration-500 flex flex-col justify-center min-h-[60px]
+                            transition-all duration-300 flex flex-col justify-center min-h-[60px]
                             font-helvetica
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
-                              : "bg-white/20 backdrop-blur-lg shadow-md border border-white/20 hover:bg-white/25"
+                              : "bg-white/20 backdrop-blur-lg shadow-xl border border-white/20 hover:bg-white/40 hover:border-white/50 hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:scale-[1.015]"
                             }
                           `}
                           style={{
@@ -224,10 +231,10 @@ export default function Hero() {
                           <div className="relative z-10 flex items-center gap-4">
                             <div
                               className={`
-                                shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-500
+                                shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300
                                 ${isActive
                                   ? "bg-white/40 text-white shadow-md"
-                                  : "bg-white/10 text-white/90"
+                                  : "bg-white/10 text-white/90 group-hover/card:bg-white/30 group-hover/card:text-white group-hover/card:shadow-sm"
                                 }
                               `}
                             >
@@ -235,10 +242,10 @@ export default function Hero() {
                             </div>
                             <p
                               className={`
-                                text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-500 line-clamp-2
+                                text-[0.89rem] md:text-base lg:text-lg font-bold text-left tracking-tight transition-all duration-300 line-clamp-2
                                 ${isActive
                                   ? "text-white scale-[1.02] translate-x-1"
-                                  : "text-white"
+                                  : "text-white/85 group-hover/card:text-white group-hover/card:translate-x-0.5"
                                 }
                               `}
                             >
