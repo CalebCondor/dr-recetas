@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
@@ -35,9 +35,10 @@ export default function Hero() {
   const tc = useTranslations("HomePage.Consultations");
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // Default true = mobile-first: cards visible on SSR/hydration, no animation flash
+  const [isMobile, setIsMobile] = useState(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
     check();
     window.addEventListener("resize", check);
