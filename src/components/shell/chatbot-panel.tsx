@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, X } from "lucide-react";
+import { Send,ArrowUp, X } from "lucide-react";
+
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "@/context/chat-context";
@@ -26,22 +27,15 @@ export function ChatbotPanel({
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-
   const isFirstRender = useRef(true);
 
-  // Auto-scroll to bottom
   useEffect(() => {
-    // Skip scroll on initial load to prevent jumping the page
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
-
     if (bottomRef.current && (messages.length > 1 || isLoading)) {
-      bottomRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
+      bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [messages.length, isLoading]);
 
@@ -54,22 +48,30 @@ export function ChatbotPanel({
 
   return (
     <div
-      className={`flex flex-col overflow-hidden bg-white shadow-2xl ${className} ${isFloating ? "rounded-3xl border border-teal-100" : "rounded-[2.5rem] border border-teal-100"}`}
+      className={`flex flex-col overflow-hidden ${className} ${isFloating ? "rounded-3xl" : "rounded-[2rem]"}`}
+      style={{
+        background: "linear-gradient(135deg, rgba(242,250,236,0.72) 0%, rgba(236,248,226,0.65) 35%, rgba(248,253,242,0.70) 65%, rgba(238,249,228,0.68) 100%)",
+        backdropFilter: "blur(32px) saturate(180%)",
+        WebkitBackdropFilter: "blur(32px) saturate(180%)",
+        boxShadow: "0 8px 48px rgba(40,100,70,0.12), 0 1.5px 0 rgba(255,255,255,0.6) inset",
+        border: "1px solid rgba(255,255,255,0.55)",
+      }}
     >
       {/* Header */}
       {showHeader && (
-        <div className="bg-[#B0E5CC]/40 px-6 py-4 flex items-center justify-between border-b border-teal-50">
+        <div
+          className="px-5 py-4 flex items-center justify-between"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.4)" }}
+        >
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white border-2 border-white shadow-sm">
-              <img src="/logo_bot.png" alt="ANA" className="object-cover" />
+            <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-sm" style={{ border: "1.5px solid rgba(255,255,255,0.7)" }}>
+              <img src="/logo_bot.png" alt="ANA" className="object-cover w-full h-full" />
             </div>
             <div>
-              <h3 className="font-bold text-[#0D4B4D] text-base tracking-tight">
-                ANA
-              </h3>
+              <h3 className="font-semibold text-slate-700 text-sm tracking-tight">ANA</h3>
               <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <p className="text-[9px] uppercase tracking-widest text-[#0D4B4D]/60 font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <p className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold">
                   {t("online")}
                 </p>
               </div>
@@ -77,19 +79,21 @@ export function ChatbotPanel({
           </div>
           <div className="flex items-center gap-2">
             {!isFloating && (
-              <div className="hidden sm:block px-3 py-1 rounded-full bg-white/50 border border-[#0D4B4D]/10 text-[9px] font-bold text-[#0D4B4D]/70 uppercase tracking-wider">
+              <div
+                className="hidden sm:block px-3 py-1 rounded-full text-[9px] font-semibold text-slate-500 uppercase tracking-wider"
+                style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.7)" }}
+              >
                 {t("instant_reply")}
               </div>
             )}
             {onClose && (
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
                 onClick={onClose}
-                className="h-8 w-8 rounded-full hover:bg-black/5 text-[#0D4B4D]/60"
+                className="h-7 w-7 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+                style={{ background: "rgba(255,255,255,0.4)" }}
               >
-                <X className="h-4 w-4" />
-              </Button>
+                <X className="h-3.5 w-3.5" />
+              </button>
             )}
           </div>
         </div>
@@ -98,28 +102,108 @@ export function ChatbotPanel({
       {/* Chat Body */}
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 scrollbar-hide"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(176, 229, 204, 0.1) 0%, rgba(255, 255, 255, 1) 100%)",
-        }}
+        className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-hide"
       >
+        {/* Empty state — guía de uso */}
+        {messages.length === 0 && !isLoading && (
+          <div className="flex flex-col gap-3 py-1">
+
+            {/* Simulated user message */}
+            <div className="flex justify-end">
+              <div
+                className="rounded-full px-4 py-2 text-sm text-slate-600 font-medium"
+                style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.9)" }}
+              >
+                ¿Qué servicios ofrecen?
+              </div>
+            </div>
+
+            {/* Simulated bot response */}
+            <div className="flex items-start gap-2">
+              <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 mt-0.5 shadow-sm" style={{ border: "1px solid rgba(255,255,255,0.7)" }}>
+                <Image src="/logo_bot.png" alt="ANA" width={24} height={24} />
+              </div>
+              <div
+                className="flex-1 rounded-2xl rounded-tl-sm px-4 py-3"
+                style={{ background: "rgba(255,255,255,0.65)", border: "1px solid rgba(255,255,255,0.8)" }}
+              >
+                <p className="text-[10px] text-slate-400 mb-2 flex items-center gap-1">
+                  <span>✦</span> Respuesta en segundos
+                </p>
+                <p className="font-bold text-slate-800 text-sm leading-snug mb-2.5">
+                  Servicios disponibles<br />en Dr. Recetas
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  {[
+                    { num: "1", title: "Receta médica", desc: "Obtén tu receta o refill de medicamentos en minutos." },
+                    { num: "2", title: "Evaluación inmediata", desc: "Consulta con un médico ahora, sin cita previa." },
+                    { num: "3", title: "Cita de seguimiento", desc: "Continúa tu tratamiento con el mismo doctor." },
+                  ].map((item) => (
+                    <p key={item.num} className="text-xs text-slate-600 leading-relaxed">
+                      <span className="font-semibold text-slate-700">{item.num}. {item.title}</span> — {item.desc}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Suggested questions label */}
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mt-1 px-1">Prueba preguntando</p>
+
+            {/* Chips */}
+            <div className="flex flex-col gap-1.5">
+              {[
+                "¿Cómo obtengo una receta médica?",
+                "¿Cuánto cuesta la evaluación?",
+                "¿Hacen pruebas de laboratorio?",
+                "¿Cómo funciona la membresía?",
+              ].map((q) => (
+                <button
+                  key={q}
+                  onClick={() => sendMessage(q)}
+                  className="text-left w-full rounded-xl px-3.5 py-2.5 text-xs text-slate-600 font-medium transition-all active:scale-[0.98] hover:brightness-95"
+                  style={{
+                    background: "rgba(255,255,255,0.55)",
+                    border: "1px solid rgba(255,255,255,0.8)",
+                  }}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`flex items-end gap-2.5 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex items-end gap-2 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.type === "bot" && (
-              <div className="w-7 h-7 rounded-full overflow-hidden bg-white border border-teal-100 shrink-0 mb-1 shadow-sm">
-                <Image src="/logo_bot.png" alt="ANA" width={28} height={28} />
+              <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 mb-0.5 shadow-sm" style={{ border: "1px solid rgba(255,255,255,0.7)" }}>
+                <Image src="/logo_bot.png" alt="ANA" width={24} height={24} />
               </div>
             )}
             <div
-              className={`max-w-[85%] rounded-[1.5rem] px-4 py-3 text-sm shadow-sm transition-all whitespace-pre-wrap ${
+              className={`max-w-[82%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap ${
                 msg.type === "user"
-                  ? "bg-[#0D4B4D] text-white rounded-br-none"
-                  : "bg-white border border-teal-50 text-slate-700 rounded-bl-none prose prose-slate prose-sm max-w-none [&_b]:text-[#0D4B4D] [&_b]:font-bold [&_a]:text-teal-600 [&_a]:font-bold [&_a]:underline"
+                  ? "rounded-br-sm text-white"
+                  : "rounded-bl-sm text-slate-700"
               }`}
+              style={
+                msg.type === "user"
+                  ? {
+      
+ background: "#9E9B88",
+  border: "1px solid #9E9B88"
+
+                    }
+                  : {
+                      background: "rgba(255,255,255,0.65)",
+                      backdropFilter: "blur(8px)",
+                      border: "1px solid rgba(255,255,255,0.8)",
+                      boxShadow: "0 1px 8px rgba(80,100,160,0.07)",
+                    }
+              }
               dangerouslySetInnerHTML={{
                 __html: msg.text
                   .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
@@ -129,14 +213,17 @@ export function ChatbotPanel({
           </div>
         ))}
         {isLoading && (
-          <div className="flex items-center gap-2.5 justify-start">
-            <div className="w-7 h-7 rounded-full overflow-hidden bg-white border border-teal-100 shrink-0 mb-1 shadow-sm">
-              <Image src="/logo_bot.png" alt="ANA" width={28} height={28} />
+          <div className="flex items-center gap-2 justify-start">
+            <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 mb-0.5 shadow-sm" style={{ border: "1px solid rgba(255,255,255,0.7)" }}>
+              <Image src="/logo_bot.png" alt="ANA" width={24} height={24} />
             </div>
-            <div className="bg-white border border-teal-50 text-slate-400 rounded-2xl px-4 py-2 text-sm flex gap-1">
-              <span className="animate-bounce">.</span>
-              <span className="animate-bounce [animation-delay:0.2s]">.</span>
-              <span className="animate-bounce [animation-delay:0.4s]">.</span>
+            <div
+              className="rounded-2xl rounded-bl-sm px-4 py-2.5 text-sm flex gap-1"
+              style={{ background: "rgba(255,255,255,0.65)", border: "1px solid rgba(255,255,255,0.8)" }}
+            >
+              <span className="text-slate-400 animate-bounce">.</span>
+              <span className="text-slate-400 animate-bounce [animation-delay:0.2s]">.</span>
+              <span className="text-slate-400 animate-bounce [animation-delay:0.4s]">.</span>
             </div>
           </div>
         )}
@@ -144,25 +231,34 @@ export function ChatbotPanel({
       </div>
 
       {/* Footer */}
-      <div
-        className={`${isFloating ? "p-4" : "p-6 md:p-8"} bg-[#B0E5CC]/20 border-t border-teal-50`}
-      >
-        <div className="flex items-center gap-2 bg-white p-1.5 pl-4 rounded-xl border border-slate-100 shadow-sm focus-within:border-[#B0E5CC] focus-within:ring-2 focus-within:ring-[#B0E5CC]/20 transition-all duration-200">
+      <div className={`${isFloating ? "p-3" : "p-4 md:p-5"}`}>
+        <div
+          className="flex items-center gap-2 px-4 py-2 rounded-full"
+          style={{
+            background: "rgba(255,255,255,0.6)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.75)",
+            boxShadow: "0 2px 12px rgba(80,100,160,0.08)",
+          }}
+        >
           <Input
             placeholder={t("placeholder")}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}
-            className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm h-10 p-0"
+            className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm h-9 p-0 shadow-none"
           />
-          <Button
+          <button
             onClick={handleSend}
             disabled={isLoading}
-            size="icon"
-            className="bg-[#0D4B4D] text-white hover:bg-[#0D4B4D]/90 rounded-lg h-9 w-9 transition-all shadow-md active:scale-95 flex items-center justify-center disabled:opacity-50"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-white transition-all active:scale-90 disabled:opacity-50 shrink-0"
+            style={{
+              background: "linear-gradient(135deg, #ed8134 0%, #f59a3c 100%)",
+              boxShadow: "0 2px 10px rgba(237,129,52,0.38)",
+            }}
           >
-            <Send className={`h-4 w-4 ${isLoading ? "animate-pulse" : ""}`} />
-          </Button>
+            <ArrowUp className={`h-3.5 w-3.5 ${isLoading ? "animate-pulse" : ""}`} />
+          </button>
         </div>
       </div>
     </div>

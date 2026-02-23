@@ -133,14 +133,14 @@ export default function Header() {
   const textColor =
     isScrolled || isHeaderDark
       ? "text-slate-600 hover:text-[#0D4B4D]"
-      : "text-slate-600 hover:text-[#0D4B4D]";
-  const logoSrc = isScrolled || isHeaderDark ? "/logo_drrecetas.svg" : "/logo_drrecetas.svg";
+      : "text-white/80 hover:text-white";
+  const logoSrc = isScrolled || isHeaderDark ? "/logo_drrecetas.svg" : "/logo_drreceteasblanco.svg";
   const buttonBg =
     isScrolled || isHeaderDark
       ? "bg-white border border-slate-100 shadow-sm hover:shadow-md"
-      : "bg-white/70 border border-slate-100 shadow-sm hover:shadow-md";
+      : "bg-white/20 border border-white/30 shadow-lg hover:bg-white/30";
   const iconColor =
-    isScrolled || isHeaderDark ? "text-[#0D4B4D]" : "text-[#0D4B4D]";
+    isScrolled || isHeaderDark ? "text-[#0D4B4D]" : "text-white";
 
   if (pathname === "/lock") return null;
 
@@ -363,7 +363,7 @@ export default function Header() {
                 <button
                   className={`relative overflow-hidden px-6 h-10 rounded-xl font-bold transition-all active:scale-95 text-xs backdrop-blur-md flex items-center justify-center ${isScrolled || isHeaderDark
                     ? "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
-                    : "bg-[#0D4B4D] text-white shadow-md hover:bg-[#0D4B4D]/90"
+                    : "bg-white/20 border border-white/30 text-white shadow-lg hover:bg-white/30"
                     }`}
                 >
                   <Shimmer />
