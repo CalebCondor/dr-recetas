@@ -172,25 +172,21 @@ export default function Hero() {
                       initial={{
                         opacity: 0,
                         x: 50,
-                        filter: "blur(6px)",
                       }}
                       animate={{
-                        opacity: isActive ? 1 : 0.65,
+                        opacity: isActive ? 1 : 0.6,
                         x: 0,
                         y: localIndex * ITEM_HEIGHT,
-                        filter: "blur(0px)",
                         zIndex: 100 - distance,
                       }}
                       exit={{
                         opacity: 0,
                         x: -50,
-                        filter: "blur(6px)",
                       }}
                       transition={{
-                        duration: 0.45,
+                        duration: 0.4,
                         ease: [0.25, 0.46, 0.45, 0.94],
                         opacity: { duration: 0.3 },
-                        filter: { duration: 0.3 },
                       }}
                       whileHover={!isActive ? { x: 6, transition: { duration: 0.2 } } : {}}
                       whileTap={{ opacity: 0.85 }}
@@ -201,32 +197,15 @@ export default function Hero() {
                         <div
                           className={`
                             relative overflow-hidden rounded-2xl py-4 px-5 lg:px-8
-                            transition-all duration-300 flex flex-col justify-center min-h-[60px]
-                            font-helvetica
+                            flex flex-col justify-center min-h-[60px]
+                            font-helvetica backdrop-blur-xl border-white/25
+                            shadow-lg transition-[background-color] duration-300
                             ${isActive
                               ? "bg-white/30 shadow-[0_25px_50px_rgba(0,0,0,0.5)] ring-0 ring-white/60 border-t border-l border-white/70"
                               : "bg-white/20 backdrop-blur-lg shadow-xl border border-white/20 hover:bg-white/40 hover:border-white/50 hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:scale-[1.015]"
                             }
                           `}
-                          style={{
-                            backdropFilter: isActive
-                              ? "blur(24px) saturate(180%) contrast(120%) hue-rotate(5deg)"
-                              : undefined,
-                          }}
                         >
-                          {/* Shimmer effect for active card */}
-                          {isActive && (
-                            <motion.div
-                              initial={{ x: "-100%" }}
-                              animate={{ x: "200%" }}
-                              transition={{
-                                repeat: Infinity,
-                                duration: 4, // Slower shimmer
-                                ease: "linear",
-                              }}
-                              className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
-                            />
-                          )}
                           <div className="relative z-10 flex items-center gap-4">
                             <div
                               className={`
