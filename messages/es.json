@@ -43,6 +43,8 @@
     "Services": {
       "title": "Nuestros Servicios",
       "subtitle": "Explora nuestras soluciones médicas en línea",
+      "subtitle_prefix": "Explora nuestras",
+      "subtitle_highlight": "soluciones médicas en línea",
       "default_description": "Explora este servicio médico especializado.",
       "image_alt": "Servicio médico"
     },

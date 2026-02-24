@@ -33,7 +33,6 @@ const consultations = [
 export default function Hero() {
   const t = useTranslations("HomePage.Hero");
   const tc = useTranslations("HomePage.Consultations");
-  const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   // Default true = mobile-first: cards visible on SSR/hydration, no animation flash
   const [isMobile, setIsMobile] = useState(true);
@@ -45,14 +44,6 @@ export default function Hero() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Auto-cycle active card
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % consultations.length);
-    }, 2200);
-    return () => clearTimeout(timer);
-  }, [activeIndex]);
-
   return (
     <section
       id="hero"
@@ -60,14 +51,14 @@ export default function Hero() {
       className="relative w-full overflow-hidden m"
       style={{ backgroundColor: "#F2FAEC", minHeight: 460, paddingTop: "80px" }}
     >
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] py-0 flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-12">
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] py-0 flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-4">
         {/* ── LEFT: Heading ────────────────────────────────── */}
         <div className="flex-[1.1] text-left flex items-center py-6 lg:py-16">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-[40px]  sm:text-5xl lg:text-[2.8rem] xl:text-[3.9rem] font-bold leading-[1.1] tracking-tight"
+            className="text-[42px]  sm:text-5xl lg:text-[2.8rem] xl:text-[3.9rem] font-bold leading-[1.1] tracking-tight"
             style={{ color: "#142925" }}
           >
             {t("title")}
@@ -95,7 +86,7 @@ export default function Hero() {
         {/* ── CENTER: Woman with phone ──────────────────────── */}
         <div
           className="relative shrink-0 items-end justify-center self-stretch hidden lg:flex"
-          style={{ width: 300 }}
+          style={{ width: 260 }}
         >
           <Image
             src="/hero.png"
@@ -125,19 +116,18 @@ export default function Hero() {
         </div>
 
         {/* ── RIGHT: Cards flying out from the phone ────────── */}
-        <div className="flex-1 flex flex-col items-center lg:items-start justify-start lg:justify-center gap-4 lg:pl-10 pb-10 lg:py-16">
+        <div className="flex-1 flex flex-col items-center lg:items-start justify-start lg:justify-center gap-4 lg:pl-2 pb-10 lg:py-16">
           {consultations.map((item, index) => {
-            const isActive = index === activeIndex;
             // Fan out from the phone dot — all start at same origin, spread to final positions
             const yOrigin = (1.5 - index) * 72;
 
             return (
               <motion.div
-                key={item.id}
+                key={`${item.id}-${isMobile}`}
                 className="w-full"
                 initial={
                   isMobile
-                    ? false
+                    ? { opacity: 0, y: 20 }
                     : {
                         x: -520,
                         y: yOrigin,
@@ -148,12 +138,16 @@ export default function Hero() {
                 }
                 animate={
                   isMobile
-                    ? {}
+                    ? { opacity: 1, y: 0 }
                     : { x: 0, y: 0, opacity: 1, scale: 1, rotate: 0 }
                 }
                 transition={
                   isMobile
-                    ? {}
+                    ? {
+                        duration: 0.4,
+                        ease: "easeOut",
+                        delay: 0.1 + index * 0.15,
+                      }
                     : {
                         type: "spring",
                         stiffness: index < 2 ? 55 : 52,
@@ -165,24 +159,17 @@ export default function Hero() {
                 <Link
                   href={item.href}
                   className="block w-full"
-                  onClick={() => setActiveIndex(index)}
                 >
-                  <motion.div
-                    animate={{
-                      scale: isActive ? 1.03 : 1,
-                      boxShadow: isActive
-                        ? "0 4px 18px rgba(139,175,74,0.35)"
-                        : "0 1px 4px rgba(0,0,0,0.06)",
-                    }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
+                  <div
                     className="flex items-center justify-center w-full lg:w-65 h-11 rounded-full cursor-pointer text-sm font-semibold tracking-tight"
                     style={{
-                      backgroundColor: isActive ? "#8BAF4A" : "#D9EFB5",
-                      color: isActive ? "#ffffff" : "#3C5901",
+                      backgroundColor: "#D9EFB5",
+                      color: "#3C5901",
+                      boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
                     }}
                   >
                     {tc(item.nameKey)}
-                  </motion.div>
+                  </div>
                 </Link>
               </motion.div>
             );

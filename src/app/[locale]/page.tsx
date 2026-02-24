@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/hero-section";
 import { PageWrapper } from "@/components/page-wrapper";
-import { ServicesSection } from "@/components/home/services-section";
+import { ServiceBento } from "@/components/home/service-bento";
 
 // Dynamically import components below the fold
 const ChatbotSection = dynamic(() =>
@@ -76,7 +76,7 @@ export default async function Home({
       description: translatedDescription,
       imageSrc: cat.imagen,
       imageAlt: translatedTitle,
-      href: `/${locale}/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
+      href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
     };
   });
 
@@ -85,7 +85,7 @@ export default async function Home({
       <PageWrapper >
         <div className="relative overflow-hidden">
           <Hero />
-          <ServicesSection services={services} />
+          <ServiceBento services={services} />
         </div>
 
         <ChatbotSection />
