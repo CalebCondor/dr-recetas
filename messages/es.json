@@ -109,6 +109,8 @@
     "instant_reply": "Respuesta instantánea",
     "placeholder": "Escribe aquí...",
     "tooltip": "¿Necesitas ayuda? ¡Habla con Ana! 👋",
+    "open": "Hablar con Ana",
+    "close": "Cerrar chat",
     "welcome": "¡Hola! 👋 ¿En qué puedo ayudarte hoy?",
     "error_api": "Lo siento, tuve un problema al procesar tu mensaje.",
     "error_network": "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde."

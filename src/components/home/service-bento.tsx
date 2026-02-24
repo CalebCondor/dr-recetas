@@ -63,13 +63,13 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <h3
-            className="text-base md:text-xl font-normal leading-snug"
+            className="text-lg md:text-xl font-normal leading-snug"
             style={{ color: isHovered ? "#2B3E39" : "#A1FF00" }}
           >
             {service.title}
           </h3>
           <p
-            className="text-lg leading-relaxed flex-1"
+            className="text-base md:text-lg leading-normal flex-1"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
@@ -80,12 +80,12 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           </p>
           <div className="mt-1">
             <span
-              className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 rounded-full text-sm font-normal transition-all duration-200"
               style={{
                 backgroundColor: isHovered
                   ? "rgba(30,60,15,0.2)"
                   : "rgba(139,175,74,0.18)",
-                color: isHovered ? "rgba(247,253,238,1.85)" : "#a8d96a",
+                color: isHovered ? "rgba(247,253,238,1.85)" : "rgba(247,253,238,1.85)",
                 border: isHovered
                   ? "1px solid rgba(30,60,15,0.3)"
                   : "1px solid rgba(139,175,74,0.3)",

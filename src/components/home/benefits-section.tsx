@@ -71,13 +71,13 @@ export function BenefitsSection() {
   };
 
   return (
-    <section className="w-full  py-20 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full py-16 lg:py-24">
+      <div className="w-full px-6 md:px-12 lg:px-[8%]">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
           {t("title")}
         </h2>
 
-        <div className="relative h-[340px] max-w-6xl mx-auto perspective">
+        <div className="relative h-[340px] w-full perspective">
           <AnimatePresence>
             {order.map((id, index) => {
               const benefit = translatedBenefits.find((b) => b.id === id);
