@@ -47,7 +47,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="h-full rounded-[1.75rem] p-6 md:p-7 flex flex-col gap-3 transition-all duration-200"
           style={{
             background: isHovered
-              ? "linear-gradient(to bottom, rgba(212,255,130,0.7) 0%, rgba(160,196,93,0.7) 100%)"
+              ? "linear-gradient(180deg, rgba(212,255,130,0.7) 0%, rgba(160,196,93,0.7) 100%)"
               : "radial-gradient(circle, rgba(250,250,250,0) 0%, rgba(250,250,250,0.12) 100%), rgba(51,69,53,0.5)",
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
