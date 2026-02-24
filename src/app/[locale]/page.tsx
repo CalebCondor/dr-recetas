@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/home/hero-section";
 import { PageWrapper } from "@/components/page-wrapper";
 import { ServiceBento } from "@/components/home/service-bento";
+import { ReviewsSectionCopy } from "@/components/home/reviews-section copy";
 
 // Dynamically import components below the fold
 const ChatbotSection = dynamic(() =>
@@ -16,10 +17,8 @@ const HowItWorks = dynamic(() =>
 const FAQSection = dynamic(() =>
   import("@/components/home/faq-section").then((mod) => mod.FAQSection),
 );
-const TestimonialsSection = dynamic(() =>
-  import("@/components/home/testimonials-section").then(
-    (mod) => mod.TestimonialsSection,
-  ),
+const ReviewsSection = dynamic(() =>
+  import("@/components/home/reviews-section").then((mod) => mod.ReviewsSection),
 );
 const BenefitsSection = dynamic(() =>
   import("@/components/home/benefits-section").then(
@@ -81,18 +80,23 @@ export default async function Home({
   });
 
   return (
-    < div id="home">
+    <div id="home" className="bg-[#F2FAEC]">
       <PageWrapper >
         <div className="relative overflow-hidden">
           <Hero />
           <ServiceBento services={services} />
         </div>
+        <ReviewsSection />
+        
+        <ReviewsSectionCopy />
+        
 
-        <ChatbotSection />
+        
+
         <WhyChooseUs />
         <HowItWorks />
         <FAQSection />
-        <TestimonialsSection />
+        <ReviewsSection />
         <BenefitsSection />
       </PageWrapper>
     </div>
