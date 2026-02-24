@@ -44,16 +44,17 @@ export function ServiceBento({ services }: ServiceBentoProps) {
     return (
       <Link href={service.href} className="block h-full">
         <div
-          className="h-full rounded-[1.75rem] p-6 md:p-7 flex flex-col gap-3 transition-all duration-200"
+          className="h-full p-6 md:p-7 flex flex-col gap-3 transition-all duration-200"
           style={{
+            borderRadius: "24px",
             background: isHovered
               ? "linear-gradient(180deg, rgba(212,255,130,0.7) 0%, rgba(160,196,93,0.7) 100%)"
-              : "radial-gradient(circle, rgba(250,250,250,0) 0%, rgba(250,250,250,0.12) 100%), rgba(51,69,53,0.5)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
+              : "radial-gradient(50% 50% at 50% 50%, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 0.2) 100%), linear-gradient(180deg, rgba(51, 69, 53, 0.4) 0%, rgba(51, 69, 53, 0.5) 100%)",
+            backdropFilter: isHovered ? "blur(10px)" : "blur(4.1px)",
+            WebkitBackdropFilter: isHovered ? "blur(10px)" : "blur(4.1px)",
             border: isHovered
-              ? "1px solid rgba(160,196,93,0.5)"
-              : "1px solid rgba(255,255,255,0.08)",
+              ? "0.5px solid rgba(160,196,93,0.5)"
+              : "0.5px solid #D1DAC1",
             boxShadow: isHovered
               ? "0 4px 24px rgba(164,255,130,0.2)"
               : "0 2px 16px rgba(0,0,0,0.25)",
@@ -63,32 +64,35 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <h3
-            className="text-lg md:text-xl font-normal leading-snug"
+            className="text-xl md:text-xl font-normal leading-snug"
             style={{ color: isHovered ? "#2B3E39" : "#A1FF00" }}
           >
             {service.title}
           </h3>
           <p
-            className="text-base md:text-lg leading-normal flex-1"
+            className="text-lg md:text-lg leading-normal flex-1"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
-                : "rgba(255,255,255,0.9)",
+                : "#F7FDEE",
             }}
           >
             {service.description}
           </p>
           <div className="mt-1">
             <span
-              className="inline-flex items-center px-6 py-3 rounded-full text-sm font-normal transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 text-sm font-normal transition-all duration-200"
               style={{
+                borderRadius: "32px",
                 backgroundColor: isHovered
                   ? "rgba(30,60,15,0.2)"
-                  : "rgba(139,175,74,0.18)",
+                  : "rgba(211, 239, 160, 0.20)",
                 color: isHovered ? "rgba(247,253,238,1.85)" : "rgba(247,253,238,1.85)",
                 border: isHovered
                   ? "1px solid rgba(30,60,15,0.3)"
-                  : "1px solid rgba(139,175,74,0.3)",
+                  : "0.5px solid #D1DAC1",
+                backdropFilter: isHovered ? "blur(10px)" : "blur(2px)",
+                WebkitBackdropFilter: isHovered ? "blur(10px)" : "blur(2px)",
               }}
             >
               {seeServicesLabel}
@@ -104,7 +108,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       id="servicios"
       className="relative w-full max-w-400 mx-auto overflow-hidden py-16 md:py-20 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
       style={{
-        background: "linear-gradient(to bottom, #434D2E 0%, #677155 58%, #485042 100%)",
+        background: "linear-gradient(180deg, #434D2E 12.38%, #677155 62.77%, #485042 99%)",
       }}
     >
       {/* ── Background image layer (desktop only) ── */}
@@ -149,7 +153,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <h2 className="text-3xl md:text-5xl font-normal text-white mb-2">
             {t("title")}
           </h2>
-          <p className="text-base md:text-4xl text-white/80">
+          <p className="text-2xl md:text-4xl text-white">
             {t("subtitle_prefix")}{" "}
             <span style={{ color: "#8FD44A" }}>{t("subtitle_highlight")}</span>
           </p>
