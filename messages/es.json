@@ -34,7 +34,7 @@
     },
     "Consultations": {
       "medical_certificate": "Certificado Médico",
-      "prescription_refill": "Receta de medicamentos o \"Refill\"",
+      "prescription_refill": "Receta de medicamentos",
       "immediate_evaluation": "Evaluación médica inmediata",
       "follow_up": "Cita de Seguimiento",
       "influenza_test": "Prueba de Influenza A y B",
@@ -43,6 +43,8 @@
     "Services": {
       "title": "Nuestros Servicios",
       "subtitle": "Explora nuestras soluciones médicas en línea",
+      "subtitle_prefix": "Explora nuestras",
+      "subtitle_highlight": "soluciones médicas en línea",
       "default_description": "Explora este servicio médico especializado.",
       "image_alt": "Servicio médico"
     },

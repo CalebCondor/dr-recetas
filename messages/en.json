@@ -43,6 +43,8 @@
     "Services": {
       "title": "Our Services",
       "subtitle": "Explore our online medical solutions",
+      "subtitle_prefix": "Explore our",
+      "subtitle_highlight": "online medical solutions",
       "default_description": "Explore this specialized medical service.",
       "image_alt": "Medical service"
     },

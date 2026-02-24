@@ -40,30 +40,25 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = "dr-recetas-cart";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [isDuplicateAlertOpen, setIsDuplicateAlertOpen] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  // Load cart from localStorage
-  useEffect(() => {
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") return [];
     const savedCart = localStorage.getItem(CART_STORAGE_KEY);
     if (savedCart) {
       try {
-        const parsed = JSON.parse(savedCart);
-        setCart(parsed);
+        return JSON.parse(savedCart);
       } catch (e) {
         console.error("Failed to parse cart storage", e);
+        return [];
       }
     }
-    setIsInitialized(true);
-  }, []);
+    return [];
+  });
+  const [isDuplicateAlertOpen, setIsDuplicateAlertOpen] = useState(false);
 
   // Save cart to localStorage
   useEffect(() => {
-    if (isInitialized) {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-    }
-  }, [cart, isInitialized]);
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = useCallback(
     (item: CartItem) => {
