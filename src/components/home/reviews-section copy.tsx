@@ -2,7 +2,6 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Marquee } from "@/components/ui/marquee"
 import { useTranslations } from "next-intl";
-import { CardContent, } from "@/components/ui/card"
 
 const reviews = [
   {
@@ -60,7 +59,7 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative flex h-64 w-72 cursor-pointer flex-col overflow-hidden rounded-2xl border p-4 md:h-auto md:min-h-52 md:w-md md:p-5",
+        "relative flex h-56 w-72 cursor-pointer flex-col overflow-hidden rounded-2xl border p-4 md:h-auto md:min-h-52 md:w-md md:p-5",
         "border-gray-950/10 bg-white/95 transition-all duration-300 hover:-translate-y-1 ",
         "dark:border-gray-50/10 dark:bg-gray-50/10 dark:hover:bg-gray-50/15"
       )}
