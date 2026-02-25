@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 interface TimelineStep {
@@ -12,37 +12,7 @@ interface TimelineStep {
   position: "left" | "right";
 }
 
-const steps: TimelineStep[] = [
-  {
-    number: 1,
-    description:
-      "Complete el registro, escoja el servicio médico o laboratorio deseado.",
-    imageSrc: "/pasos/layer_1.svg",
-    position: "left",
-  },
-  {
-    number: 2,
-    description: "Pague con Tarjeta de Crédito o ATH MOVIL.",
-    imageSrc: "/pasos/layer_4.svg",
-    position: "right",
-  },
-  {
-    number: 3,
-    description:
-      "Si es un laboratorio escogido le llega inmediatamente a su email.",
-    imageSrc: "/pasos/layer_2.svg",
-    position: "left",
-  },
-  {
-    number: 4,
-    description:
-      "Si es una cita médica un doctor se comunicará con usted durante el día. Si necesita una cita más rápida por favor llamarnos a nuestro número (787) 710-7426.",
-    imageSrc: "/pasos/layer_3.svg",
-    position: "right",
-  },
-];
-
-const stepColors = ["#89CBB9", "#63B1A5", "#50A49C", "#3C9792"];
+const stepColors = ["#89A856", "#78944A", "#718E40", "#66813A"];
 
 export function HowItWorks() {
   const t = useTranslations("HomePage.HowItWorks");
@@ -50,31 +20,46 @@ export function HowItWorks() {
     {
       number: 1,
       description: t("step1"),
-      imageSrc: "/pasos/layer_1.svg",
+      imageSrc: "/pasos/imagenpas1.png",
       position: "left",
     },
     {
       number: 2,
       description: t("step2"),
-      imageSrc: "/pasos/layer_4.svg",
+      imageSrc: "/pasos/imagenpaso2.png",
       position: "right",
     },
     {
       number: 3,
       description: t("step3"),
-      imageSrc: "/pasos/layer_2.svg",
+      imageSrc: "/pasos/imagenpaso3.png",
       position: "left",
     },
     {
       number: 4,
       description: t("step4"),
-      imageSrc: "/pasos/layer_3.svg",
+      imageSrc: "/pasos/imagenpaso4.png",
       position: "right",
     },
   ];
 
   const [visibleSteps, setVisibleSteps] = React.useState<number[]>([]);
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const timelineRef = React.useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"],
+  });
+
+  // Stroke drawn on scroll
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  // Circles fade in as scroll reaches each one
+  const circle1Opacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
+  const circle2Opacity = useTransform(scrollYProgress, [0.3, 0.38], [0, 1]);
+  const circle3Opacity = useTransform(scrollYProgress, [0.62, 0.7], [0, 1]);
+  const circle4Opacity = useTransform(scrollYProgress, [0.9, 0.98], [0, 1]);
 
   React.useEffect(() => {
     const observers = stepRefs.current.map((ref, index) => {
@@ -105,246 +90,115 @@ export function HowItWorks() {
     };
   }, []);
 
-  const maxVisibleStep =
-    visibleSteps.length > 0 ? Math.max(...visibleSteps) : -1;
-
   return (
     <section className="relative py-16 lg:py-28 overflow-hidden">
       {/* Background Decorator */}
-      <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10 md:px-12 lg:px-[8%]">
-        <div
-          className="w-full h-full rounded-[2.5rem] md:rounded-[5rem]"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(137, 203, 185, 0.18) 0%, rgba(137, 203, 185, 0) 60%)",
-          }}
+      <div className="absolute top-0 h-full pointer-events-none -z-10 left-0 right-0 md:left-12 md:right-12 lg:left-[8%] lg:right-[8%]">
+        <Image
+          src="/how-it-works.png"
+          alt=""
+          fill
+          className="object-cover object-top rounded-[2.5rem] md:rounded-[5rem]"
+          priority
         />
       </div>
 
       <div className="w-full px-8 md:px-16 lg:px-[10%]">
         {/* Header */}
         <div className="mb-16 md:mb-20 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D4B4D] mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#C1E97C] mb-6 tracking-tight">
             {t("title")}
           </h2>
-          <p className="text-lg md:text-xl text-[#0D4B4D]/70 font-medium max-w-2xl mx-auto">
-            {t("subtitle")}
+          <p className="text-lg md:text-xl text-white font-medium max-w-2xl mx-auto">
+            {t("subtitle_prefix")}
+            <span className="text-[#C1E97C]">{t("subtitle_highlight")}</span>
           </p>
         </div>
 
-        {/* Timeline Container - Desktop */}
-        <div className="relative hidden md:block px-4">
-          {/* Animated Vertical Line with Chain Effect */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden">
-            {/* Background line */}
-            <div className="absolute inset-0 bg-linear-to-b from-teal-200/40 to-teal-300/40 rounded-full" />
-
-            {/* Animated progress line */}
-            <motion.div
-              className="absolute top-0 left-0 right-0 bg-linear-to-b from-teal-500 via-teal-600 to-teal-500 rounded-full shadow-[0_0_20px_rgba(20,184,166,0.4)]"
-              initial={{ height: "0%" }}
-              animate={{
-                height:
-                  maxVisibleStep >= 0 ? `${(maxVisibleStep + 1) * 25}%` : "0%",
-              }}
-              transition={{
-                duration: 1,
-                ease: "easeOut",
-              }}
+        {/* Timeline Container - All sizes */}
+        <div ref={timelineRef} className="relative px-0 md:px-4">
+          {/* SVG Curved line overlay – desktop only */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              className="w-[60%] h-full"
+              preserveAspectRatio="none"
+              viewBox="0 0 636 1106"
             >
-              {/* Chain link pattern */}
-              <div className="absolute inset-0 opacity-30">
-                {[...Array(8)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute left-1/2 -translate-x-1/2 w-3 h-3 border-2 border-white rounded-full"
-                    style={{ top: `${i * 12.5}%` }}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: i * 0.1, duration: 0.3 }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Animated arrow at the end */}
-            <AnimatePresence>
-              {maxVisibleStep >= 0 && (
-                <motion.div
-                  className="absolute left-1/2 -translate-x-1/2"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    top: `${(maxVisibleStep + 1) * 25}%`,
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 1,
-                    ease: "easeOut",
-                  }}
-                >
-                  <motion.svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    className="text-teal-500 drop-shadow-lg"
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                  >
-                    <path
-                      d="M10 0L0 10L10 20L20 10L10 0Z"
-                      fill="currentColor"
-                    />
-                  </motion.svg>
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <path
+                stroke="rgba(255,255,255,0.12)"
+                strokeWidth="3"
+                d="M126 1.5h348.5c88.366 0 160 71.634 160 160V279c0 88.366-71.634 160-160 160h-313c-88.366 0-160 71.634-160 160v93c0 88.366 71.634 160 160 160h313c88.366 0 160 71.634 160 160v93.5"
+              />
+              <motion.path
+                stroke="#c1e97c"
+                strokeWidth="3"
+                d="M126 1.5H474.5C562.866 1.5 634.5 73.1344 634.5 161.5V279C634.5 367.366 562.866 439 474.5 439H161.5C73.1344 439 1.5 510.634 1.5 599V692C1.5 780.366 73.1344 852 161.5 852H474.5C562.866 852 634.5 923.634 634.5 1012V1105.5"
+                initial={{ pathLength: 0 }}
+                style={{ pathLength }}
+              />
+            </svg>
           </div>
 
-          <div className="space-y-16 lg:space-y-0 text-[#0D4B4D]">
+          <div className="space-y-12 md:space-y-0">
             {translatedSteps.map((step, index) => (
               <motion.div
                 key={step.number}
                 ref={(el) => {
                   stepRefs.current[index] = el;
                 }}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={
                   visibleSteps.includes(index)
                     ? { opacity: 1, y: 0 }
-                    : { opacity: 0, y: 50 }
+                    : { opacity: 0, y: 40 }
                 }
-                transition={{
-                  duration: 0.7,
-                  ease: "easeOut",
-                }}
-                className={`relative flex items-center justify-between md:mb-20 lg:mb-24 last:mb-0 ${
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className={`relative flex items-center justify-between last:mb-0 ${
+                  index === 1
+                    ? "mb-10 md:mb-72 lg:mb-[28rem]"
+                    : "mb-10 md:mb-40 lg:mb-52"
+                } flex-col md:flex-row ${
                   step.position === "right"
                     ? "md:flex-row-reverse"
                     : "md:flex-row"
                 }`}
               >
                 {/* Content Card */}
-                <div className="w-[42%] lg:w-[40%] flex justify-center px-2">
+                <div className="w-full md:w-1/2 h-full flex justify-center relative">
                   <div
-                    className="w-full rounded-[2rem] p-4 lg:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                    className="w-full md:max-w-sm h-full rounded-2xl md:rounded-[2rem] pt-5 px-6 md:px-8 pb-0 text-white shadow-xl transition-all duration-300 group overflow-visible relative flex flex-col"
                     style={{ backgroundColor: stepColors[index] }}
                   >
-                    <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-5">
-                      {/* Illustration */}
-                      <div className="relative w-20 h-20 lg:w-32 lg:h-32 shrink-0 brightness-110">
-                        <Image
-                          src={step.imageSrc}
-                          alt={`Paso ${step.number}`}
-                          fill
-                          className="object-contain transition-transform duration-500 group-hover:scale-110"
-                        />
-                      </div>
-                      {/* Text content */}
-                      <div className="flex-1 text-center lg:text-left">
-                        <p className="text-sm lg:text-lg font-bold leading-tight">
-                          {step.description}
-                        </p>
-                      </div>
+                    {/* Step label */}
+                    <p className="text-sm md:text-3xl text-[#C1E97C] font-black uppercase tracking-widest opacity-70 mb-1 md:mb-2">
+                      Paso {step.number}
+                    </p>
+                    {/* Description */}
+                    <p className="text-base md:text-2xl font-bold leading-tight mb-3 md:mb-4">
+                      {step.description}
+                    </p>
+                    {/* Illustration overflowing below card */}
+                    <div className="relative -mx-6 md:-mx-8 flex-1 min-h-44 md:min-h-36 lg:min-h-44">
+                      <Image
+                        src={step.imageSrc}
+                        alt={`Paso ${step.number}`}
+                        fill
+                        className="object-cover object-top drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
                   </div>
                 </div>
 
-                {/* Number Circle (Desktop) */}
-                <motion.div
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  animate={
-                    visibleSteps.includes(index) ? { scale: 1 } : { scale: 0 }
-                  }
-                  transition={{
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 15,
-                  }}
-                >
-                  <div
-                    className="flex h-14 w-14 items-center justify-center rounded-full text-white text-2xl font-extrabold shadow-lg ring-4 ring-white"
-                    style={{ backgroundColor: stepColors[index] }}
-                  >
-                    {step.number}
-                  </div>
-                </motion.div>
+                {/* Spacer – desktop only */}
+                <div className="hidden md:block w-2/5" />
 
-                {/* Spacer for desktop layout */}
-                <div className="w-[42%] lg:w-[40%]" />
+                {/* Spacer – desktop only */}
+                <div className="hidden md:block w-2/5" />
               </motion.div>
             ))}
           </div>
-        </div>
-
-        {/* Mobile Layout - Vertical Stack */}
-        <div className="md:hidden space-y-8">
-          {translatedSteps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.05,
-                ease: "easeOut",
-              }}
-              className="flex flex-col items-center"
-            >
-              {/* Content Card */}
-              <motion.div
-                className="w-full rounded-[2.5rem] p-8 text-white shadow-lg relative overflow-hidden"
-                style={{ backgroundColor: stepColors[index] }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.15 }}
-              >
-                {/* Number Badge - Now inside the card at top-left */}
-                <motion.div
-                  className="absolute top-6 left-6 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-lg font-extrabold z-10"
-                  style={{ color: stepColors[index] }}
-                  initial={{ scale: 0, rotate: -180 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.2,
-                    delay: index * 0.05 + 0.05,
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                  }}
-                >
-                  {step.number}
-                </motion.div>
-
-                <div className="flex flex-col items-center text-center">
-                  <div className="relative w-32 h-32 mb-2 brightness-110">
-                    <Image
-                      src={step.imageSrc}
-                      alt={`Paso ${step.number}`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <motion.p
-                    className="text-lg font-bold leading-tight"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.3,
-                      delay: 0.1,
-                    }}
-                  >
-                    {step.description}
-                  </motion.p>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>

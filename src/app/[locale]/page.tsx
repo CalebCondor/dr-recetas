@@ -47,7 +47,6 @@ async function getCategories() {
       return [];
     }
     const data = await res.json();
-    console.log("API data fetched:", data);
     return data;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -76,7 +75,7 @@ export default async function Home({
     "": "otros",
   };
 
-  const services = categories.map((cat: Category) => {
+  const rawServices = categories.map((cat: Category) => {
     // Mapear el tag del API a la clave correcta en Categories
     const categoryKey = tagToKeyMap[cat.tag] || "otros";
 
@@ -95,6 +94,14 @@ export default async function Home({
       imageAlt: translatedTitle,
       href: `/servicios/${categoryKey}`,
     };
+  });
+
+  // Eliminar duplicados por href (mantener primera aparición)
+  const seen = new Set<string>();
+  const services = rawServices.filter((s: { href: string }) => {
+    if (seen.has(s.href)) return false;
+    seen.add(s.href);
+    return true;
   });
 
   return (

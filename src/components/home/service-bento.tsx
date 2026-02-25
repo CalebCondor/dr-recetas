@@ -184,7 +184,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <Carousel setApi={setApi} opts={{ align: "center", loop: false }}>
             <CarouselContent className="">
               {displayed.map((service, index) => (
-                <CarouselItem key={service.href} className="basis-[72vw] sm:basis-[50vw]">
+                <CarouselItem key={`${service.href}-${index}`} className="basis-[72vw] sm:basis-[50vw]">
                   {cardContent(service, index)}
                 </CarouselItem>
               ))}
@@ -218,7 +218,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         <div className="mt-auto pb-10 hidden lg:grid lg:grid-cols-3 gap-5">
           {displayed.map((service, index) => (
             <motion.div
-              key={service.href}
+              key={`${service.href}-${index}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

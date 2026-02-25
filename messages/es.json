@@ -55,7 +55,8 @@
     },
     "HowItWorks": {
       "title": "¿Cómo funciona?",
-      "subtitle": "Sigue estos pasos para obtener la receta deseada",
+      "subtitle_prefix": "Sigue estos pasos para ",
+      "subtitle_highlight": "obtener la receta deseada",
       "step1": "Complete el registro, escoja el servicio médico o laboratorio deseado.",
       "step2": "Pague con Tarjeta de Crédito o ATH MOVIL.",
       "step3": "Si es un laboratorio escogido le llega inmediatamente a su email.",

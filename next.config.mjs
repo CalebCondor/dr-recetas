@@ -35,7 +35,7 @@ const nextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
-  allowedDevOrigins: ["http://192.168.100.221:3000"],
+  allowedDevOrigins: ["http://192.168.100.243:3000"],
 
   experimental: {
     // Optimize client-side navigation
