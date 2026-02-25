@@ -86,7 +86,6 @@ export default async function Home({
           <Hero />
           <ServiceBento services={services} />
         </div>
-        <ReviewsSection />
         
         <ReviewsSectionCopy />
         

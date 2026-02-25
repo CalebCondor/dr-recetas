@@ -59,15 +59,11 @@ const ReviewCard = ({
   body: string;
 }) => {
   return (
-    <figure className="relative flex min-h-56 w-full flex-col overflow-hidden rounded-3xl border border-[#dfe7cf] bg-white p-4 md:p-6">
-      <p className="mb-3 text-xl leading-none tracking-wide text-[#F2C94C] md:text-2xl">
-        ★★★★★
-      </p>
-      <blockquote className="text-base leading-relaxed text-slate-700 md:text-lg">
-        {body}
-      </blockquote>
+    <figure
+      className="relative flex h-64 w-72 cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-950/10 bg-white/95 p-4 transition-all duration-300 hover:-translate-y-1 dark:border-gray-50/10 dark:bg-gray-50/10 dark:hover:bg-gray-50/15 md:h-auto md:min-h-52 md:w-md md:p-5"
+    >
       <div className="flex flex-row items-center gap-3">
-        <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-black/5 dark:ring-white/10">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-black/5 dark:ring-white/10 md:h-9 md:w-9">
           <Image
             src={img}
             alt={name}
@@ -77,12 +73,15 @@ const ReviewCard = ({
           />
         </div>
         <div className="flex flex-col">
-          <figcaption className="text-lg font-medium text-slate-700 md:text-xl">
-            -{name}
+          <figcaption className="text-sm font-medium dark:text-white">
+            {name}
           </figcaption>
-          <p className="text-xs font-medium text-slate-400">{username}</p>
+          <p className="text-xs font-medium dark:text-white/40">{username}</p>
         </div>
       </div>
+      <blockquote className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200 md:line-clamp-none">
+        {body}
+      </blockquote>
     </figure>
   );
 };
