@@ -153,7 +153,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <h2 className="text-3xl md:text-5xl font-normal text-white mb-2">
             {t("title")}
           </h2>
-          <p className="text-2xl md:text-4xl leading-4 text-white ">
+          <p className="text-2xl md:text-4xl leading-5.5 text-white ">
             {t("subtitle_prefix")}{" "}
             <span style={{ color: "#8FD44A" }}>{t("subtitle_highlight")}</span>
           </p>
