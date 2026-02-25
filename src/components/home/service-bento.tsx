@@ -30,7 +30,15 @@ export function ServiceBento({ services }: ServiceBentoProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const displayed = services.slice(0, 6);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -41,7 +49,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
 
   const cardContent = (service: Service, index: number) => {
     const isHovered = hoveredIndex === index;
-    const isActive = activeIndex === index;
+    const isActive = isMobile && activeIndex === index;
     return (
       <Link href={service.href} className="block h-full">
         <div
