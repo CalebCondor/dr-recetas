@@ -68,7 +68,7 @@ export default async function Home({
   // Mapeo de tags del API a claves de Categories en JSON
   const tagToKeyMap: Record<string, string> = {
     "Citas Medicas": "citas-medicas",
-    "Laboratorio": "lab",
+    "lab": "lab",
     "Para el": "para-el",
     "Para ella": "para-ella",
     "Membresia": "membresia",
