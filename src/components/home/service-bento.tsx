@@ -153,7 +153,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <h2 className="text-3xl md:text-5xl font-normal text-white mb-2">
             {t("title")}
           </h2>
-          <p className="text-2xl md:text-4xl text-white">
+          <p className="text-2xl md:text-4xl leading-normal text-white ">
             {t("subtitle_prefix")}{" "}
             <span style={{ color: "#8FD44A" }}>{t("subtitle_highlight")}</span>
           </p>
@@ -164,7 +164,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <Carousel setApi={setApi} opts={{ align: "start", loop: false }}>
             <CarouselContent className="-ml-4">
               {displayed.map((service, index) => (
-                <CarouselItem key={service.href} className="pl-4 basis-[80vw] sm:basis-[55vw]">
+                <CarouselItem key={service.href} className="pl-4 basis-[72vw] sm:basis-[50vw]">
                   {cardContent(service, index)}
                 </CarouselItem>
               ))}

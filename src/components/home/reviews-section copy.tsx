@@ -2,6 +2,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Marquee } from "@/components/ui/marquee"
 import { useTranslations } from "next-intl";
+import { CardContent, } from "@/components/ui/card"
 
 const reviews = [
   {
@@ -59,13 +60,13 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative flex min-h-52 w-112 cursor-pointer flex-col overflow-hidden rounded-2xl border p-5",
+        "relative flex h-64 w-72 cursor-pointer flex-col overflow-hidden rounded-2xl border p-4 md:h-auto md:min-h-52 md:w-md md:p-5",
         "border-gray-950/10 bg-white/95 transition-all duration-300 hover:-translate-y-1 ",
         "dark:border-gray-50/10 dark:bg-gray-50/10 dark:hover:bg-gray-50/15"
       )}
     >
       <div className="flex flex-row items-center gap-3">
-        <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-black/5 dark:ring-white/10">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-black/5 dark:ring-white/10 md:h-9 md:w-9">
           <Image src={img} alt={name} fill sizes="36px" className="object-cover" />
         </div>
         <div className="flex flex-col">
@@ -75,7 +76,7 @@ const ReviewCard = ({
           <p className="text-xs font-medium dark:text-white/40">{username}</p>
         </div>
       </div>
-      <blockquote className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+      <blockquote className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200 md:line-clamp-none">
         {body}
       </blockquote>
     </figure>
@@ -88,10 +89,10 @@ export function ReviewsSectionCopy() {
     <section className="relative w-full overflow-hidden py-16 lg:py-24">
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         <div className="mb-10 text-center">
-          <p className="text-3xl font-semibold leading-tight text-[#88A35A] md:text-4xl">
+          <p className="text-3xl font-semibold leading-tight text-[#88A35A] md:text-5xl">
             {t("title").split(" ").slice(0, 2).join(" ")}
           </p>
-          <p className="text-3xl font-medium leading-tight text-[#1F3938] md:text-4xl">
+          <p className="text-3xl font-medium leading-tight text-[#1F3938] md:text-5xl">
             {t("title").split(" ").slice(2).join(" ")}
           </p>
         </div>
