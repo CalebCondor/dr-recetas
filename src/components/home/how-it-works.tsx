@@ -150,11 +150,11 @@ export function HowItWorks() {
                     style={{ backgroundColor: stepColors[index] }}
                   >
                     {/* Step label */}
-                    <p className="text-sm md:text-3xl text-[#C1E97C] font-black uppercase tracking-widest opacity-70 mb-1 md:mb-2">
+                    <p className="text-2xl md:text-3xl text-[#C1E97C] font-black uppercase tracking-widest opacity-70 mb-1 md:mb-2">
                       Paso {step.number}
                     </p>
                     {/* Description */}
-                    <p className="text-base md:text-2xl font-bold leading-tight mb-3 md:mb-4">
+                    <p className="text-xl md:text-2xl font-bold leading-tight mb-3 md:mb-4">
                       {step.description}
                     </p>
                     {/* Illustration overflowing below card */}
