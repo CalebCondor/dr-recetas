@@ -117,29 +117,7 @@ export function HowItWorks() {
 
         {/* Timeline Container - All sizes */}
         <div ref={timelineRef} className="relative px-0 md:px-4">
-          {/* SVG Curved line overlay – desktop only */}
-          <div className="hidden md:block absolute inset-0 pointer-events-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="w-[60%] h-full"
-              preserveAspectRatio="none"
-              viewBox="0 0 636 1106"
-            >
-              <path
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="3"
-                d="M126 1.5h348.5c88.366 0 160 71.634 160 160V279c0 88.366-71.634 160-160 160h-313c-88.366 0-160 71.634-160 160v93c0 88.366 71.634 160 160 160h313c88.366 0 160 71.634 160 160v93.5"
-              />
-              <motion.path
-                stroke="#c1e97c"
-                strokeWidth="3"
-                d="M126 1.5H474.5C562.866 1.5 634.5 73.1344 634.5 161.5V279C634.5 367.366 562.866 439 474.5 439H161.5C73.1344 439 1.5 510.634 1.5 599V692C1.5 780.366 73.1344 852 161.5 852H474.5C562.866 852 634.5 923.634 634.5 1012V1105.5"
-                initial={{ pathLength: 0 }}
-                style={{ pathLength }}
-              />
-            </svg>
-          </div>
+       
 
           <div className="space-y-12 md:space-y-0">
             {translatedSteps.map((step, index) => (
@@ -172,11 +150,11 @@ export function HowItWorks() {
                     style={{ backgroundColor: stepColors[index] }}
                   >
                     {/* Step label */}
-                    <p className="text-sm md:text-3xl text-[#C1E97C] font-black uppercase tracking-widest opacity-70 mb-1 md:mb-2">
+                    <p className="text-2xl md:text-3xl text-[#C1E97C] font-black uppercase tracking-widest opacity-70 mb-1 md:mb-2">
                       Paso {step.number}
                     </p>
                     {/* Description */}
-                    <p className="text-base md:text-2xl font-bold leading-tight mb-3 md:mb-4">
+                    <p className="text-xl md:text-2xl font-bold leading-tight mb-3 md:mb-4">
                       {step.description}
                     </p>
                     {/* Illustration overflowing below card */}
