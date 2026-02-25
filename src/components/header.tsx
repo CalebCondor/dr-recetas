@@ -467,7 +467,10 @@ export default function Header() {
                   alt="Menu"
                   width={20}
                   height={20}
-                  className="relative z-10 transition-all duration-300 brightness-0 invert sepia-[50%] hue-rotate-[90deg] saturate-[1.5]"
+                  className={`relative z-10 transition-all duration-300 ${isScrolled || isHeaderDark
+                    ? ""
+                    : ""
+                    }`}
                 />
               </button>
             </SheetTrigger>
