@@ -30,7 +30,15 @@ export function ServiceBento({ services }: ServiceBentoProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const displayed = services.slice(0, 6);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -41,7 +49,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
 
   const cardContent = (service: Service, index: number) => {
     const isHovered = hoveredIndex === index;
-    const isActive = activeIndex === index;
+    const isActive = isMobile && activeIndex === index;
     return (
       <Link href={service.href} className="block h-full">
         <div
@@ -184,7 +192,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           <Carousel setApi={setApi} opts={{ align: "center", loop: false }}>
             <CarouselContent className="">
               {displayed.map((service, index) => (
-                <CarouselItem key={service.href} className="basis-[72vw] sm:basis-[50vw]">
+                <CarouselItem key={`${service.href}-${index}`} className="basis-[72vw] sm:basis-[50vw]">
                   {cardContent(service, index)}
                 </CarouselItem>
               ))}
@@ -218,7 +226,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         <div className="mt-auto pb-10 hidden lg:grid lg:grid-cols-3 gap-5">
           {displayed.map((service, index) => (
             <motion.div
-              key={service.href}
+              key={`${service.href}-${index}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
