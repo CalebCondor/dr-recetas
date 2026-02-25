@@ -137,6 +137,18 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         />
       </div>
 
+      {/* ── Background image layer (mobile only) ── */}
+      <div className="md:hidden absolute inset-0 z-0">
+        <Image
+          src="/hero/fondo_mobile.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      
+      </div>
+
       {/* ── Overlay image (desktop only) ── */}
       <div className="hidden lg:block absolute inset-0 z-1 pointer-events-none">
         <Image
