@@ -106,8 +106,8 @@ export function ReviewsSectionCopy() {
           ))}
         </Marquee>
       </div>
-      <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r"></div>
-      <div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[40%] bg-linear-to-r from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[40%] bg-linear-to-l from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
     </section>
   )
 }
