@@ -88,10 +88,10 @@ export function ReviewsSectionCopy() {
     <section className="relative w-full overflow-hidden py-16 lg:py-24">
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
         <div className="mb-10 text-center">
-          <p className="text-3xl font-semibold leading-tight text-[#88A35A] md:text-5xl">
+          <p className="text-3xl font-semibold leading-none text-[#88A35A] md:text-5xl">
             {t("title").split(" ").slice(0, 2).join(" ")}
           </p>
-          <p className="text-3xl font-medium leading-tight text-[#1F3938] md:text-5xl">
+          <p className="text-3xl font-medium leading-none text-[#1F3938] md:text-5xl">
             {t("title").split(" ").slice(2).join(" ")}
           </p>
         </div>
