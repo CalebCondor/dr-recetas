@@ -172,15 +172,15 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           </Carousel>
 
           {/* Dot indicators */}
-          <div className="flex justify-center items-center gap-2 mt-5 pb-2">
+          <div className="flex justify-center items-center gap-2 mt-12 pb-2">
             {displayed.map((_, i) => (
               <button
                 key={i}
                 aria-label={`Ir a tarjeta ${i + 1}`}
                 onClick={() => api?.scrollTo(i)}
                 style={{
-                  width: activeIndex === i ? 24 : 8,
-                  height: 8,
+                  width: activeIndex === i ? 26 : 10,
+                  height: 10,
                   borderRadius: 9999,
                   backgroundColor:
                     activeIndex === i ? "#8FD44A" : "rgba(255,255,255,0.25)",
