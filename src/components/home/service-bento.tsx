@@ -41,10 +41,11 @@ export function ServiceBento({ services }: ServiceBentoProps) {
 
   const cardContent = (service: Service, index: number) => {
     const isHovered = hoveredIndex === index;
+    const isActive = activeIndex === index;
     return (
       <Link href={service.href} className="block h-full">
         <div
-          className="h-full p-6 md:p-7 flex flex-col gap-3 transition-all duration-200"
+          className="h-full p-6 md:p-7 flex flex-col gap-3 transition-all duration-300"
           style={{
             borderRadius: "24px",
             background: isHovered
@@ -54,23 +55,28 @@ export function ServiceBento({ services }: ServiceBentoProps) {
             WebkitBackdropFilter: isHovered ? "blur(10px)" : "blur(4.1px)",
             border: isHovered
               ? "0.5px solid rgba(160,196,93,0.5)"
-              : "0.5px solid #D1DAC1",
+              : isActive
+                ? "1.5px solid rgba(160,196,93,0.6)"
+                : "0.5px solid #D1DAC1",
             boxShadow: isHovered
               ? "0 4px 24px rgba(164,255,130,0.2)"
-              : "0 2px 16px rgba(0,0,0,0.25)",
-            transform: isHovered ? "scale(1.015)" : "scale(1)",
+              : isActive
+                ? "0 8px 20px rgba(164,255,130,0.15)"
+                : "0 2px 16px rgba(0,0,0,0.25)",
+            transform: isHovered ? "scale(1.015)" : isActive ? "scale(1.03)" : "scale(1)",
+            opacity: isActive ? 1 : 0.75,
           }}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          onMouseEnter={() => window.innerWidth >= 768 && setHoveredIndex(index)}
+          onMouseLeave={() => window.innerWidth >= 768 && setHoveredIndex(null)}
         >
           <h3
-            className="text-xl md:text-xl font-normal leading-snug"
-            style={{ color: isHovered ? "#2B3E39" : "#A1FF00" }}
+            className="text-xl md:text-xl font-normal leading-snug transition-colors duration-300"
+            style={{ color: isHovered ? "#2B3E39" : isActive ? "#C4FF5E" : "#A1FF00" }}
           >
             {service.title}
           </h3>
           <p
-            className="text-lg md:text-lg leading-normal flex-1"
+            className="text-lg md:text-lg leading-normal flex-1 transition-colors duration-300"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
@@ -81,7 +87,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           </p>
           <div className="mt-1">
             <span
-              className="inline-flex items-center px-6 py-3 text-sm font-normal transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 text-sm font-normal transition-all duration-300"
               style={{
                 borderRadius: "32px",
                 backgroundColor: isHovered
@@ -90,9 +96,11 @@ export function ServiceBento({ services }: ServiceBentoProps) {
                 color: isHovered ? "rgba(247,253,238,1.85)" : "rgba(247,253,238,1.85)",
                 border: isHovered
                   ? "1px solid rgba(30,60,15,0.3)"
-                  : "0.5px solid #D1DAC1",
-                backdropFilter: isHovered ? "blur(10px)" : "blur(2px)",
-                WebkitBackdropFilter: isHovered ? "blur(10px)" : "blur(2px)",
+                  : isActive
+                    ? "1.5px solid rgba(196,255,94,0.8)"
+                    : "0.5px solid #D1DAC1",
+                backdropFilter: isHovered || isActive ? "blur(10px)" : "blur(2px)",
+                WebkitBackdropFilter: isHovered || isActive ? "blur(10px)" : "blur(2px)",
               }}
             >
               {seeServicesLabel}

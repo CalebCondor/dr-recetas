@@ -95,7 +95,6 @@ export default async function Home({
         <WhyChooseUs />
         <HowItWorks />
         <FAQSection />
-        <ReviewsSection />
         <BenefitsSection />
       </PageWrapper>
     </div>
