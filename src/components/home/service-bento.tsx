@@ -161,10 +161,10 @@ export function ServiceBento({ services }: ServiceBentoProps) {
 
         {/* ── Mobile: Embla Carousel ── */}
         <div className="mt-auto lg:hidden">
-          <Carousel setApi={setApi} opts={{ align: "start", loop: false }}>
-            <CarouselContent className="-ml-4">
+          <Carousel setApi={setApi} opts={{ align: "center", loop: false }}>
+            <CarouselContent className="">
               {displayed.map((service, index) => (
-                <CarouselItem key={service.href} className="pl-4 basis-[72vw] sm:basis-[50vw]">
+                <CarouselItem key={service.href} className="basis-[72vw] sm:basis-[50vw]">
                   {cardContent(service, index)}
                 </CarouselItem>
               ))}

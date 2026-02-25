@@ -118,7 +118,7 @@ export default function Hero() {
         {/* ── RIGHT: Cards flying out from the phone ────────── */}
         <div className="flex-1 flex flex-col items-center lg:items-start justify-start lg:justify-center gap-4 lg:pl-2 pb-10 lg:py-16">
           {consultations.map((item, index) => {
-            // Fan out from the phone dot — all start at same origin, spread to final positions
+            // Fan out from the phone dot — all start at same∫ origin, spread to final positions
             const yOrigin = (1.5 - index) * 72;
 
             return (
@@ -197,7 +197,7 @@ export default function Hero() {
                   });
                 }
               }}
-              className="flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70"
+              className="flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70 mb-4"
               style={{ color: "#8BAF4A" }}
             >
               {t("explore_services")}
