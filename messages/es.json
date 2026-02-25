@@ -221,34 +221,34 @@
     },
     "Categories": {
       "citas-medicas": {
-        "title": "Citas Médicas",
+        "title": "Citas Medicas",
         "description": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento.",
         "longDescription": "Reserva tu cita médica en pocos minutos, desde cualquier lugar y en cualquier momento."
       },
-      "membresia": {
-        "title": "Membresías",
-        "description": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
-        "longDescription": "Obtén acceso preferencial a consultas médicas y servicios especiales."
-      },
       "lab": {
-        "title": "Órdenes de Laboratorio",
+        "title": "Laboratorio",
         "description": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones.",
         "longDescription": "Solicita tus exámenes de laboratorio de forma rápida y sin complicaciones."
       },
-      "otros": {
-        "title": "Otros Servicios",
-        "description": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
-        "longDescription": "Descubre la variedad completa de servicios médicos que tenemos para ti."
-      },
       "para-el": {
-        "title": "Para Él",
-        "description": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral.",
-        "longDescription": "Accede a evaluaciones, programas especializados y pruebas de laboratorio que te ayudan a cuidar tu bienestar integral."
+        "title": "Para el",
+        "description": "Evaluaciones, lab tests y programas especializados  para cuidar tu bienestar integral.",
+        "longDescription": "Evaluaciones, lab tests y programas especializados  para cuidar tu bienestar integral."
       },
       "para-ella": {
-        "title": "Para Ella",
+        "title": "Para ella",
         "description": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura.",
         "longDescription": "Prevención, diagnóstico y acompañamiento médico con atención profesional y segura."
+      },
+      "membresia": {
+        "title": "Membresias",
+        "description": "Obtén acceso preferencial a consultas médicas y servicios especiales.",
+        "longDescription": "Obtén acceso preferencial a consultas médicas y servicios especiales."
+      },
+      "otros": {
+        "title": "Otros",
+        "description": "Descubre la variedad completa de servicios médicos que tenemos para ti.",
+        "longDescription": "Descubre la variedad completa de servicios médicos que tenemos para ti."
       }
     },
     "Items": {

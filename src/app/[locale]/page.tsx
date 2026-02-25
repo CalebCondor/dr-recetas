@@ -5,9 +5,8 @@ import { ServiceBento } from "@/components/home/service-bento";
 import { ReviewsSectionCopy } from "@/components/home/reviews-section copy";
 
 // Dynamically import components below the fold
-const ChatbotSection = dynamic(() =>
-  import("@/components/home/chatbot-section").then((mod) => mod.ChatbotSection),
-);
+
+
 const WhyChooseUs = dynamic(() =>
   import("@/components/home/why-choose-us").then((mod) => mod.WhyChooseUs),
 );
@@ -17,9 +16,7 @@ const HowItWorks = dynamic(() =>
 const FAQSection = dynamic(() =>
   import("@/components/home/faq-section").then((mod) => mod.FAQSection),
 );
-const ReviewsSection = dynamic(() =>
-  import("@/components/home/reviews-section").then((mod) => mod.ReviewsSection),
-);
+
 const BenefitsSection = dynamic(() =>
   import("@/components/home/benefits-section").then(
     (mod) => mod.BenefitsSection,
@@ -36,14 +33,26 @@ interface Category {
 }
 
 async function getCategories() {
-  const res = await fetch(
-    "https://doctorrecetas.com/api/categorias_principales.php",
-    {
-      next: { revalidate: 3600 },
-    },
-  );
-  if (!res.ok) return [];
-  return res.json();
+  try {
+    const res = await fetch(
+      "https://doctorrecetas.com/api/categorias_principales.php",
+      {
+        cache: "no-store", // Siempre obtener datos frescos
+      },
+    );
+    if (!res.ok) {
+      console.error(
+        `API error: ${res.status} ${res.statusText}`,
+      );
+      return [];
+    }
+    const data = await res.json();
+    console.log("API data fetched:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
 }
 
 import { getTranslations } from "next-intl/server";
@@ -55,19 +64,28 @@ export default async function Home({
 }) {
   const { locale } = await params;
   const categories = await getCategories();
-  const t = await getTranslations({ locale, namespace: "DynamicServices" });
+  const t = await getTranslations({ locale, namespace: "Categories" });
+
+  // Mapeo de tags del API a claves de Categories en JSON
+  const tagToKeyMap: Record<string, string> = {
+    "Citas Medicas": "citas-medicas",
+    "Laboratorio": "lab",
+    "Para el": "para-el",
+    "Para ella": "para-ella",
+    "Membresia": "membresia",
+    "": "otros",
+  };
 
   const services = categories.map((cat: Category) => {
-    // Usamos el ID de la API como llave para la traducción (ej: service_7)
-    const key = `service_${cat.id}`;
+    // Mapear el tag del API a la clave correcta en Categories
+    const categoryKey = tagToKeyMap[cat.tag] || "otros";
 
-    // Intentamos obtener la traducción del JSON
-    // t(`service_${id}.title`)
-    const translatedTitle = t.has(`${key}.title`)
-      ? t(`${key}.title`)
+    // Obtener la traducción de Categories
+    const translatedTitle = t.has(`${categoryKey}.title`)
+      ? t(`${categoryKey}.title`)
       : cat.nombre;
-    const translatedDescription = t.has(`${key}.description`)
-      ? t(`${key}.description`)
+    const translatedDescription = t.has(`${categoryKey}.description`)
+      ? t(`${categoryKey}.description`)
       : cat.lead;
 
     return {
@@ -75,7 +93,7 @@ export default async function Home({
       description: translatedDescription,
       imageSrc: cat.imagen,
       imageAlt: translatedTitle,
-      href: `/servicios/${cat.tag?.toLowerCase().replace(/\s+/g, "-") || "otros"}`,
+      href: `/servicios/${categoryKey}`,
     };
   });
 
