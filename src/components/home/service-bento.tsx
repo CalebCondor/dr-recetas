@@ -87,7 +87,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           </p>
           <div className="mt-1">
             <span
-              className="inline-flex items-center px-6 py-3 text-sm font-normal transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 text-lg font-normal transition-all duration-300"
               style={{
                 borderRadius: "32px",
                 backgroundColor: isHovered
