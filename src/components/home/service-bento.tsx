@@ -70,13 +70,13 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           onMouseLeave={() => window.innerWidth >= 768 && setHoveredIndex(null)}
         >
           <h3
-            className="text-xl md:text-xl font-normal leading-snug transition-colors duration-300"
+            className="text-2xl md:text-xl font-normal leading-snug transition-colors duration-300"
             style={{ color: isHovered ? "#2B3E39" : isActive ? "#C4FF5E" : "#A1FF00" }}
           >
             {service.title}
           </h3>
           <p
-            className="text-lg md:text-lg leading-normal flex-1 transition-colors duration-300"
+            className="text-xl md:text-lg leading-normal flex-1 transition-colors duration-300"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
