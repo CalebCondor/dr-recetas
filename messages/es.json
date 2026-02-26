@@ -55,6 +55,7 @@
     },
     "HowItWorks": {
       "title": "¿Cómo funciona?",
+      "step_prefix": "Paso",
       "subtitle_prefix": "Sigue estos pasos para ",
       "subtitle_highlight": "obtener la receta deseada",
       "step1": "Complete el registro, escoja el servicio médico o laboratorio deseado.",

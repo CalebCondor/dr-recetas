@@ -23,7 +23,7 @@ export function ChatbotSection() {
 
   return (
     <section id="chatbot" className="relative w-full py-16 lg:py-24 overflow-hidden">
-      <div className="w-full h-[808px] md:h-[927px] px-0 md:px-12 lg:px-[8%] mx-auto">
+      <div className="w-full h-[808px] md:h-[927px] max-w-400 mx-auto">
         {/* Main Banner Container */}
         <div className="relative h-[748px] md:h-[927px] w-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden bg-[#1E3A2F] shadow-2xl group">
           <div className="absolute inset-0">
