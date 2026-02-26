@@ -122,7 +122,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
   return (
     <section
       id="servicios"
-      className="relative w-full max-w-400 mx-auto overflow-hidden py-16 md:py-20 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
+      className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
       style={{
         background: "linear-gradient(180deg, #434D2E 12.38%, #677155 62.77%, #485042 99%)",
       }}
@@ -169,7 +169,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 w-full h-full max-w-6xl mx-auto px-6 md:px-12 lg:px-[8%] flex flex-col">
+      <div className="relative z-10 w-full h-full max-w-400 mx-auto px-0 md:px-12 lg:px-[8%] flex flex-col">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

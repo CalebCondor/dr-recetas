@@ -124,7 +124,7 @@ export default function Hero() {
             return (
               <motion.div
                 key={`${item.id}-${isMobile}`}
-                className="w-full"
+                className="w-full md:w-auto flex md:justify-center"
                 initial={
                   isMobile
                     ? { opacity: 0, y: 20 }
@@ -156,12 +156,9 @@ export default function Hero() {
                       }
                 }
               >
-                <Link
-                  href={item.href}
-                  className="block w-full"
-                >
+                <Link href={item.href} className="block w-full md:w-[320px]">
                   <div
-                    className="flex items-center justify-center w-full lg:w-65 h-11 rounded-full cursor-pointer text- font-semibold tracking-tight"
+                    className="flex items-center justify-center w-full h-11 md:h-12 rounded-full px-4 md:px-6 text-sm md:text-base font-semibold tracking-tight cursor-pointer"
                     style={{
                       backgroundColor: "#D9EFB5",
                       color: "#3C5901",
@@ -180,7 +177,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85, duration: 0.5 }}
-            className="mt-1"
+            className="mt-1 flex justify-center"
           >
             <button
               type="button"
