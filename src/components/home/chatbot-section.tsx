@@ -131,7 +131,7 @@ export function ChatbotSection() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-3xl md:text-5xl lg:text-5xl font-black leading-tight tracking-tight"
+                className="text-3xl md:text-4xl lg:text-5xl font-black md:leading-snug lg:leading-tight tracking-tight"
               >
                 {t("need_help")} <br />
                 <span className="text-[#A1FF00] font-black">{t("talk_to_ana")}</span>
@@ -144,13 +144,13 @@ export function ChatbotSection() {
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="max-w-[400px] md:max-w-[280px] lg:max-w-[320px] space-y-4"
+                className="max-w-[400px] md:max-w-[340px] lg:max-w-[320px] space-y-4"
               >
-                <p className="text-2xl md:text-2xl font-bold leading-normal">
+                <p className="text-xl md:text-2xl font-bold md:leading-relaxed leading-normal">
                   <span className="text-white">{t("intro_prefix")}</span> <br className="hidden md:block" />{" "}
                   <span className="text-[#A1FF00]">{t("intro_highlight")}</span>
                 </p>
-                <p className="text-white text-2xl md:text-2xl font-medium leading-normal">
+                <p className="text-white text-lg md:text-xl font-medium md:leading-relaxed leading-normal">
                   {t("intro_description")}
                 </p>
               </motion.div>

@@ -176,13 +176,13 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="text-center mb-10 md:mb-12"
+          className="text-center mb-8 md:mb-10 lg:mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-normal text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white mb-3 md:mb-4">
             {t("title")}
           </h2>
-          <p className="text-2xl md:text-4xl leading-5.5 text-white ">
-            {t("subtitle_prefix")}{" "}
+          <p className="text-xl sm:text-2xl md:text-3xl leading-6 md:leading-7 text-white">
+            {t("subtitle_prefix")} {" "}
             <span style={{ color: "#8FD44A" }}>{t("subtitle_highlight")}</span>
           </p>
         </motion.div>

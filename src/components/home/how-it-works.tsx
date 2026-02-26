@@ -115,6 +115,7 @@ export function HowItWorks() {
 
         {/* Timeline Container - All sizes */}
         <div ref={timelineRef} className="relative px-0 md:px-10">
+    
 
           <div className="space-y-12 md:space-y-0">
             {translatedSteps.map((step, index) => (

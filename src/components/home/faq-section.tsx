@@ -88,7 +88,7 @@ export function FAQSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mt-12 mb-16 text-balance">
             {t("title")}
           </h2>
         </div>
