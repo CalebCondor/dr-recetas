@@ -293,7 +293,6 @@ export default function ComoFunciona() {
 
       <section
         className="min-h-screen flex items-start justify-center p-8"
-        style={{ background: '#eef2e6' }}
       >
         {/* Contenedor verde oscuro */}
         <div
