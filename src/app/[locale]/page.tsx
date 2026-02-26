@@ -55,6 +55,7 @@ async function getCategories() {
 }
 
 import { getTranslations } from "next-intl/server";
+import { ChatbotSection } from "@/components/home/chatbot-section";
 
 export default async function Home({
   params,
@@ -111,11 +112,12 @@ export default async function Home({
           <Hero />
           <ServiceBento services={services} />
         </div>
-        
-        <ReviewsSectionCopy />
-        
 
-        
+        <ReviewsSectionCopy />
+        <ChatbotSection />
+
+
+
 
         <WhyChooseUs />
         <HowItWorks />

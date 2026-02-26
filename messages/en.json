@@ -114,7 +114,13 @@
     "close": "Close chat",
     "welcome": "Hello! 👋 How can I help you today?",
     "error_api": "Sorry, I had a problem processing your message.",
-    "error_network": "Sorry, I couldn't connect to the server. Please try again later."
+    "error_network": "Sorry, I couldn't connect to the server. Please try again later.",
+    "need_help": "Need Help?",
+    "talk_to_ana": "Talk to Ana",
+    "intro_highlight": "your virtual health assistant.",
+    "intro_prefix": "Introducing Ana,",
+    "intro_description": "She will evaluate your symptoms in seconds and guide you to the service you need today.",
+    "cta": "Start conversation with Ana"
   },
   "DynamicServices": {
     "service_7": {
