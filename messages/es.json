@@ -114,7 +114,13 @@
     "close": "Cerrar chat",
     "welcome": "¡Hola! 👋 ¿En qué puedo ayudarte hoy?",
     "error_api": "Lo siento, tuve un problema al procesar tu mensaje.",
-    "error_network": "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde."
+    "error_network": "Lo siento, no pude conectarme con el servidor. Inténtalo de nuevo más tarde.",
+    "need_help": "¿Necesitas Ayuda?",
+    "talk_to_ana": "Habla con Ana",
+    "intro_highlight": "tu asistente virtual de salud.",
+    "intro_prefix": "Te presentamos a Ana,",
+    "intro_description": "Evaluará tus malestares en segundos y te guiará al servicio que necesitas hoy.",
+    "cta": "Empezar conversación con Ana"
   },
   "DynamicServices": {
     "service_7": {
