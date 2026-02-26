@@ -85,8 +85,8 @@ const ReviewCard = ({
 export function ReviewsSectionCopy() {
   const t = useTranslations("HomePage.Testimonials");
   return (
-    <section className="relative w-full overflow-hidden py-16 lg:py-24">
-      <div className="w-full px-6 md:px-12 lg:px-[8%]">
+    <section className="relative w-full overflow-hidden pt  -16 lg:py-24">
+      <div className="w-full px-0 md:px-12 lg:px-[8%]">
         <div className="mb-10 text-center">
           <p className="text-3xl font-semibold leading-none text-[#88A35A] md:text-5xl">
             {t("title").split(" ").slice(0, 2).join(" ")}
@@ -106,8 +106,8 @@ export function ReviewsSectionCopy() {
           ))}
         </Marquee>
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[40%] bg-linear-to-r from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-[40%] bg-linear-to-l from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
+      <div className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-[40%] bg-linear-to-r from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
+      <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[40%] bg-linear-to-l from-[#F2FAEC] from-10% via-[#F2FAEC]/70 via-50% to-transparent"></div>
     </section>
   )
 }
