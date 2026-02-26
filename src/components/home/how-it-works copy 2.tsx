@@ -1,4 +1,6 @@
-'use client'
+"use client"
+
+import Image from "next/image";
 
 import { useEffect, useRef } from 'react';
 
@@ -8,8 +10,6 @@ const R = 48;
 
 interface StepCard {
   id: string;
-  badgeId: string;
-  num: number;
   step: string;
   title: string;
   description: string;
@@ -21,18 +21,17 @@ interface StepCard {
   align: 'left' | 'right';
   marginTop: string;
 }
+const stepColors = ["#89A856", "#78944A", "#718E40", "#66813A"];
 
 const CARDS: StepCard[] = [
   {
     id: 'card-1',
-    badgeId: 'badge-1',
-    num: 1,
     step: 'Paso 1',
     title: 'Regístrate y elige tu servicio médico favorito.',
     description: 'Completa el formulario, selecciona el especialista y agenda tu cita en minutos desde cualquier dispositivo.',
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=260&h=220&fit=crop&crop=top',
     imageAlt: 'persona',
-    bg: '#4a7c59',
+    bg: stepColors[0],
     textColor: 'text-green-200',
     descColor: 'text-green-100',
     align: 'left',
@@ -40,14 +39,12 @@ const CARDS: StepCard[] = [
   },
   {
     id: 'card-2',
-    badgeId: 'badge-2',
-    num: 2,
     step: 'Paso 2',
     title: 'Consulta con tu médico de confianza.',
     description: 'Conéctate por videollamada o visítalo en su consultorio. Tu historial clínico siempre a la mano.',
     image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=260&h=220&fit=crop&crop=top',
     imageAlt: 'doctora',
-    bg: '#3b5fa0',
+    bg: stepColors[1],
     textColor: 'text-blue-200',
     descColor: 'text-blue-100',
     align: 'right',
@@ -55,14 +52,12 @@ const CARDS: StepCard[] = [
   },
   {
     id: 'card-3',
-    badgeId: 'badge-3',
-    num: 3,
     step: 'Paso 3',
     title: 'Recibe tu diagnóstico y tratamiento personalizado.',
     description: 'Obtén recetas digitales, órdenes de laboratorio y seguimiento continuo desde la aplicación.',
     image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=260&h=220&fit=crop&crop=top',
     imageAlt: 'medico',
-    bg: '#7c4a8a',
+    bg: stepColors[2],
     textColor: 'text-purple-200',
     descColor: 'text-purple-100',
     align: 'left',
@@ -70,14 +65,12 @@ const CARDS: StepCard[] = [
   },
   {
     id: 'card-4',
-    badgeId: 'badge-4',
-    num: 4,
     step: 'Paso 4',
     title: 'Monitorea tu salud y agenda tus próximas citas.',
     description: 'Revisa tu historial, resultados de laboratorio y recibe recordatorios automáticos de tus próximas visitas.',
     image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=260&h=220&fit=crop&crop=top',
     imageAlt: 'enfermera',
-    bg: '#a0523b',
+    bg: stepColors[3],
     textColor: 'text-orange-200',
     descColor: 'text-orange-100',
     align: 'right',
@@ -85,13 +78,15 @@ const CARDS: StepCard[] = [
   },
 ];
 
-interface AnimPath {
+  interface AnimPath {
   fill: SVGPathElement;
   len: number;
   startScroll: number;
   endScroll: number;
+  circleProgressRatio: number;
   targetCard: Element | null;
-  badge: HTMLElement | null;
+  circle: SVGCircleElement;
+  label: SVGTextElement;
 }
 
 function buildSnakePath(
@@ -169,16 +164,42 @@ export default function ComoFunciona() {
       fill.setAttribute('stroke-dasharray', String(len));
       fill.setAttribute('stroke-dashoffset', String(len));
 
+      // Círculo numérico
+      const hEnd = aIsLeft ? wallX - R : R;
+      const cx   = (ax + hEnd) / 2;
+      const cy   = ay;
+
+      const circle = document.createElementNS(NS, 'circle');
+      circle.setAttribute('cx', String(cx));
+      circle.setAttribute('cy', String(cy));
+      circle.setAttribute('r', '36');
+      circle.setAttribute('fill', 'white');
+      circle.setAttribute('stroke', BASE_COLOR);
+      circle.setAttribute('stroke-width', '2');
+      svg.appendChild(circle);
+
+      const label = document.createElementNS(NS, 'text');
+      label.setAttribute('x', String(cx));
+      label.setAttribute('y', String(cy));
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('dominant-baseline', 'central');
+      label.setAttribute('font-size', '24');
+      label.setAttribute('font-weight', '700');
+      label.setAttribute('font-family', 'sans-serif');
+      label.setAttribute('fill', '#1e293b');
+      label.textContent = String(i + 1);
+      svg.appendChild(label);
+
       const targetCard = document.getElementById(ids[i + 1])?.querySelector('.card-inner') ?? null;
-      const badge      = document.getElementById(CARDS[i + 1].badgeId);
 
       const scrollNow      = window.scrollY;
       const connectorAbsY  = rects[i].top + scrollNow + rects[i].height / 2;
       const destAbsCenterY = rects[i + 1].top + scrollNow + rects[i + 1].height / 2;
       const startScroll    = Math.max(0, connectorAbsY - wH * 0.5);
       const endScroll      = destAbsCenterY - wH * 0.4;
+      const circleProgressRatio = Math.min(0.85, Math.abs(cx - ax) / len);
 
-      animPaths.current.push({ fill, len, startScroll, endScroll, targetCard, badge });
+      animPaths.current.push({ fill, len, startScroll, endScroll, circleProgressRatio, targetCard, circle, label });
     }
   };
 
@@ -187,19 +208,27 @@ export default function ComoFunciona() {
     const scrollY  = window.scrollY;
     const atBottom = scrollY + wH >= document.documentElement.scrollHeight - 8;
 
-    animPaths.current.forEach(({ fill, len, startScroll, endScroll, targetCard, badge }) => {
+    animPaths.current.forEach(({ fill, len, startScroll, endScroll, circleProgressRatio, targetCard, circle, label }) => {
       const progress = atBottom
         ? 1
         : Math.min(1, Math.max(0, (scrollY - startScroll) / (endScroll - startScroll)));
 
       fill.setAttribute('stroke-dashoffset', String(len * (1 - progress)));
 
+      if (progress >= circleProgressRatio) {
+        circle.setAttribute('fill', FILL_COLOR);
+        circle.setAttribute('stroke', FILL_COLOR);
+        label.setAttribute('fill', '#1a2e00');
+      } else {
+        circle.setAttribute('fill', 'white');
+        circle.setAttribute('stroke', BASE_COLOR);
+        label.setAttribute('fill', '#1e293b');
+      }
+
       if (progress >= 0.95) {
         targetCard?.classList.add('active');
-        badge?.classList.add('lit');
       } else {
         targetCard?.classList.remove('active');
-        badge?.classList.remove('lit');
       }
     });
   };
@@ -207,19 +236,16 @@ export default function ComoFunciona() {
   const onScrollMobile = () => {
     if (window.innerWidth >= 768) return;
     const wH = window.innerHeight;
-    CARDS.forEach(({ id, badgeId }) => {
+    CARDS.forEach(({ id }) => {
       const card  = document.getElementById(id);
       const inner = card?.querySelector('.card-inner');
-      const badge = document.getElementById(badgeId);
       if (!card || !inner) return;
       const rect       = card.getBoundingClientRect();
       const cardCenter = rect.top + rect.height / 2;
       if (cardCenter < wH * 0.75) {
         inner.classList.add('active');
-        badge?.classList.add('lit');
       } else {
         inner.classList.remove('active');
-        badge?.classList.remove('lit');
       }
     });
   };
@@ -234,7 +260,6 @@ export default function ComoFunciona() {
       onScrollMobile();
       // Card 1 siempre activo
       document.querySelector('#card-1 .card-inner')?.classList.add('active');
-      document.getElementById('badge-1')?.classList.add('lit');
     };
 
     const timer = setTimeout(init, 60);
@@ -264,36 +289,10 @@ export default function ComoFunciona() {
           border-color: #b6e64a;
           box-shadow: 0 0 18px 3px rgba(182, 230, 74, 0.35);
         }
-        .step-badge {
-          position: absolute;
-          top: -14px;
-          left: -14px;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          background: white;
-          color: #1e293b;
-          font-size: 22px;
-          font-weight: 700;
-          font-family: sans-serif;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 20;
-          border: 2px solid rgba(255,255,255,0.3);
-          transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
-        }
-        .step-badge.lit {
-          background: #b6e64a;
-          color: #1a2e00;
-          border-color: #b6e64a;
-          box-shadow: 0 0 14px 3px rgba(182,230,74,0.5);
-        }
       `}</style>
 
       <section
         className="min-h-screen flex items-start justify-center p-8"
-        style={{ background: '#eef2e6' }}
       >
         {/* Contenedor verde oscuro */}
         <div
@@ -343,11 +342,6 @@ export default function ComoFunciona() {
                     .filter(Boolean)
                     .join(' ')}
                 >
-                  {/* Badge numérico */}
-                  <span className="step-badge" id={card.badgeId}>
-                    {card.num}
-                  </span>
-
                   <div
                     className="relative rounded-2xl overflow-hidden card-inner"
                     style={{ background: card.bg, minHeight: 320 }}

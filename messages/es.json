@@ -55,6 +55,7 @@
     },
     "HowItWorks": {
       "title": "¿Cómo funciona?",
+      "step_prefix": "Paso",
       "subtitle_prefix": "Sigue estos pasos para ",
       "subtitle_highlight": "obtener la receta deseada",
       "step1": "Complete el registro, escoja el servicio médico o laboratorio deseado.",
@@ -64,7 +65,7 @@
     },
     "FAQ": {
       "badge": "¿Preguntas?",
-      "title": "Nosotras tenemos respuestas",
+      "title": "Nosotros tenemos respuestas",
       "q1": "¿En qué tiempo recibo mi licencia?",
       "a1": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
       "others_q": "¿Contrary to popular belief, Lorem Ipsum is not simply?",

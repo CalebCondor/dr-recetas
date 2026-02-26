@@ -122,7 +122,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
   return (
     <section
       id="servicios"
-      className="relative w-full max-w-400 mx-auto overflow-hidden py-16 md:py-20 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
+      className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
       style={{
         background: "linear-gradient(180deg, #434D2E 12.38%, #677155 62.77%, #485042 99%)",
       }}
@@ -169,20 +169,20 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 w-full h-full max-w-6xl mx-auto px-6 md:px-12 lg:px-[8%] flex flex-col">
+      <div className="relative z-10 w-full h-full max-w-400 mx-auto px-0 md:px-12 lg:px-[8%] flex flex-col">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="text-center mb-10 md:mb-12"
+          className="text-center mb-8 md:mb-10 lg:mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-normal text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white mb-3 md:mb-4">
             {t("title")}
           </h2>
-          <p className="text-2xl md:text-4xl leading-5.5 text-white ">
-            {t("subtitle_prefix")}{" "}
+          <p className="text-xl sm:text-2xl md:text-3xl leading-6 md:leading-7 text-white">
+            {t("subtitle_prefix")} {" "}
             <span style={{ color: "#8FD44A" }}>{t("subtitle_highlight")}</span>
           </p>
         </motion.div>

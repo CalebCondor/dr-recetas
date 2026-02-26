@@ -55,6 +55,7 @@
     },
     "HowItWorks": {
       "title": "How it works?",
+      "step_prefix": "Step",
       "subtitle_prefix": "Follow these steps to ",
       "subtitle_highlight": "get the desired prescription",
       "step1": "Complete the registration, choose the desired medical or laboratory service.",

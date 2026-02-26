@@ -5,14 +5,13 @@ import { ServiceBento } from "@/components/home/service-bento";
 import { ReviewsSectionCopy } from "@/components/home/reviews-section copy";
 
 // Dynamically import components below the fold
+import ComoFunciona from "@/components/home/how-it-works";
 
 
 const WhyChooseUs = dynamic(() =>
   import("@/components/home/why-choose-us").then((mod) => mod.WhyChooseUs),
 );
-const HowItWorks = dynamic(() =>
-  import("@/components/home/how-it-works").then((mod) => mod.HowItWorks),
-);
+
 const FAQSection = dynamic(() =>
   import("@/components/home/faq-section").then((mod) => mod.FAQSection),
 );
@@ -115,12 +114,13 @@ export default async function Home({
 
         <ReviewsSectionCopy />
         <ChatbotSection />
+        <ComoFunciona />
+        
 
 
 
 
         <WhyChooseUs />
-        <HowItWorks />
         <FAQSection />
         <BenefitsSection />
       </PageWrapper>

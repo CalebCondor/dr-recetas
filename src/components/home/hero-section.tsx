@@ -51,14 +51,14 @@ export default function Hero() {
       className="relative w-full overflow-hidden m"
       style={{ backgroundColor: "#F2FAEC", minHeight: 460, paddingTop: "80px" }}
     >
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%] py-0 flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-4">
+      <div className="relative z-10 w-full max-w-400 mx-auto px-6 md:px-12 lg:px-[8%] py-0 flex flex-col md:items-center md:justify-center lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-4">
         {/* ── LEFT: Heading ────────────────────────────────── */}
-        <div className="flex-[1.1] text-left flex items-center py-6 lg:py-16">
+        <div className="flex-[1.1] text-left md:text-center lg:text-left flex items-center py-6 lg:py-12">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-[42px]  sm:text-5xl lg:text-[2.8rem] xl:text-[3.9rem] font-bold leading-[1.1] tracking-tight"
+            className="text-[42px] sm:text-5xl lg:text-[2.8rem] xl:text-[3.9rem] font-bold leading-[1.1] tracking-tight"
             style={{ color: "#142925" }}
           >
             {t("title")}
@@ -85,7 +85,7 @@ export default function Hero() {
 
         {/* ── CENTER: Woman with phone ──────────────────────── */}
         <div
-          className="relative shrink-0 items-end justify-center self-stretch hidden lg:flex"
+          className="relative shrink-0 items-center justify-center self-stretch hidden lg:flex"
           style={{ width: 260 }}
         >
           <Image
@@ -116,15 +116,15 @@ export default function Hero() {
         </div>
 
         {/* ── RIGHT: Cards flying out from the phone ────────── */}
-        <div className="flex-1 flex flex-col items-center lg:items-start justify-start lg:justify-center gap-4 lg:pl-2 pb-10 lg:py-16">
+        <div className="flex-1 flex flex-col items-start md:items-center lg:items-start justify-center md:justify-center lg:justify-start gap-4 lg:pl-2 pb-10 lg:py-16">
           {consultations.map((item, index) => {
-            // Fan out from the phone dot — all start at same∫ origin, spread to final positions
+            // Fan out from the phone dot — all start at same origin, spread to final positions
             const yOrigin = (1.5 - index) * 72;
 
             return (
               <motion.div
                 key={`${item.id}-${isMobile}`}
-                className="w-full"
+                className="w-full md:w-auto flex md:justify-center"
                 initial={
                   isMobile
                     ? { opacity: 0, y: 20 }
@@ -156,12 +156,9 @@ export default function Hero() {
                       }
                 }
               >
-                <Link
-                  href={item.href}
-                  className="block w-full"
-                >
+                <Link href={item.href} className="block w-full md:w-[320px]">
                   <div
-                    className="flex items-center justify-center w-full lg:w-65 h-11 rounded-full cursor-pointer text-sm font-semibold tracking-tight"
+                    className="flex items-center justify-center w-full h-11 md:h-12 rounded-full px-4 md:px-6 text-sm md:text-base font-semibold tracking-tight cursor-pointer"
                     style={{
                       backgroundColor: "#D9EFB5",
                       color: "#3C5901",
@@ -180,7 +177,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85, duration: 0.5 }}
-            className="mt-1"
+            className="mt-1 flex justify-center"
           >
             <button
               type="button"
