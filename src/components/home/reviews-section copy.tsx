@@ -85,7 +85,7 @@ const ReviewCard = ({
 export function ReviewsSectionCopy() {
   const t = useTranslations("HomePage.Testimonials");
   return (
-    <section className="relative w-full overflow-hidden pt  -16 lg:py-24">
+    <section className="relative w-full overflow-hidden pt-16 lg:py-24">
       <div className="w-full px-0 md:px-12 lg:px-[8%]">
         <div className="mb-10 text-center">
           <p className="text-3xl font-semibold leading-none text-[#88A35A] md:text-5xl">
