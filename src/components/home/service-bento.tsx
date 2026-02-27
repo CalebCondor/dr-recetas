@@ -156,15 +156,12 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       id="servicios"
       ref={sectionRef}
       className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
-      style={{
-        background: "linear-gradient(180deg, #434D2E 12.38%, #677155 62.77%, #485042 99%)",
-      }}
     >
       {/* ── Background image layer (desktop only) ── */}
       <div className="hidden lg:block absolute inset-0 z-0">
         <Image
-          src="/hero/fondo_heroo.png"
-          alt=""
+          src="/hero/bserviciosa.webp"
+          alt="Fondo de servicios"
           fill
           className="object-cover object-top"
           priority
@@ -182,7 +179,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       <div className="md:hidden absolute inset-0 z-0">
         <Image
           src="/hero/fondo_mobile.png"
-          alt=""
+          alt="Fondo de servicios móvil"
           fill
           className="object-cover object-center"
           priority
@@ -197,8 +194,8 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         aria-hidden
       >
         <Image
-          src="/hero/servicios.png"
-          alt=""
+          src="/hero/aservicios2.png"
+          alt="Fondo de servicios parallax"
           fill
           className="object-cover object-top"
           priority

@@ -341,8 +341,9 @@ export default function ComoFunciona() {
               <div className="w-full h-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden">
                 <Image
                   src="/how-it-works.png"
-                  alt=""
+                  alt="fondo cómo funciona"
                   fill
+                  sizes="100vw"
                   className="object-cover object-top"
                   priority
                 />
@@ -413,6 +414,7 @@ export default function ComoFunciona() {
                         src={card.image}
                         alt={card.imageAlt}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 33vw"
                         className="object-cover object-top drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>

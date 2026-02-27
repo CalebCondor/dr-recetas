@@ -98,6 +98,7 @@ export function HowItWorks() {
           src="/how-it-works.png"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover object-top rounded-[2.5rem] md:rounded-[5rem]"
           priority
         />
@@ -165,6 +166,7 @@ export function HowItWorks() {
                         src={step.imageSrc}
                         alt={`Paso ${step.number}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 33vw"
                         className="object-cover object-top drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
