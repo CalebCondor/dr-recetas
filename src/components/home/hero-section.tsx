@@ -85,7 +85,7 @@ export default function Hero() {
 
         {/* ── CENTER: Woman with phone ──────────────────────── */}
         <div
-          className="relative shrink-0 items-center justify-center self-stretch hidden lg:flex"
+          className="relative shrink-0 items-center justify-center self-stretch hidden lg:flex z-[-10]"
           style={{ width: 260 }}
         >
           <Image
@@ -93,14 +93,14 @@ export default function Hero() {
             alt="Dr. Recetas"
             width={300}
             height={460}
-            className="relative z-10 object-contain object-bottom w-full h-full drop-shadow-md"
+            className="relative z-[-10] object-contain object-bottom w-full h-full drop-shadow-md"
             style={{ maxHeight: 480 }}
             priority
           />
 
           {/* Pulsing dot on the phone screen */}
           <motion.div
-            className="absolute z-20"
+            className="absolute z-10"
             style={{ bottom: "36%", right: "22%" }}
             animate={{ scale: [1, 2.4, 1], opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}

@@ -57,22 +57,22 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           style={{
             borderRadius: "24px",
             background: isHovered
-              ? "linear-gradient(180deg, rgba(212,255,130,0.7) 0%, rgba(160,196,93,0.7) 100%)"
-              : "radial-gradient(50% 50% at 50% 50%, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 0.2) 100%), linear-gradient(180deg, rgba(51, 69, 53, 0.4) 0%, rgba(51, 69, 53, 0.5) 100%)",
-            backdropFilter: isHovered ? "blur(10px)" : "blur(4.1px)",
-            WebkitBackdropFilter: isHovered ? "blur(10px)" : "blur(4.1px)",
+              ? "linear-gradient(180deg, rgba(212,255,130,0.82) 0%, rgba(160,196,93,0.82) 100%)"
+              : "radial-gradient(50% 50% at 50% 50%, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 0.24) 100%), linear-gradient(180deg, rgba(51, 69, 53, 0.65) 0%, rgba(51, 69, 53, 0.75) 100%)",
+            backdropFilter: isHovered ? "blur(8px)" : "blur(4px)",
+            WebkitBackdropFilter: isHovered ? "blur(8px)" : "blur(4px)",
             border: isHovered
               ? "0.5px solid rgba(160,196,93,0.5)"
               : isActive
                 ? "1.5px solid rgba(160,196,93,0.6)"
                 : "0.5px solid #D1DAC1",
             boxShadow: isHovered
-              ? "0 4px 24px rgba(164,255,130,0.2)"
+              ? "0 6px 32px rgba(164,255,130,0.22)"
               : isActive
-                ? "0 8px 20px rgba(164,255,130,0.15)"
-                : "0 2px 16px rgba(0,0,0,0.25)",
+                ? "0 10px 28px rgba(164,255,130,0.16)"
+                : "0 4px 18px rgba(0,0,0,0.28)",
             transform: isHovered ? "scale(1.015)" : isActive ? "scale(1.03)" : "scale(1)",
-            opacity: isActive ? 1 : 0.75,
+            opacity: isActive ? 1 : 0.96,
           }}
           onMouseEnter={() => window.innerWidth >= 768 && setHoveredIndex(index)}
           onMouseLeave={() => window.innerWidth >= 768 && setHoveredIndex(null)}
@@ -99,8 +99,8 @@ export function ServiceBento({ services }: ServiceBentoProps) {
               style={{
                 borderRadius: "32px",
                 backgroundColor: isHovered
-                  ? "rgba(30,60,15,0.2)"
-                  : "rgba(211, 239, 160, 0.20)",
+                  ? "rgba(30,60,15,0.24)"
+                  : "rgba(211, 239, 160, 0.28)",
                 color: isHovered ? "rgba(247,253,238,1.85)" : "rgba(247,253,238,1.85)",
                 border: isHovered
                   ? "1px solid rgba(30,60,15,0.3)"
@@ -197,7 +197,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         aria-hidden
       >
         <Image
-          src="/hero/hero_fondoo.png"
+          src="/hero/servicios.png"
           alt=""
           fill
           className="object-cover object-top"
