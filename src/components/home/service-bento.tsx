@@ -166,13 +166,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="object-cover object-top"
           priority
         />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(10,30,20,0.55) 0%, rgba(10,30,20,0.30) 50%, rgba(10,30,20,0.0) 100%)",
-            }}
-          />
+         
       </div>
 
       {/* ── Background image layer (mobile only) ── */}
