@@ -113,13 +113,8 @@ export default async function Home({
         </div>
 
         <ReviewsSectionCopy />
-        <ChatbotSection />
         <ComoFunciona />
-        
-
-
-
-
+        <ChatbotSection />
         <WhyChooseUs />
         <FAQSection />
         <BenefitsSection />

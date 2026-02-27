@@ -22,8 +22,8 @@
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <section id="chatbot" className="relative w-full py-16 lg:py-24 overflow-hidden">
-        <div className="w-full h-[808px] md:h-[927px] max-w-400 mx-auto px-0 md:px-16 lg:px-24">
+      <section id="chatbot" className="relative w-full py-5 md:py-16 lg:py-24 overflow-hidden">
+        <div className="w-full md:h-232 max-w-400 mx-auto">
           {/* Main Banner Container */}
           <div className="relative h-[748px] md:h-[927px] w-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden bg-[#1E3A2F] shadow-2xl group">
             <div className="absolute inset-0">
@@ -101,7 +101,7 @@
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[390px] md:w-[930px] h-[514px] md:h-[896px]"
+                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[390px] md:w-[650px] lg:w-[930px] h-[514px] md:h-[896px]"
               >
                 {/* Desktop Illustration */}
                 <Image
