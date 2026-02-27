@@ -84,7 +84,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
             {service.title}
           </h3>
           <p
-            className="text-xl md:text-lg leading-5.5 flex-1 transition-colors duration-300"
+            className="text-xl md:text-lg leading-6 flex-1 transition-colors duration-300"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
