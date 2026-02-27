@@ -117,6 +117,7 @@ export default function Hero() {
 
         {/* ── RIGHT: Cards flying out from the phone ────────── */}
         <div className="flex-1 flex flex-col items-start md:items-center lg:items-center justify-center md:justify-center lg:justify-center gap-4 lg:pl-2 pb-10 lg:py-16">
+
           {consultations.map((item, index) => {
             // Fan out from the phone dot — all start at same origin, spread to final positions
             const yOrigin = (1.5 - index) * 72;
@@ -124,7 +125,7 @@ export default function Hero() {
             return (
               <motion.div
                 key={`${item.id}-${isMobile}`}
-                className="w-full"
+                className="w-full flex justify-center"
                 initial={
                   isMobile
                     ? { opacity: 0, y: 20 }
@@ -156,12 +157,9 @@ export default function Hero() {
                       }
                 }
               >
-                <Link
-                  href={item.href}
-                  className="block w-full"
-                >
+                <Link href={item.href} className="block mx-auto">
                   <div
-                    className="flex items-center justify-center w-full lg:w-65 h-11 rounded-full cursor-pointer text- font-semibold tracking-tight"
+                    className="flex items-center justify-center max-w-[360px] w-full sm:w-[320px] lg:w-[260px] h-11 rounded-full cursor-pointer font-semibold tracking-tight px-6"
                     style={{
                       backgroundColor: "#D9EFB5",
                       color: "#3C5901",
