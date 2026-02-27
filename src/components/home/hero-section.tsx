@@ -21,7 +21,7 @@ const consultations = [
   {
     id: 3,
     nameKey: "cbc_diff",
-    href: "/servicios/lab/cbc-diff-lab",
+    href: "/servicios/lab/cbc-diff-lab-45",
   },
   {
     id: 4,
