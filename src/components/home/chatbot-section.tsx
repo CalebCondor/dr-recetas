@@ -1,12 +1,14 @@
   "use client";
 
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
+  import { createPortal } from "react-dom";
   import { motion, AnimatePresence } from "framer-motion";
   import { useTranslations } from "next-intl";
   import Image from "next/image";
   import { ChatbotPanel } from "../shell/chatbot-panel";
   import { X } from "lucide-react";
   import { Marquee } from "../ui/marquee";
+  import { useIsMounted } from "@/hooks/use-is-mounted";
 
   const keywords = [
     "Salud", "Consulta", "Análisis", "Prueba de COVID", "Refill", "Alivio",
@@ -20,6 +22,10 @@
   export function ChatbotSection() {
     const t = useTranslations("Chatbot");
     const [isOpen, setIsOpen] = useState(false);
+    const mounted = useIsMounted();
+
+    if (!mounted) return null;
+
 
     return (
       <section id="chatbot" className="relative w-full py-5 md:py-16 lg:py-24 overflow-hidden">
@@ -179,16 +185,19 @@
           </div>
         </div>
 
-        {/* Chatbot Modal Overlay */}
-        <AnimatePresence>
-          {isOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-12">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsOpen(false)}
+        {/* Chatbot Modal Overlay — rendered in a portal so fixed = viewport */}
+        {mounted && isOpen && createPortal(
+          <AnimatePresence>
+            <motion.div
+              key="modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-12"
+            >
+              <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                onClick={() => setIsOpen(false)}
               />
               <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -205,9 +214,10 @@
                 </button>
                 <ChatbotPanel className="h-full" onClose={() => setIsOpen(false)} isFloating={true} />
               </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>,
+          document.body
+        )}
       </section>
     );
   }
