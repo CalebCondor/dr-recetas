@@ -157,9 +157,9 @@ export default function Hero() {
                       }
                 }
               >
-                <Link href={item.href} className="block mx-auto">
+                <Link href={item.href} className="block w-[min(90vw,360px)] lg:w-[260px]">
                   <div
-                    className="flex items-center justify-center max-w-[360px] w-full sm:w-[320px] lg:w-[260px] h-11 rounded-full cursor-pointer font-semibold tracking-tight px-6"
+                    className="flex items-center justify-center w-full h-11 rounded-full cursor-pointer font-semibold tracking-tight px-6"
                     style={{
                       backgroundColor: "#D9EFB5",
                       color: "#3C5901",
