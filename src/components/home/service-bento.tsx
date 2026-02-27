@@ -58,7 +58,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
             borderRadius: "24px",
             background: isHovered
               ? "linear-gradient(180deg, rgba(212,255,130,0.82) 0%, rgba(160,196,93,0.82) 100%)"
-              : "radial-gradient(50% 50% at 50% 50%, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 0.24) 100%), linear-gradient(180deg, rgba(51, 69, 53, 0.65) 0%, rgba(51, 69, 53, 0.75) 100%)",
+              : "radial-gradient(50% 50% at 50% 50%, rgba(217, 255, 204, 0.00) 0%, rgba(217, 255, 204, 0.20) 100%), rgba(51, 69, 53, 0.50)",
             backdropFilter: isHovered ? "blur(8px)" : "blur(4px)",
             WebkitBackdropFilter: isHovered ? "blur(8px)" : "blur(4px)",
             border: isHovered
@@ -78,13 +78,13 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           onMouseLeave={() => window.innerWidth >= 768 && setHoveredIndex(null)}
         >
           <h3
-            className="text-2xl md:text-xl font-normal leading-snug transition-colors duration-300"
+            className="text-2xl md:text-3xl mb-2 font-normal leading-snug transition-colors duration-300"
             style={{ color: isHovered ? "#2B3E39" : isActive ? "#C4FF5E" : "#A1FF00" }}
           >
             {service.title}
           </h3>
           <p
-            className="text-xl md:text-lg leading-normal flex-1 transition-colors duration-300"
+            className="text-xl md:text-lg leading-3.5 flex-1 transition-colors duration-300"
             style={{
               color: isHovered
                 ? "rgba(43,62,57,1.85)"
