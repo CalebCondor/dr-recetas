@@ -25,7 +25,7 @@
       <section id="chatbot" className="relative w-full py-5 md:py-16 lg:py-24 overflow-hidden">
         <div className="w-full md:h-232 max-w-400 mx-auto">
           {/* Main Banner Container */}
-          <div className="relative h-[748px] md:h-[927px] w-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden bg-[#1E3A2F] shadow-2xl group">
+          <div className="relative h-[748px] md:h-[927px] w-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden bg-[#1E3A2F] md:shadow-2xl group">
             <div className="absolute inset-0">
               {/* Desktop Background */}
               <Image
