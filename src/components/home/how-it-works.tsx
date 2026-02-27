@@ -293,6 +293,7 @@ export default function ComoFunciona() {
           border-color: #b6e64a;
           box-shadow: 0 0 18px 3px rgba(182, 230, 74, 0.35);
         }
+        /* step badge: hidden by default on small screens, visible as inline-flex on md+ */
         .step-badge {
           position: absolute;
           top: -14px;
@@ -305,7 +306,6 @@ export default function ComoFunciona() {
           font-size: 22px;
           font-weight: 700;
           font-family: sans-serif;
-          display: flex;
           align-items: center;
           justify-content: center;
           z-index: 20;
@@ -315,6 +315,12 @@ export default function ComoFunciona() {
           -webkit-backdrop-filter: blur(4.7px);
           opacity: 0.18;
           filter: blur(1.5px);
+          display: none;
+        }
+        @media (min-width: 768px) {
+          .step-badge {
+            display: inline-flex;
+          }
         }
         .step-badge.lit {
           /* slightly less fluorescent beige */
@@ -384,8 +390,8 @@ export default function ComoFunciona() {
                     .filter(Boolean)
                     .join(" ")}
                 >
-                  {/* Badge numérico */}
-                  <span className="step-badge" id={card.badgeId}>
+                  {/* Badge numérico (hidden on mobile) */}
+                  <span className="step-badge hidden md:inline-flex" id={card.badgeId}>
                     {card.num}
                   </span>
 
