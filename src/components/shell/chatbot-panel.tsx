@@ -246,7 +246,9 @@ export function ChatbotPanel({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}
-            className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm h-9 p-0 shadow-none"
+            inputMode="text"
+            className="flex-1 border-none bg-transparent text-slate-700 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-base h-9 p-0 shadow-none"
+            style={{ fontSize: 16 }}
           />
           <button
             onClick={handleSend}
