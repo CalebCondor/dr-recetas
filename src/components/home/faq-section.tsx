@@ -88,7 +88,7 @@ export function FAQSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mt-12 mb-16 text-balance">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#8BAF4A] mt-12 mb-16 text-balance">
             {t("title")}
           </h2>
         </div>
@@ -107,15 +107,15 @@ export function FAQSection() {
                 <AccordionItem
                   key={item.id}
                   value={`item-${item.id}`}
-                  className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
+                  className="border-none rounded-2xl overflow-hidden transition-all duratio n-300 data-[state=open]:bg-white data-[state=closed]:bg-[#d9efb5] data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
                 >
                   <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
                     <div className="flex items-center justify-between w-full gap-4">
-                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
+                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-[#3c5901]">
                         {item.question}
                       </h3>
                       <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
-                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-[#3C5901]" />
                       </div>
                     </div>
                   </AccordionTrigger>
@@ -134,11 +134,11 @@ export function FAQSection() {
                 <AccordionItem
                   key={item.id}
                   value={`item-${item.id}`}
-                  className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-teal-500 data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
+                  className="border-none rounded-2xl overflow-hidden transition-all duration-300 data-[state=open]:bg-white data-[state=closed]:bg-[#d9efb5] data-[state=open]:shadow-md data-[state=closed]:shadow-sm group"
                 >
                   <AccordionTrigger className="px-6 py-5 hover:no-underline [&>svg]:hidden">
                     <div className="flex items-center justify-between w-full gap-4">
-                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-white">
+                      <h3 className="text-left font-bold text-base transition-colors duration-300 group-data-[state=open]:text-[#0D4B4D] group-data-[state=closed]:text-[#3c5901]">
                         {item.question}
                       </h3>
                       <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
