@@ -45,17 +45,17 @@ function WhyChooseUsContent() {
           >
             <h2
               id="why-choose-us-title"
-              className="text-4xl font-bold text-teal-900 mb-6 tracking-tight"
+              className="text-4xl text-[#8BAF4A] font-bold mb-6 tracking-tight"
             >
               {t("title")}
             </h2>
 
-            <div className="prose prose-sm text-teal-800/80 mb-8 space-y-4">
+            <div className="prose prose-sm text-gray-800/80 mb-8 space-y-4">
               <p className="text-lg leading-relaxed">
                 <span className="font-bold text-teal-900">Doctor Recetas</span>,{" "}
                 {t("p1")}
               </p>
-              <p className="text-lg leading-relaxed">{t("p2")}</p>
+              <p className="text-lg text-gray-800 leading-relaxed">{t("p2")}</p>
             </div>
 
             {isMounted && (
@@ -66,10 +66,10 @@ function WhyChooseUsContent() {
                     value={faq.id}
                     className="rounded-xl border border-teal-100/50 bg-white/60 backdrop-blur-sm px-4 shadow-sm transition-all hover:shadow-md"
                   >
-                    <AccordionTrigger className="text-teal-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
+                    <AccordionTrigger className="text-gray-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-teal-700">
+                    <AccordionContent className="text-gray-600">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>

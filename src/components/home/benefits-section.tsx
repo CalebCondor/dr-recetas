@@ -73,7 +73,7 @@ export function BenefitsSection() {
   return (
     <section className="w-full py-5 lg:py-24">
       <div className="w-full px-6 md:px-12 lg:px-[8%]">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#0D4B4D] mb-16 text-balance">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#8BAF4A] mb-16 text-balance">
           {t("title")}
         </h2>
 

@@ -51,7 +51,7 @@ export default function Hero() {
       className="relative w-full overflow-hidden m"
       style={{ backgroundColor: "#F2FAEC", minHeight: 460, paddingTop: "80px" }}
     >
-      <div className="relative z-10 w-full max-w-400 mx-auto px-6 md:px-12 lg:px-[8%] py-0 flex flex-col md:items-center md:justify-center lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-4">
+      <div className="relative z-10 w-full max-w-400 mx-auto pt-0 md:pt-10 px-6 md:px-12 lg:px-[8%] py-0 flex flex-col md:items-center md:justify-center lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-4">
         {/* ── LEFT: Heading ────────────────────────────────── */}
         <div className="flex-[1.1] text-left md:text-center lg:text-left flex items-center py-6 lg:py-12">
           <motion.h1
@@ -178,7 +178,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85, duration: 0.5 }}
-            className="mt-1 w-full flex justify-center"
+            className="mt-4 w-full flex justify-center"
           >
             <button
               type="button"
@@ -199,12 +199,14 @@ export default function Hero() {
               style={{ color: "#8BAF4A" }}
             >
               {t("explore_services")}
-              <svg
+              <motion.svg
                 width="15"
                 height="15"
                 viewBox="0 0 15 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
               >
                 <path
                   d="M7.5 2v11M2.5 8l5 5 5-5"
@@ -213,7 +215,7 @@ export default function Hero() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
+              </motion.svg>
             </button>
           </motion.div>
         </div>
