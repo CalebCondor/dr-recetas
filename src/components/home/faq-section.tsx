@@ -142,7 +142,7 @@ export function FAQSection() {
                         {item.question}
                       </h3>
                       <div className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45">
-                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-white" />
+                        <Plus className="w-6 h-6 transition-colors duration-300 group-data-[state=open]:text-teal-600 group-data-[state=closed]:text-[#3C5901]" />
                       </div>
                     </div>
                   </AccordionTrigger>
