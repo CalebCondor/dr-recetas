@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -119,9 +119,42 @@ export function ServiceBento({ services }: ServiceBentoProps) {
     );
   };
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const overlayY = useMotionValue(0);
+  const smoothY = useSpring(overlayY, { stiffness: 40, damping: 22 });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let mounted = true;
+
+    const onScroll = () => {
+      if (!mounted || !sectionRef.current) return;
+      if (window.innerWidth < 1024) {
+        overlayY.set(0);
+        return;
+      }
+      const rect = sectionRef.current.getBoundingClientRect();
+      const offset = rect.top * 0.12; // 12% parallax factor (inverted direction)
+      overlayY.set(offset);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    // init
+    onScroll();
+
+    return () => {
+      mounted = false;
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [overlayY]);
+
   return (
     <section
       id="servicios"
+      ref={sectionRef}
       className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
       style={{
         background: "linear-gradient(180deg, #434D2E 12.38%, #677155 62.77%, #485042 99%)",
@@ -136,13 +169,13 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="object-cover object-top"
           priority
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(10,30,20,0.55) 0%, rgba(10,30,20,0.30) 50%, rgba(10,30,20,0.0) 100%)",
-          }}
-        />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(10,30,20,0.55) 0%, rgba(10,30,20,0.30) 50%, rgba(10,30,20,0.0) 100%)",
+            }}
+          />
       </div>
 
       {/* ── Background image layer (mobile only) ── */}
@@ -158,7 +191,11 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       </div>
 
       {/* ── Overlay image (desktop only) ── */}
-      <div className="hidden lg:block absolute inset-0 z-1 pointer-events-none">
+      <motion.div
+        className="hidden lg:block absolute inset-0 z-1 pointer-events-none"
+        style={{ y: smoothY }}
+        aria-hidden
+      >
         <Image
           src="/hero/hero_fondoo.png"
           alt=""
@@ -166,7 +203,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="object-cover object-top"
           priority
         />
-      </div>
+      </motion.div>
 
       {/* ── Content ── */}
       <div className="relative z-10 w-full h-full max-w-400 mx-auto px-0 md:px-12 lg:px-[8%] flex flex-col">
