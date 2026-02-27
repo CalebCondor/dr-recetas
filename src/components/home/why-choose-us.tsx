@@ -66,10 +66,10 @@ function WhyChooseUsContent() {
                     value={faq.id}
                     className="rounded-xl border border-teal-100/50 bg-white/60 backdrop-blur-sm px-4 shadow-sm transition-all hover:shadow-md"
                   >
-                    <AccordionTrigger className="text-gray-900 font-semibold hover:no-underline [&>svg]:text-teal-600 [&>svg]:size-5">
+                    <AccordionTrigger className="text-gray-900 font-semibold hover:no-underline [&>svg]:text-[#3C5901] [&>svg]:size-5">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600">
+                    <AccordionContent className="text-gray-500">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
