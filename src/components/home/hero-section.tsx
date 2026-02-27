@@ -116,7 +116,7 @@ export default function Hero() {
         </div>
 
         {/* ── RIGHT: Cards flying out from the phone ────────── */}
-        <div className="flex-1 flex flex-col items-start md:items-center lg:items-start justify-center md:justify-center lg:justify-start gap-4 lg:pl-2 pb-10 lg:py-16">
+        <div className="flex-1 flex flex-col items-start md:items-center lg:items-center justify-center md:justify-center lg:justify-center gap-4 lg:pl-2 pb-10 lg:py-16">
           {consultations.map((item, index) => {
             // Fan out from the phone dot — all start at same origin, spread to final positions
             const yOrigin = (1.5 - index) * 72;
@@ -124,7 +124,7 @@ export default function Hero() {
             return (
               <motion.div
                 key={`${item.id}-${isMobile}`}
-                className="w-full md:w-auto flex md:justify-center"
+                className="w-full"
                 initial={
                   isMobile
                     ? { opacity: 0, y: 20 }
@@ -156,9 +156,12 @@ export default function Hero() {
                       }
                 }
               >
-                <Link href={item.href} className="block w-full md:w-[320px]">
+                <Link
+                  href={item.href}
+                  className="block w-full"
+                >
                   <div
-                    className="flex items-center justify-center w-full h-11 md:h-12 rounded-full px-4 md:px-6 text-sm md:text-base font-semibold tracking-tight cursor-pointer"
+                    className="flex items-center justify-center w-full lg:w-65 h-11 rounded-full cursor-pointer text- font-semibold tracking-tight"
                     style={{
                       backgroundColor: "#D9EFB5",
                       color: "#3C5901",
@@ -177,7 +180,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85, duration: 0.5 }}
-            className="mt-1 flex justify-center"
+            className="mt-1 w-full flex justify-center"
           >
             <button
               type="button"

@@ -46,6 +46,7 @@ export function ChatbotFloating() {
 
     if (chatbotElement) observer.observe(chatbotElement);
     if (heroElement) observer.observe(heroElement);
+    if (footerElement) observer.observe(footerElement);
 
     return () => {
       observer.disconnect();

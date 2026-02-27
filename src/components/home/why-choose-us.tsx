@@ -31,7 +31,7 @@ function WhyChooseUsContent() {
   const t = useTranslations("HomePage.WhyChooseUs");
   return (
     <section
-      className="relative py-0 pb-20   lg:py-32"
+      className="relative py-5 md:py-16 lg:py-32"
       aria-labelledby="why-choose-us-title"
     >
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8%]">

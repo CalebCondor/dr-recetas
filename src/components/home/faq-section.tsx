@@ -84,7 +84,7 @@ export function FAQSection() {
   const isMounted = useIsMounted();
 
   return (
-    <section className="lg:py-12 px-4 md:px-12 lg:px-[8%]">
+    <section className="py-5 lg:py-12 px-4 md:px-12 lg:px-[8%]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-7xl mx-auto">
