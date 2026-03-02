@@ -270,7 +270,7 @@ export default function Header() {
                     <div
                       className={`w-7 h-7 relative rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-inner z-10 ${isScrolled || isHeaderDark
                         ? "bg-[#0D4B4D]"
-                        : "bg-white/20"
+                        : "bg-[#0D4B4D]"
                         }`}
                     >
 
@@ -279,7 +279,7 @@ export default function Header() {
                     <span
                       className={`text-xs font-bold hidden lg:flex items-center gap-1.5 max-w-37.5 relative z-10 ${isScrolled || isHeaderDark
                         ? "text-slate-700"
-                        : "text-white"
+                        : "text-slate-700"
                         }`}
                     >
                       <span className="truncate">{user.us_nombres.split(" ")[0]}</span>
@@ -291,7 +291,7 @@ export default function Header() {
                     </span>
                     <ChevronDown
                       className={`w-4 h-4 transition-transform duration-200 relative z-10 ${isMenuOpen ? "rotate-180" : ""
-                        } ${isScrolled || isHeaderDark ? "text-slate-400" : "text-white/70"}`}
+                        } ${isScrolled || isHeaderDark ? "text-slate-400" : "text-slate-400"}`}
                     />
                   </button>
                 </DropdownMenuTrigger>
@@ -513,7 +513,7 @@ export default function Header() {
                                   <p className="text-base font-extrabold text-[#0D4B4D] truncate flex items-center gap-2">
                                     <span className="truncate">{user.us_nombres}</span>
                                     {Number(user.es_vip) === 1 && (
-                                      <span className="bg-linear-to-r from-amber-400 to-amber-600 text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0 border-none">
+                                      <span className="bg-linear-to-r from-amber-400 to-amber-600 text-black text-[9px] px-2 py-0.5 rounded-full shadow-sm shadow-amber-500/20 leading-none shrink-0 border-none">
                                         VIP
                                       </span>
                                     )}
