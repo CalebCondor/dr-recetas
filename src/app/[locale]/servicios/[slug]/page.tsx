@@ -107,17 +107,19 @@ export function RelatedBentoCard({
           transition={{ duration: 0.7 }}
         >
           {/* Background Image/Overlay logic depending on the card type */}
-          <motion.div
-            className="absolute right-0 bottom-0 h-[120%] z-0 pointer-events-none translate-x-6 translate-y-6"
-            initial={false}
-          >
-            <img
-              src={bgImage}
-              alt=""
-              className="h-full w-auto max-w-none pointer-events-none select-none z-10"
-              style={{ objectFit: "contain", objectPosition: "right bottom" }}
-            />
-          </motion.div>
+          {!isMobile && (
+            <motion.div
+              className="absolute right-0 bottom-0 h-[120%] z-0 pointer-events-none translate-x-6 translate-y-6 hidden md:block"
+              initial={false}
+            >
+              <img
+                src={bgImage}
+                alt=""
+                className="h-full w-auto max-w-none pointer-events-none select-none z-10"
+                style={{ objectFit: "contain", objectPosition: "right bottom" }}
+              />
+            </motion.div>
+          )}
         </motion.div>
         {/* Central Content (Top Area) */}
         <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
@@ -161,9 +163,9 @@ export function RelatedBentoCard({
         {/* Action Button (Absolute) */}
         <div className="absolute bottom-10 right-10 z-20">
           <div
-            className={`w-14 h-14 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-white text-[#0D4B4D]"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}
+            className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-white text-[#0D4B4D]"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}
           >
-            <RiArrowRightUpLine className="w-6 h-6 md:w-6 md:h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <RiArrowRightUpLine className="w-4 h-4 md:w-6 md:h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
         </div>
       </Link>
@@ -283,7 +285,7 @@ export default function ServicePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-teal-700 text-sm font-bold tracking-wide uppercase"
+              className="inline-block mb-6 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-100/50 text-[#57781C] text-sm font-bold tracking-wide uppercase"
             >
               {getTranslated(
                 "Categories",
@@ -295,7 +297,7 @@ export default function ServicePage() {
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-6xl lg:text-8xl font-black text-[#0D4B4D] mb-8 tracking-tighter leading-[0.9]"
+              className="text-5xl md:text-6xl lg:text-8xl font-black text-[#57781C] mb-8 tracking-tighter leading-[0.9]"
             >
               {getTranslated(
                 "Categories",
@@ -307,7 +309,7 @@ export default function ServicePage() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-teal-900/60 text-lg md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto"
+              className="text-[#2B3E39] text-lg md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto"
             >
               {getTranslated(
                 "Categories",
@@ -328,8 +330,8 @@ export default function ServicePage() {
                 variant="outline"
                 className={`cursor-pointer h-auto rounded-full border transition-all duration-300 shadow-sm ${
                   activeTag === "all"
-                    ? "bg-[#0D4B4D] text-white border-[#0D4B4D] shadow-[0_4px_14px_rgba(13,75,77,0.35)] scale-105"
-                    : "bg-white/80 text-[#0D4B4D]/70 border-[#0D4B4D]/10 hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
+                    ? "bg-[#96B75A] text-white border-[#96B75A] scale-105"
+                    : "bg-white/80 text-[#0D4B4D]/70 border-[#96B75A] hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
                 }`}
               >
                 <button
@@ -347,13 +349,13 @@ export default function ServicePage() {
                   variant="outline"
                   className={`cursor-pointer h-auto rounded-full border transition-all duration-300 shadow-sm ${
                     activeTag === tag.key
-                      ? "bg-[#0D4B4D] text-white border-[#0D4B4D] shadow-[0_4px_14px_rgba(13,75,77,0.35)] scale-105"
-                      : "bg-white/80 text-[#0D4B4D]/70 border-[#0D4B4D]/10 hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
+                      ? "bg-[#96B75A] text-white border-[#96B75A] shadow-[0_4px_14px_rgba(13,75,77,0.35)] scale-105"
+                      : "bg-white/80 text-[#96B75A] border-[#96B75A] hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
                   }`}
                 >
                   <button
                     type="button"
-                    className="px-4 py-2 text-md font-semibold tracking-wide"
+                    className="px-4 py-2 text-lg font-semibold tracking-wide"
                     onClick={() => handleTagChange(tag.key)}
                   >
                     {tag.label}
