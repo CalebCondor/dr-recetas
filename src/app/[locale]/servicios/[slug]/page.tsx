@@ -57,12 +57,10 @@ export function RelatedBentoCard({
   const bgImage = image;
   // Variety of background colors based on index to match the reference image
   const cardColors = [
-    "bg-white text-slate-900 border-slate-100", // White
-    "bg-[#FFD54F] text-[#0D4B4D] border-[#FFECB3]", // Yellow
-    "bg-[#E1F5FE] text-[#01579B] border-[#B3E5FC]", // Light Blue
-    "bg-[#0D4B4D] text-white border-white/10", // Dark Teal
-    "bg-[#FCE4EC] text-[#880E4F] border-[#F8BBD0]", // Light Pink
-    "bg-[#E8F5E9] text-[#1B5E20] border-[#C8E6C9]", // Light Green
+    "bg-[#D9EAFB] text-[#124243]", // Yellow
+    "bg-[#E7FFB3] text-[#124243] ", // Light Blue
+    "bg-[#D6F2E2] text-[#124243]", // Dark Teal
+    "bg-[#DFFFD6] text-[#124243]", // Light Pink
   ];
   const currentBg = cardColors[index % cardColors.length];
   const isDark =
@@ -92,7 +90,7 @@ export function RelatedBentoCard({
     >
       <Link
         href={`/servicios/${categorySlug}/${slug}`}
-        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_90px_rgba(13,75,77,0.15)] border backdrop-blur-md block`}
+        className={`group relative rounded-[3rem] overflow-hidden ${currentBg} h-full flex flex-col p-8 md:p-12 transition-all duration-700  backdrop-blur-md block`}
       >
         {/* Shine/Glare Effect Overlay */}
         <div
@@ -110,28 +108,20 @@ export function RelatedBentoCard({
         >
           {/* Background Image/Overlay logic depending on the card type */}
           <motion.div
-            className="absolute right-4 top-4 w-[60%] h-[70%] z-0 opacity-40 group-hover:opacity-60 transition-opacity"
+            className="absolute right-0 bottom-0 h-[120%] z-0 pointer-events-none translate-x-6 translate-y-6"
             initial={false}
           >
-            <div
-              className="w-full h-full bg-contain bg-bottom-right bg-no-repeat"
-              style={{ backgroundImage: `url("${bgImage}")` }}
+            <img
+              src={bgImage}
+              alt=""
+              className="h-full w-auto max-w-none pointer-events-none select-none z-10"
+              style={{ objectFit: "contain", objectPosition: "right bottom" }}
             />
           </motion.div>
         </motion.div>
         {/* Central Content (Top Area) */}
         <div className="relative z-20 space-y-4 transition-transform duration-500 mb-6 w-full lg:max-w-[65%]">
-          {category && (
-            <div
-              className={`inline-block px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 md:hidden ${
-                isDark
-                  ? "bg-white/10 text-white border-white/20"
-                  : "bg-black/5 text-slate-900/60 border-black/10"
-              } opacity-100`}
-            >
-              {category}
-            </div>
-          )}
+        
 
           <div className="space-y-3">
             <h3 className="text-xl md:text-3xl font-black leading-tight tracking-tight line-clamp-2 overflow-hidden">
@@ -167,24 +157,13 @@ export function RelatedBentoCard({
             </div>
           )}
         </div>
-        {/* Category Tag (Absolute - Desktop only) */}
-        {category && (
-          <div
-            className={`absolute top-8 right-8 z-10 px-3 py-1.5 rounded-full border backdrop-blur-md uppercase font-black text-[10px] tracking-widest pointer-events-none transition-all duration-500 hidden md:block ${
-              isDark
-                ? "bg-white/10 text-white border-white/20"
-                : "bg-black/5 text-slate-900/60 border-black/10"
-            } opacity-100`}
-          >
-            {category}
-          </div>
-        )}
+
         {/* Action Button (Absolute) */}
         <div className="absolute bottom-10 right-10 z-20">
           <div
-            className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-[#0D4B4D] text-white"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}
+            className={`w-14 h-14 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${isDark ? "bg-white text-[#0D4B4D]" : "bg-white text-[#0D4B4D]"} ${isFocused ? "scale-110 rotate-6" : "scale-100"}`}
           >
-            <RiArrowRightUpLine className="w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <RiArrowRightUpLine className="w-6 h-6 md:w-6 md:h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
         </div>
       </Link>
@@ -353,7 +332,11 @@ export default function ServicePage() {
                     : "bg-white/80 text-[#0D4B4D]/70 border-[#0D4B4D]/10 hover:border-[#0D4B4D]/30 hover:text-[#0D4B4D] hover:scale-105 backdrop-blur-sm"
                 }`}
               >
-                <button type="button" className="px-4 py-2 text-xl font-semibold tracking-wide" onClick={() => handleTagChange("all")}>
+                <button
+                  type="button"
+                  className="px-4 py-2 text-xl font-semibold tracking-wide"
+                  onClick={() => handleTagChange("all")}
+                >
                   {allLabel}
                 </button>
               </Badge>
@@ -391,69 +374,81 @@ export default function ServicePage() {
               <div className="absolute -inset-6 border border-white/40 rounded-[3rem] -z-20" />
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <AnimatePresence mode="popLayout">
-                {(() => {
-                  const total = visibleItems.length;
+                  {(() => {
+                    const total = visibleItems.length;
 
-                  // md (2-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-2
-                  const getMdColSpan = (i: number): number => {
-                    if (total % 2 === 1 && i === total - 1) return 2;
-                    const pairIdx = Math.floor(i / 2);
-                    const pos = i % 2;
-                    return pairIdx % 2 === 0 ? (pos === 0 ? 2 : 1) : (pos === 0 ? 1 : 2);
-                  };
+                    // md (2-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-2
+                    const getMdColSpan = (i: number): number => {
+                      if (total % 2 === 1 && i === total - 1) return 2;
+                      const pairIdx = Math.floor(i / 2);
+                      const pos = i % 2;
+                      return pairIdx % 2 === 0
+                        ? pos === 0
+                          ? 2
+                          : 1
+                        : pos === 0
+                          ? 1
+                          : 2;
+                    };
 
-                  // lg (3-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-3
-                  const getLgColSpan = (i: number): number => {
-                    if (total % 2 === 1 && i === total - 1) return 3;
-                    const pairIdx = Math.floor(i / 2);
-                    const pos = i % 2;
-                    return pairIdx % 2 === 0 ? (pos === 0 ? 2 : 1) : (pos === 0 ? 1 : 2);
-                  };
+                    // lg (3-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-3
+                    const getLgColSpan = (i: number): number => {
+                      if (total % 2 === 1 && i === total - 1) return 3;
+                      const pairIdx = Math.floor(i / 2);
+                      const pos = i % 2;
+                      return pairIdx % 2 === 0
+                        ? pos === 0
+                          ? 2
+                          : 1
+                        : pos === 0
+                          ? 1
+                          : 2;
+                    };
 
-                  return visibleItems.map((item, idx) => (
-                    <motion.div
-                      key={`${item.id}-${idx}`}
-                      className={`md:col-span-${getMdColSpan(idx)} lg:col-span-${getLgColSpan(idx)}`}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.05 }}
-                    >
-                      <RelatedBentoCard
-                        title={
-                          getTranslated(
-                            "Items",
-                            item.slug,
+                    return visibleItems.map((item, idx) => (
+                      <motion.div
+                        key={`${item.id}-${idx}`}
+                        className={`md:col-span-${getMdColSpan(idx)} lg:col-span-${getLgColSpan(idx)}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: idx * 0.05 }}
+                      >
+                        <RelatedBentoCard
+                          title={
+                            getTranslated(
+                              "Items",
+                              item.slug,
+                              "title",
+                              item.titulo,
+                            ) || item.titulo
+                          }
+                          content={
+                            getTranslated(
+                              "Items",
+                              item.slug,
+                              "description",
+                              item.resumen || item.detalle || item.titulo,
+                            ) ||
+                            item.resumen ||
+                            item.detalle ||
+                            item.titulo
+                          }
+                          price={item.precio}
+                          vipPrice={item.precio_vip}
+                          image={item.imagen}
+                          category={getTranslated(
+                            "Categories",
+                            serviceInfo.slug,
                             "title",
-                            item.titulo,
-                          ) || item.titulo
-                        }
-                        content={
-                          getTranslated(
-                            "Items",
-                            item.slug,
-                            "description",
-                            item.resumen || item.detalle || item.titulo,
-                          ) ||
-                          item.resumen ||
-                          item.detalle ||
-                          item.titulo
-                        }
-                        price={item.precio}
-                        vipPrice={item.precio_vip}
-                        image={item.imagen}
-                        category={getTranslated(
-                          "Categories",
-                          serviceInfo.slug,
-                          "title",
-                          serviceInfo.title,
-                        )}
-                        index={idx}
-                        slug={item.slug}
-                        categorySlug={slug}
-                      />
-                    </motion.div>
-                  ));
-                })()}
+                            serviceInfo.title,
+                          )}
+                          index={idx}
+                          slug={item.slug}
+                          categorySlug={slug}
+                        />
+                      </motion.div>
+                    ));
+                  })()}
                 </AnimatePresence>
               </div>
             </div>
