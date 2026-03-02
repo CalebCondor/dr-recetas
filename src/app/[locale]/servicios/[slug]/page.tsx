@@ -389,64 +389,31 @@ export default function ServicePage() {
           ) : (
             <div className="relative">
               <div className="absolute -inset-6 border border-white/40 rounded-[3rem] -z-20" />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:auto-rows-[360px] lg:auto-rows-[380px] md:grid-flow-dense">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <AnimatePresence mode="popLayout">
                 {(() => {
-                  // Bento for tablet: 2 columns
-                  const mdClasses: string[] = [];
-                  const mdSlots = Array.from({ length: 200 }, () => [false, false]);
-                  visibleItems.forEach((_, i) => {
-                    const isLast = i === visibleItems.length - 1;
-                    const cSpan = i % 2 === 0 ? 2 : 1;
-                    let rSpan = 1;
-                    if (cSpan === 1 && i % 3 === 0 && i < visibleItems.length - 1) rSpan = 2;
-                    let placed = false;
-                    for (let r = 0; r < 200 && !placed; r++) {
-                      for (let c = 0; c < 2 && !placed; c++) {
-                        if (!mdSlots[r][c]) {
-                          let actualCSpan = Math.min(cSpan, 2 - c);
-                          if (isLast) actualCSpan = 2 - c || 1;
-                          const canFit = rSpan === 1 || (r + 1 < 100 && !mdSlots[r + 1][c]);
-                          const finalRSpan = canFit ? rSpan : 1;
-                          for (let dr = 0; dr < finalRSpan; dr++)
-                            for (let dc = 0; dc < actualCSpan; dc++)
-                              mdSlots[r + dr][c + dc] = true;
-                          mdClasses.push(`md:col-span-${actualCSpan} md:row-span-${finalRSpan}`);
-                          placed = true;
-                        }
-                      }
-                    }
-                  });
+                  const total = visibleItems.length;
 
-                  // Bento for desktop: 3 columns
-                  const gridClasses: string[] = [];
-                  const slots = Array.from({ length: 200 }, () => [false, false, false]);
-                  visibleItems.forEach((_, i) => {
-                    const isLast = i === visibleItems.length - 1;
-                    const cSpan = i % 3 === 0 ? 2 : 1;
-                    let rSpan = 1;
-                    if (cSpan === 1 && i % 4 === 0 && i < visibleItems.length - 2) rSpan = 2;
-                    let placed = false;
-                    for (let r = 0; r < 200 && !placed; r++) {
-                      for (let c = 0; c < 3 && !placed; c++) {
-                        if (!slots[r][c]) {
-                          let actualCSpan = Math.min(cSpan, 3 - c);
-                          if (isLast) actualCSpan = 3 - c || 1;
-                          const canFit = rSpan === 1 || (r + 1 < 100 && !slots[r + 1][c]);
-                          const finalRSpan = canFit ? rSpan : 1;
-                          for (let dr = 0; dr < finalRSpan; dr++)
-                            for (let dc = 0; dc < actualCSpan; dc++)
-                              slots[r + dr][c + dc] = true;
-                          gridClasses.push(`lg:col-span-${actualCSpan} lg:row-span-${finalRSpan}`);
-                          placed = true;
-                        }
-                      }
-                    }
-                  });
+                  // md (2-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-2
+                  const getMdColSpan = (i: number): number => {
+                    if (total % 2 === 1 && i === total - 1) return 2;
+                    const pairIdx = Math.floor(i / 2);
+                    const pos = i % 2;
+                    return pairIdx % 2 === 0 ? (pos === 0 ? 2 : 1) : (pos === 0 ? 1 : 2);
+                  };
+
+                  // lg (3-col): alternating (2,1)+(1,2) pairs, last odd item → col-span-3
+                  const getLgColSpan = (i: number): number => {
+                    if (total % 2 === 1 && i === total - 1) return 3;
+                    const pairIdx = Math.floor(i / 2);
+                    const pos = i % 2;
+                    return pairIdx % 2 === 0 ? (pos === 0 ? 2 : 1) : (pos === 0 ? 1 : 2);
+                  };
+
                   return visibleItems.map((item, idx) => (
                     <motion.div
                       key={`${item.id}-${idx}`}
-                      className={`${mdClasses[idx] ?? ""} ${gridClasses[idx] ?? ""}`}
+                      className={`md:col-span-${getMdColSpan(idx)} lg:col-span-${getLgColSpan(idx)}`}
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: idx * 0.05 }}
