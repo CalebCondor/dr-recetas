@@ -155,7 +155,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
     <section
       id="servicios"
       ref={sectionRef}
-      className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274"
+      className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274 z-50" 
     >
       {/* ── Background image layer (desktop only) ── */}
       <div className="hidden lg:block absolute inset-0 z-0">
