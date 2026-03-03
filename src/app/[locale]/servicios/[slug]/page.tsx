@@ -20,7 +20,6 @@ export function RelatedBentoCard({
   price,
   vipPrice,
   image,
-  category,
   index = 0,
   slug,
   categorySlug,
