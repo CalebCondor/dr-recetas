@@ -42,7 +42,6 @@ export function proxy(request: NextRequest) {
   // --- 3. Bloqueo de Sitio (Site Lock) ---
   // --- 3. Bloqueo de Sitio (Site Lock) ---
   // Nota: se comenta la lógica de bloqueo para permitir acceso durante desarrollo.
-  /*
   const isLockPage = pathname.includes("/lock");
   if (!isLockPage) {
     const accessGranted = request.cookies.get("site_access");
@@ -77,7 +76,7 @@ export function proxy(request: NextRequest) {
       return redirectResponse;
     }
   }
-  */
+
 
   return response;
 }
