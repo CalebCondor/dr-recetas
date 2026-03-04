@@ -413,6 +413,7 @@ export default function ComoFunciona() {
                       <Image
                         src={card.image}
                         alt={card.imageAlt}
+                        priority
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 33vw"
                         className="object-cover object-top drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
