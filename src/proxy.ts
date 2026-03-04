@@ -61,7 +61,7 @@ export function proxy(request: NextRequest) {
         redirectResponse.cookies.set(cookie.name, cookie.value);
       });
 
-      // Cache static assets aggressively
+      // Cache static assets aggressively∫
       if (
         pathname.startsWith("/_next/static/") ||
         pathname.startsWith("/images/") ||
