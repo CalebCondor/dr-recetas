@@ -42,6 +42,7 @@ export function proxy(request: NextRequest) {
   // --- 3. Bloqueo de Sitio (Site Lock) ---
   // --- 3. Bloqueo de Sitio (Site Lock) ---
   // Nota: se comenta la lógica de bloqueo para permitir acceso durante desarrollo.
+  /*
   const isLockPage = pathname.includes("/lock");
   if (!isLockPage) {
     const accessGranted = request.cookies.get("site_access");
@@ -61,7 +62,7 @@ export function proxy(request: NextRequest) {
         redirectResponse.cookies.set(cookie.name, cookie.value);
       });
 
-      // Cache static assets aggressively∫
+      // Cache static assets aggressively
       if (
         pathname.startsWith("/_next/static/") ||
         pathname.startsWith("/images/") ||
@@ -76,7 +77,7 @@ export function proxy(request: NextRequest) {
       return redirectResponse;
     }
   }
-
+  */
 
   return response;
 }
