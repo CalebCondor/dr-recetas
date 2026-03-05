@@ -434,10 +434,11 @@ export default function ComoFunciona() {
                     {/* Illustration overflowing below card */}
                     <div className="relative -mx-6 md:-mx-8 flex-1 min-h-44 md:min-h-36 lg:min-h-44 rounded-b-2xl md:rounded-b-[2rem] overflow-hidden">
                       <Image
-                        src={card.image}
+                        src={`${card.image}?v=${card.id}`}
                         alt={card.imageAlt}
                         priority
                         fill
+                        unoptimized
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 33vw"
                         className="object-cover object-top drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
                       />
