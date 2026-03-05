@@ -30,7 +30,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const displayed = services.slice(0, 6);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
 
   const cardContent = (service: Service, index: number) => {
     const isHovered = hoveredIndex === index;
-    const isActive = isMobile && activeIndex === index;
+    const isActive = (isMobile ?? false) && activeIndex === index;
     return (
       <Link href={service.href} className="block h-full">
         <div
@@ -158,7 +158,16 @@ export function ServiceBento({ services }: ServiceBentoProps) {
       className="relative w-full md:max-w-400 md:mx-auto overflow-hidden py-16 md:py-20 md:px-6 rounded-[1.5rem] md:rounded-[2.5rem] -mt-7 lg:h-274 z-50" 
     >
       {/* ── Background image layer (desktop only) ── */}
-      <div className="hidden lg:block absolute inset-0 z-0">
+      <div
+        className="hidden lg:block absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 90% 60% at 50% 85%, rgba(140,165,95,0.30) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 50% at 52% 48%, rgba(120,145,80,0.18) 0%, transparent 60%)",
+            "linear-gradient(165deg, #4d5938 0%, #59693f 25%, #637648 50%, #6e8250 75%, #788d58 100%)",
+          ].join(", "),
+        }}
+      >
         <Image
           src="/hero/bserviciosa.webp"
           alt="Fondo de servicios"
@@ -166,11 +175,19 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="object-cover object-top"
           priority
         />
-         
       </div>
 
       {/* ── Background image layer (mobile only) ── */}
-      <div className="md:hidden absolute inset-0 z-0">
+      <div
+        className="md:hidden absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 90% 60% at 50% 85%, rgba(140,165,95,0.30) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 50% at 52% 48%, rgba(120,145,80,0.18) 0%, transparent 60%)",
+            "linear-gradient(165deg, #4d5938 0%, #59693f 25%, #637648 50%, #6e8250 75%, #788d58 100%)",
+          ].join(", "),
+        }}
+      >
         <Image
           src="/hero/fondo_mobile.png"
           alt="Fondo de servicios móvil"
@@ -178,7 +195,6 @@ export function ServiceBento({ services }: ServiceBentoProps) {
           className="object-cover object-center"
           priority
         />
-      
       </div>
 
       {/* ── Overlay image (desktop only) ── */}
@@ -187,6 +203,15 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         style={{ y: smoothY }}
         aria-hidden
       >
+        <div
+          className="absolute inset-0"
+          style={{
+            background: [
+              "radial-gradient(ellipse 80% 50% at 50% 100%, rgba(100,130,60,0.25) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(60,80,30,0.15) 0%, transparent 50%)",
+            ].join(", "),
+          }}
+        />
         <Image
           src="/hero/aservicios2.png"
           alt="Fondo de servicios parallax"
