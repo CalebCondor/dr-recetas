@@ -331,25 +331,48 @@ export default function ComoFunciona() {
           opacity: 1;
           filter: none;
         }
+        /* ── Viñeteado: oscurece bordes ── */
+        .hiw-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: radial-gradient(
+            ellipse 115% 105% at 50% 50%,
+            transparent 42%,
+            rgba(0, 0, 0, 0.14) 72%,
+            rgba(0, 0, 0, 0.26) 100%
+          );
+          pointer-events: none;
+        }
+        /* ── Capa de grano (noise) ── */
+        .hiw-bg::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          border-radius: inherit;
+          opacity: 0.55;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+          background-size: 200px 200px;
+          mix-blend-mode: overlay;
+        }
       `}</style>
 
       <section className="min-h-screen flex items-start justify-center py-8">
         {/* Contenedor verde oscuro */}
         <div className="w-full max-w-400 rounded-[2.5rem] md:rounded-[5rem] px-5 md:px-12 lg:px-24 pt-14 pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="w-full h-full p-5 md:p-12 lg:p-24">
-              <div className="w-full h-full rounded-[2.5rem] md:rounded-[5rem] overflow-hidden">
-                <Image
-                  src="/how-it-works.png"
-                  alt="fondo cómo funciona"
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-top"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
+          <div
+            className="hiw-bg absolute inset-0 pointer-events-none -z-10 rounded-[2.5rem] md:rounded-[5rem]"
+            style={{
+              background: [
+                'radial-gradient(ellipse 90% 60% at 50% 85%, rgba(140,165,95,0.30) 0%, transparent 65%)',
+                'radial-gradient(ellipse 70% 50% at 52% 48%, rgba(120,145,80,0.18) 0%, transparent 60%)',
+                'linear-gradient(165deg, #4d5938 0%, #59693f 25%, #637648 50%, #6e8250 75%, #788d58 100%)',
+              ].join(', '),
+            }}
+          />
           {/* Encabezado */}
           <div className="mb-16 md:mb-20 text-center">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#C1E97C] tracking-tight">
