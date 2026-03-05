@@ -203,15 +203,7 @@ export function ServiceBento({ services }: ServiceBentoProps) {
         style={{ y: smoothY }}
         aria-hidden
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background: [
-              "radial-gradient(ellipse 80% 50% at 50% 100%, rgba(100,130,60,0.25) 0%, transparent 60%)",
-              "linear-gradient(180deg, rgba(60,80,30,0.15) 0%, transparent 50%)",
-            ].join(", "),
-          }}
-        />
+    
         <Image
           src="/hero/aservicios2.png"
           alt="Fondo de servicios parallax"
